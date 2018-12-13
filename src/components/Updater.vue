@@ -89,14 +89,14 @@ export default {
   }
 
   input {
-    border: 2px solid $gray--mediumLight;
+    border: 2px solid $grey--mediumLight;
   }
 
   a {
-    color: $gray--medium;
+    color: $grey--medium;
 
     &:hover {
-      color: $gray;
+      color: $grey;
     }
   }
 

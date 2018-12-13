@@ -1,6 +1,14 @@
 // Typography
-$heading-font-family: 'Nunito', sans-serif;
-$base-font-family: 'Open Sans', sans-serif;
+$base-font-family: 'Montserrat', sans-serif;
+
+// Colors
+$base-black: #030301;
+$white: #fff;
+$grey: #777;
+$orange: #F44336;
+
+
+// before
 
 // Line height
 $base-line-height: 1.5;
@@ -9,7 +17,7 @@ $heading-line-height: 1.2;
 // Font sizes
 $header-font-size: 2rem;
 $medium-font-size: 1.5rem;
-$base-font-size: 1rem;
+$base-font-size: 16px;
 $small-font-size: .75rem;
 
 // Other Sizes
@@ -18,20 +26,18 @@ $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 
 // Colors
-$white: #ffffff;
 $blue: #1565c0;
-$gray: #333;
-$gray--medium: #999;
-$gray--mediumLight: lighten($gray--medium, 25%);
-$gray--light: #fafafa;
+$grey--medium: #999;
+$grey--mediumLight: lighten($grey--medium, 25%);
+$grey--light: #fafafa;
 $salmon: #E56B70;
 
 // Font Colors
-$base-font-color: $gray;
+$base-font-color: $grey;
 $action-color: $salmon;
 
 // Border
-$base-border-color: $gray--light;
+$base-border-color: $grey--light;
 $base-border: 1px solid $base-border-color;
 
 // Background Colors

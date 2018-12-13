@@ -45,7 +45,7 @@ export default {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: rgba($gray, .99);
+    background: rgba($grey, .99);
     color: $white;
     z-index: 1;
   }

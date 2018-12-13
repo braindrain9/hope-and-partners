@@ -57,9 +57,9 @@ export default {
     text-align: center;
     align-items: center;
     margin-bottom: 1rem;
-    background: rgba($gray--light, .9);
+    background: rgba($grey--light, .9);
     padding: 1rem 2rem;
-    border-bottom: 2px solid darken($gray--light, 5%);
+    border-bottom: 2px solid darken($grey--light, 5%);
 
     @include media($small) {
       flex-direction: row;

@@ -108,8 +108,8 @@
   article {
     max-width: 900px;
     margin: 0 auto;
-    background: $gray--light;
-    border: 2px solid darken($gray--light, 5%);
+    background: $grey--light;
+    border: 2px solid darken($grey--light, 5%);
     padding: 1rem;
 
     @include media($small) {

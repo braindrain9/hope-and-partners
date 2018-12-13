@@ -52,11 +52,22 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.svg$/,
+        loader: 'svg-inline-loader?removeSVGTagAttrs=false'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+        'style-loader',
+        'css-loader'
+        ]
       }
     ]
   },

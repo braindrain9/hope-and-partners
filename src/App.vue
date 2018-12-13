@@ -1,6 +1,8 @@
 <template>
   <div id="app">
 
+		<Header />
+
     <TopBar
       @showUpdater="showUpdater = true"
     />
@@ -33,6 +35,7 @@
   import Loading from './components/Loading';
   import Updater from './components/Updater';
   import TopBar from './components/TopBar';
+  import Header from './components/Header';
 
   export default {
     name: 'App',
@@ -92,6 +95,7 @@
     },
 
     components: {
+      Header,
       Foot,
       Loading,
       Updater,

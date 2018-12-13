@@ -41,8 +41,8 @@ export default {
   li {
     display: flex;
     flex-direction: column;
-    background: $gray--light;
-    border: 2px solid darken($gray--light, 5%);
+    background: $grey--light;
+    border: 2px solid darken($grey--light, 5%);
     padding: 2rem 1rem;
     text-align: center;
 
@@ -53,16 +53,16 @@ export default {
 
   img {
     transition: box-shadow .15s ease-in-out;
-    box-shadow: 0 0 0 2px $gray--light;
+    box-shadow: 0 0 0 2px $grey--light;
 
     &:hover {
-      box-shadow: 0 0 0 3px $gray--light;
+      box-shadow: 0 0 0 3px $grey--light;
     }
   }
 
   span {
     font-size: $small-font-size;
-    color: $gray--medium;
+    color: $grey--medium;
     margin: 1rem 0 .5rem;
   }
 
