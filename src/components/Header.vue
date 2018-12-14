@@ -61,7 +61,7 @@
 
 				.nav-link {
 					color: $grey;
-					letter-spacing: 0.01em;
+					letter-spacing: $base-spacing;
 
 					&.active {
 						color: $white;

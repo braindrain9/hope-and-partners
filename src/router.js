@@ -10,6 +10,7 @@ import Partners from './components/Partners';
 import Services from './components/Services';
 import Cases from './components/Cases';
 import About from './components/About';
+import Home from './components/Home';
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,7 @@ const routes = [
   {
     name: 'home',
     path: '/',
-    component: Feed
+    component: Home
   },
   {
     name: 'post',

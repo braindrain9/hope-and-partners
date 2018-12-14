@@ -3,23 +3,23 @@
 		<b-container>
 			<Header />
 
-			<TopBar
-					@showUpdater="showUpdater = true"
-			/>
+			<!--<TopBar-->
+					<!--@showUpdater="showUpdater = true"-->
+			<!--/>-->
 
 			<div id="wrapper">
 
-				<Updater
-						v-if="showUpdater"
-						:error="error"
-						@close="showUpdater = false"
-				/>
+				<!--<Updater-->
+						<!--v-if="showUpdater"-->
+						<!--:error="error"-->
+						<!--@close="showUpdater = false"-->
+				<!--/>-->
 
-				<Loading
-						v-if="loadingOn"
-						:message="loadingMessage"
-						:showWheel="loadingWheel"
-				/>
+				<!--<Loading-->
+						<!--v-if="loadingOn"-->
+						<!--:message="loadingMessage"-->
+						<!--:showWheel="loadingWheel"-->
+				<!--/>-->
 
 				<router-view :key="this.viewKey"></router-view>
 
