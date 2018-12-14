@@ -1,9 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import bus from './bus';
+
+// components
 import Feed from './views/Feed';
 import FourOFour from './views/FourOFour';
 import Post from './views/Post';
-import bus from './bus';
+import Partners from './components/Partners';
+import Services from './components/Services';
+import Cases from './components/Cases';
+import About from './components/About';
 
 Vue.use(VueRouter);
 
@@ -27,6 +33,26 @@ const routes = [
     name: 'four-o-four',
     path: '/404',
     component: FourOFour
+  },
+  {
+    name: 'about',
+    path: '/about',
+    component: About
+  },
+  {
+    name: 'services',
+    path: '/services',
+    component: Services
+  },
+  {
+    name: 'partners',
+    path: '/partners',
+    component: Partners
+  },
+  {
+    name: 'cases',
+    path: '/cases',
+    component: Cases
   },
   {
     path: '*',

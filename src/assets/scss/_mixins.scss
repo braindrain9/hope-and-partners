@@ -1,11 +1,18 @@
 $large: 1200px;
 $medium: 1024px;
 $small: 992px;
+$menu-breakpoint: 692px;
 $mobile: 600px;
 $tiny: 400px;
 
 @mixin media ($breakpoint) {
   @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-max-width ($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
     @content;
   }
 }

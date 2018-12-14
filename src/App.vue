@@ -1,37 +1,38 @@
 <template>
   <div id="app">
+		<b-container>
+			<Header />
 
-		<Header />
+			<TopBar
+					@showUpdater="showUpdater = true"
+			/>
 
-    <TopBar
-      @showUpdater="showUpdater = true"
-    />
+			<div id="wrapper">
 
-    <div id="wrapper">
+				<Updater
+						v-if="showUpdater"
+						:error="error"
+						@close="showUpdater = false"
+				/>
 
-      <Updater
-        v-if="showUpdater"
-        :error="error"
-        @close="showUpdater = false"
-      />
+				<Loading
+						v-if="loadingOn"
+						:message="loadingMessage"
+						:showWheel="loadingWheel"
+				/>
 
-      <Loading
-        v-if="loadingOn"
-        :message="loadingMessage"
-        :showWheel="loadingWheel"
-      />
+				<router-view :key="this.viewKey"></router-view>
 
-      <router-view :key="this.viewKey"></router-view>
+			</div>
 
-    </div>
-
-    <Foot />
+			<Footer />
+		</b-container>
   </div>
 </template>
 
 <script>
   import bus from './bus';
-  import Foot from './components/Foot';
+  import Footer from './components/Footer';
   import Loading from './components/Loading';
   import Updater from './components/Updater';
   import TopBar from './components/TopBar';
@@ -96,7 +97,7 @@
 
     components: {
       Header,
-      Foot,
+      Footer,
       Loading,
       Updater,
       TopBar
@@ -115,10 +116,6 @@
   #wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
-
-    @include media($small) {
-      padding: 2rem;
-    }
+		min-height: 400px;
   }
 </style>

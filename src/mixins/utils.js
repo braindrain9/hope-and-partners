@@ -15,6 +15,71 @@ export default {
         "October",
         "November",
         "December"
+      ],
+      navLinks: [
+        {
+          name: 'home',
+          title: 'на головну',
+          path: '/',
+          hidden: true,
+          id: 1
+        },
+        {
+          name: 'about',
+          title: 'про мене',
+          path: '/about',
+          id: 2
+        },
+        {
+          name: 'services',
+          path: '/services',
+          title: 'послуги',
+          id: 3
+        },
+        {
+          name: 'partners',
+          path: '/partners',
+          title: 'партнери',
+          id: 4
+        },
+        {
+          name: 'cases',
+          path: '/cases',
+          title: 'кейси',
+          id: 5
+        }
+      ],
+      footerNavLinks: [
+        {
+          prevRoute: 'cases',
+          name: 'home',
+          title: 'на головну',
+          path: '/'
+        },
+        {
+          prevRoute: 'home',
+          name: 'about',
+          title: 'про мене',
+          path: '/about'
+        },
+        {
+          prevRoute: 'about',
+          name: 'services',
+          path: '/services',
+          title: 'наші послуги'
+        },
+        {
+          prevRoute: 'services',
+          name: 'partners',
+          path: '/partners',
+          title: 'наші партнери'
+        },
+        {
+          prevRoute: 'partners',
+          name: 'cases',
+          path: '/cases',
+          title: 'наші кейси'
+        }
       ]
     }
   },
