@@ -7,6 +7,10 @@
   color: $grey;
 }
 
+.light-grey-color {
+  color: $light-grey;
+}
+
 .grey-color-link {
   color: $grey;
 
@@ -30,4 +34,26 @@
 // Typography
 .tiny-font-size {
   font-size: $tiny-font-size;
+}
+
+// Elements
+.heading {
+  color: $white;
+  font-weight: bold;
+  letter-spacing: $base-spacing;
+  margin-bottom: 30px;
+  font-size: $header-font-size;
+
+  &-main {
+    font-size: $main-header-font-size;
+    margin-bottom: 25px;
+  }
+}
+
+.description {
+  color: $white;
+  font-weight: 500;
+  font-size: $medium-font-size;
+  letter-spacing: $base-spacing;
+  margin-bottom: 30px;
 }

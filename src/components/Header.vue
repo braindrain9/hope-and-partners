@@ -45,7 +45,8 @@
 
 <style scoped lang="scss">
 	header {
-		margin: 10px -20px;
+		margin: 0 -20px;
+		padding: 20px 0;
 
 		.navbar {
 			.navbar-brand {

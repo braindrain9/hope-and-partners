@@ -150,7 +150,7 @@
       font-weight: 600;
 
       &:hover {
-        color: $action-color;
+        color: $orange;
       }
     }
   }

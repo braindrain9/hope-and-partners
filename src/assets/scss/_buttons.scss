@@ -1,7 +1,7 @@
 button,
 [type="submit"] {
   appearance: none;
-  background-color: $action-color;
+  background-color: $orange;
   border: 0;
   border-radius: $base-border-radius;
   color: #fff;
@@ -21,7 +21,7 @@ button,
   white-space: nowrap;
 
   &:hover {
-    background-color: darken($action-color, 10%);
+    background-color: darken($orange, 10%);
     color: #fff;
   }
 
@@ -35,7 +35,7 @@ button,
     opacity: 0.5;
 
     &:hover {
-      background-color: $action-color;
+      background-color: $orange;
     }
   }
 }

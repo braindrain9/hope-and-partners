@@ -56,8 +56,8 @@ module.exports = {
         loader: 'svg-inline-loader?removeSVGTagAttrs=false'
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
+        test: /\.(png|jpg|jpe?g|gif)$/,
+        loader: 'url-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
