@@ -2,6 +2,8 @@
   "name": "wp-vue",
   "version": "0.0.1",
   "scripts": {
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d deploy",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
@@ -9,6 +11,7 @@
     "axios": "^0.17.1",
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "gh-pages": "^2.0.1",
     "lodash": "^4.17.11",
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
@@ -45,5 +48,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/braindrain9/wp-vue.git"
-  }
+  },
+	"homepage": "https://github.com/braindrain9/wp-vue.git"
 }
