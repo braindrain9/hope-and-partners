@@ -4,7 +4,6 @@
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="utf-8">
   <title>WP Vue</title>
   <link rel='shortcut icon' type='image/x-icon' href='/src/assets/img/favicon.ico' />
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400|Nunito:400,800" as="style" onload="this.rel='stylesheet'">

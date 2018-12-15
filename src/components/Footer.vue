@@ -3,10 +3,10 @@
     <div>
 			<router-link :to="currentLink.path" class="menu-link">
 				<span class="divider d-inline-block"></span>
-				<span class="link-text d-inline-block">{{currentLink.title}}</span>
+				<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
 			</router-link>
 		</div>
-		<div class="mail-text">hello@hopeandpartners.com</div>
+		<div class="tiny-font-size">hello@hopeandpartners.com</div>
   </footer>
 </template>
 
@@ -50,11 +50,6 @@
 				.divider {
 					height: 40px;
 				}
-
-				.link-text {
-					color: $orange;
-					font-weight: bold;
-				}
 			}
 
 			.divider {
@@ -69,10 +64,6 @@
 			.link-text {
 				max-width: 60px;
 			}
-		}
-
-		.mail-text {
-			font-size: $tiny-font-size;
 		}
   }
 </style>

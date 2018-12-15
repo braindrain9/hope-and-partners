@@ -1,3 +1,33 @@
+// Colors
 .orange-color {
   color: $orange;
+}
+
+.grey-color {
+  color: $grey;
+}
+
+.grey-color-link {
+  color: $grey;
+
+  &:hover {
+    color: $orange;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+.white-color-link {
+  color: $grey;
+
+  &:hover {
+    color: $orange;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+// Typography
+.tiny-font-size {
+  font-size: $tiny-font-size;
 }
