@@ -9,6 +9,11 @@
 						<router-link :to="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</router-link>
 					</li>
 				</b-navbar-nav>
+
+				<div class="language-chooser">
+					<b-link class="active">укр</b-link>
+					<b-link>eng</b-link>
+				</div>
 			</b-collapse>
 
 			<b-navbar-brand to="/" right>
@@ -48,20 +53,20 @@
 			}
 
 			.nav-item {
-				border-bottom: 2px solid transparent;
-				transition: border-bottom-color .5s ease-out;
+				transition: color .5s ease-out;
 
 				&:not(:first-child) {
-					padding: 0 15px;
-				}
-
-				&:hover {
-					border-bottom-color: $orange;
+					margin: 0 15px;
 				}
 
 				.nav-link {
 					color: $grey;
 					letter-spacing: $base-spacing;
+
+					&:hover {
+						color: $white;
+						cursor: pointer;
+					}
 
 					&.active {
 						color: $white;
@@ -69,11 +74,33 @@
 					}
 				}
 			}
+
+			.language-chooser {
+				margin-left: 50px;
+				margin-bottom: 2px; // compensate border-bottom height
+
+				a {
+					color: $grey;
+					border-bottom: 2px solid transparent;
+					padding-bottom: 5px;
+					margin: 0 10px;
+
+					&:hover {
+						text-decoration: none;
+						color: $white;
+						font-weight: bold;
+					}
+
+					&.active {
+						border-bottom-color: $orange;
+					}
+				}
+			}
 		}
 
 		@include media-max-width($menu-breakpoint) {
 			.nav-item:first-child {
-				padding: 0 15px;
+				margin: 0 15px;
 			}
 		}
 	}
