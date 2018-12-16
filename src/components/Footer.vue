@@ -9,7 +9,7 @@
 				<div>
 					<router-link :to="currentLink.path" class="menu-link">
 						<span class="divider d-inline-block"></span>
-						<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
+						<span class="link-text grey-color-link d-inline-block">{{currentLink.title}}</span>
 					</router-link>
 				</div>
 				<div>hello@hopeandpartners.com</div>
