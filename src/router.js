@@ -12,6 +12,7 @@ import Cases from './components/Cases';
 import About from './components/About';
 import Home from './components/Home';
 import Bio from './components/Bio';
+import Contacts from './components/Contacts';
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
     name: 'cases',
     path: '/cases',
     component: Cases
+  },
+  {
+    name: 'contacts',
+    path: '/contacts',
+    component: Contacts
   },
   {
     path: '*',

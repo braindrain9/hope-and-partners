@@ -1,13 +1,19 @@
 <template>
 	<b-container>
-		<footer class="d-flex justify-content-between align-items-end">
-			<div>
-				<router-link :to="currentLink.path" class="menu-link">
-					<span class="divider d-inline-block"></span>
-					<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
-				</router-link>
+		<footer :class="{bordered: $route.name === 'contacts'}">
+			<div v-if="$route.name === 'contacts'" class="d-flex justify-content-between align-items-end">
+				<div>&copy; 2018. hope & partners</div>
+				<div>Made in Cosmos Studio</div>
 			</div>
-			<div class="tiny-font-size">hello@hopeandpartners.com</div>
+			<div v-else class="d-flex justify-content-between align-items-end">
+				<div>
+					<router-link :to="currentLink.path" class="menu-link">
+						<span class="divider d-inline-block"></span>
+						<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
+					</router-link>
+				</div>
+				<div>hello@hopeandpartners.com</div>
+			</div>
 		</footer>
 	</b-container>
 </template>
@@ -40,6 +46,12 @@
   footer {
 		height: 40px;
 		margin: 40px 0;
+		font-size: $tiny-font-size;
+		padding-top: 20px;
+
+		&.bordered {
+			border-top: 1px solid $dark-grey;
+		}
 
 		.menu-link {
 			font-size: $small-font-size;

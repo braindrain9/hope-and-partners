@@ -51,7 +51,7 @@ export default {
       ],
       footerNavLinks: [
         {
-          prevRoute: 'cases',
+          prevRoute: 'contacts',
           name: 'home',
           title: 'на головну',
           path: '/'
@@ -69,6 +69,12 @@ export default {
           title: 'наші послуги'
         },
         {
+          prevRoute: 'bio',
+          name: 'services',
+          path: '/services',
+          title: 'наші послуги'
+        },
+        {
           prevRoute: 'services',
           name: 'partners',
           path: '/partners',
@@ -79,6 +85,18 @@ export default {
           name: 'cases',
           path: '/cases',
           title: 'наші кейси'
+        },
+        {
+          prevRoute: 'partners',
+          name: 'cases',
+          path: '/cases',
+          title: 'наші кейси'
+        },
+        {
+          prevRoute: 'cases',
+          name: 'contacts',
+          title: 'де нас знайти?',
+          path: '/contacts'
         }
       ]
     }

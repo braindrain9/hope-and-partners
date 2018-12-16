@@ -19,7 +19,7 @@
 					<!--:message="loadingMessage"-->
 					<!--:showWheel="loadingWheel"-->
 			<!--/>-->
-			<div :class="{ container: $route.name !== 'bio'}">
+			<div :class="{container: $route.name !== 'bio'}">
 				<router-view :key="this.viewKey"></router-view>
 			</div>
 
