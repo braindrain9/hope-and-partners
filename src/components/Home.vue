@@ -8,7 +8,7 @@
 				налагоджуємо <br/>
 				зв<span class="orange-color">’</span>язки з реальністю
 			</h1>
-			<router-link :to="'/about'" class="grey-color-link">
+			<router-link to="/about" class="grey-color-link">
 				<span class="horizontal-divider"></span>
 				детальніше
 			</router-link>

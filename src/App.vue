@@ -1,32 +1,31 @@
 <template>
   <div id="app">
-		<b-container>
-			<Header />
+		<Header />
 
-			<!--<TopBar-->
-					<!--@showUpdater="showUpdater = true"-->
+		<!--<TopBar-->
+				<!--@showUpdater="showUpdater = true"-->
+		<!--/>-->
+
+		<div id="wrapper">
+
+			<!--<Updater-->
+					<!--v-if="showUpdater"-->
+					<!--:error="error"-->
+					<!--@close="showUpdater = false"-->
 			<!--/>-->
 
-			<div id="wrapper">
-
-				<!--<Updater-->
-						<!--v-if="showUpdater"-->
-						<!--:error="error"-->
-						<!--@close="showUpdater = false"-->
-				<!--/>-->
-
-				<!--<Loading-->
-						<!--v-if="loadingOn"-->
-						<!--:message="loadingMessage"-->
-						<!--:showWheel="loadingWheel"-->
-				<!--/>-->
-
+			<!--<Loading-->
+					<!--v-if="loadingOn"-->
+					<!--:message="loadingMessage"-->
+					<!--:showWheel="loadingWheel"-->
+			<!--/>-->
+			<div :class="{ container: $route.name !== 'bio'}">
 				<router-view :key="this.viewKey"></router-view>
-
 			</div>
 
-			<Footer />
-		</b-container>
+		</div>
+
+		<Footer />
   </div>
 </template>
 
@@ -114,7 +113,6 @@
   }
 
   #wrapper {
-    max-width: 1200px;
     margin: 0 auto;
 		min-height: 400px;
   }

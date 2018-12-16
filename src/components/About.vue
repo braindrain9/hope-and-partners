@@ -15,7 +15,7 @@
 				</p>
 				<p class="bio-link">
 					<span class="horizontal-white"></span>
-					<span>повне біо <b-link>тут</b-link></span>
+					<span>повне біо <router-link to="/bio">тут</router-link></span>
 				</p>
 			</div>
 		</div>

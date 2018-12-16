@@ -1,13 +1,15 @@
 <template>
-  <footer class="d-flex justify-content-between align-items-end">
-    <div>
-			<router-link :to="currentLink.path" class="menu-link">
-				<span class="divider d-inline-block"></span>
-				<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
-			</router-link>
-		</div>
-		<div class="tiny-font-size">hello@hopeandpartners.com</div>
-  </footer>
+	<b-container>
+		<footer class="d-flex justify-content-between align-items-end">
+			<div>
+				<router-link :to="currentLink.path" class="menu-link">
+					<span class="divider d-inline-block"></span>
+					<span class="link-text white-color-link d-inline-block">{{currentLink.title}}</span>
+				</router-link>
+			</div>
+			<div class="tiny-font-size">hello@hopeandpartners.com</div>
+		</footer>
+	</b-container>
 </template>
 
 <script>

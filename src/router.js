@@ -11,6 +11,7 @@ import Services from './components/Services';
 import Cases from './components/Cases';
 import About from './components/About';
 import Home from './components/Home';
+import Bio from './components/Bio';
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,11 @@ const routes = [
     component: About
   },
   {
+    name: 'bio',
+    path: '/bio',
+    component: Bio
+  },
+  {
     name: 'services',
     path: '/services',
     component: Services
@@ -63,7 +69,14 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 });
 
 router.afterEach((to, from) => {

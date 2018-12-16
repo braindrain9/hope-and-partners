@@ -11,6 +11,10 @@
   color: $light-grey;
 }
 
+.white-color {
+  color: $white;
+}
+
 .grey-color-link {
   color: $grey;
 
@@ -56,4 +60,8 @@
   font-size: $medium-font-size;
   letter-spacing: $base-spacing;
   margin-bottom: 30px;
+
+  &-dark {
+    color: $dark-black;
+  }
 }

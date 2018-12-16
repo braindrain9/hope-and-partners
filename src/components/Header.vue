@@ -1,26 +1,28 @@
 <template>
-	<header>
-		<b-navbar toggleable="md" type="dark">
-			<b-nav-toggle target="nav_collapse"></b-nav-toggle>
+	<b-container>
+		<header>
+			<b-navbar toggleable="md" type="dark">
+				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
-			<b-collapse is-nav id="nav_collapse">
-				<b-navbar-nav>
-					<li class="nav-item" v-for="link in filteredNavLinks">
-						<router-link :to="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</router-link>
-					</li>
-				</b-navbar-nav>
+				<b-collapse is-nav id="nav_collapse">
+					<b-navbar-nav>
+						<li class="nav-item" v-for="link in filteredNavLinks">
+							<router-link :to="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</router-link>
+						</li>
+					</b-navbar-nav>
 
-				<div class="language-chooser">
-					<b-link class="active">укр</b-link>
-					<b-link>eng</b-link>
-				</div>
-			</b-collapse>
+					<div class="language-chooser">
+						<b-link class="active">укр</b-link>
+						<b-link>eng</b-link>
+					</div>
+				</b-collapse>
 
-			<b-navbar-brand to="/" right>
-				<div v-html="logoSvg"></div>
-			</b-navbar-brand>
-		</b-navbar>
-	</header>
+				<b-navbar-brand to="/" right>
+					<div v-html="logoSvg"></div>
+				</b-navbar-brand>
+			</b-navbar>
+		</header>
+	</b-container>
 </template>
 
 <script>
