@@ -2,7 +2,6 @@
   "name": "wp-vue",
   "version": "0.0.1",
   "scripts": {
-		"predeploy": "npm run build",
 		"deploy": "gh-pages -d deploy",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

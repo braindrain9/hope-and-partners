@@ -4,7 +4,7 @@ import bus from './bus';
 
 // components
 import Feed from './views/Feed';
-import FourOFour from './views/FourOFour';
+import NotFoundPage from './views/NotFoundPage';
 import Post from './views/Post';
 import Partners from './components/Partners';
 import Services from './components/Services';
@@ -33,9 +33,9 @@ const routes = [
     component: Feed
   },
   {
-    name: 'four-o-four',
+    name: 'notFoundPage',
     path: '/404',
-    component: FourOFour
+    component: NotFoundPage
   },
   {
     name: 'about',

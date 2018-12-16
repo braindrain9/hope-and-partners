@@ -72,7 +72,7 @@
           try {
             response = await this.get(`/posts?slug=${this.$route.params.slug}`);
           } catch (error) {
-            this.$router.push({name: 'four-o-four'});
+            this.$router.push({name: 'NotFoundPage'});
             return;
           }
 
