@@ -4,7 +4,13 @@
 			animation ...
 		</div>
 		<div>
-			<h1 class="heading heading-main">
+			<h1
+				class="heading heading-main"
+				data-aos="fade-zoom-in"
+				data-aos-easing="ease-in-back"
+				data-aos-offset="0"
+				data-aos-duration="900"
+			>
 				налагоджуємо <br/>
 				зв<span class="orange-color">’</span>язки з реальністю
 			</h1>

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import cache from './modules/cache';
 import bus from '../bus';
+import modules from './modules'
 
 Vue.use(Vuex);
 
@@ -18,7 +18,5 @@ export default new Vuex.Store({
     }
   },
 
-  modules: {
-    cache
-  }
+  modules
 });
