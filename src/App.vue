@@ -14,11 +14,11 @@
 					<!--@close="showUpdater = false"-->
 			<!--/>-->
 
-			<!--<Loading-->
-					<!--v-if="loadingOn"-->
-					<!--:message="loadingMessage"-->
-					<!--:showWheel="loadingWheel"-->
-			<!--/>-->
+			<Loading
+                 v-if="loadingOn"
+                :message="loadingMessage"
+                :showWheel="loadingWheel"
+            />
 			<div :class="{container: $route.name !== 'bio'}">
 				<router-view :key="this.viewKey"></router-view>
 			</div>
