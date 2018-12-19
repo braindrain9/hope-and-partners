@@ -15,17 +15,17 @@
 			<!--/>-->
 
 			<Loading
-                 v-if="loadingOn"
-                :message="loadingMessage"
-                :showWheel="loadingWheel"
-            />
+					v-if="loadingOn"
+					:message="loadingMessage"
+					:showWheel="loadingWheel"
+			/>
 			<div :class="{container: $route.name !== 'bio'}">
 				<router-view :key="this.viewKey"></router-view>
 			</div>
 
 		</div>
 
-		<Footer />
+		<Footer v-if="$route.name !== 'partners'"/>
   </div>
 </template>
 

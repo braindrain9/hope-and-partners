@@ -1,6 +1,6 @@
 <template>
-	<b-container>
-		<header>
+	<header :class="{'position-fixed': $route.name === 'partners'}">
+		<b-container>
 			<b-navbar toggleable="md" type="dark">
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -21,8 +21,8 @@
 					<div v-html="logoSvg"></div>
 				</b-navbar-brand>
 			</b-navbar>
-		</header>
-	</b-container>
+		</b-container>
+	</header>
 </template>
 
 <script>
@@ -47,10 +47,13 @@
 
 <style scoped lang="scss">
 	header {
-		margin: 0 -20px;
+		width: 100%;
 		padding: 20px 0;
+		z-index: 1;
 
 		.navbar {
+			padding: 0;
+
 			.navbar-brand {
 				margin-right: 0;
 			}
