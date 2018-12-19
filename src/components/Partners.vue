@@ -125,7 +125,7 @@
 
 		.partners-slider {
 			width: calc(180% + 44rem);
-			height: 450px;
+			height: calc(100vh - 440px);
 			display: inline-block;
 			opacity: 1; // change from 0
 			z-index: 99;
@@ -139,6 +139,7 @@
 		}
 
 		.partner-item {
+			white-space: normal;
 			height: calc(100% - 0rem);
 			width: 1000px;
 			display: inline-block;
@@ -238,9 +239,14 @@
 		top: 0;
 		height: 877px;
 		left: 0;
-		width: 4500px;
+		width: 100%;
+		white-space: nowrap;
 		color: #fff;
 		transition: transform .5s ease,opacity .5s ease;
+
+		footer {
+			white-space: normal;
+		}
 	}
 
 	#fakecontent {
