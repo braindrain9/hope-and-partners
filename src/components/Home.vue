@@ -58,13 +58,15 @@
         options: {
           menu: '#menu',
           anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
-          scrollOverflow: true
+          scrollOverflow: true,
+          scrollingSpeed: 600,
+          navigation: true
         }
 			}
 		},
 
     created: function () {
-      bus.$emit('toggleLoading', true);
+      bus.$emit('toggleLoading', false);
     },
 
 		components: {

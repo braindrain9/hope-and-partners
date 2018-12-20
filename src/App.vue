@@ -20,7 +20,7 @@
 					:showWheel="loadingWheel"
 			/>
 
-			<router-view :key="this.viewKey"></router-view>
+			<router-view />
 
 		</div>
 
