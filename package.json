@@ -23,6 +23,7 @@
     "vue": "^2.5.9",
     "vue-analytics": "^5.7.1",
     "vue-displacement-slideshow": "^1.0.0",
+    "vue-fullpage.js": "^0.1.1",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

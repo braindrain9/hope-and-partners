@@ -2,7 +2,7 @@
 	<footer>
 		<div :class="{container: $route.name !== 'partners'}">
 			<div
-					v-if="$route.name === 'contacts'"
+					v-if="isFinalMode"
 					class="bordered footer-content d-flex justify-content-between align-items-end"
 			>
 			<div>&copy; 2018. hope & partners</div>
@@ -26,6 +26,8 @@
   export default {
     name: 'Footer',
 
+    props: ['link', 'isFinalMode'],
+
 		data() {
       return {
         currentLink: undefined
@@ -34,13 +36,15 @@
 
     created() {
       // init on load
-      this.currentLink = _.find(this.footerNavLinks, {prevRoute: this.$route.name}) || this.footerNavLinks[0];
+			this.currentLink = _.find(this.footerNavLinks, {name: this.link}) || this.footerNavLinks[0];
     },
 
     watch: {
-      '$route' (to) {
+      '$route' () {
         // update on route change
-        this.currentLink = _.find(this.footerNavLinks, {prevRoute: to.name}) || this.footerNavLinks[0];
+        if (this.$route.name === 'bio') {
+          this.currentLink = _.find(this.footerNavLinks, {name: 'services'});
+        }
       }
     }
   }
@@ -53,8 +57,7 @@
 		font-size: $tiny-font-size;
 
 		.footer-content {
-			padding-top: 20px;
-			height: 60px;
+			height: 50px;
 
 			&.bordered {
 				border-top: 1px solid $dark-grey;

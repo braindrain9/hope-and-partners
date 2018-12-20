@@ -26,77 +26,69 @@ export default {
         },
         {
           name: 'about',
+          path: '/#about',
           title: 'про мене',
-          path: '/about',
           id: 2
         },
         {
           name: 'services',
-          path: '/services',
+          path: '/#services',
           title: 'послуги',
           id: 3
         },
         {
           name: 'partners',
-          path: '/partners',
+          path: '/#partners',
           title: 'партнери',
           id: 4
         },
         {
           name: 'cases',
-          path: '/cases',
+          path: '/#cases',
           title: 'кейси',
           id: 5
         }
       ],
       footerNavLinks: [
         {
-          prevRoute: 'contacts',
           name: 'home',
-          title: 'на головну',
-          path: '/'
+          path: '/',
+          title: 'на головну'
         },
         {
-          prevRoute: 'home',
           name: 'about',
-          title: 'про мене',
-          path: '/about'
+          path: '/#about',
+          title: 'про мене'
         },
         {
-          prevRoute: 'about',
           name: 'services',
-          path: '/services',
+          path: '/#services',
           title: 'наші послуги'
         },
         {
-          prevRoute: 'bio',
           name: 'services',
-          path: '/services',
+          path: '/#services',
           title: 'наші послуги'
         },
         {
-          prevRoute: 'services',
           name: 'partners',
-          path: '/partners',
+          path: '/#partners',
           title: 'наші партнери'
         },
         {
-          prevRoute: 'partners',
           name: 'cases',
-          path: '/cases',
+          path: '/#cases',
           title: 'наші кейси'
         },
         {
-          prevRoute: 'partners',
           name: 'cases',
-          path: '/cases',
+          path: '/#cases',
           title: 'наші кейси'
         },
         {
-          prevRoute: 'cases',
           name: 'contacts',
           title: 'де нас знайти?',
-          path: '/contacts'
+          path: '/#contacts'
         }
       ]
     }

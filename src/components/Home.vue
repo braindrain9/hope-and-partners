@@ -1,62 +1,91 @@
 <template>
-	<div class="home d-flex justify-content-around align-items-center">
-		<div>
-			animation ...
-		</div>
-		<div>
-			<h1
-				class="heading heading-main"
-				data-aos="fade-zoom-in"
-				data-aos-easing="ease-in-back"
-				data-aos-offset="0"
-				data-aos-duration="900"
-			>
-				налагоджуємо <br/>
-				зв<span class="orange-color">’</span>язки з реальністю
-			</h1>
-			<router-link to="/about" class="grey-color-link">
-				<span class="horizontal-divider"></span>
-				детальніше
-			</router-link>
-		</div>
-	</div>
+	<full-page ref="fullpage" :options="options" id="fullpage">
+			<div class="section">
+				<b-container class="section-container">
+					<Hero/>
+					<Footer link="about"/>
+				</b-container>
+			</div>
+			<div class="section">
+				<b-container class="section-container overflow-container">
+					<About />
+					<Footer link="services"/>
+				</b-container>
+			</div>
+			<div class="section">
+				<b-container class="section-container">
+					<Services />
+					<Footer link="partners"/>
+				</b-container>
+			</div>
+			<div class="section">
+				<b-container class="section-container">
+					<!--<Partners />-->
+					Partners
+					<Footer link="cases"/>
+				</b-container>
+			</div>
+			<div class="section">
+				<b-container class="section-container">
+					<Cases />
+					<Footer link="contacts"/>
+				</b-container>
+			</div>
+			<div class="section">
+				<b-container class="section-container">
+					<Contacts />
+					<Footer is-final-mode="true"/>
+				</b-container>
+			</div>
+		</full-page>
 </template>
 
 <script>
   import bus from '../bus';
+  import Hero from './Hero';
+  import About from './About';
+  import Partners from './Partners';
+  import Services from './Services';
+  import Cases from './Cases';
+  import Contacts from './Contacts';
+  import Footer from './Footer';
 
   export default {
     name: 'Home',
 
+		data() {
+      return {
+        options: {
+          menu: '#menu',
+          anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
+          scrollOverflow: true
+        }
+			}
+		},
+
     created: function () {
-      bus.$emit('toggleLoading', false);
-    }
+      bus.$emit('toggleLoading', true);
+    },
+
+		components: {
+      About,
+			Hero,
+			Partners,
+			Services,
+			Cases,
+			Contacts,
+      Footer
+		}
   }
 </script>
 
 <style scoped lang="scss">
-	.home {
-		height: 75vh;
+	.section-container {
+		padding-top: 100px; // compensate fixed header
+	}
 
-		.horizontal-divider {
-			position: relative;
-			width: 30px;
-			height: 2px;
-			background-color: $orange;
-			display: inline-block;
-			vertical-align: middle;
-			margin-right: 10px;
-			margin-left: 15px;
-
-			&:before {
-				content: '';
-				position: absolute;
-				display: inline-block;
-				height: 2px;
-				width: 8px;
-				background: $orange;
-				left: -15px;
-			}
-		}
+	.overflow-container {
+		// switch to new section does not allow to see a footer
+		padding-bottom: 100px;
 	}
 </style>

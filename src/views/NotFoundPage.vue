@@ -21,6 +21,7 @@
 
 <style scoped lang="scss">
   .page-not-found {
-		height: 75vh;
+		padding-top: 100px;
+		height: 80vh;
 	}
 </style>

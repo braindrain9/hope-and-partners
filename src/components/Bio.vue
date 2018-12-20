@@ -3,7 +3,7 @@
 		<b-container>
 			<div class="row">
 				<div class="heading-block col-sm-6 offset-sm-6 col-md-7 offset-md-5">
-					<router-link to="/about" class="bio-link grey-color-link">
+					<router-link to="/#about" class="bio-link grey-color-link">
 						<span class="horizontal-grey"></span>
 						назад
 					</router-link>

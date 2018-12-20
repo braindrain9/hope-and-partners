@@ -19,13 +19,12 @@
 					:message="loadingMessage"
 					:showWheel="loadingWheel"
 			/>
-			<div :class="{container: $route.name !== 'bio'}">
-				<router-view :key="this.viewKey"></router-view>
-			</div>
+
+			<router-view :key="this.viewKey"></router-view>
 
 		</div>
 
-		<Footer v-if="$route.name !== 'partners'"/>
+		<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>
   </div>
 </template>
 
@@ -47,7 +46,7 @@
         loadingMessage: 'Loading WP Vue',
         loadingWheel: true,
         showUpdater: false,
-        viewKey: 0,
+        viewKey: 0
       }
     },
 
@@ -56,7 +55,6 @@
       this.assignEndpointFromURL();
 
       bus.$on('toggleLoading', (status = true) => {
-
         if(typeof status === 'string') {
           this.loadingOn = true;
           this.showWheel = false;

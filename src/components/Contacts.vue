@@ -36,7 +36,7 @@
 
 <style scoped lang="scss">
 	.contacts {
-		height: 75vh;
+		height: $home-block-height;
 
 		.mail-block {
 			h1 {

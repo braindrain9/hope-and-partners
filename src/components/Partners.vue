@@ -115,7 +115,7 @@
 <style scoped lang="scss">
 	.partners {
 		padding-top: 60px;
-		height: 75vh;
+		height: $home-block-height;
 		min-height: 500px;
 
 		.heading-main {

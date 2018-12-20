@@ -1,12 +1,15 @@
 <template>
-	<header :class="{'position-fixed': $route.name === 'partners'}">
+	<header>
 		<b-container>
 			<b-navbar toggleable="md" type="dark">
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
 				<b-collapse is-nav id="nav_collapse">
-					<b-navbar-nav>
-						<li class="nav-item" v-for="link in filteredNavLinks">
+					<b-navbar-nav id="menu">
+						<li class="nav-item"
+								:data-menuanchor="link.name"
+								v-for="link in filteredNavLinks"
+						>
 							<router-link :to="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</router-link>
 						</li>
 					</b-navbar-nav>
@@ -17,7 +20,7 @@
 					</div>
 				</b-collapse>
 
-				<b-navbar-brand to="/" right>
+				<b-navbar-brand href="/" right>
 					<div v-html="logoSvg"></div>
 				</b-navbar-brand>
 			</b-navbar>
@@ -48,6 +51,8 @@
 <style scoped lang="scss">
 	header {
 		width: 100%;
+		position: fixed;
+		background: $base-black;
 		padding: 20px 0;
 		z-index: 1;
 
@@ -73,8 +78,10 @@
 						color: $white;
 						cursor: pointer;
 					}
+				}
 
-					&.active {
+				&.active {
+					.nav-link {
 						color: $white;
 						font-weight: bold;
 					}

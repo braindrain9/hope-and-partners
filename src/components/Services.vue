@@ -1,4 +1,4 @@
-<template><div>services</div></template>
+<template><div class="services">services</div></template>
 
 <script>
   import bus from '../bus';
@@ -11,3 +11,9 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+	.services {
+		height: $home-block-height;
+	}
+</style>
