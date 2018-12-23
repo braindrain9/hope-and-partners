@@ -13,8 +13,10 @@ import 'fullpage.js/vendors/scrolloverflow'; // Optional. When using scrollOverf
 import VueFullPage from 'vue-fullpage.js';
 import 'fullpage.js/dist/fullpage.css';
 
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import BootstrapVue from 'bootstrap-vue';
 
@@ -30,6 +32,7 @@ Vue.use(BootstrapVue);
 Vue.set(Vue.prototype, '_', _);
 Vue.directive('aos', AOS);
 Vue.use(VueFullPage);
+Vue.use(VueAwesomeSwiper);
 
 new Vue({
   el: '#app',
