@@ -16,6 +16,16 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
@@ -33,6 +43,16 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
@@ -50,6 +70,16 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
@@ -67,6 +97,16 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
@@ -84,6 +124,16 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
@@ -101,10 +151,20 @@
 							заїхати на смачну каву, хот-дог чи просто посидіти
 							потупити у вікно – це завжди гарна ідея.
 						</p>
+						<div class="horizontal-line"></div>
+						<div class="comment d-flex">
+							<div class="photo">
+								<img src="../assets/img/comment.png" alt="">
+							</div>
+							<div class="text">
+								<h3>Анатолій - СТО</h3>
+								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</swiper-slide>
-			<div class="swiper-button-prev" slot="button-prev"></div>
+			<div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
 			<div
 				class="swiper-pagination"
 				slot="pagination"
@@ -112,19 +172,21 @@
 				:data-before="activeIndex"
 				:data-after="afterIndex"
 			></div>
-			<div class="swiper-button-next" slot="button-next"></div>
+			<div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
 		</swiper>
 	</div>
 </template>
 
 <script>
 	import bus from '../bus';
+	import arrowSvg from '../assets/img/arrow-grey.svg';
 
   export default {
     name: 'Cases',
 
     data() {
       return {
+        arrowSvg,
         activeIndex: '00',
         afterIndex: '02',
         swiperOption: {
@@ -148,8 +210,8 @@
     },
 
 		methods: {
-      onSwipe(varuable) {
-        const index = varuable.swiper.activeIndex;
+      onSwipe(value) {
+        const index = value.swiper.activeIndex;
 
 				this.activeIndex = index < 10 ? '0' + index : index;
 				this.afterIndex = (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
@@ -158,17 +220,12 @@
 
 		computed: {
       swiper() {
-        console.log(this.$refs.mySwiper);
-        return this.$refs.mySwiper.swiper
+        return this.$refs.mySwiper.swiper;
       }
 		},
 
     mounted() {
-      console.log('this is current swiper instance object', this.swiper);
-      console.log('active? ',this.swiper.activeIndex);
-      this.swiper.on('slideChange', () => {
-        this.onSwipe(this);
-      });
+      this.swiper.on('slideChange', () => this.onSwipe(this));
     }
   }
 </script>
@@ -179,10 +236,14 @@
 		position: relative;
 		max-width: 800px;
 		margin: 0 auto;
+		padding-top: 40px;
 
 		.photo-block {
 			position: relative;
-			margin-right: 30px;
+
+			// to compensate bg-image indent
+			margin-right: 35px;
+			margin-bottom: 20px;
 
 			img {
 				position: relative;
@@ -191,7 +252,7 @@
 			}
 
 			.bg-image {
-				background: $grey;
+				background: #1E1E1E;
 				width: 105%;
 				height: 250px;
 				position: absolute;
@@ -210,12 +271,54 @@
 				font-weight: bold;
 				line-height: 34px;
 				font-size: 24px;
+				margin-bottom: 15px;
 			}
 
 			.description {
 				font-weight: 500;
 				line-height: 24px;
 				font-size: 14px;
+				margin-bottom: 20px;
+			}
+		}
+
+		.horizontal-line {
+			border-bottom: 2px solid $white;
+			width: 40px;
+		}
+
+		.comment {
+			margin-top: 30px;
+
+			.photo {
+				width: 40%;
+				min-width: 65px;
+
+				img {
+					border-radius: 50%;
+					height: 60px;
+					width: 60px;
+				}
+			}
+
+			.text {
+				h3 {
+					font-weight: 500;
+					line-height: 20px;
+					font-size: 14px;
+					margin-bottom: 5px;
+				}
+
+				p {
+					line-height: 20px;
+					font-size: 14px;
+					color: #BCBFC1;
+
+					&:before,
+					&:after {
+						content: '"';
+					}
+				}
 			}
 		}
 
@@ -224,18 +327,23 @@
 		}
 	}
 
+	/* Slider styles*/
 	.swiper-slide {
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
-		/*padding: 40px 60px;*/
-		padding-bottom: 80px;
+		padding-bottom: 100px;
 		background-color: transparent !important;
 		justify-content: space-around !important;
 	}
 
 	.swiper-button-prev,
 	.swiper-button-next {
+		background: none;
 		top: 94%;
+	}
+
+	.swiper-button-next {
+		transform: rotate(-180deg);
 	}
 
 	.swiper-container-horizontal > .swiper-pagination-progressbar {
