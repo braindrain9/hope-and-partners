@@ -10,10 +10,10 @@
 		</div>
 			<div v-else class="footer-content d-flex justify-content-between align-items-end">
 			<div>
-				<router-link :to="currentLink.path" class="menu-link">
+				<a :href="currentLink.path" class="menu-link">
 					<span class="divider d-inline-block"></span>
 					<span class="link-text grey-color-link d-inline-block">{{currentLink.title}}</span>
-				</router-link>
+				</a>
 			</div>
 			<slot name="progress-bar"></slot>
 			<div>hello@hopeandpartners.com</div>

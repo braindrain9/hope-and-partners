@@ -10,7 +10,7 @@
 								:data-menuanchor="link.name"
 								v-for="link in filteredNavLinks"
 						>
-							<router-link :to="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</router-link>
+							<a :href="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</a>
 						</li>
 					</b-navbar-nav>
 
