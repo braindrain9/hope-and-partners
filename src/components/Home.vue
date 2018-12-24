@@ -18,12 +18,8 @@
 					<Footer link="partners"/>
 				</b-container>
 			</div>
-			<div class="section">
-				<b-container class="section-container">
-					<!--<Partners />-->
-					Partners
-					<Footer link="cases"/>
-				</b-container>
+			<div class="section partners-container">
+				<Partners />
 			</div>
 			<div class="section">
 				<b-container class="section-container">
@@ -82,6 +78,10 @@
 </script>
 
 <style scoped lang="scss">
+	.section {
+		background: $base-black;
+	}
+
 	.section-container {
 		padding-top: 100px; // compensate fixed header
 	}

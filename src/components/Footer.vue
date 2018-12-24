@@ -1,6 +1,6 @@
 <template>
 	<footer>
-		<div :class="{container: $route.name !== 'partners'}">
+		<div :class="{container: !isFullWidthMode}">
 			<div
 					v-if="isFinalMode"
 					class="bordered footer-content d-flex justify-content-between align-items-end"
@@ -26,7 +26,7 @@
   export default {
     name: 'Footer',
 
-    props: ['link', 'isFinalMode'],
+    props: ['link', 'isFinalMode', 'isFullWidthMode'],
 
 		data() {
       return {

@@ -89,6 +89,12 @@ module.exports = {
     new webpack.DefinePlugin(config),
     new webpack.BannerPlugin({
       banner
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      jQuery: 'jquery'
     })
   ]
 };

@@ -1,6 +1,6 @@
 <template>
 	<div class="partners">
-		<h1 class="heading heading-main position-fixed">партнери<span class="orange-color">:</span></h1>
+		<h1 class="heading heading-main position-fixed partners-heading">партнери<span class="orange-color">:</span></h1>
 
 		<div id="realcontent">
 			<div class="partners-slider">
@@ -66,19 +66,32 @@
 				</div>
 			</div>
 
-			<Footer style="width: 3200px;" class="full-width-footer" :style="{paddingLeft: footerPaddingLeft + 'px'}">
+			<Footer
+				style="width: 3200px;"
+				class="full-width-footer"
+				is-full-width-mode="true"
+				:style="{paddingLeft: footerPaddingLeft + 'px'}"
+			>
 				<template slot="progress-bar">
 					<div class="progress-container">
 						<div class="desc">Оленка</div>
 						<div class="desc">Оленка</div>
 						<div class="desc">Оленка</div>
 						<div class="progress">
-							<div class="progress-bar" role="progressbar" style="width: 600px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							<div
+								class="progress-bar"
+								role="progressbar"
+								style="width: 600px;"
+								aria-valuenow="25"
+								aria-valuemin="0"
+								aria-valuemax="100"
+							></div>
 						</div>
 					</div>
 				</template>
 			</Footer>
 		</div>
+
 		<div id="fakecontent"></div>
 	</div>
 </template>
@@ -100,11 +113,9 @@
       bus.$emit('toggleLoading', false);
     },
 
-		mounted() {
-      const doc = document.documentElement;
-      const windowScrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-      this.footerPaddingLeft = this.$el.getBoundingClientRect().left + windowScrollLeft;
-		},
+    mounted() {
+      this.setPartnersFooterPos();
+    },
 
 		components: {
       Footer
@@ -115,7 +126,7 @@
 <style scoped lang="scss">
 	.partners {
 		padding-top: 60px;
-		height: $home-block-height;
+		height: 100%;
 		min-height: 500px;
 
 		.heading-main {
