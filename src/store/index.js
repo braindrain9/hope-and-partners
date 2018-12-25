@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    endpoint: REST_ENDPOINT
+    endpoint: REST_ENDPOINT,
+    sliding: true
   },
 
   mutations: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
       state.endpoint = endpoint;
       bus.$emit('clearError');
       bus.$emit('bumpViewKey', 'Updating content...');
+    },
+    updateSliding (state, value) {
+      state.sliding = value;
     }
   },
 

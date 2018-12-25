@@ -70,14 +70,14 @@
 
 		methods: {
       onLeave: function(origin, destination, direction) {
-				if(origin.anchor === 'services' && this.sliding) {
+				if(origin.anchor === 'services' && this.$store.state.sliding) {
           if(direction === 'down') {
             fullpage_api.moveSlideRight();
-            this.sliding = true;
+            this.$store.commit('updateSliding', true);
             return false;
           } else if (direction === 'up') {
             fullpage_api.moveSlideLeft();
-            this.sliding = true;
+            this.$store.commit('updateSliding', true);
             return false;
           }
         }
@@ -85,10 +85,10 @@
       onSlideLeave: function(section, origin, destination, direction) {
         if(section.anchor === 'services') {
           if(origin.isLast && direction === 'right') {
-            this.sliding = false;
+            this.$store.commit('updateSliding', false);
             fullpage_api.moveSectionDown();
           } else if (origin.isFirst && direction === 'left') {
-            this.sliding = false;
+            this.$store.commit('updateSliding', false);
             fullpage_api.moveSectionUp();
           }
         }
@@ -99,6 +99,12 @@
             if(direction === 'down') {
               this.goToServicesFirstSlide();
             }
+          }
+				}
+
+				if(destination) {
+          if(destination.anchor === 'services') {
+            this.$store.commit('updateSliding', true);
           }
 				}
       }
