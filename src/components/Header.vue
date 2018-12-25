@@ -6,11 +6,14 @@
 
 				<b-collapse is-nav id="nav_collapse">
 					<b-navbar-nav id="menu">
-						<li class="nav-item"
-								:data-menuanchor="link.name"
-								v-for="link in filteredNavLinks"
+						<li
+							class="nav-item"
+							:data-menuanchor="link.name"
+							v-for="link in filteredNavLinks"
 						>
-							<a :href="link.path" :key="link.id" class="nav-link" active-class="active">{{link.title}}</a>
+							<a v-on:click="goToSection(link.path)" :key="link.id" class="nav-link" active-class="active">
+								{{link.title}}
+							</a>
 						</li>
 					</b-navbar-nav>
 
