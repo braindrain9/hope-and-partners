@@ -90,7 +90,8 @@ export default {
           title: 'де нас знайти?',
           path: '/#contacts'
         }
-      ]
+      ],
+      sliding: true
     }
   },
 
@@ -114,6 +115,15 @@ export default {
 
     goBack: function() {
       this.$router.go(-1);
+    },
+
+    goToServicesFirstSlide: function() {
+      location.hash = "#services";
+    },
+
+    goToSection: function(hash) {
+      this.sliding = false; // TODO push event to onLeave callback
+      location.href = hash;
     },
 
     getQueryString: function( name ) {

@@ -71,6 +71,7 @@
 				class="full-width-footer"
 				is-full-width-mode="true"
 				:style="{paddingLeft: footerPaddingLeft + 'px'}"
+				link="cases"
 			>
 				<template slot="progress-bar">
 					<div class="progress-container">

@@ -1,7 +1,7 @@
 <template>
 	<div class="cases">
-		<h1 class="heading">кейси<span class="orange-color">:</span></h1>
-		<swiper :options="swiperOption" ref="mySwiper">
+		<h1 class="heading heading-main">кейси<span class="orange-color">:</span></h1>
+		<swiper :options="swiperOption" ref="horizontalSwiper">
 			<swiper-slide>
 				<div class="d-flex align-items-center">
 					<div class="photo-block">
@@ -220,7 +220,7 @@
 
 		computed: {
       swiper() {
-        return this.$refs.mySwiper.swiper;
+        return this.$refs.horizontalSwiper.swiper;
       }
 		},
 
