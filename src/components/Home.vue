@@ -1,7 +1,7 @@
 <template>
 	<full-page ref="fullpage" :options="options" id="fullpage">
 			<div class="section">
-                <Hero/>
+				<Hero/>
 			</div>
 			<div class="section">
 				<b-container class="section-container overflow-container">
@@ -10,7 +10,7 @@
 				</b-container>
 			</div>
 			<div class="section">
-                <Services/>
+				<Services/>
 			</div>
 			<div class="section partners-container">
 				<Partners />
@@ -22,7 +22,7 @@
 				</b-container>
 			</div>
 			<div class="section">
-                <Contacts />
+				<Contacts />
 			</div>
 		</full-page>
 </template>
@@ -88,9 +88,6 @@
         }
       },
       afterLoad: function(origin, destination, direction) {
-        bus.$emit('animateContacts', '@');
-        bus.$emit('animateHero', '&');
-
         if(origin) {
           if(origin.anchor === 'about') {
             if(direction === 'down') {
@@ -100,10 +97,18 @@
 				}
 
 				if(destination) {
-          if(destination.anchor === 'services') {
-            bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
-            this.$store.commit('updateSliding', true);
-          }
+					if (destination.anchor === 'services') {
+						bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
+						this.$store.commit('updateSliding', true);
+					}
+
+					if (destination.anchor === 'hero') {
+						bus.$emit('animateHero', '&');
+					}
+
+					if (destination.anchor === 'contacts') {
+						bus.$emit('animateContacts', '@');
+					}
 				}
       },
       afterSlideLoad: function() {
@@ -131,12 +136,12 @@
 
 	.section-container {
 		padding-top: 100px; // compensate fixed header
-        position: relative;
-        z-index: 1;
+		position: relative;
+		z-index: 1;
 
 		&.services-section {
-			padding-top: 200px;
-            height: 100%;
+			padding-top: 150px;
+			height: 100%;
 		}
 	}
 

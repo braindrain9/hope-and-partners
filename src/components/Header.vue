@@ -67,9 +67,9 @@
 		padding: 20px 0;
 		z-index: 1;
 
-        &.dark-bg {
-            background: $base-black;
-        }
+		&.dark-bg {
+			background: $base-black;
+		}
 
 		.navbar {
 			padding: 0;

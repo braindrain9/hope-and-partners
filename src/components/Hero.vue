@@ -1,27 +1,27 @@
 <template>
 	<div>
-        <canvas id="canvas-hero"></canvas>
-        <b-container class="section-container">
-            <div class="hero d-flex align-items-center justify-content-end">
-                <div>
-                    <h1
-                            class="heading heading-main"
-                            data-aos="fade-zoom-in"
-                            data-aos-easing="ease-in-back"
-                            data-aos-offset="0"
-                            data-aos-duration="900"
-                    >
-                        налагоджуємо <br/>
-                        зв<span class="orange-color">’</span>язки з реальністю
-                    </h1>
-                    <a href="#about" class="grey-color-link">
-                        <span class="horizontal-divider"></span>
-                        детальніше
-                    </a>
-                </div>
-            </div>
-            <Footer link="about"/>
-        </b-container>
+		<canvas id="canvas-hero"></canvas>
+		<b-container class="section-container">
+			<div class="hero d-flex align-items-center justify-content-end">
+				<div>
+					<h1
+						class="heading heading-main"
+						data-aos="fade-zoom-in"
+						data-aos-easing="ease-in-back"
+						data-aos-offset="0"
+						data-aos-duration="900"
+						>
+							налагоджуємо <br/>
+							зв<span class="orange-color">’</span>язки з реальністю
+						</h1>
+						<a href="#about" class="grey-color-link">
+							<span class="horizontal-divider"></span>
+							детальніше
+						</a>
+					</div>
+				</div>
+			<Footer link="about"/>
+		</b-container>
 	</div>
 </template>
 
@@ -36,13 +36,13 @@
       bus.$emit('toggleLoading', false);
     },
 
-      mounted() {
+		mounted() {
 	    this.animateHero('canvas-hero');
-      },
+		},
 
-      components: {
-        Footer
-      }
+		components: {
+			Footer
+		}
 	}
 </script>
 

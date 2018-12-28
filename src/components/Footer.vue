@@ -2,8 +2,8 @@
 	<footer>
 		<div :class="{container: !isFullWidthMode}">
 			<div
-					v-if="isFinalMode"
-					class="bordered footer-content d-flex justify-content-between align-items-end"
+				v-if="isFinalMode"
+				class="bordered footer-content d-flex justify-content-between align-items-end"
 			>
 			<div>&copy; 2018. hope & partners</div>
 			<div>Made in Cosmos Studio</div>

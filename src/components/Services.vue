@@ -1,24 +1,24 @@
 <template>
 	<div class="services">
-        <canvas id="canvas"></canvas>
-        <b-container class="section-container services-section">
-            <h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
-            <div class="services-slider">
-                <div class="slide fp-auto-height" v-for="(item, index) in ['K', 'A', 'П', 'C', 'О']" :key="index">
-                    <div class="slider-item d-flex justify-content-end align-items-center">
-                        <div class="text-block">
-                            <span class="letter d-none">{{item}}</span>
-                            <div class="bg-number">{{index + 1}}</div>
-                            <p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
-                            <div class="description">
-                                нескромно про драйвовість, але маєте шанс переконатися <a href="">тут</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <Footer link="partners"/>
-        </b-container>
+		<canvas id="canvas"></canvas>
+		<b-container class="section-container services-section">
+			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
+				<div class="services-slider">
+					<div class="slide fp-auto-height" v-for="(item, index) in ['K', 'A', 'П', 'C', 'О']" :key="index">
+						<div class="slider-item d-flex justify-content-end align-items-center">
+							<div class="text-block">
+								<span class="letter d-none">{{item}}</span>
+									<div class="bg-number">{{index + 1}}</div>
+									<p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
+									<div class="description">
+										нескромно про драйвовість, але маєте шанс переконатися <a href="">тут</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<Footer link="partners"/>
+			</b-container>
 	</div>
 </template>
 
@@ -46,7 +46,6 @@
 <style scoped lang="scss">
 	.services {
 		height: calc(100vh - 200px);
-        position: relative;
 
 		.heading {
 			padding-left: 100px;
