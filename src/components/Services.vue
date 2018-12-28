@@ -1,28 +1,30 @@
 <template>
 	<div class="services">
-		<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
-
-		<div class="services-slider">
-			<canvas id="canvas"></canvas>
-
-			<div class="slide fp-auto-height" v-for="i in 5" :key="i">
-				<div class="slider-item d-flex justify-content-end align-items-center">
-					<div class="text-block">
-						<span class="letter d-none">А</span>
-						<div class="bg-number">{{i}}</div>
-						<p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
-						<div class="description">
-							нескромно про драйвовість, але маєте шанс переконатися <a href="">тут</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        <canvas id="canvas"></canvas>
+        <b-container class="section-container services-section">
+            <h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
+            <div class="services-slider">
+                <div class="slide fp-auto-height" v-for="(item, index) in ['K', 'A', 'П', 'C', 'О']" :key="index">
+                    <div class="slider-item d-flex justify-content-end align-items-center">
+                        <div class="text-block">
+                            <span class="letter d-none">{{item}}</span>
+                            <div class="bg-number">{{index + 1}}</div>
+                            <p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
+                            <div class="description">
+                                нескромно про драйвовість, але маєте шанс переконатися <a href="">тут</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Footer link="partners"/>
+        </b-container>
 	</div>
 </template>
 
 <script>
   import bus from '../bus';
+  import Footer from './Footer';
 
   export default {
     name: 'Services',
@@ -32,14 +34,19 @@
     },
 
     mounted() {
-      this.animate();
+      this.animateServices('canvas');
+    },
+
+    components: {
+      Footer
     }
   }
 </script>
 
 <style scoped lang="scss">
 	.services {
-		height: $home-block-height;
+		height: calc(100vh - 200px);
+        position: relative;
 
 		.heading {
 			padding-left: 100px;
@@ -83,12 +90,4 @@
 			}
 		}
 	}
-
-	canvas {
-		display: block;
-		position: absolute;
-		top: 0;
-		background: $white;
-	}
-
 </style>

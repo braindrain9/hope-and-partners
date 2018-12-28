@@ -1,23 +1,27 @@
 <template>
-	<div class="contacts d-flex align-items-center justify-content-around">
-		<div>
-			animation...
-		</div>
-		<div class="mail-block">
-			<h1>напишіть нам листа</h1>
-			<div class="mail-text">
-				<div class="mail">hello@hopeandpartners.com <span v-html="arrowSvg"></span></div>
-				<div class="horizontal-line">
-					<div></div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div>
+        <canvas id="canvas-contacts"></canvas>
+        <b-container class="section-container">
+            <div class="contacts d-flex align-items-center justify-content-end">
+                <div class="mail-block">
+                    <h1>напишіть нам листа</h1>
+                    <div class="mail-text">
+                        <div class="mail">hello@hopeandpartners.com <span v-html="arrowSvg"></span></div>
+                        <div class="horizontal-line">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Footer is-final-mode="true"/>
+        </b-container>
+    </div>
 </template>
 
 <script>
   import bus from '../bus';
   import arrowSvg from '../assets/img/arrow.svg';
+  import Footer from './Footer';
 
   export default {
     name: 'Contacts',
@@ -30,6 +34,14 @@
 
     created: function () {
       bus.$emit('toggleLoading', false);
+    },
+
+    mounted() {
+      this.animateContacts('canvas-contacts');
+    },
+
+    components: {
+      Footer
     }
   }
 </script>

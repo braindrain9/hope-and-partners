@@ -134,120 +134,397 @@ export default {
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     },
 
-    animate: function() {
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      var array = [];
+    animateHero: function(id) {
+      const canvas = document.getElementById(id),
+            ctx = canvas.getContext("2d"),
+            mouse = {x:0,y:0};
 
-      var temp = document.createElement('canvas');
-      var buffer = temp.getContext('2d');
-      var fill = new ImageData(1, 1);
+      var particles = [],
+        amount = 0,
+        radius = 1;
 
-      canvas.width = (window.innerWidth > 500) / 2 ? window.innerWidth / 2 : 500;
-      canvas.height = window.innerHeight > 700 ? window.innerHeight : 700;
+      const colors = ["#F44336"];
 
-      const center = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
+      var ww = canvas.width = window.innerWidth;
+      var wh = canvas.height = window.innerHeight;
 
-      ctx.fillStyle = '#030301';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.globalAlpha = 0.6;
+      function Particle(x,y){
+        this.x =  Math.random()*ww;
+        this.y =  Math.random()*wh;
+        this.dest = {
+          x: x,
+          y: y
+        };
+        this.r =  Math.random()*1.2 + 0.1;
+        this.vx = (Math.random()-0.5)*20;
+        this.vy = (Math.random()-0.5)*20;
+        this.accX = 0;
+        this.accY = 0;
+        this.friction = Math.random()*0.05 + 0.94;
 
-      (function loop() {
-        update();
-        render();
-        requestAnimationFrame(loop);
-      })();
+        this.color = colors[Math.floor(Math.random()*6)];
+      }
 
-      function update() {
-        array.forEach(function (point) {
-          point.update();
-        });
+      Particle.prototype.render = function() {
+        this.accX = (this.dest.x - this.x)/1000;
+        this.accY = (this.dest.y - this.y)/1000;
+        this.vx += this.accX;
+        this.vy += this.accY;
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+
+        this.x += this.vx;
+        this.y +=  this.vy;
+
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+        ctx.fill();
+
+        const a = this.x - mouse.x;
+        const b = this.y - mouse.y;
+
+        const distance = Math.sqrt(a*a + b*b);
+
+        if(distance<(radius*60)){
+          this.accX = (this.x - mouse.x)/100;
+          this.accY = (this.y - mouse.y)/100;
+          this.vx += this.accX;
+          this.vy += this.accY;
+        }
+      };
+
+      function onMouseMove(e){
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }
+
+      function onTouchMove(e){
+        if(e.touches.length > 0 ){
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+        }
+      }
+
+      function onTouchEnd(e){
+        mouse.x = -9999;
+        mouse.y = -9999;
+      }
+
+      function initScene(text){
+        ww = canvas.width = window.innerWidth;
+        wh = canvas.height = window.innerHeight;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "bold 700px Montserrat";
+        ctx.textAlign = "right";
+        ctx.fillText(text, ww/2 - 100, wh/2 + 200);
+
+        const data  = ctx.getImageData(0, 0, ww, wh).data;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "screen";
+
+        particles = [];
+
+        for(let i=0; i<ww; i+=Math.round(ww/250)){
+          for(let j=0; j<wh; j+=Math.round(ww/250)){
+            if(data[((i + j*ww)*4) + 3] > 200){
+              particles.push(new Particle(i,j));
+            }
+          }
+        }
+
+        amount = particles.length;
+      }
+
+      function onMouseClick(){
+        radius++;
+        if (radius === 5) {
+          radius = 0;
+        }
       }
 
       function render() {
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        array.forEach(function (point) {
-          point.render(ctx);
-        });
-      }
-
-      bus.$on('animate', (key) => {
-        init (key);
-      });
-
-      function init(key) {
-        array = [];
-        textToImage(key, 0, 1);
-      }
-
-      function textToImage(key, pos, total) {
-        buffer.clearRect(0, 0, 60, 60);
-        buffer.font = '60px Montserrat';
-        buffer.fillStyle = '#000';
-        buffer.fillText(key, 8, 52);
-
-        const text = buffer.getImageData(0, 0, 60, 60);
-
-        dataToArray(text, pos, total);
-      }
-
-      function dataToArray(text) {
-        const temp = { x: 100, y: center.y - 250};
-
-        for (var i = 0; i < text.data.length; i += 4) {
-          if (text.data[i + 3] > 0) {
-            let x = (i >> 2) % text.width;
-            let y = (i >> 2) / text.width;
-            let point = new Point({ x: (x << 3) + temp.x, y: (y << 3) + temp.y });
-            array.push(point);
-          }
+        requestAnimationFrame(render);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < amount; i++) {
+          particles[i].render();
         }
       }
-      function positionFromRad(rad, length, base) {
-        return { x: length * Math.cos(rad) + base.x, y: length * Math.sin(rad) + base.y };
+
+      bus.$on("animateHero", function(key) {
+        initScene(key);
+      });
+      window.addEventListener("resize", initScene);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("touchmove", onTouchMove);
+      window.addEventListener("click", onMouseClick);
+      window.addEventListener("touchend", onTouchEnd);
+
+      requestAnimationFrame(render);
+    },
+
+    animateContacts: function(id) {
+      const canvas = document.getElementById(id),
+        ctx = canvas.getContext("2d"),
+        mouse = {x:0,y:0};
+
+      var particles = [],
+        amount = 0,
+        radius = 1;
+
+      const colors = ["#fff"];
+
+      var ww = canvas.width = window.innerWidth;
+      var wh = canvas.height = window.innerHeight;
+
+      function Particle(x,y){
+        this.x =  Math.random()*ww;
+        this.y =  Math.random()*wh;
+        this.dest = {
+          x: x,
+          y: y
+        };
+        this.r =  Math.random()*0.5 + 0.1;
+        this.vx = (Math.random()-0.5)*20;
+        this.vy = (Math.random()-0.5)*20;
+        this.accX = 0;
+        this.accY = 0;
+        this.friction = Math.random()*0.05 + 0.94;
+
+        this.color = colors[Math.floor(Math.random()*6)];
       }
 
-      function Point(base) {
-        this.base = base;
-        this.chance1 = Math.random() * 0.06 - 0.03;
-        this.chance2 = Math.random() * 0.2 - 0.1;
-        this.length1 = Math.random() * 20 + 100;
-        this.length2 = Math.random() * 10 + 20;
-        this.speed1 = Math.random() * 0.5 + 1;
-        this.speed2 = Math.random() * 0.1 + 0.5;
-        this.dist1 = Math.random() * 4 + 8;
-        this.dist2 = Math.random() * 4 + 6;
-        this.min1 = Math.random() * -this.dist1;
-        this.min2 = Math.random() * -this.dist2;
-        this.rad1 = Math.random() * Math.PI * 2 + Math.PI * 2;
-        this.rad2 = Math.random() * Math.PI * 2 + Math.PI * 2;
+      Particle.prototype.render = function() {
+        this.accX = (this.dest.x - this.x)/1000;
+        this.accY = (this.dest.y - this.y)/1000;
+        this.vx += this.accX;
+        this.vy += this.accY;
+        this.vx *= this.friction;
+        this.vy *= this.friction;
 
-        const temp = positionFromRad(this.rad1, this.length1, this.base);
+        this.x += this.vx;
+        this.y +=  this.vy;
 
-        this.current = positionFromRad(this.rad2, this.length2, temp);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+        ctx.fill();
 
-        this.update = function() {
-          this.length1 += this.dist1;
-          this.length2 += this.dist2;
-          this.dist1 -= this.dist1 < this.min1 ? 0 : this.speed1;
-          this.dist2 -= this.dist2 < this.min2 ? 0 : this.speed2;
-          this.length1 = this.length1 < 0 ? 2 : this.length1;
-          this.length2 = this.length2 < -2 ? 2 : this.length2;
-          this.rad1 += this.chance1;
-          this.rad2 += this.chance2;
+        const a = this.x - mouse.x;
+        const b = this.y - mouse.y;
 
-          const temp = positionFromRad(this.rad1, this.length1, this.base);
+        const distance = Math.sqrt(a*a + b*b);
 
-          this.current = positionFromRad(this.rad2, this.length2, temp);
-        };
+        if(distance<(radius*60)){
+          this.accX = (this.x - mouse.x)/100;
+          this.accY = (this.y - mouse.y)/100;
+          this.vx += this.accX;
+          this.vy += this.accY;
+        }
+      };
 
-        this.render = function(ctx) {
-          ctx.putImageData(fill, this.current.x, this.current.y);
-        };
-
-        return this;
+      function onMouseMove(e){
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
       }
+
+      function onTouchMove(e){
+        if(e.touches.length > 0 ){
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+        }
+      }
+
+      function onTouchEnd(e){
+        mouse.x = -9999;
+        mouse.y = -9999;
+      }
+
+      function initScene(text){
+        ww = canvas.width = window.innerWidth;
+        wh = canvas.height = window.innerHeight;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "bold 420px Montserrat";
+        ctx.textAlign = "right";
+        ctx.fillText(text, ww/2 - 100, wh/2 + 100);
+
+        const data  = ctx.getImageData(0, 0, ww, wh).data;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "screen";
+
+        particles = [];
+
+        for(let i=0; i<ww; i+=Math.round(ww/250)){
+          for(let j=0; j<wh; j+=Math.round(ww/250)){
+            if(data[((i + j*ww)*4) + 3] > 200){
+              particles.push(new Particle(i,j));
+            }
+          }
+        }
+
+        amount = particles.length;
+      }
+
+      function onMouseClick(){
+        radius++;
+        if (radius === 5) {
+          radius = 0;
+        }
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < amount; i++) {
+          particles[i].render();
+        }
+      }
+
+      bus.$on("animateContacts", function(key) {
+        initScene(key);
+      });
+      window.addEventListener("resize", initScene);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("touchmove", onTouchMove);
+      window.addEventListener("click", onMouseClick);
+      window.addEventListener("touchend", onTouchEnd);
+
+      requestAnimationFrame(render);
+    },
+
+    animateServices: function(id) {
+      const canvas = document.getElementById(id),
+            ctx = canvas.getContext("2d"),
+            mouse = {x:0,y:0};
+
+      var particles = [],
+          amount = 0,
+          radius = 1;
+
+      const colors = ["#fff"];
+
+      var ww = canvas.width = window.innerWidth;
+      var wh = canvas.height = window.innerHeight;
+
+      function Particle(x,y){
+        this.x =  Math.random()*ww;
+        this.y =  Math.random()*wh;
+        this.dest = {
+          x: x,
+          y: y
+        };
+        this.r =  Math.random()*1.2 + 0.1;
+        this.vx = (Math.random()-0.5)*20;
+        this.vy = (Math.random()-0.5)*20;
+        this.accX = 0;
+        this.accY = 0;
+        this.friction = Math.random()*0.05 + 0.94;
+
+        this.color = colors[Math.floor(Math.random()*6)];
+      }
+
+      Particle.prototype.render = function() {
+        this.accX = (this.dest.x - this.x)/1000;
+        this.accY = (this.dest.y - this.y)/1000;
+        this.vx += this.accX;
+        this.vy += this.accY;
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+
+        this.x += this.vx;
+        this.y +=  this.vy;
+
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+        ctx.fill();
+
+        const a = this.x - mouse.x;
+        const b = this.y - mouse.y;
+
+        const distance = Math.sqrt(a*a + b*b);
+
+        if(distance<(radius*60)){
+          this.accX = (this.x - mouse.x)/100;
+          this.accY = (this.y - mouse.y)/100;
+          this.vx += this.accX;
+          this.vy += this.accY;
+        }
+      };
+
+      function onMouseMove(e){
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }
+
+      function onTouchMove(e){
+        if(e.touches.length > 0 ){
+          mouse.x = e.touches[0].clientX;
+          mouse.y = e.touches[0].clientY;
+        }
+      }
+
+      function onTouchEnd(e){
+        mouse.x = -9999;
+        mouse.y = -9999;
+      }
+
+      function initScene(text){
+        ww = canvas.width = window.innerWidth;
+        wh = canvas.height = window.innerHeight;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "bold 420px Montserrat";
+        ctx.textAlign = "right";
+        ctx.fillText(text, ww/2 - 100, wh/2 + 100);
+
+        const data  = ctx.getImageData(0, 0, ww, wh).data;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "screen";
+
+        particles = [];
+
+        for(let i=0; i<ww; i+=Math.round(ww/250)){
+          for(let j=0; j<wh; j+=Math.round(ww/250)){
+            if(data[((i + j*ww)*4) + 3] > 200){
+              particles.push(new Particle(i,j));
+            }
+          }
+        }
+
+        amount = particles.length;
+      }
+
+      function onMouseClick(){
+        radius++;
+        if (radius === 5) {
+          radius = 0;
+        }
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < amount; i++) {
+          particles[i].render();
+        }
+      }
+
+      bus.$on("animateServices", function(key) {
+        initScene(key);
+      });
+      window.addEventListener("resize", initScene);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("touchmove", onTouchMove);
+      window.addEventListener("click", onMouseClick);
+      window.addEventListener("touchend", onTouchEnd);
+
+      requestAnimationFrame(render);
     }
   }
 }

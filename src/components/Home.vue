@@ -1,10 +1,7 @@
 <template>
 	<full-page ref="fullpage" :options="options" id="fullpage">
 			<div class="section">
-				<b-container class="section-container">
-					<Hero/>
-					<Footer link="about"/>
-				</b-container>
+                <Hero/>
 			</div>
 			<div class="section">
 				<b-container class="section-container overflow-container">
@@ -13,10 +10,7 @@
 				</b-container>
 			</div>
 			<div class="section">
-				<b-container class="section-container services-section">
-					<Services/>
-					<Footer link="partners"/>
-				</b-container>
+                <Services/>
 			</div>
 			<div class="section partners-container">
 				<Partners />
@@ -28,10 +22,7 @@
 				</b-container>
 			</div>
 			<div class="section">
-				<b-container class="section-container">
-					<Contacts />
-					<Footer is-final-mode="true"/>
-				</b-container>
+                <Contacts />
 			</div>
 		</full-page>
 </template>
@@ -97,6 +88,9 @@
         }
       },
       afterLoad: function(origin, destination, direction) {
+        bus.$emit('animateContacts', '@');
+        bus.$emit('animateHero', '&');
+
         if(origin) {
           if(origin.anchor === 'about') {
             if(direction === 'down') {
@@ -107,18 +101,14 @@
 
 				if(destination) {
           if(destination.anchor === 'services') {
-            const text = $('.services-slider .slide.active .letter').text();
-
-            bus.$emit('animate', text);
+            bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
             this.$store.commit('updateSliding', true);
           }
 				}
       },
       afterSlideLoad: function() {
         console.log('slide loaded');
-        const text = $('.services-slider .slide.active .letter').text();
-
-        bus.$emit('animate', text);
+        bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
 			}
 		},
 
@@ -134,17 +124,19 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	.section {
 		background: $base-black;
 	}
 
 	.section-container {
 		padding-top: 100px; // compensate fixed header
+        position: relative;
+        z-index: 1;
 
 		&.services-section {
-			padding-top: 150px;
-			position: relative;
+			padding-top: 200px;
+            height: 100%;
 		}
 	}
 

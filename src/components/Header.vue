@@ -1,5 +1,5 @@
 <template>
-	<header>
+	<header :class="{'dark-bg': setDarkBg()}">
 		<b-container>
 			<b-navbar toggleable="md" type="dark">
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
@@ -43,6 +43,15 @@
       }
     },
 
+    methods: {
+      setDarkBg: function() {
+        return this.$route.hash.startsWith('#about')
+          || this.$route.hash.startsWith('#partners')
+          || this.$route.hash.startsWith('#cases')
+          || this.$route.name === 'bio';
+      }
+    },
+
     computed: {
       filteredNavLinks: function () {
         return this.navLinks.filter(link => !link.hidden);
@@ -55,9 +64,12 @@
 	header {
 		width: 100%;
 		position: fixed;
-		background: $base-black;
 		padding: 20px 0;
 		z-index: 1;
+
+        &.dark-bg {
+            background: $base-black;
+        }
 
 		.navbar {
 			padding: 0;
