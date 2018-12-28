@@ -3,10 +3,12 @@
 		<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
 
 		<div class="services-slider">
+			<canvas id="canvas"></canvas>
+
 			<div class="slide fp-auto-height" v-for="i in 5" :key="i">
-				<div class="slider-item d-flex justify-content-center align-items-center">
-					<div>animation...</div>
+				<div class="slider-item d-flex justify-content-end align-items-center">
 					<div class="text-block">
+						<span class="letter d-none">А</span>
 						<div class="bg-number">{{i}}</div>
 						<p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
 						<div class="description">
@@ -27,6 +29,10 @@
 
     created: function () {
       bus.$emit('toggleLoading', false);
+    },
+
+    mounted() {
+      this.animate();
     }
   }
 </script>
@@ -37,6 +43,8 @@
 
 		.heading {
 			padding-left: 100px;
+			position: relative;
+			z-index: 1;
 		}
 
 		.services-slider {
@@ -75,4 +83,12 @@
 			}
 		}
 	}
+
+	canvas {
+		display: block;
+		position: absolute;
+		top: 0;
+		background: $white;
+	}
+
 </style>

@@ -13,7 +13,7 @@
 				</b-container>
 			</div>
 			<div class="section">
-				<b-container class="section-container about-section">
+				<b-container class="section-container services-section">
 					<Services/>
 					<Footer link="partners"/>
 				</b-container>
@@ -45,6 +45,8 @@
   import Cases from './Cases';
   import Contacts from './Contacts';
   import Footer from './Footer';
+  // import * as Three from 'three';
+  // import {TweenMax, Power2, Elastic} from "gsap/TweenMax";
 
   export default {
     name: 'Home',
@@ -59,7 +61,8 @@
           controlArrows: false,
 					onLeave: this.onLeave,
           afterLoad: this.afterLoad,
-          onSlideLeave: this.onSlideLeave
+          onSlideLeave: this.onSlideLeave,
+          afterSlideLoad: this.afterSlideLoad
         }
 			}
 		},
@@ -104,10 +107,19 @@
 
 				if(destination) {
           if(destination.anchor === 'services') {
+            const text = $('.services-slider .slide.active .letter').text();
+
+            bus.$emit('animate', text);
             this.$store.commit('updateSliding', true);
           }
 				}
-      }
+      },
+      afterSlideLoad: function() {
+        console.log('slide loaded');
+        const text = $('.services-slider .slide.active .letter').text();
+
+        bus.$emit('animate', text);
+			}
 		},
 
 		components: {
@@ -130,8 +142,9 @@
 	.section-container {
 		padding-top: 100px; // compensate fixed header
 
-		&.about-section {
+		&.services-section {
 			padding-top: 150px;
+			position: relative;
 		}
 	}
 

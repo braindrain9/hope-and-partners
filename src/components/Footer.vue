@@ -55,6 +55,8 @@
 		width: 100%;
 		margin: 40px 0 60px;
 		font-size: $tiny-font-size;
+		position: relative;
+		z-index: 100;
 
 		.footer-content {
 			height: 50px;
