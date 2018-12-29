@@ -64,7 +64,7 @@
 	header {
 		width: 100%;
 		position: fixed;
-		padding: 20px 0;
+		padding: 40px 0 20px;
 		z-index: 1;
 
 		&.dark-bg {
