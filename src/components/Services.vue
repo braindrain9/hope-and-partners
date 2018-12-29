@@ -4,7 +4,7 @@
 		<b-container class="section-container services-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
 				<div class="services-slider">
-					<div class="slide fp-auto-height" v-for="(item, index) in ['K', 'A', 'П', 'C', 'О']" :key="index">
+					<div class="slide fp-auto-height" v-for="(item, index) in ['K']" :key="index">
 						<div class="slider-item d-flex justify-content-end align-items-center">
 							<div class="text-block">
 								<span class="letter d-none">{{item}}</span>

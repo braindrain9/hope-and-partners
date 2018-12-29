@@ -1,30 +1,87 @@
 <template>
-	<full-page ref="fullpage" :options="options" id="fullpage">
+	<!--<full-page ref="fullpage" :options="options" id="fullpage">-->
+			<!--<div class="section">-->
+				<!--<Hero/>-->
+			<!--</div>-->
+			<!--<div class="section">-->
+				<!--<b-container class="section-container overflow-container">-->
+					<!--<About />-->
+					<!--<Footer link="services"/>-->
+				<!--</b-container>-->
+			<!--</div>-->
+			<!--<div class="section">-->
+				<!--<Services/>-->
+			<!--</div>-->
+			<!--<div class="section partners-container">-->
+				<!--<Partners />-->
+			<!--</div>-->
+			<!--<div class="section">-->
+				<!--<b-container class="section-container">-->
+					<!--<Cases />-->
+					<!--<Footer link="contacts"/>-->
+				<!--</b-container>-->
+			<!--</div>-->
+			<!--<div class="section">-->
+				<!--<Contacts />-->
+			<!--</div>-->
+		<!--</full-page>-->
+	<div>
+
+		<div id="skrollr-body">
+
 			<div class="section">
 				<Hero/>
 			</div>
-			<div class="section">
+
+			<div>
 				<b-container class="section-container overflow-container">
 					<About />
 					<Footer link="services"/>
 				</b-container>
 			</div>
+
 			<div class="section">
 				<Services/>
 			</div>
-			<div class="section partners-container">
-				<Partners />
-			</div>
+
+			<div class="gallery"></div>
+
 			<div class="section">
 				<b-container class="section-container">
 					<Cases />
 					<Footer link="contacts"/>
 				</b-container>
 			</div>
+
 			<div class="section">
 				<Contacts />
 			</div>
-		</full-page>
+	</div>
+
+	<div class="scroll-pause" data-anchor-target=".gallery" data-100p-top-top="transform:translateY(100%);"
+			 data-top-top="transform:translateY(0%)" data--150p-top-top="" data--300p-top-top="transform:translateY(-100%)">
+
+		<div class="row" data-anchor-target=".gallery" data-top-top="transform: translateX(0%);" data--150p-top-top="transform: translateX(-50%);">
+			<Partners />
+		</div>
+
+
+		<!--<div class="row" data-anchor-target=".gallery" data-top-top="transform: translateX(-50%);" data&#45;&#45;150p-top-top="transform: translateX(0);">-->
+
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+			<!--<div>amigo</div>-->
+
+		<!--</div>-->
+
+	</div>
+
+	</div>
 </template>
 
 <script>
@@ -36,6 +93,8 @@
   import Cases from './Cases';
   import Contacts from './Contacts';
   import Footer from './Footer';
+
+  import Scrollr from 'skrollr';
   // import * as Three from 'three';
   // import {TweenMax, Power2, Elastic} from "gsap/TweenMax";
 
@@ -61,6 +120,10 @@
     created: function () {
       bus.$emit('toggleLoading', false);
     },
+
+		mounted() {
+      Scrollr.init();
+		},
 
 		methods: {
       onLeave: function(origin, destination, direction) {
@@ -132,6 +195,7 @@
 <style lang="scss">
 	.section {
 		background: $base-black;
+		height: 100vh;
 	}
 
 	.section-container {
@@ -148,5 +212,104 @@
 	.overflow-container {
 		// switch to new section does not allow to see a footer
 		padding-bottom: 100px;
+	}
+
+	.skrollr-desktop body {
+		height:100% !important;
+	}
+
+	#skrollr-body {
+		height:100%;
+		position:relative;
+		overflow: hidden;
+	}
+
+	.no-skrollr .parallax-image-wrapper {
+		display:none !important;
+	}
+
+	.parallax-image-wrapper {
+		position:fixed;
+		left:0;
+		width:100%;
+		overflow:hidden;
+
+		height:80vh;
+		top:-80vh;
+	}
+
+
+	.parallax-image {
+		display:none;
+		position:absolute;
+		bottom:0;
+		left:0;
+		width:100%;
+		background-repeat:no-repeat;
+		background-position:center;
+		background-size:cover;
+
+		height:100vh;
+		top:0;
+	}
+
+
+	.parallax-image.skrollable-between {
+		display:block;
+	}
+
+	.no-skrollr .parallax-image-wrapper {
+		display:none !important;
+	}
+
+	/*  End of scrollr styles   */
+
+	/*Body Text*/
+
+	/*Gallery*/
+
+
+	.gallery{
+		color: #221f51;
+		font: normal 24px sans-serif;
+		min-height: 4500px;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.scroll-pause{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		/*padding-top: 20vh;*/
+		/*background: transparent;*/
+	}
+
+
+	.scroll-pause .row{
+		/*width: 200vw;*/
+		/*height: 30vh;*/
+		/*overflow: hidden;*/
+	}
+
+	.scroll-pause .row div{
+		/*width: 11.5%;*/
+		/*height: 90%;*/
+		/*float: left;*/
+		/*background-repeat: no-repeat;*/
+		/*background-position: center;*/
+		/*background-size: cover;*/
+		/*margin: 0.5%;*/
+		/*border-radius: 10px;*/
+	}
+
+	.scroll-pause .row div:first-child{
+		/*margin-left: 0.4%;*/
+	}
+
+	.scroll-pause .row div:last-child{
+		/*margin-right: 0.4%;*/
 	}
 </style>

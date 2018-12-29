@@ -1,6 +1,6 @@
 <template>
 	<div class="partners">
-		<h1 class="heading heading-main position-fixed partners-heading">партнери<span class="orange-color">:</span></h1>
+		<h1 class="heading heading-main partners-heading">партнери<span class="orange-color">:</span></h1>
 
 		<div id="realcontent">
 			<div class="partners-slider">
@@ -93,7 +93,7 @@
 			</Footer>
 		</div>
 
-		<div id="fakecontent"></div>
+		<!--<div id="fakecontent"></div>-->
 	</div>
 </template>
 
@@ -247,10 +247,10 @@
 	#realcontent {
 		padding-top: 300px;
 		/*padding-left: 200px;*/
-		position: fixed;
-		top: 0;
-		height: 877px;
-		left: 0;
+		/*position: fixed;*/
+		/*top: 0;*/
+		/*height: 877px;*/
+		/*left: 0;*/
 		width: 100%;
 		white-space: nowrap;
 		color: #fff;
