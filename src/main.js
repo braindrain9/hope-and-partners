@@ -16,6 +16,8 @@ import 'fullpage.js/dist/fullpage.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import 'animate.css';
+
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import BootstrapVue from 'bootstrap-vue';

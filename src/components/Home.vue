@@ -167,8 +167,13 @@
           bus.$emit('animateServices', text.text());
 				}
 
-        if(section && section.anchor === 'partners' && destination) {
-          $(".progress-bar").css("width", ((destination.index + 1) / this.partners.length) * 100 + '%');
+				if(section && destination) {
+          if(section.anchor === 'partners') {
+            $(".partners-progress .progress-bar").css("width", ((destination.index + 1) / this.partners.length) * 100 + '%');
+          }
+          if(section.anchor === 'services') {
+            $(".services-progress .progress-bar").css("height", ((destination.index + 1) / this.services.length) * 100 + '%');
+          }
 				}
 			}
 		},

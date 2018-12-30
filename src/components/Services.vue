@@ -3,20 +3,35 @@
 		<canvas id="canvas"></canvas>
 		<b-container class="section-container padding-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
-				<div class="services-slider">
-					<div class="slide fp-auto-height" v-for="(item, index) in services" :key="index">
-						<div class="slider-item d-flex justify-content-end align-items-center">
-							<div class="text-block">
-								<span class="letter d-none">{{item.letter}}</span>
-									<div class="bg-number">{{index + 1}}</div>
-									<p>{{item.title}}</p>
-									<div class="description" v-html="item.description"></div>
-								</div>
+
+			<div class="services-slider">
+				<div class="slide fp-auto-height" v-for="(service, index) in services" :key="index">
+					<div class="slider-item d-flex justify-content-end align-items-center">
+						<div class="text-block">
+							<span class="letter d-none">{{service.letter}}</span>
+								<div class="bg-number">{{index + 1}}</div>
+								<p>{{service.title}}</p>
+								<div class="description" v-html="service.description"></div>
 							</div>
 						</div>
 					</div>
-				<Footer link="partners"/>
-			</b-container>
+				</div>
+
+			<div class="progress-container">
+			<div class="progress services-progress progress-bar-vertical">
+				<div
+						class="progress-bar"
+						role="progressbar"
+						:style="{height: (1 / services.length * 100) + '%'}"
+						:aria-valuenow="(1 / services.length * 100) + '%'"
+						aria-valuemin="0"
+						aria-valuemax="100"
+				></div>
+			</div>
+		</div>
+
+			<Footer link="partners"/>
+		</b-container>
 	</div>
 </template>
 
@@ -55,6 +70,7 @@
 
 		.services-slider {
 			height: calc(100% - 100px);
+			padding-right: 100px;
 			width: 100%;
 
 			.text-block {
@@ -88,5 +104,36 @@
 				}
 			}
 		}
+	}
+
+	.progress-container {
+		position: absolute;
+		height: 100%;
+		width: 20px;
+		right: 0;
+		top: 30vh;
+	}
+
+	.progress-bar-vertical {
+		width: 2px;
+		background: $grey;
+		min-height: 100px;
+		height: 265px;
+		margin-right: 20px;
+		float: left;
+		display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+		display: -ms-flexbox;  /* TWEENER - IE 10 */
+		display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+		display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+		align-items: flex-end;
+		-webkit-align-items: flex-end; /* Safari 7.0+ */
+	}
+
+	.progress-bar-vertical .progress-bar {
+		width: 2px;
+		background: $orange;
+		-webkit-transition: all 0.7s ease;
+		-o-transition: all 0.7s ease;
+		transition: all 0.7s ease;
 	}
 </style>
