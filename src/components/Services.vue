@@ -10,9 +10,7 @@
 								<span class="letter d-none">{{item.letter}}</span>
 									<div class="bg-number">{{index + 1}}</div>
 									<p>{{item.title}}</p>
-									<div class="description">
-										{{item.description}}
-									</div>
+									<div class="description" v-html="item.description"></div>
 								</div>
 							</div>
 						</div>
