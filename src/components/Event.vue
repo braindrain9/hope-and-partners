@@ -1,13 +1,17 @@
 <template>
-	<div class="description">
-		<div class="category-title">наступна зустріч</div>
-		<div class="text light-grey-color">projector - 05 жовтня</div>
-		<span class="text">
-				поговоримо про те, як перезапускати успішні продукти
-				з великою базою користувачів у догодити всім.<br/>
-				Реєстрація: <a href="http://bit.ly/2PFuA4S">http://bit.ly/2PFuA4S</a>
-			</span>
-	</div>
+	<div class="event-container">
+		<b-container>
+			<div class="description">
+				<div class="category-title">наступна зустріч</div>
+					<div class="text light-grey-color">projector - 05 жовтня</div>
+					<span class="text">
+					поговоримо про те, як перезапускати успішні продукти
+					з великою базою користувачів у догодити всім.<br/>
+					Реєстрація: <a href="http://bit.ly/2PFuA4S">http://bit.ly/2PFuA4S</a>
+				</span>
+				</div>
+			</b-container>
+		</div>
 </template>
 
 <script>
@@ -23,18 +27,26 @@
 </script>
 
 <style scoped lang="scss">
-	.description {
-		.category-title {
-			font-weight: 500;
-			line-height: 21px;
-			letter-spacing: $base-spacing;
-			font-size: $small-font-size;
-			color: $white;
+	.event-container {
+		padding: 140px 0 40px;
+
+		.container {
+			max-width: 900px;
 		}
 
-		.text {
-			font-weight: 500;
-			font-size: 32px;
+		.description {
+			.category-title {
+				font-weight: 500;
+				line-height: 21px;
+				letter-spacing: $base-spacing;
+				font-size: $small-font-size;
+				color: $white;
+			}
+
+			.text {
+				font-weight: 500;
+				font-size: 32px;
+			}
 		}
 	}
 </style>

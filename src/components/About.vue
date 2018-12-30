@@ -14,7 +14,7 @@
 
 					<br />
 					<br />
-					
+
 					Зараз усвідомлено розвиваю агентство Нope&Partners, викладаю і виступаю як бізнес-спікер.
 
 					<br />
@@ -51,7 +51,7 @@
 <style scoped lang="scss">
 	.about {
 		> div {
-			margin-bottom: 200px;
+			margin-bottom: 100px;
 		}
 
 		.about-img {

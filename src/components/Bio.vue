@@ -143,11 +143,7 @@
 				</div>
 			</b-container>
 		</div>
-		<div class="event-container">
-			<b-container>
-				<Event />
-			</b-container>
-		</div>
+		<Event />
 	</div>
 </template>
 
@@ -234,14 +230,6 @@
 						margin-bottom: 15px;
 					}
 				}
-			}
-		}
-
-		.event-container {
-			padding: 160px 0 40px;
-
-			.container {
-				max-width: 920px;
 			}
 		}
 	}
