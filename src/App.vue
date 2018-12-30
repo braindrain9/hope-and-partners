@@ -45,7 +45,7 @@
       return {
         error: '',
         loadingOn: true,
-        loadingMessage: 'Loading WP Vue',
+        loadingMessage: 'Hope & Partners',
         loadingWheel: true,
         showUpdater: false,
         viewKey: 0

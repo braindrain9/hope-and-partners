@@ -3,23 +3,17 @@
 		<b-container class="section-container padding-section">
 			<h1 class="heading heading-main">партнери<span class="orange-color">:</span></h1>
 			<div class="partners-slider">
-				<div class="slide fp-auto-height" v-for="(item, index) in [1, 2, 3, 4]" :key="index">
+				<div class="slide fp-auto-height" v-for="(partner, index) in partners" :key="index">
 					<div class="d-flex">
 							<div class="photo-block">
-								<div class="bg-number">1</div>
+								<div class="bg-number">{{index + 1}}</div>
 								<img class="photo" src="../assets/images/12.jpg" alt="">
 								<div class="bg-box"></div>
 							</div>
 							<div class="description-block">
-								<h2 class="heading">Нік Данилюк</h2>
-								<div class="occupation">політолог</div>
-								<div class="description">
-									Ph.D Школи управління ім. Джона Ф. Кеннеді при Гарвардському університеті.
-									Директор аналітичного центру «Політика», консультант виборчих кампаній та GR.
-									Автор книг «Як працює путінська пропаганда» і «Сценарії майбутнього України».
-									Cміливий у прогнозах, відвертий щодо справ у реальності. Микола допомагає побачити зв’язок між світовим і
-									локальним суспільно-політичним контекстами та їх вплив на ваш проект. Любитель іспанського вина та цинічного гумору.
-								</div>
+								<h2 class="heading">{{partner.name}}</h2>
+								<div class="occupation">{{partner.occupation}}</div>
+								<div class="description" v-if="partner.description" v-html="partner.description"></div>
 							</div>
 						</div>
 				</div>
@@ -27,15 +21,17 @@
 			<Footer link="cases">
 				<template slot="progress-bar">
 					<div class="progress-container">
-						<div class="desc">Оленка</div>
-						<div class="desc">Оленка</div>
-						<div class="desc">Оленка</div>
+						<div class="d-flex justify-content-around desc">
+							<a :href="'#partners/' + index" class="grey-color-link" v-for="(partner, index) in partners" :key="index">
+								{{partner.firstName}}
+							</a>
+						</div>
 						<div class="progress">
 							<div
 									class="progress-bar"
 									role="progressbar"
-									style="width: 600px;"
-									aria-valuenow="25"
+									:style="{width: (1 / partners.length * 100) + '%'}"
+									:aria-valuenow="(1 / partners.length * 100) + '%'"
 									aria-valuemin="0"
 									aria-valuemax="100"
 							></div>
@@ -54,11 +50,7 @@
 	export default {
 	  name: 'Partners',
 
-		data() {
-	    return {
-        footerPaddingLeft: 50
-			}
-		},
+		props: ['partners'],
 
     created: function () {
       bus.$emit('toggleLoading', false);
@@ -81,7 +73,7 @@
 		.partners-slider {
 			height: calc(100% - 100px);
 			width: 100%;
-			padding: 50px 0 0 150px;
+			padding: 50px 0 0 120px;
 		}
 
 		.heading {
@@ -89,7 +81,7 @@
 		}
 
 		.photo-block {
-			width: 400px;
+			width: 450px;
 			position: relative;
 
 			.bg-number {
@@ -103,7 +95,7 @@
 
 			.photo {
 				position: relative;
-				left: 75px;
+				left: 90px;
 				z-index: 1;
 				/*-webkit-box-shadow: 13px 30px 0px 6px rgba(30,30,30,1);*/
 				/*-moz-box-shadow: 13px 30px 0px 6px rgba(30,30,30,1);*/
@@ -112,7 +104,7 @@
 
 			.bg-box {
 				width: 307px;
-				left: 65px;
+				left: 80px;
 				background: #1E1E1E;
 				height: 354px;
 				position: absolute;
@@ -144,12 +136,8 @@
 	.progress-container {
 		width: calc(100% - 300px);
 
-		> .desc {
-			text-align: center;
-			width: calc((100% - 300px) / 3);
-			display: inline-block;
-			line-height: 28px;
-			font-size: 18px;
+		.desc {
+			font-size: 12px;
 			padding-bottom: 5px;
 		}
 	}

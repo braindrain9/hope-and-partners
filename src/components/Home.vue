@@ -13,7 +13,7 @@
 				<Services :services="services"/>
 			</div>
 			<div class="section partners-container">
-				<Partners />
+				<Partners :partners="partners"/>
 			</div>
 			<div class="section">
 				<b-container class="section-container">
@@ -46,6 +46,7 @@
       return {
         loaded: false,
         services: [],
+        partners: [],
         options: {
           menu: '#menu',
           anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
@@ -61,10 +62,15 @@
 		},
 
     beforeRouteEnter (to, from, next) {
-      $.getJSON('/static/services.json', function (data) {
-        next(vm => {
-          vm.loaded = true;
-          vm.services = data
+      document.title = 'Hope & Partners';
+
+      $.getJSON('/static/services.json', function (services) {
+        $.getJSON('/static/partners.json', function (partners) {
+          next(vm => {
+            vm.services = services;
+            vm.partners = partners;
+            vm.loaded = true;
+          })
         })
       });
     },
@@ -124,29 +130,36 @@
         if(origin) {
           if(origin.anchor === 'about') {
             if(direction === 'down') {
-              this.goToServicesFirstSlide();
+              fullpage_api.moveTo('services', 0);
+              // this.goToServicesFirstSlide();
             }
           }
           if(origin.anchor === 'cases') {
             if(direction === 'up') {
-              this.goToPartnersFirstSlide();
+              fullpage_api.moveTo('partners', 0);
+              // this.goToPartnersFirstSlide();
             }
           }
           if(origin.anchor === 'services') {
             if(direction === 'down') {
-              this.goToPartnersFirstSlide();
+              fullpage_api.moveTo('partners', 0);
+              // this.goToPartnersFirstSlide();
             }
           }
 				}
 
 				if(destination) {
 					if (destination.anchor === 'services') {
-						bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
+            const text = $('.services-slider .slide.active .letter');
+
+            if(text) {
+              bus.$emit('animateServices', text.text());
+            }
+
 						this.$store.commit('updateSliding', true);
 					}
 
           if (destination.anchor === 'partners') {
-            bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
             this.$store.commit('updateSlidingPartners', true);
           }
 
@@ -155,8 +168,16 @@
 					}
 				}
       },
-      afterSlideLoad: function() {
-        bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
+      afterSlideLoad: function(section, origin, destination) {
+        const text = $('.services-slider .slide.active .letter');
+
+        if (text) {
+          bus.$emit('animateServices', text.text());
+				}
+
+        if(section && section.anchor === 'partners' && destination) {
+          $(".progress-bar").css("width", ((destination.index + 1) / this.partners.length) * 100 + '%');
+				}
 			}
 		},
 
