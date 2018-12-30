@@ -131,19 +131,11 @@
           if(origin.anchor === 'about') {
             if(direction === 'down') {
               fullpage_api.moveTo('services', 0);
-              // this.goToServicesFirstSlide();
-            }
-          }
-          if(origin.anchor === 'cases') {
-            if(direction === 'up') {
-              fullpage_api.moveTo('partners', 0);
-              // this.goToPartnersFirstSlide();
             }
           }
           if(origin.anchor === 'services') {
             if(direction === 'down') {
               fullpage_api.moveTo('partners', 0);
-              // this.goToPartnersFirstSlide();
             }
           }
 				}
