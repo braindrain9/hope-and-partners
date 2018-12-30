@@ -7,7 +7,7 @@
 					<div class="d-flex">
 							<div class="photo-block">
 								<div class="bg-number">{{index + 1}}</div>
-								<img class="photo" src="../assets/images/12.jpg" alt="">
+								<div class="photo" :style="{'background-image': 'url(src/assets/partners/' + partner.imageUrl + ')'}"></div>
 								<div class="bg-box"></div>
 							</div>
 							<div class="description-block">
@@ -97,9 +97,20 @@
 				position: relative;
 				left: 90px;
 				z-index: 1;
+				width: 320px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 400px;
+				transition: all .7s ease;
 				/*-webkit-box-shadow: 13px 30px 0px 6px rgba(30,30,30,1);*/
 				/*-moz-box-shadow: 13px 30px 0px 6px rgba(30,30,30,1);*/
 				/*box-shadow: 13px 30px 0px 6px rgba(30,30,30,1);*/
+
+				&:hover {
+					-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+					filter: grayscale(100%);
+				}
 			}
 
 			.bg-box {
