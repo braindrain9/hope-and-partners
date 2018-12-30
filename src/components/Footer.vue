@@ -4,7 +4,7 @@
 			v-if="isFinalMode"
 			class="bordered footer-content d-flex justify-content-between align-items-end"
 		>
-			<div>&copy; 2018. hope & partners</div>
+			<div>&copy; дві тисячі дев'ятнадцятий. hope & partners</div>
 			<div>Made in Cosmos Studio</div>
 		</div>
 		<div v-else class="footer-content d-flex justify-content-between align-items-end">
