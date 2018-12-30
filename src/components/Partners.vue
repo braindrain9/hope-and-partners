@@ -7,7 +7,7 @@
 					<div class="d-flex">
 							<div class="photo-block">
 								<div class="bg-number">{{index + 1}}</div>
-								<div class="photo" :style="{'background-image': 'url(src/assets/partners/' + partner.imageUrl + ')'}"></div>
+								<div class="photo" :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"></div>
 								<div class="bg-box"></div>
 							</div>
 							<div class="description-block">
@@ -26,7 +26,7 @@
 								{{partner.firstName}}
 							</a>
 						</div>
-						<div class="progress">
+						<div class="progress partners-progress">
 							<div
 									class="progress-bar"
 									role="progressbar"

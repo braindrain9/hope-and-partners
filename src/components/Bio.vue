@@ -19,10 +19,10 @@
 			<b-container>
 				<div class="row">
 					<div class="photo-block col-md-5 col-sm-6">
-						<div class="photo" :style="{'background-image': 'url(src/assets/bio/bio1.png)'}"></div>
-						<div class="photo" :style="{'background-image': 'url(src/assets/bio/1.jpg)'}"></div>
-						<div class="photo" :style="{'background-image': 'url(src/assets/bio/3.jpg)'}"></div>
-						<div class="photo" :style="{'background-image': 'url(src/assets/bio/4.jpg)'}"></div>
+						<div class="photo"></div>
+						<div class="photo"></div>
+						<div class="photo"></div>
+						<div class="photo"></div>
 					</div>
 					<div class="description-block col-md-7 col-sm-6">
 						<div class="description description-dark">
@@ -217,6 +217,22 @@
 					background-position: center;
 					background-size: cover;
 					margin-bottom: 40px;
+
+					&:first-child {
+						background-image: url(../assets/bio/bio1.png);
+					}
+
+					&:nth-child(2) {
+						background-image: url(../assets/bio/1.jpg);
+					}
+
+					&:nth-child(3) {
+						background-image: url(../assets/bio/3.jpg);
+					}
+
+					&:nth-child(4) {
+						background-image: url(../assets/bio/4.jpg);
+					}
 				}
 			}
 
