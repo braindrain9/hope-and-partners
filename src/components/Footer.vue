@@ -1,24 +1,22 @@
 <template>
 	<footer>
-		<div :class="{container: !isFullWidthMode}">
-			<div
-				v-if="isFinalMode"
-				class="bordered footer-content d-flex justify-content-between align-items-end"
-			>
+		<div
+			v-if="isFinalMode"
+			class="bordered footer-content d-flex justify-content-between align-items-end"
+		>
 			<div>&copy; 2018. hope & partners</div>
 			<div>Made in Cosmos Studio</div>
 		</div>
-			<div v-else class="footer-content d-flex justify-content-between align-items-end">
-			<div>
-				<a v-on:click="goToSection(currentLink.path)" class="menu-link">
-					<span class="divider d-inline-block"></span>
-					<span class="link-text grey-color-link d-inline-block">{{currentLink.title}}</span>
-				</a>
-			</div>
-			<slot name="progress-bar"></slot>
-			<div>hello@hopeandpartners.com</div>
+		<div v-else class="footer-content d-flex justify-content-between align-items-end">
+		<div>
+			<a v-on:click="goToSection(currentLink.path)" class="menu-link">
+				<span class="divider d-inline-block"></span>
+				<span class="link-text grey-color-link d-inline-block">{{currentLink.title}}</span>
+			</a>
 		</div>
-		</div>
+		<slot name="progress-bar"></slot>
+		<div>hello@hopeandpartners.com</div>
+	</div>
 	</footer>
 </template>
 

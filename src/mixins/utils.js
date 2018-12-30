@@ -186,9 +186,9 @@ export default {
 
         const distance = Math.sqrt(a*a + b*b);
 
-        if(distance<(radius*60)){
-          this.accX = (this.x - mouse.x)/100;
-          this.accY = (this.y - mouse.y)/100;
+        if(distance<(radius*50)){
+          this.accX = (this.x - mouse.x)/150;
+          this.accY = (this.y - mouse.y)/150;
           this.vx += this.accX;
           this.vy += this.accY;
         }
@@ -211,7 +211,9 @@ export default {
         mouse.y = -9999;
       }
 
-      function initScene(text){
+      function initScene(){
+        const text = '&';
+
         ww = canvas.width = window.innerWidth;
         wh = canvas.height = window.innerHeight;
 
@@ -253,8 +255,8 @@ export default {
         }
       }
 
-      bus.$on("animateHero", function(key) {
-        initScene(key);
+      bus.$on("animateHero", function() {
+        initScene();
       });
       window.addEventListener("resize", initScene);
       window.addEventListener("mousemove", onMouseMove);
@@ -274,21 +276,21 @@ export default {
         amount = 0,
         radius = 1;
 
-      const colors = ["#fff"];
+      const colors = ["#ccc"];
 
       var ww = canvas.width = window.innerWidth;
       var wh = canvas.height = window.innerHeight;
 
       function Particle(x,y){
-        this.x =  Math.random()*ww;
-        this.y =  Math.random()*wh;
+        this.x = x + (Math.random()-0.5)*10;
+        this.y = y + (Math.random()-0.5)*10;
         this.dest = {
           x: x,
           y: y
         };
         this.r =  Math.random()*0.5 + 0.1;
-        this.vx = (Math.random()-0.5)*20;
-        this.vy = (Math.random()-0.5)*20;
+        this.vx = (Math.random()-0.5)*10;
+        this.vy = (Math.random()-0.5)*10;
         this.accX = 0;
         this.accY = 0;
         this.friction = Math.random()*0.05 + 0.94;
@@ -317,7 +319,7 @@ export default {
 
         const distance = Math.sqrt(a*a + b*b);
 
-        if(distance<(radius*60)){
+        if(distance<(radius*40)){
           this.accX = (this.x - mouse.x)/100;
           this.accY = (this.y - mouse.y)/100;
           this.vx += this.accX;
@@ -342,7 +344,9 @@ export default {
         mouse.y = -9999;
       }
 
-      function initScene(text){
+      function initScene(){
+        const text = '@';
+
         ww = canvas.width = window.innerWidth;
         wh = canvas.height = window.innerHeight;
 
@@ -384,8 +388,8 @@ export default {
         }
       }
 
-      bus.$on("animateContacts", function(key) {
-        initScene(key);
+      bus.$on("animateContacts", function() {
+        initScene();
       });
       window.addEventListener("resize", initScene);
       window.addEventListener("mousemove", onMouseMove);
@@ -405,21 +409,21 @@ export default {
           amount = 0,
           radius = 1;
 
-      const colors = ["#fff"];
+      const colors = ["#ccc"];
 
       var ww = canvas.width = window.innerWidth;
       var wh = canvas.height = window.innerHeight;
 
       function Particle(x,y){
-        this.x =  Math.random()*ww;
-        this.y =  Math.random()*wh;
+        this.x = x + ((Math.random()-0.5) * 20);
+        this.y = y + ((Math.random()-0.5) * 20);
         this.dest = {
           x: x,
           y: y
         };
         this.r =  Math.random()*1.2 + 0.1;
-        this.vx = (Math.random()-0.5)*20;
-        this.vy = (Math.random()-0.5)*20;
+        this.vx = (Math.random()-0.5)*5;
+        this.vy = (Math.random()-0.5)*5;
         this.accX = 0;
         this.accY = 0;
         this.friction = Math.random()*0.05 + 0.94;
@@ -448,9 +452,9 @@ export default {
 
         const distance = Math.sqrt(a*a + b*b);
 
-        if(distance<(radius*60)){
-          this.accX = (this.x - mouse.x)/100;
-          this.accY = (this.y - mouse.y)/100;
+        if(distance<(radius*50)){
+          this.accX = (this.x - mouse.x)/150;
+          this.accY = (this.y - mouse.y)/150;
           this.vx += this.accX;
           this.vy += this.accY;
         }
@@ -481,7 +485,7 @@ export default {
 
         ctx.font = "bold 420px Montserrat";
         ctx.textAlign = "right";
-        ctx.fillText(text, ww/2 - 100, wh/2 + 100);
+        ctx.fillText(text, ww/2 - 100, wh/2 + 150);
 
         const data  = ctx.getImageData(0, 0, ww, wh).data;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -489,9 +493,9 @@ export default {
 
         particles = [];
 
-        for(let i=0; i<ww; i+=Math.round(ww/250)){
-          for(let j=0; j<wh; j+=Math.round(ww/250)){
-            if(data[((i + j*ww)*4) + 3] > 200){
+        for(let i=0; i<ww; i+=Math.round(ww/150)){
+          for(let j=0; j<wh; j+=Math.round(wh/150)){
+            if(data[((i + j*ww)*4) + 3] > 50){
               particles.push(new Particle(i,j));
             }
           }
@@ -518,7 +522,9 @@ export default {
       bus.$on("animateServices", function(key) {
         initScene(key);
       });
-      window.addEventListener("resize", initScene);
+      window.addEventListener("resize", function() {
+        initScene('K');
+      });
       window.addEventListener("mousemove", onMouseMove);
       window.addEventListener("touchmove", onTouchMove);
       window.addEventListener("click", onMouseClick);

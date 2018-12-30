@@ -24,7 +24,9 @@
 
 		</div>
 
-		<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>
+		<b-container>
+			<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>
+		</b-container>
   </div>
 </template>
 
