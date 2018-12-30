@@ -158,6 +158,10 @@
       bus.$emit('toggleLoading', false);
     },
 
+		mounted() {
+      document.title = 'Hope & Partners / Bio';
+		},
+
 		components: {
       Event
 		}

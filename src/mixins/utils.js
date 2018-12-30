@@ -124,6 +124,7 @@ export default {
 
     goToSection: function(hash) {
       this.$store.commit('updateSliding', false);
+      this.$store.commit('updateSlidingPartners', false);
       location.href = hash;
     },
 
