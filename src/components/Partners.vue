@@ -1,78 +1,30 @@
 <template>
 	<div class="partners">
-		<h1 class="heading heading-main position-fixed partners-heading">партнери<span class="orange-color">:</span></h1>
-
-		<div id="realcontent">
+		<b-container class="section-container padding-section">
+			<h1 class="heading heading-main">партнери<span class="orange-color">:</span></h1>
 			<div class="partners-slider">
-				<div class="partner-item">
+				<div class="slide fp-auto-height" v-for="(item, index) in [1, 2, 3, 4]" :key="index">
 					<div class="d-flex">
-						<div class="photo-block">
-							<div class="bg-number">1</div>
-							<img class="photo" src="../assets/images/12.jpg" alt="">
-							<div class="bg-box"></div>
-						</div>
-						<div class="description-block">
-							<h2 class="heading">Нік Данилюк</h2>
-							<div class="occupation">політолог</div>
-							<div class="description">
-								Ph.D Школи управління ім. Джона Ф. Кеннеді при Гарвардському університеті.
-								Директор аналітичного центру «Політика», консультант виборчих кампаній та GR.
-								Автор книг «Як працює путінська пропаганда» і «Сценарії майбутнього України».
-								Cміливий у прогнозах, відвертий щодо справ у реальності. Микола допомагає побачити зв’язок між світовим і
-								локальним суспільно-політичним контекстами та їх вплив на ваш проект. Любитель іспанського вина та цинічного гумору.
+							<div class="photo-block">
+								<div class="bg-number">1</div>
+								<img class="photo" src="../assets/images/12.jpg" alt="">
+								<div class="bg-box"></div>
+							</div>
+							<div class="description-block">
+								<h2 class="heading">Нік Данилюк</h2>
+								<div class="occupation">політолог</div>
+								<div class="description">
+									Ph.D Школи управління ім. Джона Ф. Кеннеді при Гарвардському університеті.
+									Директор аналітичного центру «Політика», консультант виборчих кампаній та GR.
+									Автор книг «Як працює путінська пропаганда» і «Сценарії майбутнього України».
+									Cміливий у прогнозах, відвертий щодо справ у реальності. Микола допомагає побачити зв’язок між світовим і
+									локальним суспільно-політичним контекстами та їх вплив на ваш проект. Любитель іспанського вина та цинічного гумору.
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="partner-item">
-					<div class="d-flex">
-						<div class="photo-block">
-							<div class="bg-number">2</div>
-							<img class="photo" src="../assets/images/22.jpg" alt="">
-							<div class="bg-box"></div>
-						</div>
-						<div class="description-block">
-							<h2 class="heading">Нік Данилюк</h2>
-							<div class="occupation">політолог</div>
-							<div class="description">
-								Ph.D Школи управління ім. Джона Ф. Кеннеді при Гарвардському університеті.
-								Директор аналітичного центру «Політика», консультант виборчих кампаній та GR.
-								Автор книг «Як працює путінська пропаганда» і «Сценарії майбутнього України».
-								Cміливий у прогнозах, відвертий щодо справ у реальності. Микола допомагає побачити зв’язок між світовим і
-								локальним суспільно-політичним контекстами та їх вплив на ваш проект. Любитель іспанського вина та цинічного гумору.
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="partner-item">
-					<div class="d-flex">
-						<div class="photo-block">
-							<div class="bg-number">3</div>
-							<img class="photo" src="../assets/images/32.jpg" alt="">
-							<div class="bg-box"></div>
-						</div>
-						<div class="description-block">
-							<h2 class="heading">Нік Данилюк</h2>
-							<div class="occupation">політолог</div>
-							<div class="description">
-								Ph.D Школи управління ім. Джона Ф. Кеннеді при Гарвардському університеті.
-								Директор аналітичного центру «Політика», консультант виборчих кампаній та GR.
-								Автор книг «Як працює путінська пропаганда» і «Сценарії майбутнього України».
-								Cміливий у прогнозах, відвертий щодо справ у реальності. Микола допомагає побачити зв’язок між світовим і
-								локальним суспільно-політичним контекстами та їх вплив на ваш проект. Любитель іспанського вина та цинічного гумору.
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
-
-			<Footer
-				style="width: 3200px;"
-				class="full-width-footer"
-				is-full-width-mode="true"
-				:style="{paddingLeft: footerPaddingLeft + 'px'}"
-				link="cases"
-			>
+			<Footer link="cases">
 				<template slot="progress-bar">
 					<div class="progress-container">
 						<div class="desc">Оленка</div>
@@ -80,20 +32,18 @@
 						<div class="desc">Оленка</div>
 						<div class="progress">
 							<div
-								class="progress-bar"
-								role="progressbar"
-								style="width: 600px;"
-								aria-valuenow="25"
-								aria-valuemin="0"
-								aria-valuemax="100"
+									class="progress-bar"
+									role="progressbar"
+									style="width: 600px;"
+									aria-valuenow="25"
+									aria-valuemin="0"
+									aria-valuemax="100"
 							></div>
 						</div>
 					</div>
 				</template>
 			</Footer>
-		</div>
-
-		<div id="fakecontent"></div>
+		</b-container>
 	</div>
 </template>
 
@@ -114,10 +64,6 @@
       bus.$emit('toggleLoading', false);
     },
 
-    mounted() {
-      this.setPartnersFooterPos();
-    },
-
 		components: {
       Footer
 		}
@@ -126,41 +72,16 @@
 
 <style scoped lang="scss">
 	.partners {
-		padding-top: 60px;
-		height: 100%;
-		min-height: 500px;
+		height: calc(100vh - 150px);
 
 		.heading-main {
-			top: 150px;
 			padding-left: 100px;
 		}
 
 		.partners-slider {
-			width: calc(180% + 44rem);
-			height: calc(100vh - 440px);
-			display: inline-block;
-			opacity: 1; // change from 0
-			z-index: 99;
-			-o-transition: opacity .3s ease;
-			-moz-transition: opacity .3s ease;
-			-webkit-transition: opacity .3s ease;
-			transition: opacity .3s ease;
-			top: 0;
-			position: relative;
-			padding: 0 0 0 250px;
-		}
-
-		.partner-item {
-			white-space: normal;
-			height: calc(100% - 0rem);
-			width: 1000px;
-			display: inline-block;
-			transform-origin: top;
-			-webkit-transform: translate(0,0);
-			transition: all .5s ease;
-			-o-transition: all .5s ease;
-			-moz-transition: all .5s ease;
-			-webkit-transition: all .5s ease;
+			height: calc(100% - 100px);
+			width: 100%;
+			padding: 50px 0 0 150px;
 		}
 
 		.heading {
@@ -242,26 +163,5 @@
 		.progress-bar {
 			background-color: $orange;
 		}
-	}
-
-	#realcontent {
-		padding-top: 300px;
-		/*padding-left: 200px;*/
-		position: fixed;
-		top: 0;
-		height: 877px;
-		left: 0;
-		width: 100%;
-		white-space: nowrap;
-		color: #fff;
-		transition: transform .5s ease,opacity .5s ease;
-
-		footer {
-			white-space: normal;
-		}
-	}
-
-	#fakecontent {
-		height: 3157px;
 	}
 </style>

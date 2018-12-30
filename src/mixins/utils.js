@@ -97,18 +97,6 @@ export default {
   },
 
   methods: {
-    setPartnersFooterPos: function() {
-      const headerBlock = $("header .container .navbar"),
-            footerBlock = $("footer.full-width-footer"),
-            partnersHeading = $(".partners-heading");
-
-      if (footerBlock) {
-        const leftHeaderPos  = headerBlock[0].getBoundingClientRect().left;
-
-        footerBlock.css("padding-left", leftHeaderPos);
-        partnersHeading.css("padding-left", 100 + leftHeaderPos); // TODO fix
-      }
-    },
     getFormattedDate: function (time) {
       let date = new Date(time);
       return `${this.months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
@@ -120,6 +108,10 @@ export default {
 
     goToServicesFirstSlide: function() {
       location.hash = "#services";
+    },
+
+    goToPartnersFirstSlide: function() {
+      location.hash = "#partners";
     },
 
     goToSection: function(hash) {

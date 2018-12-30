@@ -1,7 +1,7 @@
 <template>
 	<div class="services">
 		<canvas id="canvas"></canvas>
-		<b-container class="section-container services-section">
+		<b-container class="section-container padding-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
 				<div class="services-slider">
 					<div class="slide fp-auto-height" v-for="(item, index) in services" :key="index">

@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     endpoint: REST_ENDPOINT,
     sliding: true,
-    services: []
+    slidingPartners: true
   },
 
   mutations: {
@@ -18,11 +18,11 @@ export default new Vuex.Store({
       bus.$emit('clearError');
       bus.$emit('bumpViewKey', 'Updating content...');
     },
+    updateSlidingPartners (state, value) {
+      state.slidingPartners = value;
+    },
     updateSliding (state, value) {
       state.sliding = value;
-    },
-    saveServices (state, value) {
-      state.services = value;
     }
   },
 
