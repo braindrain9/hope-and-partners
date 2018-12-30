@@ -1,5 +1,5 @@
 <template>
-	<full-page ref="fullpage" :options="options" id="fullpage">
+	<full-page v-if="loaded" ref="fullpage" :options="options" id="fullpage">
 			<div class="section">
 				<Hero/>
 			</div>
@@ -10,10 +10,10 @@
 				</b-container>
 			</div>
 			<div class="section">
-				<Services/>
+				<Services :services="services"/>
 			</div>
 			<div class="section partners-container">
-				<Partners />
+				<!--<Partners />-->
 			</div>
 			<div class="section">
 				<b-container class="section-container">
@@ -44,6 +44,8 @@
 
 		data() {
       return {
+        loaded: false,
+        services: [],
         options: {
           menu: '#menu',
           anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
@@ -57,6 +59,15 @@
         }
 			}
 		},
+
+    beforeRouteEnter (to, from, next) {
+      $.getJSON('/static/services.json', function (data) {
+        next(vm => {
+          vm.loaded = true;
+          vm.services = data
+        })
+      });
+    },
 
     created: function () {
       bus.$emit('toggleLoading', false);

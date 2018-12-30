@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     endpoint: REST_ENDPOINT,
-    sliding: true
+    sliding: true,
+    services: []
   },
 
   mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     updateSliding (state, value) {
       state.sliding = value;
+    },
+    saveServices (state, value) {
+      state.services = value;
     }
   },
 
