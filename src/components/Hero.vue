@@ -41,6 +41,10 @@
       bus.$emit('animateHero', '&');
 		},
 
+		destroyed() {
+	    this.removeEventListeners()
+		},
+
 		components: {
 			Footer
 		}

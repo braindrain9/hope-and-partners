@@ -532,6 +532,10 @@ export default {
       window.addEventListener("touchend", onTouchEnd);
 
       requestAnimationFrame(render);
+    },
+
+    removeEventListeners: function() {
+      // todo remove event listeners
     }
   }
 }

@@ -146,12 +146,14 @@
 			</b-container>
 		</div>
 		<Event />
+		<Footer link="partners"/>
 	</div>
 </template>
 
 <script>
   import bus from '../bus';
   import Event from './Event';
+  import Footer from './Footer';
 
   export default {
     name: 'Bio',
@@ -165,7 +167,8 @@
 		},
 
 		components: {
-      Event
+      Event,
+      Footer
 		}
   }
 </script>

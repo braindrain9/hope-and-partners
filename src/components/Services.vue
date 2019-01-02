@@ -3,20 +3,22 @@
 		<canvas id="canvas"></canvas>
 		<b-container class="section-container services-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
-				<div class="services-slider">
-					<div class="slide fp-auto-height" v-for="(item, index) in services" :key="index">
-						<div class="slider-item d-flex justify-content-end align-items-center">
-							<div class="text-block">
-								<span class="letter d-none">{{item.letter}}</span>
-									<div class="bg-number">{{index + 1}}</div>
-									<p>{{item.title}}</p>
-									<div class="description" v-html="item.description"></div>
-								</div>
-							</div>
+
+			<swiper class="services-slider" :options="swiperOption">
+				<swiper-slide class="d-flex justify-content-end" v-for="(service, index) in services" :key="index">
+					<div class="slider-item d-flex align-items-center">
+						<div class="text-block">
+							<span class="letter d-none">{{service.letter}}</span>
+							<div class="bg-number">{{index + 1}}</div>
+							<p>{{service.title}}</p>
+							<div class="description" v-html="service.description"></div>
 						</div>
 					</div>
-				<Footer link="partners"/>
-			</b-container>
+				</swiper-slide>
+				<div class="swiper-pagination" data-before="01" :data-after="lastIndex" :data-current="'03'" slot="pagination"></div>
+			</swiper>
+			<Footer link="partners"/>
+		</b-container>
 	</div>
 </template>
 
@@ -29,8 +31,31 @@
 
 		props: ['services'],
 
+    data() {
+      return {
+        lastIndex: null,
+        swiperOption: {
+          direction: 'vertical',
+					speed: 1000,
+          autoplay: {
+            delay: 3000,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'progressbar',
+            clickable: true
+          },
+          keyboard: {
+            enabled: true,
+            onlyInViewport: false,
+          }
+        }
+      }
+    },
+
     created: function () {
       bus.$emit('toggleLoading', false);
+      this.lastIndex = this.services.length > 10 ? this.services.length : '0' + this.services.length;
     },
 
     mounted() {
@@ -43,9 +68,14 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+
 	.services {
 		height: calc(100vh - 150px);
+
+		.swiper-slide {
+			justify-content: flex-end !important;
+		}
 
 		.heading {
 			padding-left: 100px;
@@ -87,6 +117,42 @@
 					top: -45px;
 				}
 			}
+		}
+	}
+
+	.swiper-container-vertical > .swiper-pagination-progressbar {
+		width: 2px;
+		height: 65%;
+		top: 0;
+		background: #373739;
+		left: 97%;
+
+		&:before {
+			content: attr(data-before);
+			position: absolute;
+			width: 0;
+			left: -25px;
+			top: 0;
+		}
+
+		&:after {
+			content: attr(data-after);
+			position: absolute;
+			width: 0;
+			left: 10px;
+			bottom: 0;
+		}
+	}
+
+	.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+		background: $orange;
+
+		&:before {
+			content: attr(data-current);
+			position: absolute;
+			width: 0;
+			left: 10px;
+			bottom: 0;
 		}
 	}
 </style>

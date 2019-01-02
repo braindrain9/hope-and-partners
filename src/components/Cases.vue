@@ -3,7 +3,7 @@
 		<h1 class="heading heading-main">кейси<span class="orange-color">:</span></h1>
 		<swiper :options="swiperOption" ref="horizontalSwiper">
 			<swiper-slide>
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center justify-content-center">
 					<div class="photo-block">
 						<img src="../assets/img/case.png" alt="">
 						<div class="bg-image"></div>
@@ -30,7 +30,7 @@
 				</div>
 			</swiper-slide>
 			<swiper-slide>
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center justify-content-center">
 					<div class="photo-block">
 						<img src="../assets/img/case.png" alt="">
 						<div class="bg-image"></div>
@@ -57,7 +57,7 @@
 				</div>
 			</swiper-slide>
 			<swiper-slide>
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center justify-content-center">
 					<div class="photo-block">
 						<img src="../assets/img/case.png" alt="">
 						<div class="bg-image"></div>
@@ -84,7 +84,7 @@
 				</div>
 			</swiper-slide>
 			<swiper-slide>
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center justify-content-center">
 					<div class="photo-block">
 						<img src="../assets/img/case.png" alt="">
 						<div class="bg-image"></div>
@@ -111,34 +111,7 @@
 				</div>
 			</swiper-slide>
 			<swiper-slide>
-				<div class="d-flex align-items-center">
-					<div class="photo-block">
-						<img src="../assets/img/case.png" alt="">
-						<div class="bg-image"></div>
-					</div>
-					<div class="text-block">
-						<h2>окко</h2>
-						<p class="description">
-							на підтримку нової стратегії ми розробили рекламну кампанію.
-							вона про те, що який складний не видався б день,
-							заїхати на смачну каву, хот-дог чи просто посидіти
-							потупити у вікно – це завжди гарна ідея.
-						</p>
-						<div class="horizontal-line"></div>
-						<div class="comment d-flex">
-							<div class="photo">
-								<img src="../assets/img/comment.png" alt="">
-							</div>
-							<div class="text">
-								<h3>Анатолій - СТО</h3>
-								<p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</swiper-slide>
-			<swiper-slide>
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center justify-content-center">
 					<div class="photo-block">
 						<img src="../assets/img/case.png" alt="">
 						<div class="bg-image"></div>
@@ -190,7 +163,7 @@
         activeIndex: '00',
         afterIndex: '02',
         swiperOption: {
-          speed: 600,
+          speed: 1000,
           parallax: true,
 					pagination: {
             el: '.swiper-pagination',
@@ -234,9 +207,12 @@
 	.cases {
 		height: $home-block-height;
 		position: relative;
-		max-width: 800px;
 		margin: 0 auto;
 		padding-top: 40px;
+
+		.heading {
+			padding-left: 100px;
+		}
 
 		.photo-block {
 			position: relative;
