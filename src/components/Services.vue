@@ -4,7 +4,7 @@
 		<b-container class="section-container services-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
 
-			<swiper class="services-slider" :options="swiperOption">
+			<swiper class="services-slider" :options="swiperOption" ref="verticalSwiper">
 				<swiper-slide class="d-flex justify-content-end" v-for="(service, index) in services" :key="index">
 					<div class="slider-item d-flex align-items-center">
 						<div class="text-block">
@@ -38,7 +38,7 @@
           direction: 'vertical',
 					speed: 1000,
           autoplay: {
-            delay: 3000,
+            delay: 2500,
           },
           pagination: {
             el: '.swiper-pagination',
@@ -48,6 +48,15 @@
           keyboard: {
             enabled: true,
             onlyInViewport: false,
+          },
+          disableOnInteraction: false,
+          on: {
+            init: function () {
+              const text = $('.services-slider .swiper-slide-active .letter');
+              if(text) {
+                bus.$emit('animateServices', text.text());
+              }
+            },
           }
         }
       }
@@ -58,8 +67,25 @@
       this.lastIndex = this.services.length > 10 ? this.services.length : '0' + this.services.length;
     },
 
+    methods: {
+      onSwipe() {
+        const text = $('.services-slider .swiper-slide-active .letter');
+
+        if(text) {
+          bus.$emit('animateServices', text.text());
+        }
+      }
+    },
+
+    computed: {
+      swiper() {
+        return this.$refs.verticalSwiper.swiper;
+      }
+    },
+
     mounted() {
       this.animateServices('canvas');
+      this.swiper.on('slideChange', () => this.onSwipe(this));
     },
 
     components: {
