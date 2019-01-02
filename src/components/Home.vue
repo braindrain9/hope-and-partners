@@ -58,10 +58,20 @@
 			</div>
 	</div>
 
-	<div class="scroll-pause" data-anchor-target=".gallery" data-100p-top-top="transform:translateY(100%);"
-			 data-top-top="transform:translateY(0%)" data--150p-top-top="" data--300p-top-top="transform:translateY(-100%)">
+	<div class="scroll-pause" data-anchor-target=".gallery"
+			 data-100p-top-top="transform:translateY(100%);"
+			 data-75p-top-top="transform:translateY(75%);"
+			 data-50p-top-top="transform:translateY(50%);"
+			 data-25p-top-top="transform:translateY(20%);"
+			 data-0p-top-top="transform:translateY(0%)"
+			 data--150p-top-top=""
+			 data--300p-top-top="transform:translateY(-100%)"
+			 style="transform:translateY(0%)"
+	>
 
-		<div class="row" data-anchor-target=".gallery" data-top-top="transform: translateX(0%);" data--150p-top-top="transform: translateX(-50%);">
+		<div class="row" data-anchor-target=".gallery"
+				 data-top-top="transform: translateX(0%);"
+				 data--150p-top-top="transform: translateX(-100%);">
 			<Partners />
 		</div>
 
@@ -122,7 +132,9 @@
     },
 
 		mounted() {
-      Scrollr.init();
+      Scrollr.init({
+        smoothScrolling: true
+			});
 		},
 
 		methods: {
@@ -193,6 +205,21 @@
 </script>
 
 <style lang="scss">
+	.skrollable {
+		position:fixed;
+		z-index:100;
+	}
+	.skrollr-mobile .skrollable {
+		position:absolute;
+	}
+	.skrollable .skrollable {
+		position:absolute;
+	}
+
+	.skrollable .skrollable .skrollable {
+		position:static;
+	}
+
 	.section {
 		background: $base-black;
 		height: 100vh;
@@ -272,7 +299,7 @@
 	.gallery{
 		color: #221f51;
 		font: normal 24px sans-serif;
-		min-height: 4500px;
+		min-height: 1900px;
 		text-align: center;
 		overflow: hidden;
 	}

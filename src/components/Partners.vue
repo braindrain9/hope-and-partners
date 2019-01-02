@@ -245,7 +245,7 @@
 	}
 
 	#realcontent {
-		padding-top: 300px;
+		padding-top: 150px;
 		/*padding-left: 200px;*/
 		/*position: fixed;*/
 		/*top: 0;*/
@@ -254,7 +254,7 @@
 		width: 100%;
 		white-space: nowrap;
 		color: #fff;
-		transition: transform .5s ease,opacity .5s ease;
+		/*transition: transform .5s ease,opacity .5s ease;*/
 
 		footer {
 			white-space: normal;
