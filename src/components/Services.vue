@@ -4,14 +4,14 @@
 		<b-container class="section-container services-section">
 			<h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
 				<div class="services-slider">
-					<div class="slide fp-auto-height" v-for="(item, index) in ['K']" :key="index">
+					<div class="slide fp-auto-height" v-for="(item, index) in services" :key="index">
 						<div class="slider-item d-flex justify-content-end align-items-center">
 							<div class="text-block">
-								<span class="letter d-none">{{item}}</span>
+								<span class="letter d-none">{{item.letter}}</span>
 									<div class="bg-number">{{index + 1}}</div>
-									<p>розробка та проведення автетичних навчальних курсів з комунікації для бізнес-шкіл та освітніх інституцій</p>
+									<p>{{item.title}}</p>
 									<div class="description">
-										нескромно про драйвовість, але маєте шанс переконатися <a href="">тут</a>
+										{{item.description}}
 									</div>
 								</div>
 							</div>
@@ -28,6 +28,8 @@
 
   export default {
     name: 'Services',
+
+		props: ['services'],
 
     created: function () {
       bus.$emit('toggleLoading', false);

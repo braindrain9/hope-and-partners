@@ -41,7 +41,7 @@
 			</div>
 
 			<div class="section">
-				<Services/>
+				<Services :services="services"/>
 			</div>
 
 			<div class="gallery"></div>
@@ -113,6 +113,8 @@
 
 		data() {
       return {
+        loaded: false,
+        services: [],
         options: {
           menu: '#menu',
           anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
@@ -126,6 +128,15 @@
         }
 			}
 		},
+
+    beforeRouteEnter (to, from, next) {
+      $.getJSON('/static/json/services.json', function (data) {
+        next(vm => {
+          vm.loaded = true;
+          vm.services = data
+        })
+      });
+    },
 
     created: function () {
       bus.$emit('toggleLoading', false);
