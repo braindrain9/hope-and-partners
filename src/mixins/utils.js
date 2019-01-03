@@ -486,7 +486,7 @@ export default {
 
         ctx.font = "bold 420px Montserrat";
         ctx.textAlign = "right";
-        ctx.fillText(text, ww/2 - 100, wh/2 + 150);
+        ctx.fillText(text, ww/2 - 200, wh/2 + 150);
 
         const data  = ctx.getImageData(0, 0, ww, wh).data;
         ctx.clearRect(0, 0, canvas.width, canvas.height);

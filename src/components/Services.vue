@@ -59,7 +59,7 @@
 
 			.text-block {
 				color: $white;
-				max-width: 450px;
+				max-width: 500px;
 				position: relative;
 				margin-left: 25px;
 
