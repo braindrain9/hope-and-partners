@@ -29,7 +29,7 @@
 
 		<div id="skrollr-body">
 
-			<div class="section">
+			<div class="section position-relative">
 				<Hero/>
 			</div>
 
@@ -40,7 +40,7 @@
 				</b-container>
 			</div>
 
-			<div class="section">
+			<div class="section position-relative">
 				<Services :services="services"/>
 			</div>
 
@@ -53,7 +53,7 @@
 				</b-container>
 			</div>
 
-			<div class="section">
+			<div class="section position-relative">
 				<Contacts />
 			</div>
 	</div>
