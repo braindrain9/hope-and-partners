@@ -45,7 +45,7 @@
 
 <style scoped lang="scss">
 	.services {
-		height: calc(100vh - 200px);
+		height: calc(100vh - 150px);
 
 		.heading {
 			padding-left: 100px;

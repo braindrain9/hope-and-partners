@@ -342,16 +342,21 @@
 		top: 94%;
 	}
 
+	.swiper-button-prev {
+		left: 15%;
+	}
+
 	.swiper-button-next {
+		right: 15%;
 		transform: rotate(-180deg);
 	}
 
 	.swiper-container-horizontal > .swiper-pagination-progressbar {
-		width: 60%;
+		width: 40%;
 		height: 2px;
 		top: 94%;
 		border-bottom: 1px solid #373739;
-		left: 20%;
+		left: 30%;
 
 		&:before {
 			content: attr(data-before);

@@ -188,17 +188,12 @@
 						this.$store.commit('updateSliding', true);
 					}
 
-					if (destination.anchor === 'hero') {
-						bus.$emit('animateHero', '&');
-					}
-
 					if (destination.anchor === 'contacts') {
 						bus.$emit('animateContacts', '@');
 					}
 				}
       },
       afterSlideLoad: function() {
-        console.log('slide loaded');
         bus.$emit('animateServices', $('.services-slider .slide.active .letter').text());
 			}
 		},
@@ -250,6 +245,12 @@
 	.overflow-container {
 		// switch to new section does not allow to see a footer
 		padding-bottom: 100px;
+	}
+
+	.services-slider {
+		.fp-slidesContainer {
+			transition: all 900ms ease 0s !important;
+		}
 	}
 
 	.skrollr-desktop body {

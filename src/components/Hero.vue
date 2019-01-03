@@ -38,6 +38,7 @@
 
 		mounted() {
 	    this.animateHero('canvas-hero');
+      bus.$emit('animateHero', '&');
 		},
 
 		components: {
