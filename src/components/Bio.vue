@@ -19,8 +19,10 @@
 			<b-container>
 				<div class="row">
 					<div class="photo-block col-md-5 col-sm-6">
-						<div><img src="../assets/img/bio1.png" alt=""></div>
-						<div><img src="../assets/img/bio2.png" alt=""></div>
+						<div class="photo" :style="{'background-image': 'url(src/assets/bio/bio1.png)'}"></div>
+						<div class="photo" :style="{'background-image': 'url(src/assets/bio/1.jpg)'}"></div>
+						<div class="photo" :style="{'background-image': 'url(src/assets/bio/3.jpg)'}"></div>
+						<div class="photo" :style="{'background-image': 'url(src/assets/bio/4.jpg)'}"></div>
 					</div>
 					<div class="description-block col-md-7 col-sm-6">
 						<div class="description description-dark">
@@ -210,7 +212,10 @@
 				display: inline-block;
 				margin-top: -250px;
 
-				> div {
+				.photo {
+					height: 650px;
+					background-position: center;
+					background-size: cover;
 					margin-bottom: 40px;
 				}
 			}
