@@ -32,15 +32,10 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Event from './Event';
 
   export default {
     name: 'About',
-
-    created: function () {
-      bus.$emit('toggleLoading', false);
-    },
 
 		components: {
       Event

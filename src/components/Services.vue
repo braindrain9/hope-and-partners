@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Footer from './Footer';
 
   export default {
@@ -63,7 +62,6 @@
     },
 
     created: function () {
-      bus.$emit('toggleLoading', false);
       this.lastIndex = this.services.length > 10 ? this.services.length : '0' + this.services.length;
     },
 

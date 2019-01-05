@@ -146,7 +146,9 @@
 			</b-container>
 		</div>
 		<Event />
-		<Footer link="partners"/>
+		<b-container>
+			<Footer link="partners"/>
+		</b-container>
 	</div>
 </template>
 

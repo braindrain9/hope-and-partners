@@ -151,7 +151,6 @@
 </template>
 
 <script>
-	import bus from '../bus';
 	import arrowSvg from '../assets/img/arrow-grey.svg';
 
   export default {
@@ -179,10 +178,6 @@
           },
         }
       }
-    },
-
-    created: function () {
-			bus.$emit('toggleLoading', false);
     },
 
 		methods: {

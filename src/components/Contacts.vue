@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import arrowSvg from '../assets/img/arrow.svg';
   import Footer from './Footer';
 
@@ -31,10 +30,6 @@
         arrowSvg
 			}
 		},
-
-    created: function () {
-      bus.$emit('toggleLoading', false);
-    },
 
     mounted() {
       // this.animateContacts('canvas-contacts');

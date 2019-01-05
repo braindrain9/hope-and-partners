@@ -55,7 +55,6 @@
 
 		data() {
       return {
-        loaded: false,
         services: [],
         partners: [],
 				progressBar: 600,
@@ -81,14 +80,10 @@
           next(vm => {
             vm.services = services;
             vm.partners = partners;
-            vm.loaded = true;
+            bus.$emit('toggleLoading', false);
           })
         })
       });
-    },
-
-    created: function () {
-      bus.$emit('toggleLoading', false);
     },
 
 		mounted() {

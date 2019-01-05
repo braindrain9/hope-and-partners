@@ -98,7 +98,6 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Footer from '../components/Footer';
 
 	export default {
@@ -109,10 +108,6 @@
         footerPaddingLeft: 50
 			}
 		},
-
-    created: function () {
-      bus.$emit('toggleLoading', false);
-    },
 
     mounted() {
       this.setPartnersFooterPos();

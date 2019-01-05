@@ -26,14 +26,12 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Footer from './Footer';
 
 	export default {
 	  name: 'Hero',
 
     created: function () {
-      bus.$emit('toggleLoading', false);
     },
 
 		mounted() {
