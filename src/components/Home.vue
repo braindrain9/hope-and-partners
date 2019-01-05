@@ -1,34 +1,6 @@
 <template>
-	<!--<full-page ref="fullpage" :options="options" id="fullpage">-->
-			<!--<div class="section">-->
-				<!--<Hero/>-->
-			<!--</div>-->
-			<!--<div class="section">-->
-				<!--<b-container class="section-container overflow-container">-->
-					<!--<About />-->
-					<!--<Footer link="services"/>-->
-				<!--</b-container>-->
-			<!--</div>-->
-			<!--<div class="section">-->
-				<!--<Services/>-->
-			<!--</div>-->
-			<!--<div class="section partners-container">-->
-				<!--<Partners />-->
-			<!--</div>-->
-			<!--<div class="section">-->
-				<!--<b-container class="section-container">-->
-					<!--<Cases />-->
-					<!--<Footer link="contacts"/>-->
-				<!--</b-container>-->
-			<!--</div>-->
-			<!--<div class="section">-->
-				<!--<Contacts />-->
-			<!--</div>-->
-		<!--</full-page>-->
 	<div>
-
-		<div id="skrollr-body">
-
+		<div>
 			<div class="section position-relative">
 				<Hero/>
 			</div>
@@ -44,7 +16,9 @@
 				<Services :services="services"/>
 			</div>
 
-			<div class="gallery"></div>
+			<div class="">
+				<Partners id="partners"/>
+			</div>
 
 			<div class="section">
 				<b-container class="section-container">
@@ -56,41 +30,7 @@
 			<div class="section position-relative">
 				<Contacts />
 			</div>
-	</div>
-
-	<div class="scroll-pause" data-anchor-target=".gallery"
-			 data-100p-top-top="transform:translateY(100%);"
-			 data-75p-top-top="transform:translateY(75%);"
-			 data-50p-top-top="transform:translateY(50%);"
-			 data-25p-top-top="transform:translateY(20%);"
-			 data-0p-top-top="transform:translateY(0%)"
-			 data--150p-top-top=""
-			 data--300p-top-top="transform:translateY(-100%)"
-			 style="transform:translateY(0%)"
-	>
-
-		<div class="row" data-anchor-target=".gallery"
-				 data-top-top="transform: translateX(0%);"
-				 data--150p-top-top="transform: translateX(-100%);">
-			<Partners />
 		</div>
-
-
-		<!--<div class="row" data-anchor-target=".gallery" data-top-top="transform: translateX(-50%);" data&#45;&#45;150p-top-top="transform: translateX(0);">-->
-
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-			<!--<div>amigo</div>-->
-
-		<!--</div>-->
-
-	</div>
-
 	</div>
 </template>
 
@@ -104,9 +44,11 @@
   import Contacts from './Contacts';
   import Footer from './Footer';
 
-  import Scrollr from 'skrollr';
+  // import Scrollr from 'skrollr';
   // import * as Three from 'three';
-  // import {TweenMax, Power2, Elastic} from "gsap/TweenMax";
+	import ScrollMagic from 'scrollmagic';
+  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
+  import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
 
   export default {
     name: 'Home',
@@ -116,6 +58,7 @@
         loaded: false,
         services: [],
         partners: [],
+				progressBar: 600,
         options: {
           menu: '#menu',
           anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
@@ -149,81 +92,36 @@
     },
 
 		mounted() {
-      Scrollr.init({
-        smoothScrolling: true
+      // init controller
+      var controller = new ScrollMagic.Controller();
+
+      var tween = new TimelineMax()
+          .add([
+            TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {transform: "translate(-2100px, 0)", ease: Linear.easeNone}),
+            TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {transform: "translate(0, 0)", ease: Linear.easeNone}),
+            TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 3200, ease: Linear.easeNone})
+          ]);
+
+      // build scene
+      var scene = new ScrollMagic.Scene({
+        triggerElement: "#partners",
+				triggerHook: 'onLeave',
+        duration: "100%"
+      })
+          .setPin("#partners")
+          .setTween(tween)
+          .addTo(controller);
+
+      scene.on("change update progress start end enter leave", (event) => {
+        console.log(event);
+        if(event.state !== "DURING") {
+          if(event.scrollPos < event.startPos) {
+            $('#partners-progress-bar').css("width", 600);
+          } else {
+            $('#partners-progress-bar').css("width", 3200);
+					}
+				}
 			});
-		},
-
-		methods: {
-      onLeave: function(origin, destination, direction) {
-				if(origin.anchor === 'services' && this.$store.state.sliding) {
-          if(direction === 'down') {
-            fullpage_api.moveSlideRight();
-            this.$store.commit('updateSliding', true);
-            return false;
-          } else if (direction === 'up') {
-            fullpage_api.moveSlideLeft();
-            this.$store.commit('updateSliding', true);
-            return false;
-          }
-        }
-      },
-      onSlideLeave: function(section, origin, destination, direction) {
-        if(section.anchor === 'services') {
-          if(origin.isLast && direction === 'right') {
-            this.$store.commit('updateSliding', false);
-            fullpage_api.moveSectionDown();
-          } else if (origin.isFirst && direction === 'left') {
-            this.$store.commit('updateSliding', false);
-            fullpage_api.moveSectionUp();
-          }
-        }
-      },
-      afterLoad: function(origin, destination, direction) {
-        if(origin) {
-          if(origin.anchor === 'about') {
-            if(direction === 'down') {
-              fullpage_api.moveTo('services', 0);
-            }
-          }
-          if(origin.anchor === 'services') {
-            if(direction === 'down') {
-              fullpage_api.moveTo('partners', 0);
-            }
-          }
-				}
-
-				if(destination) {
-					if (destination.anchor === 'services') {
-            const text = $('.services-slider .slide.active .letter');
-
-            if(text) {
-              bus.$emit('animateServices', text.text());
-            }
-
-						this.$store.commit('updateSliding', true);
-					}
-
-          if (destination.anchor === 'partners') {
-            this.$store.commit('updateSlidingPartners', true);
-          }
-
-					if (destination.anchor === 'contacts') {
-						bus.$emit('animateContacts', '@');
-					}
-				}
-      },
-      afterSlideLoad: function(section, origin, destination) {
-        const text = $('.services-slider .slide.active .letter');
-
-        if (text) {
-          bus.$emit('animateServices', text.text());
-				}
-
-        if(section && section.anchor === 'partners' && destination) {
-          $(".progress-bar").css("width", ((destination.index + 1) / this.partners.length) * 100 + '%');
-				}
-			}
 		},
 
 		components: {
@@ -239,19 +137,8 @@
 </script>
 
 <style lang="scss">
-	.skrollable {
-		position:fixed;
-		z-index:100;
-	}
-	.skrollr-mobile .skrollable {
-		position:absolute;
-	}
-	.skrollable .skrollable {
-		position:absolute;
-	}
-
-	.skrollable .skrollable .skrollable {
-		position:static;
+	.scrollmagic-pin-spacer {
+		height: 100vh !important;
 	}
 
 	.section {

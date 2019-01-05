@@ -1,6 +1,6 @@
 <template>
 	<div class="partners">
-		<h1 class="heading heading-main partners-heading">партнери<span class="orange-color">:</span></h1>
+		<h1 class="heading heading-main partners-heading" id="partners-header">партнери<span class="orange-color">:</span></h1>
 
 		<div id="realcontent">
 			<div class="partners-slider">
@@ -80,9 +80,9 @@
 						<div class="desc">Оленка</div>
 						<div class="progress">
 							<div
+								id="partners-progress-bar"
 								class="progress-bar"
 								role="progressbar"
-								style="width: 600px;"
 								aria-valuenow="25"
 								aria-valuemin="0"
 								aria-valuemax="100"
@@ -126,7 +126,7 @@
 
 <style scoped lang="scss">
 	.partners {
-		padding-top: 60px;
+		padding-top: 150px;
 		height: 100%;
 		min-height: 500px;
 
@@ -241,11 +241,12 @@
 
 		.progress-bar {
 			background-color: $orange;
+			transition: width .3s ease;
 		}
 	}
 
 	#realcontent {
-		padding-top: 150px;
+		padding-top: 100px;
 		/*padding-left: 200px;*/
 		/*position: fixed;*/
 		/*top: 0;*/

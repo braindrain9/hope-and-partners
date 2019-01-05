@@ -1,5 +1,5 @@
 <template>
-	<header :class="{'dark-bg': setDarkBg()}">
+	<header>
 		<b-container>
 			<b-navbar toggleable="md" type="dark">
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
@@ -66,10 +66,7 @@
 		position: fixed;
 		padding: 40px 0 20px;
 		z-index: 1;
-
-		&.dark-bg {
-			background: $base-black;
-		}
+		background: $base-black;
 
 		.navbar {
 			padding: 0;

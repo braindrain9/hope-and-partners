@@ -37,8 +37,8 @@
     },
 
 		mounted() {
-	    this.animateHero('canvas-hero');
-      bus.$emit('animateHero', '&');
+	    // this.animateHero('canvas-hero');
+      // bus.$emit('animateHero', '&');
 		},
 
 		destroyed() {

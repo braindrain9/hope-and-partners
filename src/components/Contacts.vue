@@ -37,7 +37,7 @@
     },
 
     mounted() {
-      this.animateContacts('canvas-contacts');
+      // this.animateContacts('canvas-contacts');
     },
 
     components: {

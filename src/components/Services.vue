@@ -54,7 +54,7 @@
             init: function () {
               const text = $('.services-slider .swiper-slide-active .letter');
               if(text) {
-                bus.$emit('animateServices', text.text());
+                // bus.$emit('animateServices', text.text());
               }
             },
           }
@@ -72,7 +72,7 @@
         const text = $('.services-slider .swiper-slide-active .letter');
 
         if(text) {
-          bus.$emit('animateServices', text.text());
+          // bus.$emit('animateServices', text.text());
         }
       }
     },
@@ -84,7 +84,7 @@
     },
 
     mounted() {
-      this.animateServices('canvas');
+      // this.animateServices('canvas');
       this.swiper.on('slideChange', () => this.onSwipe(this));
     },
 
