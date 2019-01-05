@@ -1,264 +1,265 @@
 <template>
-	<div>
-		<div>
-			<div class="section position-relative">
-				<Hero/>
-			</div>
+    <div>
+        <div>
+            <div class="section position-relative">
+                <Hero/>
+            </div>
 
-			<div>
-				<b-container class="section-container overflow-container">
-					<About />
-					<Footer link="services"/>
-				</b-container>
-			</div>
+            <div>
+                <b-container class="section-container overflow-container">
+                    <About/>
+                    <Footer link="services"/>
+                </b-container>
+            </div>
 
-			<div class="section position-relative">
-				<Services :services="services"/>
-			</div>
+            <div class="section position-relative">
+                <Services :services="services"/>
+            </div>
 
-			<div class="">
-				<Partners id="partners"/>
-			</div>
+            <div class="section" id="partners">
+                <Partners :partners="partners" :footer-width="7500"/>
+            </div>
 
-			<div class="section">
-				<b-container class="section-container">
-					<Cases />
-					<Footer link="contacts"/>
-				</b-container>
-			</div>
+            <div class="section">
+                <b-container class="section-container">
+                    <Cases/>
+                    <Footer link="contacts"/>
+                </b-container>
+            </div>
 
-			<div class="section position-relative">
-				<Contacts />
-			</div>
-		</div>
-	</div>
+            <div class="section position-relative">
+                <Contacts/>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-  import bus from '../bus';
-  import Hero from './Hero';
-  import About from './About';
-  import Partners from './Partners';
-  import Services from './Services';
-  import Cases from './Cases';
-  import Contacts from './Contacts';
-  import Footer from './Footer';
+    import bus from '../bus';
+    import Hero from './Hero';
+    import About from './About';
+    import Partners from './Partners';
+    import Services from './Services';
+    import Cases from './Cases';
+    import Contacts from './Contacts';
+    import Footer from './Footer';
 
-  // import Scrollr from 'skrollr';
-  // import * as Three from 'three';
-	import ScrollMagic from 'scrollmagic';
-  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
-  import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
+    // import Scrollr from 'skrollr';
+    // import * as Three from 'three';
+    import ScrollMagic from 'scrollmagic';
+    import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
+    import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
 
-  export default {
-    name: 'Home',
+    export default {
+        name: 'Home',
 
-		data() {
-      return {
-        services: [],
-        partners: [],
-				progressBar: 600,
-        options: {
-          menu: '#menu',
-          anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
-          scrollOverflow: true,
-          scrollingSpeed: 600,
-          controlArrows: false,
-					onLeave: this.onLeave,
-          afterLoad: this.afterLoad,
-          onSlideLeave: this.onSlideLeave,
-          afterSlideLoad: this.afterSlideLoad
+        data() {
+            return {
+                services: [],
+                partners: [],
+                progressBar: 600,
+                options: {
+                    menu: '#menu',
+                    anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
+                    scrollOverflow: true,
+                    scrollingSpeed: 600,
+                    controlArrows: false,
+                    onLeave: this.onLeave,
+                    afterLoad: this.afterLoad,
+                    onSlideLeave: this.onSlideLeave,
+                    afterSlideLoad: this.afterSlideLoad
+                }
+            }
+        },
+
+        beforeRouteEnter(to, from, next) {
+            document.title = 'Hope & Partners';
+
+            $.getJSON('/static/json/services.json', function (services) {
+                $.getJSON('/static/json/partners.json', function (partners) {
+                    next(vm => {
+                        vm.services = services;
+                        vm.partners = partners;
+                        bus.$emit('toggleLoading', false);
+                    })
+                })
+            });
+        },
+
+        mounted() {
+            // init controller
+            const controller = new ScrollMagic.Controller();
+
+            const tween = new TimelineMax()
+                .add([
+                    TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {
+                        transform: "translate(-6100px, 0)",
+                        ease: Linear.easeNone
+                    }),
+                    TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {
+                        transform: "translate(0, 0)",
+                        ease: Linear.easeNone
+                    }),
+                    TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 7100, ease: Linear.easeNone})
+                ]);
+
+            // build scene
+            const scene = new ScrollMagic.Scene({
+                triggerElement: "#partners",
+                triggerHook: 'onLeave',
+                duration: "100%"
+            })
+                .setPin("#partners")
+                .setTween(tween)
+                .addTo(controller);
+
+            scene.on("change update progress start end enter leave", (event) => {
+                if (event.state !== "DURING") {
+                    if (event.scrollPos < event.startPos) {
+                        $('#partners-progress-bar').css("width", 600);
+                    } else {
+                        $('#partners-progress-bar').css("width", 7100);
+                    }
+                }
+            });
+        },
+
+        components: {
+            About,
+            Hero,
+            Partners,
+            Services,
+            Cases,
+            Contacts,
+            Footer
         }
-			}
-		},
-
-    beforeRouteEnter (to, from, next) {
-      document.title = 'Hope & Partners';
-
-      $.getJSON('/static/json/services.json', function (services) {
-        $.getJSON('/static/json/partners.json', function (partners) {
-          next(vm => {
-            vm.services = services;
-            vm.partners = partners;
-            bus.$emit('toggleLoading', false);
-          })
-        })
-      });
-    },
-
-		mounted() {
-      // init controller
-      var controller = new ScrollMagic.Controller();
-
-      var tween = new TimelineMax()
-          .add([
-            TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {transform: "translate(-2100px, 0)", ease: Linear.easeNone}),
-            TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {transform: "translate(0, 0)", ease: Linear.easeNone}),
-            TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 3200, ease: Linear.easeNone})
-          ]);
-
-      // build scene
-      var scene = new ScrollMagic.Scene({
-        triggerElement: "#partners",
-				triggerHook: 'onLeave',
-        duration: "100%"
-      })
-          .setPin("#partners")
-          .setTween(tween)
-          .addTo(controller);
-
-      scene.on("change update progress start end enter leave", (event) => {
-        console.log(event);
-        if(event.state !== "DURING") {
-          if(event.scrollPos < event.startPos) {
-            $('#partners-progress-bar').css("width", 600);
-          } else {
-            $('#partners-progress-bar').css("width", 3200);
-					}
-				}
-			});
-		},
-
-		components: {
-      About,
-			Hero,
-			Partners,
-			Services,
-			Cases,
-			Contacts,
-      Footer
-		}
-  }
+    }
 </script>
 
 <style lang="scss">
-	.scrollmagic-pin-spacer {
-		height: 100vh !important;
-	}
+    .scrollmagic-pin-spacer {
+        height: 100vh !important;
+    }
 
-	.section {
-		background: $base-black;
-		height: 100vh;
-	}
+    .section {
+        background: $base-black;
+        height: 100vh;
+    }
 
-	.section-container {
-		padding-top: 100px; // compensate fixed header
-		position: relative;
-		z-index: 1;
+    .section-container {
+        padding-top: 100px; // compensate fixed header
+        position: relative;
+        z-index: 1;
 
-		&.services-section {
-			padding-top: 150px;
-			height: 100%;
-		}
-	}
+        &.services-section {
+            padding-top: 150px;
+            height: 100%;
+        }
+    }
 
-	.overflow-container {
-		// switch to new section does not allow to see a footer
-		padding-bottom: 100px;
-	}
+    .overflow-container {
+        // switch to new section does not allow to see a footer
+        padding-bottom: 100px;
+    }
 
-	.services-slider {
-		.fp-slidesContainer {
-			transition: all 900ms ease 0s !important;
-		}
-	}
+    .services-slider {
+        .fp-slidesContainer {
+            transition: all 900ms ease 0s !important;
+        }
+    }
 
-	.skrollr-desktop body {
-		height:100% !important;
-	}
+    .skrollr-desktop body {
+        height: 100% !important;
+    }
 
-	#skrollr-body {
-		height:100%;
-		position:relative;
-		overflow: hidden;
-	}
+    #skrollr-body {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-	.no-skrollr .parallax-image-wrapper {
-		display:none !important;
-	}
+    .no-skrollr .parallax-image-wrapper {
+        display: none !important;
+    }
 
-	.parallax-image-wrapper {
-		position:fixed;
-		left:0;
-		width:100%;
-		overflow:hidden;
+    .parallax-image-wrapper {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
 
-		height:80vh;
-		top:-80vh;
-	}
+        height: 80vh;
+        top: -80vh;
+    }
 
+    .parallax-image {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
 
-	.parallax-image {
-		display:none;
-		position:absolute;
-		bottom:0;
-		left:0;
-		width:100%;
-		background-repeat:no-repeat;
-		background-position:center;
-		background-size:cover;
+        height: 100vh;
+        top: 0;
+    }
 
-		height:100vh;
-		top:0;
-	}
+    .parallax-image.skrollable-between {
+        display: block;
+    }
 
+    .no-skrollr .parallax-image-wrapper {
+        display: none !important;
+    }
 
-	.parallax-image.skrollable-between {
-		display:block;
-	}
+    /*  End of scrollr styles   */
 
-	.no-skrollr .parallax-image-wrapper {
-		display:none !important;
-	}
+    /*Body Text*/
 
-	/*  End of scrollr styles   */
+    /*Gallery*/
 
-	/*Body Text*/
+    .gallery {
+        color: #221f51;
+        font: normal 24px sans-serif;
+        min-height: 1900px;
+        text-align: center;
+        overflow: hidden;
+    }
 
-	/*Gallery*/
+    .scroll-pause {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        /*padding-top: 20vh;*/
+        /*background: transparent;*/
+    }
 
+    .scroll-pause .row {
+        /*width: 200vw;*/
+        /*height: 30vh;*/
+        /*overflow: hidden;*/
+    }
 
-	.gallery{
-		color: #221f51;
-		font: normal 24px sans-serif;
-		min-height: 1900px;
-		text-align: center;
-		overflow: hidden;
-	}
+    .scroll-pause .row div {
+        /*width: 11.5%;*/
+        /*height: 90%;*/
+        /*float: left;*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: center;*/
+        /*background-size: cover;*/
+        /*margin: 0.5%;*/
+        /*border-radius: 10px;*/
+    }
 
-	.scroll-pause{
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		/*padding-top: 20vh;*/
-		/*background: transparent;*/
-	}
+    .scroll-pause .row div:first-child {
+        /*margin-left: 0.4%;*/
+    }
 
-
-	.scroll-pause .row{
-		/*width: 200vw;*/
-		/*height: 30vh;*/
-		/*overflow: hidden;*/
-	}
-
-	.scroll-pause .row div{
-		/*width: 11.5%;*/
-		/*height: 90%;*/
-		/*float: left;*/
-		/*background-repeat: no-repeat;*/
-		/*background-position: center;*/
-		/*background-size: cover;*/
-		/*margin: 0.5%;*/
-		/*border-radius: 10px;*/
-	}
-
-	.scroll-pause .row div:first-child{
-		/*margin-left: 0.4%;*/
-	}
-
-	.scroll-pause .row div:last-child{
-		/*margin-right: 0.4%;*/
-	}
+    .scroll-pause .row div:last-child {
+        /*margin-right: 0.4%;*/
+    }
 </style>
