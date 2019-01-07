@@ -65,7 +65,7 @@
 		width: 100%;
 		position: fixed;
 		padding: 40px 0 20px;
-		z-index: 2;
+		z-index: 100;
 		background: $base-black;
 
 		.navbar {

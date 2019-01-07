@@ -1,23 +1,23 @@
 <template>
     <div>
-        <div>
+        <div class="homepage">
             <div class="section position-relative">
                 <Hero/>
             </div>
 
             <div>
-                <b-container class="section-container overflow-container">
+                <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
                 </b-container>
             </div>
 
-            <div class="section position-relative">
-                <Services :services="services"/>
+            <div class="position-relative" id="services">
+                <Services v-if="services.length" :services="services"/>
             </div>
 
             <div class="section" id="partners">
-                <Partners :partners="partners" :footer-width="7500"/>
+                <Partners :partners="partners" :footer-width="7300"/>
             </div>
 
             <div class="section">
@@ -87,13 +87,43 @@
         },
 
         mounted() {
+            // TITLE ANIMATION WRAPPING
+            $(document).ready(function() {
+                $(".reveal-title, .slide-content-title h2").each( function() {
+
+                    var title = $(this),
+                        width = title.width();
+
+                    title.html(function(i, html){
+                        return html.replace(/\s+/g, '*');
+                    });
+                    title.find('big').html(function(i, html){
+                        return html.replace(/\*/g, ' ');
+                    });
+                    let texts = title.html().split("*");
+                    title.html( '<span>' + texts.join('</span> <span>') + '</span>');
+
+                    title.find("span").each( function() {
+                        var span = $(this);
+                        if ( (span.position().left + span.width()) > width ) {
+                            span.before('<br>');
+                        }
+                    });
+
+                    title.find("span").contents().unwrap();
+                    let lines = title.html().split("<br>");
+                    title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
+
+                });
+            });
+
             // init controller
             const controller = new ScrollMagic.Controller();
 
             const tween = new TimelineMax()
                 .add([
                     TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {
-                        transform: "translate(-6100px, 0)",
+                        transform: "translate(-6200px, 0)",
                         ease: Linear.easeNone
                     }),
                     TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {
@@ -107,7 +137,7 @@
             const scene = new ScrollMagic.Scene({
                 triggerElement: "#partners",
                 triggerHook: 'onLeave',
-                duration: "100%"
+                duration: "700%"
             })
                 .setPin("#partners")
                 .setTween(tween)
@@ -155,11 +185,6 @@
             padding-top: 150px;
             height: 100%;
         }
-    }
-
-    .overflow-container {
-        // switch to new section does not allow to see a footer
-        padding-bottom: 100px;
     }
 
     .services-slider {

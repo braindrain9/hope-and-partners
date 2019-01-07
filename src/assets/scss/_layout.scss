@@ -22,6 +22,7 @@ body {
   color: $grey;
   font-size: $base-font-size;
   letter-spacing: $base-spacing;
+  overflow-x: hidden
 }
 
 canvas {

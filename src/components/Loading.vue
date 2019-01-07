@@ -47,7 +47,7 @@ export default {
     width: 100vw;
     background: rgba($grey, .99);
     color: $white;
-    z-index: 100;
+    z-index: 1000;
   }
 
   span {
