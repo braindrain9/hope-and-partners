@@ -3,10 +3,7 @@
 		<b-container>
 			<div class="row">
 				<div class="heading-block col-sm-6 offset-sm-6 col-md-7 offset-md-5">
-					<a v-on:click="goToSection('/#about')" class="bio-link grey-color-link">
-						<span class="horizontal-grey"></span>
-						назад
-					</a>
+					<a v-on:click="goToSection('/#about')" class="bio-link horizontal-grey-link">назад</a>
 					<h1 class="heading heading-main">
 						Моя<br/>
 						повна <span class="orange-color">біографія</span>
@@ -184,28 +181,10 @@
 
 			.bio-link {
 				font-size: 24px;
-
-				&:hover {
-					.horizontal-grey {
-						width: 70px;
-						height: 2px;
-						background: $orange;
-					}
-				}
 			}
 
 			.heading-main {
 				margin-bottom: 20px;
-			}
-
-			.horizontal-grey {
-				display: inline-block;
-				width: 60px;
-				background: $grey;
-				height: 1.1px;
-				vertical-align: middle;
-				margin-right: 10px;
-				transition: width .5s ease-in;
 			}
 		}
 

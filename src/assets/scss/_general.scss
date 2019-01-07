@@ -65,3 +65,46 @@
     color: $dark-black;
   }
 }
+
+.horizontal-grey-link {
+  color: $grey;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 60px;
+    background: $grey;
+    height: 1.1px;
+    vertical-align: middle;
+    margin-right: 10px;
+    transition: width .5s ease-in;
+  }
+
+  &:hover {
+    color: $orange;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:before {
+      width: 70px;
+      height: 2px;
+      background: $orange;
+    }
+  }
+}
+
+
+// Responsive
+@include media-max-width($menu-breakpoint) {
+  .horizontal-grey-link {
+    &:before {
+      width: 30px;
+    }
+
+    &:hover {
+      &:before {
+        width: 40px;
+      }
+    }
+  }
+}
