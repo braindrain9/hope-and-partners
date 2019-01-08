@@ -1,169 +1,158 @@
 <template>
     <div>
         <div class="homepage">
-            <div class="section position-relative">
+            <section class="section position-relative">
                 <Hero/>
-            </div>
+            </section>
 
-            <div>
+            <section>
                 <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
                 </b-container>
-            </div>
+            </section>
 
-            <div class="position-relative" id="services">
+            <section class="position-relative" id="services">
                 <Services v-if="services.length" :services="services"/>
-            </div>
+            </section>
 
-            <div class="section" id="partners">
+            <section class="section" id="partners">
                 <Partners :partners="partners" :footer-width="7300"/>
-            </div>
+            </section>
 
-            <div class="section">
+            <section class="section">
                 <b-container class="section-container">
                     <Cases/>
                     <Footer link="contacts"/>
                 </b-container>
-            </div>
+            </section>
 
-            <div class="section position-relative">
+            <section class="section position-relative">
                 <Contacts/>
-            </div>
+            </section>
         </div>
     </div>
 </template>
 
 <script>
-    import bus from '../bus';
-    import Hero from './Hero';
-    import About from './About';
-    import Partners from './Partners';
-    import Services from './Services';
-    import Cases from './Cases';
-    import Contacts from './Contacts';
-    import Footer from './Footer';
+  import bus from '../bus';
+  import Hero from './Hero';
+  import About from './About';
+  import Partners from './Partners';
+  import Services from './Services';
+  import Cases from './Cases';
+  import Contacts from './Contacts';
+  import Footer from './Footer';
 
-    // import Scrollr from 'skrollr';
-    // import * as Three from 'three';
-    import ScrollMagic from 'scrollmagic';
-    import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
-    import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
+  // import Scrollr from 'skrollr';
+  // import * as Three from 'three';
+  import ScrollMagic from 'scrollmagic';
+  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
+  import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
 
-    export default {
-        name: 'Home',
+  export default {
+    name: 'Home',
 
-        data() {
-            return {
-                services: [],
-                partners: [],
-                progressBar: 600,
-                options: {
-                    menu: '#menu',
-                    anchors: ['hero', 'about', 'services', 'partners', 'cases', 'contacts'],
-                    scrollOverflow: true,
-                    scrollingSpeed: 600,
-                    controlArrows: false,
-                    onLeave: this.onLeave,
-                    afterLoad: this.afterLoad,
-                    onSlideLeave: this.onSlideLeave,
-                    afterSlideLoad: this.afterSlideLoad
-                }
+    data() {
+      return {
+        services: [],
+        partners: [],
+        progressBar: 600
+      }
+    },
+
+    beforeRouteEnter(to, from, next) {
+      document.title = 'Hope & Partners';
+
+      $.getJSON('/static/json/services.json', function (services) {
+        $.getJSON('/static/json/partners.json', function (partners) {
+          next(vm => {
+            vm.services = services;
+            vm.partners = partners;
+            bus.$emit('toggleLoading', false);
+          })
+        })
+      });
+    },
+
+    mounted() {
+      // TITLE ANIMATION WRAPPING
+      $(document).ready(function () {
+        $(".reveal-title, .slide-content-title h2").each(function () {
+
+          var title = $(this),
+            width = title.width();
+
+          title.html(function (i, html) {
+            return html.replace(/\s+/g, '*');
+          });
+          title.find('big').html(function (i, html) {
+            return html.replace(/\*/g, ' ');
+          });
+          let texts = title.html().split("*");
+          title.html('<span>' + texts.join('</span> <span>') + '</span>');
+
+          title.find("span").each(function () {
+            var span = $(this);
+            if ((span.position().left + span.width()) > width) {
+              span.before('<br>');
             }
-        },
+          });
 
-        beforeRouteEnter(to, from, next) {
-            document.title = 'Hope & Partners';
+          title.find("span").contents().unwrap();
+          let lines = title.html().split("<br>");
+          title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
 
-            $.getJSON('/static/json/services.json', function (services) {
-                $.getJSON('/static/json/partners.json', function (partners) {
-                    next(vm => {
-                        vm.services = services;
-                        vm.partners = partners;
-                        bus.$emit('toggleLoading', false);
-                    })
-                })
-            });
-        },
+        });
+      });
 
-        mounted() {
-            // TITLE ANIMATION WRAPPING
-            $(document).ready(function() {
-                $(".reveal-title, .slide-content-title h2").each( function() {
+      // init controller
+      const controller = new ScrollMagic.Controller();
 
-                    var title = $(this),
-                        width = title.width();
+      const tween = new TimelineMax()
+        .add([
+          TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {
+            transform: "translate(-6200px, 0)",
+            ease: Linear.easeNone
+          }),
+          TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {
+            transform: "translate(0, 0)",
+            ease: Linear.easeNone
+          }),
+          TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 7100, ease: Linear.easeNone})
+        ]);
 
-                    title.html(function(i, html){
-                        return html.replace(/\s+/g, '*');
-                    });
-                    title.find('big').html(function(i, html){
-                        return html.replace(/\*/g, ' ');
-                    });
-                    let texts = title.html().split("*");
-                    title.html( '<span>' + texts.join('</span> <span>') + '</span>');
+      // build scene
+      const scene = new ScrollMagic.Scene({
+        triggerElement: "#partners",
+        triggerHook: 'onLeave',
+        duration: "700%"
+      })
+        .setPin("#partners")
+        .setTween(tween)
+        .addTo(controller);
 
-                    title.find("span").each( function() {
-                        var span = $(this);
-                        if ( (span.position().left + span.width()) > width ) {
-                            span.before('<br>');
-                        }
-                    });
-
-                    title.find("span").contents().unwrap();
-                    let lines = title.html().split("<br>");
-                    title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
-
-                });
-            });
-
-            // init controller
-            const controller = new ScrollMagic.Controller();
-
-            const tween = new TimelineMax()
-                .add([
-                    TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {
-                        transform: "translate(-6200px, 0)",
-                        ease: Linear.easeNone
-                    }),
-                    TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {
-                        transform: "translate(0, 0)",
-                        ease: Linear.easeNone
-                    }),
-                    TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 7100, ease: Linear.easeNone})
-                ]);
-
-            // build scene
-            const scene = new ScrollMagic.Scene({
-                triggerElement: "#partners",
-                triggerHook: 'onLeave',
-                duration: "700%"
-            })
-                .setPin("#partners")
-                .setTween(tween)
-                .addTo(controller);
-
-            scene.on("change update progress start end enter leave", (event) => {
-                if (event.state !== "DURING") {
-                    if (event.scrollPos < event.startPos) {
-                        $('#partners-progress-bar').css("width", 600);
-                    } else {
-                        $('#partners-progress-bar').css("width", 7100);
-                    }
-                }
-            });
-        },
-
-        components: {
-            About,
-            Hero,
-            Partners,
-            Services,
-            Cases,
-            Contacts,
-            Footer
+      scene.on("change update progress start end enter leave", (event) => {
+        if (event.state !== "DURING") {
+          if (event.scrollPos < event.startPos) {
+            $('#partners-progress-bar').css("width", 600);
+          } else {
+            $('#partners-progress-bar').css("width", 7100);
+          }
         }
+      });
+    },
+
+    components: {
+      About,
+      Hero,
+      Partners,
+      Services,
+      Cases,
+      Contacts,
+      Footer
     }
+  }
 </script>
 
 <style lang="scss">

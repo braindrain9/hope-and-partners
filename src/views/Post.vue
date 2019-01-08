@@ -1,34 +1,18 @@
 <template>
-  <div>
-
-    <article>
-
-      <a @click="goBack">Back to All Posts</a>
-
-      <header>
-        <img
-          v-if="featured_image"
-          :src="featured_image"
-        >
-        <h1 v-html="title"></h1>
-
-        <ul>
-          <li>
-            <span>Published on {{ date }}</span>
-          </li>
-          <li>
-            <span>
-              <a :href="link">View Post at Source</a>
-            </span>
-          </li>
-        </ul>
-      </header>
-
-      <PostBody :content="content"></PostBody>
-
-    </article>
-
-  </div>
+    <div>
+        <article>
+            <a @click="goBack">Back to All Posts</a>
+            <header>
+                <img v-if="featured_image" :src="featured_image">
+                <h1 v-html="title"></h1>
+                <ul>
+                    <li><span>Published on {{ date }}</span></li>
+                    <li><span><a :href="link">View Post at Source</a></span></li>
+                </ul>
+            </header>
+            <PostBody :content="content"></PostBody>
+        </article>
+    </div>
 </template>
 
 <script>
@@ -42,7 +26,7 @@
 
     mixins: [utils, ajax],
 
-    data () {
+    data() {
       return {
         post: {},
         date: '',
@@ -85,7 +69,7 @@
         let response;
         try {
 
-          if(post.featured_media <= 0) {
+          if (post.featured_media <= 0) {
             throw "No featured image.";
           }
 
@@ -105,58 +89,58 @@
 </script>
 
 <style scoped lang="scss">
-  article {
-    max-width: 900px;
-    margin: 0 auto;
-    background: $grey--light;
-    border: 2px solid darken($grey--light, 5%);
-    padding: 1rem;
+    article {
+        max-width: 900px;
+        margin: 0 auto;
+        background: $grey--light;
+        border: 2px solid darken($grey--light, 5%);
+        padding: 1rem;
 
-    @include media($small) {
-      padding: 3rem;
-    }
-  }
-
-  header {
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    margin: 2rem 0 0;
-  }
-
-  ul {
-    @include media($mobile) {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-gap: 5px;
-    }
-  }
-
-  li {
-
-    & + & {
-      &:before {
-        @include media($mobile) {
-          content: '|';
-          float: left;
-          margin: 0 5px 0 0;
+        @include media-min-width($sm) {
+            padding: 3rem;
         }
-      }
+    }
+
+    header {
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        margin: 2rem 0 0;
+    }
+
+    ul {
+        @include media-min-width($sm) {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-gap: 5px;
+        }
+    }
+
+    li {
+
+        & + & {
+            &:before {
+                @include media-min-width($sm) {
+                    content: '|';
+                    float: left;
+                    margin: 0 5px 0 0;
+                }
+            }
+        }
+
+        a {
+            color: inherit;
+            font-weight: 600;
+
+            &:hover {
+                color: $orange;
+            }
+        }
     }
 
     a {
-      color: inherit;
-      font-weight: 600;
-
-      &:hover {
-        color: $orange;
-      }
+        display: block;
+        margin-bottom: 1rem;
     }
-  }
-
-  a {
-    display: block;
-    margin-bottom: 1rem;
-  }
 </style>

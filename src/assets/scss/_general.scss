@@ -93,7 +93,6 @@
   }
 }
 
-
 // Responsive
 @include media-max-width($menu-breakpoint) {
   .horizontal-grey-link {
@@ -105,6 +104,14 @@
       &:before {
         width: 40px;
       }
+    }
+  }
+}
+
+@include media-max-width($md-max) {
+  .heading {
+    &-main {
+      font-size: 36px;
     }
   }
 }

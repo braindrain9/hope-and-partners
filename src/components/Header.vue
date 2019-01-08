@@ -215,12 +215,11 @@
                 outline: none;
             }
         }
-
-        @include media-max-width($menu-breakpoint) {
-        }
     }
 
     #openMenu {
+        font-size: 16px;
+
         &:hover {
             color: white;
         }
@@ -237,6 +236,7 @@
     }
 
     #fadeClose {
+        font-size: 16px;
         color: #777;
     }
 
