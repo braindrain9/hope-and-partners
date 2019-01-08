@@ -1,35 +1,35 @@
 <template>
     <div>
         <div class="homepage">
-            <section class="section position-relative">
+            <div class="section position-relative">
                 <Hero/>
-            </section>
+            </div>
 
-            <section>
+            <div class="about-section">
                 <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
                 </b-container>
-            </section>
+            </div>
 
-            <section class="position-relative" id="services">
+            <div class="position-relative" id="services">
                 <Services v-if="services.length" :services="services"/>
-            </section>
+            </div>
 
-            <section class="section" id="partners">
+            <div class="section" id="partners">
                 <Partners :partners="partners" :footer-width="7300"/>
-            </section>
+            </div>
 
-            <section class="section">
+            <div class="section">
                 <b-container class="section-container">
                     <Cases/>
                     <Footer link="contacts"/>
                 </b-container>
-            </section>
+            </div>
 
-            <section class="section position-relative">
+            <div class="section position-relative">
                 <Contacts/>
-            </section>
+            </div>
         </div>
     </div>
 </template>
@@ -182,98 +182,11 @@
         }
     }
 
-    .skrollr-desktop body {
-        height: 100% !important;
-    }
-
-    #skrollr-body {
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .no-skrollr .parallax-image-wrapper {
-        display: none !important;
-    }
-
-    .parallax-image-wrapper {
-        position: fixed;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-
-        height: 80vh;
-        top: -80vh;
-    }
-
-    .parallax-image {
-        display: none;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-
-        height: 100vh;
-        top: 0;
-    }
-
-    .parallax-image.skrollable-between {
-        display: block;
-    }
-
-    .no-skrollr .parallax-image-wrapper {
-        display: none !important;
-    }
-
-    /*  End of scrollr styles   */
-
-    /*Body Text*/
-
-    /*Gallery*/
-
-    .gallery {
-        color: #221f51;
-        font: normal 24px sans-serif;
-        min-height: 1900px;
-        text-align: center;
-        overflow: hidden;
-    }
-
-    .scroll-pause {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        /*padding-top: 20vh;*/
-        /*background: transparent;*/
-    }
-
-    .scroll-pause .row {
-        /*width: 200vw;*/
-        /*height: 30vh;*/
-        /*overflow: hidden;*/
-    }
-
-    .scroll-pause .row div {
-        /*width: 11.5%;*/
-        /*height: 90%;*/
-        /*float: left;*/
-        /*background-repeat: no-repeat;*/
-        /*background-position: center;*/
-        /*background-size: cover;*/
-        /*margin: 0.5%;*/
-        /*border-radius: 10px;*/
-    }
-
-    .scroll-pause .row div:first-child {
-        /*margin-left: 0.4%;*/
-    }
-
-    .scroll-pause .row div:last-child {
-        /*margin-right: 0.4%;*/
+    @include media-max-width($sm-max) {
+        .about-section {
+            .section-container {
+                padding-top: 60px;
+            }
+        }
     }
 </style>
