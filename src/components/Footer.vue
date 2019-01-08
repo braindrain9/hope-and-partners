@@ -132,26 +132,26 @@
                     }
                 }
             }
-        }
 
-        .menu-link {
-            display: flex;
-            align-items: center;
+            .menu-link {
+                display: flex;
+                align-items: center;
 
-            &:hover {
+                &:hover {
+                    .divider {
+                        height: 2px;
+                        width: 40px;
+                    }
+                }
+
+                .link-text {
+                    max-width: 100%;
+                }
+
                 .divider {
                     height: 2px;
-                    width: 40px;
+                    width: 30px;
                 }
-            }
-
-            .link-text {
-                max-width: 100%;
-            }
-
-            .divider {
-                height: 2px;
-                width: 30px;
             }
         }
     }
