@@ -67,12 +67,16 @@
     }
 
     @include media-max-width($sm-max) {
+        .bio {
+            .event {
+                .event-container {
+                    max-width: 500px;
+                }
+            }
+        }
+
         .event {
             padding: 60px 0 20px;
-
-            .event-container {
-                max-width: 500px;
-            }
 
             .description {
                 .category-title {
@@ -86,13 +90,19 @@
     }
 
     @include media-max-width($xs-max) {
+        .bio {
+            .event {
+                padding: 30px 0 0px;
+
+                .event-container {
+                    max-width: 100%;
+                    padding: 0 15px;
+                }
+            }
+        }
+
         .event {
             padding: 30px 0 0px;
-
-            .event-container {
-                max-width: 100%;
-                padding: 0 15px;
-            }
 
             .description {
                 .category-title {

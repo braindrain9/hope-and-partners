@@ -122,7 +122,7 @@
 
             .bio-link {
                 &:before {
-                    width: 50px;
+                    width: 40px;
                 }
             }
         }

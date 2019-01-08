@@ -24,7 +24,6 @@
             </div>
 
             <Footer class="full-width-footer"
-                    is-full-width-mode="true"
                     :style="{width: footerWidth + 'px', paddingLeft: footerPaddingLeft + 'px'}"
                     link="cases"
             >

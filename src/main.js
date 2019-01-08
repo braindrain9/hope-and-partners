@@ -20,6 +20,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import BootstrapVue from 'bootstrap-vue';
 
+import 'animate.css';
+
 Vue.mixin(utils);
 
 //-- Initialize Google Analytics tracking.
