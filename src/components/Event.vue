@@ -70,6 +70,10 @@
         .event {
             padding: 60px 0 20px;
 
+            .event-container {
+                max-width: 500px;
+            }
+
             .description {
                 .category-title {
                     font-size: 12px;
@@ -84,6 +88,11 @@
     @include media-max-width($xs-max) {
         .event {
             padding: 30px 0 0px;
+
+            .event-container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
 
             .description {
                 .category-title {
