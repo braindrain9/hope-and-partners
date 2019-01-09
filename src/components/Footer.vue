@@ -15,7 +15,9 @@
                 </a>
             </div>
             <slot name="progress-bar"></slot>
-            <div class="d-none d-sm-block mail">hello@hopeandpartners.com</div>
+            <div class="d-none d-sm-block mail">
+                <a class="grey-color-link" href="mailto:hello@hopeandpartners.com">hello@hopeandpartners.com</a>
+            </div>
         </div>
     </footer>
 </template>

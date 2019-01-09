@@ -17,6 +17,7 @@
 
 .grey-color-link {
   color: $grey;
+  transition: color .2s ease-in-out;
 
   &:hover {
     color: $orange;
@@ -93,6 +94,31 @@
   }
 }
 
+/* Not scoped */
+.contacts {
+  .mail-text {
+    arrow-svg {
+      & /deep/ svg {
+        transition: all 1s ease-in-out;
+      }
+    }
+
+    &:hover {
+      .arrow-svg {
+        & /deep/ svg {
+          animation: mail-arrow-svg .5s;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+@keyframes mail-arrow-svg {
+  from {transform: rotate(0deg)}
+  to {transform: rotate(180deg)}
+}
+
 // Responsive
 @include media-max-width($menu-breakpoint) {
   .horizontal-grey-link {
@@ -112,6 +138,16 @@
   .description {
     font-size: 20px;
   }
+
+  .contacts {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          width: 40px;
+        }
+      }
+    }
+  }
 }
 
 @include media-max-width($md-max) {
@@ -122,6 +158,16 @@
 
     &-main {
       font-size: 36px;
+    }
+  }
+
+  .contacts {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          width: 30px;
+        }
+      }
     }
   }
 }
