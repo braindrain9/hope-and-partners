@@ -5,7 +5,7 @@
                 <Hero/>
             </div>
 
-            <div class="about-section">
+            <div class="section about-section">
                 <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
@@ -162,7 +162,8 @@
 
     .section {
         background: $base-black;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
     }
 
     .section-container {
@@ -173,12 +174,6 @@
         &.services-section {
             padding-top: 150px;
             height: 100%;
-        }
-    }
-
-    .services-slider {
-        .fp-slidesContainer {
-            transition: all 900ms ease 0s !important;
         }
     }
 

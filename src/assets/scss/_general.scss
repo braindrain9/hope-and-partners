@@ -94,7 +94,7 @@
   }
 }
 
-/* Not scoped */
+/* Contacts */
 .contacts {
   .mail-text {
     arrow-svg {
@@ -117,6 +117,63 @@
 @keyframes mail-arrow-svg {
   from {transform: rotate(0deg)}
   to {transform: rotate(180deg)}
+}
+
+/* Cases slider */
+.swiper-slide {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 100px;
+  background-color: transparent !important;
+  justify-content: space-around !important;
+  height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background: none;
+  top: 94%;
+  width: 50px;
+  height: 50px;
+}
+
+.swiper-button-prev {
+  left: 25%;
+}
+
+.swiper-button-next {
+  right: 25%;
+  transform: rotate(-180deg);
+}
+
+.swiper-container-horizontal > .swiper-pagination-progressbar {
+  width: 30%;
+  height: 2px;
+  top: 94%;
+  border-bottom: 1px solid #373739;
+  left: 35%;
+
+  &:before {
+    content: attr(data-before);
+    width: 0;
+    position: absolute;
+    left: -30px;
+    top: -10px;
+  }
+
+  &:after {
+    content: attr(data-after);
+    position: absolute;
+    width: 0;
+    right: -10px;
+    top: -10px;
+  }
+
+  > .swiper-pagination-progressbar-fill {
+    background: $orange;
+  }
 }
 
 // Responsive
@@ -169,6 +226,29 @@
         }
       }
     }
+  }
+
+  /* Cases slider */
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 100px;
+  }
+
+  .swiper-button-prev {
+    left: 80%;
+  }
+
+  .swiper-button-next {
+    right: 12.5%;
+    top: 200px;
+  }
+
+  .swiper-wrapper {
+    transition-duration: 0ms !important;
+  }
+
+  .swiper-slide {
+    height: 100%;
   }
 }
 
