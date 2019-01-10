@@ -21,7 +21,7 @@
             </div>
 
             <div class="section">
-                <b-container class="section-container">
+                <b-container>
                     <Cases/>
                     <Footer link="contacts"/>
                 </b-container>

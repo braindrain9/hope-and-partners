@@ -228,23 +228,12 @@
     }
   }
 
-  /* Cases slider */
-  .swiper-button-prev,
-  .swiper-button-next {
-    top: 100px;
-  }
-
   .swiper-button-prev {
-    left: 80%;
+    left: 20%;
   }
 
   .swiper-button-next {
-    right: 12.5%;
-    top: 200px;
-  }
-
-  .swiper-wrapper {
-    transition-duration: 0ms !important;
+    right: 20%;
   }
 
   .swiper-slide {
@@ -256,10 +245,39 @@
   .description {
     font-size: 18px;
   }
+
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 10%;
+  }
+
+  .swiper-button-next {
+    right: 10%;
+  }
 }
 
-@include media-max-width($xs-max) {
+@include media-max-width($mobile-sm) {
   .description {
     font-size: 14px;
+  }
+
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 15px;
+  }
+
+  .swiper-button-next {
+    right: 15px;
+  }
+}
+
+@include media-max-width($mobile-xs) {
+  /*Slider slider*/
+  .swiper-button-prev {
+    left: 10px;
+  }
+
+  .swiper-button-next {
+    right: 10px;
   }
 }

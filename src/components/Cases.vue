@@ -5,7 +5,7 @@
             <swiper-slide class="d-flex align-items-center">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe width="420" height="315" class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
+                        <iframe class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
@@ -44,7 +44,7 @@
             <swiper-slide>
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe width="420" height="315" class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
+                        <iframe class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
@@ -137,7 +137,7 @@
         height: $home-block-height;
         position: relative;
         margin: 0 auto;
-        padding-top: 100px;
+        padding-top: 50px;
 
         .heading {
             padding-left: 125px;
@@ -159,12 +159,14 @@
                 background: $base-black;
                 position: relative;
                 z-index: 1;
+                width: 420px;
+                height: 315px;
             }
 
             .bg-image {
                 background: #1E1E1E;
                 width: 105%;
-                height: 250px;
+                height: 100%;
                 position: absolute;
                 bottom: -20px;
                 left: 20px;
@@ -239,13 +241,20 @@
         }
     }
 
+    @include media-max-width($lg-max) {
+        .cases {
+            .heading {
+                padding-left: 40px;
+            }
+        }
+    }
+
     @include media-max-width($md-max) {
         .cases {
-            padding-top: 50px;
             height: 100%;
 
             .heading {
-                padding-left: 0;
+                margin-bottom: 40px;
             }
 
             .slider-item {
@@ -254,16 +263,72 @@
             }
 
             .photo-block {
-                align-self: flex-start;
                 margin-bottom: 50px;
+
+                .bg-image {
+                    width: 100%;
+                }
+
+                .video {
+                    width: 520px;
+                    height: 340px;
+                }
             }
 
             .text-block {
-                width: 100%;
-                max-width: 600px;
+                width: 90%;
+                max-width: 100%;
+                margin-bottom: 50px;
+                padding-right: 30px;
+                padding-left: 40px;
 
                 .description {
                     max-height: 150px;
+                }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .cases {
+            .heading {
+                padding-left: 10px;
+            }
+
+            .photo-block {
+                .video {
+                    width: 380px;
+                    height: 260px;
+                }
+            }
+        }
+    }
+
+    @include media-max-width($xs-max) {
+        .cases {
+            .photo-block {
+                .video {
+                    width: 320px;
+                    height: 260px;
+                }
+            }
+        }
+    }
+
+    @include media-max-width($mobile-sm) {
+        .cases {
+            .text-block {
+                max-width: 90%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .photo-block {
+                padding-left: 10px;
+
+                .video {
+                    width: 100%;
+                    height: 220px;
                 }
             }
         }
