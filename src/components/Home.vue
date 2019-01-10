@@ -5,7 +5,7 @@
                 <Hero/>
             </div>
 
-            <div class="section about-section">
+            <div class="section">
                 <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="section">
-                <b-container>
+                <b-container class="section-container">
                     <Cases/>
                     <Footer link="contacts"/>
                 </b-container>
@@ -178,10 +178,8 @@
     }
 
     @include media-max-width($sm-max) {
-        .about-section {
-            .section-container {
-                padding-top: 60px;
-            }
+        .section-container {
+            padding-top: 60px;
         }
     }
 </style>
