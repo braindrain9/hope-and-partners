@@ -120,13 +120,14 @@
         footer {
             &.is-final-mode {
                 .footer-content {
+                    border: none;
                     height: 100%;
                     flex-direction: column-reverse;
                     justify-content: center;
                     align-items: center;
 
                     > div {
-                        padding-top: 20px;
+                        padding-top: 10px;
 
                         &.copy {
                             font-size: 12px;
