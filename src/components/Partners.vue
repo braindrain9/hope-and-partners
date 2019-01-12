@@ -8,7 +8,7 @@
             </div>
             <div id="partners-slider-container">
                 <div class="partners-progress-container">
-                    <div id="partners">
+                    <div id="partners-slider">
                         <div class="partner" v-for="(partner, index) in partners" :key="index"
                              :id="'partner' + (index + 1)">
                             <div class="partner-item">
@@ -23,16 +23,26 @@
                                     <div class="description-block">
                                         <h2 class="heading">{{partner.name}}</h2>
                                         <div class="occupation">{{partner.occupation}}</div>
-                                        <div class="description" v-if="partner.description"
-                                             v-html="partner.description"></div>
+                                        <div class="description"
+                                             v-if="partner.description"
+                                             v-html="partner.description"
+                                        ></div>
                                     </div>
                                 </div>
-                                <div class="progress-name text-center">{{partner.firstName}}</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="position-relative timeline-progressbar-container">
+                        <div class="d-flex justify-content-around">
+                            <div class="progress-name"
+                                 v-for="(partner, index) in partners"
+                                 :key="index"
+                                 :id="'progress-text' + (index + 1)"
+                            >
+                                {{partner.firstName}}
+                            </div>
+                        </div>
                         <div class="partners-progress-line">
                             <div class="partners-progress-line-fill" id="partners-progress-line-fill"></div>
                         </div>
@@ -109,7 +119,9 @@
                 const YPosition = parseFloat(progWrap.width() / slideCount);
 
                 $('.partner').each(function (index) {
-                    $(this).attr("data-position", YPosition / 3 + index * YPosition);
+                    const pos = YPosition / 3 + index * YPosition;
+
+                    $(this).attr("data-position", pos);
                 });
             }
 
@@ -117,13 +129,15 @@
             $(window).scroll(function () {
                 const lineWidth = parseFloat(document.getElementById("partners-progress-line-fill").offsetWidth);
 
-                $('.partner').each(function () {
+                $('.partner').each(function (index) {
                     lnPosition = $(this).data('position');
                     selected = '#' + $(this).data('partner');
                     if ((lineWidth + 500) >= lnPosition) {
                         $(this).addClass('fill');
+                        $('#progress-text' + (index + 1)).addClass('fill');
                     } else {
                         $(this).removeClass('fill');
+                        $('#progress-text' + (index + 1)).removeClass('fill');
                     }
                 });
             });
@@ -206,13 +220,19 @@
                 font-size: 14px;
                 letter-spacing: 0.01em;
                 max-width: 400px;
+                height: 300px;
+                overflow-y: auto;
             }
         }
 
         .progress-name {
             font-size: 18px;
-            margin-top: 50px;
-            color: white;
+            padding-bottom: 20px;
+            transition: color .5s ease-in-out;
+
+            &.fill {
+                color: white;
+            }
         }
 
         .partners-footer {
@@ -223,8 +243,9 @@
             bottom: -8px;
         }
 
-        #partners {
-            height: 550px;
+        #partners-slider {
+            height: 55vh;
+            min-height: 500px;
 
             .partner {
                 float: left;
@@ -250,6 +271,10 @@
                     }
                 }
             }
+
+            .progress-name:not(.fill) {
+                color: $grey;
+            }
         }
 
         #partners-container {
@@ -263,7 +288,7 @@
 
             .partners-title-wrapper {
                 position: absolute;
-                top: 200px;
+                top: 150px;
                 width: 100%;
                 z-index: 5;
             }
@@ -296,6 +321,72 @@
                     background-color: $orange;
                     z-index: 4
                 }
+            }
+        }
+    }
+
+    @include media-max-width($lg-max) {
+        .partners {
+            .heading-main {
+                padding-left: 40px;
+            }
+
+            #partners-slider {
+                min-height: 450px;
+                height: 50vh;
+            }
+
+            .partner-item {
+                .photo-block {
+                    width: 380px;
+
+                    .photo {
+                        width: 220px;
+                        height: 300px;
+                    }
+
+                    .bg-box {
+                        width: 250px;
+                        height: 250px;
+                    }
+                }
+
+                .description-block {
+                    padding-top: 10px;
+                    height: 400px;
+
+                    .heading {
+                        margin-bottom: 0;
+                    }
+
+                    .occupation {
+                        font-size: 14px;
+                    }
+
+                    .description {
+                        margin-top: 20px;
+                    }
+                }
+            }
+
+            .progress-name {
+                font-size: 14px;
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .partners {
+            .heading-main {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    @media screen and (orientation: portrait) {
+        .partners {
+            #partners-slider {
+                height: 55vh;
             }
         }
     }

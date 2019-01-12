@@ -139,7 +139,7 @@
         margin: 0 auto;
         padding-top: 50px;
 
-        .heading {
+        .heading-main {
             padding-left: 125px;
         }
 
@@ -243,7 +243,7 @@
 
     @include media-max-width($lg-max) {
         .cases {
-            .heading {
+            .heading-main {
                 padding-left: 40px;
             }
         }
@@ -253,7 +253,7 @@
         .cases {
             height: 100%;
 
-            .heading {
+            .heading-main {
                 margin-bottom: 40px;
             }
 
@@ -291,7 +291,7 @@
 
     @include media-max-width($sm-max) {
         .cases {
-            .heading {
+            .heading-main {
                 padding-left: 10px;
             }
 
