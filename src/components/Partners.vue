@@ -33,8 +33,8 @@
                     </div>
 
                     <div class="position-relative timeline-progressbar-container">
-                        <div class="progress-line">
-                            <div class="progress-line-fill" id="progress-line-fill"></div>
+                        <div class="partners-progress-line">
+                            <div class="partners-progress-line-fill" id="partners-progress-line-fill"></div>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                     .to("#partners-slider-container", 1, {
                         x: '' + offsetLeft + 'px'
                     }, 0)
-                    .to(".progress-line-fill", 1, {
+                    .to(".partners-progress-line-fill", 1, {
                         width: progWrapWidth + 'px'
                     }, 0)
                     .to(".partners-progress-container", 1, {
@@ -115,7 +115,7 @@
 
             let lnPosition, selected;
             $(window).scroll(function () {
-                const lineWidth = parseFloat(document.getElementById("progress-line-fill").offsetWidth);
+                const lineWidth = parseFloat(document.getElementById("partners-progress-line-fill").offsetWidth);
 
                 $('.partner').each(function () {
                     lnPosition = $(this).data('position');
@@ -280,7 +280,7 @@
                     z-index: 4
                 }
 
-                .progress-line {
+                .partners-progress-line {
                     position: relative;
                     height: 3px;
                     width: 100%;
@@ -288,7 +288,7 @@
                     z-index: 4
                 }
 
-                .progress-line-fill {
+                .partners-progress-line-fill {
                     height: 3px;
                     position: absolute;
                     top: 0;
