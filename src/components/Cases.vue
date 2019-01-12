@@ -1,7 +1,7 @@
 <template>
     <div class="cases">
         <h1 class="heading heading-main">кейси<span class="orange-color">:</span></h1>
-        <swiper :options="swiperOption" ref="horizontalSwiper">
+        <swiper :options="swiperOption" ref="casesSwiper">
             <swiper-slide class="d-flex align-items-center">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
@@ -90,7 +90,7 @@
     data() {
       return {
         arrowSvg,
-        activeIndex: '00',
+        activeIndex: '',
         afterIndex: '02',
         swiperOption: {
           speed: 1000,
@@ -115,14 +115,17 @@
       onSwipe(value) {
         const index = value.swiper.activeIndex;
 
-        this.activeIndex = index < 10 ? '0' + index : index;
+        this.activeIndex = index === 0
+            ? ''
+            : index < 10 ? '0' + index : index;
+
         this.afterIndex = (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
       }
     },
 
     computed: {
       swiper() {
-        return this.$refs.horizontalSwiper.swiper;
+        return this.$refs.casesSwiper.swiper;
       }
     },
 
@@ -138,6 +141,7 @@
         position: relative;
         margin: 0 auto;
         padding-top: 50px;
+        z-index: 11;
 
         .heading-main {
             padding-left: 125px;
@@ -306,6 +310,8 @@
 
     @include media-max-width($xs-max) {
         .cases {
+            padding-top: 0;
+
             .photo-block {
                 .video {
                     width: 320px;

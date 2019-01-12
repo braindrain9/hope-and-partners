@@ -6,7 +6,7 @@
                     <h2 class="heading heading-main">партнери<span class="orange-color">:</span></h2>
                 </div>
             </div>
-            <div id="partners-slider-container">
+            <div class="d-none d-sm-block" id="partners-slider-container">
                 <div class="partners-progress-container">
                     <div id="partners-slider">
                         <div class="partner" v-for="(partner, index) in partners" :key="index"
@@ -51,6 +51,41 @@
                     <Footer class="partners-footer" link="cases"></Footer>
                 </div>
             </div>
+            <div id="d-block d-sm-none partners-mobile-slider">
+                <b-container>
+                    <swiper :options="swiperOption" ref="partnersSwiper">
+                        <swiper-slide v-for="(partner, index) in partners" :key="index"
+                        >
+                            <div class="partner-item">
+                                <div class="photo-block">
+                                    <div class="photo"
+                                         :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"
+                                    ></div>
+                                </div>
+                                <div class="description-block">
+                                        <h2 class="heading">{{partner.name}}</h2>
+                                        <div class="occupation">{{partner.occupation}}</div>
+                                        <div class="description"
+                                             v-if="partner.description"
+                                             v-html="partner.description"
+                                        ></div>
+                                    </div>
+                            </div>
+                        </swiper-slide>
+                        <div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
+                        <div
+                                class="swiper-pagination"
+                                slot="pagination"
+                                ref="pagination"
+                                :data-before="activeIndex"
+                                :data-after="afterIndex"
+                        ></div>
+                        <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
+                    </swiper>
+
+                    <Footer link="cases"></Footer>
+                </b-container>
+            </div>
         </div>
     </section>
 </template>
@@ -60,94 +95,155 @@
     import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
     import {TimelineMax} from "gsap/TweenMax";
     import Footer from './Footer';
+    import arrowSvg from '../assets/img/arrow-grey.svg';
 
     export default {
         name: 'Partners',
 
         props: ['partners'],
 
+        data() {
+            return {
+                arrowSvg,
+                activeIndex: '',
+                afterIndex: '02',
+                swiperOption: {
+                    speed: 1000,
+                    parallax: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        type: 'progressbar',
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    }
+                }
+            }
+        },
+
         components: {
             Footer
         },
 
+        methods: {
+            onSwipe(value) {
+                const index = value.swiper.activeIndex;
+
+                this.activeIndex = index === 0
+                    ? ''
+                    : index < 10 ? '0' + index : index;
+                console.log(this.partners.length, index, 'partners');
+
+                this.afterIndex = this.partners.length === (index + 1)
+                    ? ''
+                    : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+            }
+        },
+
+        computed: {
+            swiper() {
+                return this.$refs.partnersSwiper.swiper;
+            }
+        },
+
         mounted() {
+            this.swiper.on('slideChange', () => this.onSwipe(this));
+            const self = this;
+
             $(document).ready(function () {
-                partnersInit();
-            });
+                const outW = $(window).outerWidth();
 
+                let controller = new ScrollMagic.Controller();
 
-            function partnersInit() {
-                const controller = new ScrollMagic.Controller(),
-                    slideCount = $('.partner').length,
-                    slideWidth = document.getElementById("partner1").clientWidth,
-                    offsetLeft = $('#mainMenu')[0].offsetLeft,
-                    maxWidth = offsetLeft + (slideWidth * (slideCount - 1)),
-                    progWrap = $('.partners-progress-container'),
-                    progWrapWidth = maxWidth + offsetLeft;
+                let scene, wipeAnimation;
 
-                const wipeAnimation = new TimelineMax()
-                    .to("#partners-slider-container", 1, {
-                        x: '' + offsetLeft + 'px'
-                    }, 0)
-                    .to(".partners-progress-line-fill", 1, {
-                        width: progWrapWidth + 'px'
-                    }, 0)
-                    .to(".partners-progress-container", 1, {
-                        x: -progWrapWidth + 'px'
-                    }, 0);
+                if(outW > 576) {
+                    partnersInit();
+                }
 
-                const scene = new ScrollMagic.Scene({
-                    triggerElement: "#partners-container",
-                    triggerHook: "onLeave",
-                    duration: slideCount * 100 + "%"
-                })
-                    .setPin("#partners-container")
-                    .setTween(wipeAnimation)
-                    .addTo(controller);
-
-                // set width and position
-                $('.partner').css("width", 100 / slideCount + "%");
-
-                progWrap.css({
-                    "left": offsetLeft,
-                    "width": progWrapWidth
-                });
-
+                // set width and pos
+                $('.partner').css("width", 100 / self.partners.length + "%");
                 $('.timeline-progressbar-container').css({"left": "200px"});
 
-                // set data position to triger opacity on enter
-                const YPosition = parseFloat(progWrap.width() / slideCount);
+                window.addEventListener('resize', function () {
+                    const offsetLeft = $('#mainMenu')[0].offsetLeft;
 
-                $('.partner').each(function (index) {
-                    const pos = YPosition / 3 + index * YPosition;
+                    $('.partners-progress-container').css({
+                        "left": offsetLeft
+                    });
 
-                    $(this).attr("data-position", pos);
-                });
-            }
-
-            let lnPosition, selected;
-            $(window).scroll(function () {
-                const lineWidth = parseFloat(document.getElementById("partners-progress-line-fill").offsetWidth);
-
-                $('.partner').each(function (index) {
-                    lnPosition = $(this).data('position');
-                    selected = '#' + $(this).data('partner');
-                    if ((lineWidth + 500) >= lnPosition) {
-                        $(this).addClass('fill');
-                        $('#progress-text' + (index + 1)).addClass('fill');
-                    } else {
-                        $(this).removeClass('fill');
-                        $('#progress-text' + (index + 1)).removeClass('fill');
+                    if($(window).outerWidth() < 576) {
+                        controller.destroy(true);
+                        scene = null;
+                        wipeAnimation = null;
                     }
                 });
-            });
 
-            window.addEventListener('resize', function () {
-                const offsetLeft = $('#mainMenu')[0].offsetLeft;
+                let lnPosition, selected;
+                $(window).scroll(function () {
+                    const lineWidth = parseFloat(document.getElementById("partners-progress-line-fill").offsetWidth);
 
-                $('.partners-progress-container').css({
-                    "left": offsetLeft
+                    $('.partner').each(function (index) {
+                        lnPosition = $(this).data('position');
+                        selected = '#' + $(this).data('partner');
+                        if ((lineWidth + 500) >= lnPosition) {
+                            $(this).addClass('fill');
+                            $('#progress-text' + (index + 1)).addClass('fill');
+                        } else {
+                            $(this).removeClass('fill');
+                            $('#progress-text' + (index + 1)).removeClass('fill');
+                        }
+                    });
                 });
+
+                function partnersInit() {
+                    const slideCount = self.partners.length,
+                        slideWidth = document.getElementById("partner1").clientWidth,
+                        offsetLeft = $('#mainMenu')[0].offsetLeft,
+                        maxWidth = offsetLeft + (slideWidth * (slideCount - 1)),
+                        progWrap = $('.partners-progress-container'),
+                        progWrapWidth = maxWidth + offsetLeft;
+
+                    wipeAnimation = new TimelineMax()
+                        .to("#partners-slider-container", 1, {
+                            x: '' + offsetLeft + 'px'
+                        }, 0)
+                        .to(".partners-progress-line-fill", 1, {
+                            width: progWrapWidth + 'px'
+                        }, 0)
+                        .to(".partners-progress-container", 1, {
+                            x: -progWrapWidth + 'px'
+                        }, 0);
+
+                    scene = new ScrollMagic.Scene({
+                        triggerElement: "#partners-container",
+                        triggerHook: "onLeave",
+                        duration: slideCount * 100 + "%"
+                    })
+                        .setPin("#partners-container")
+                        .setTween(wipeAnimation)
+                        .addTo(controller);
+
+                    // set width and position
+
+                    progWrap.css({
+                        "left": offsetLeft,
+                        "width": progWrapWidth
+                    });
+
+                    // set data position to triger opacity on enter
+                    const YPosition = parseFloat(progWrap.width() / slideCount);
+
+                    $('.partner').each(function (index) {
+                        const pos = YPosition / 3 + index * YPosition;
+
+                        $(this).attr("data-position", pos);
+                    });
+
+
+                }
             });
         }
     }
@@ -387,6 +483,55 @@
         .partners {
             #partners-slider {
                 height: 55vh;
+            }
+        }
+    }
+
+    @include media-max-width($xs-max) {
+        .partners {
+            #partners-container {
+                height: 100%;
+                margin-bottom: 0;
+                padding-top: 60px;
+
+                .partners-title-wrapper {
+                    position: static;
+
+                    .heading-main {
+                        margin-bottom: 40px;
+                    }
+                }
+            }
+
+            .partner-item {
+                padding: 0;
+                width: 100%;
+
+                .photo-block {
+                    width: 100%;
+                    margin-bottom: 20px;
+                    text-align: center;
+
+                    .photo {
+                        display: inline-block;
+                        background-position: center top;
+                        position: static;
+                        width: 200px;
+                        height: 200px;
+                        -webkit-box-shadow: 10px 10px 0px 0px #1E1E1E;
+                        -moz-box-shadow: 10px 10px 0px 0px #1E1E1E;
+                        box-shadow: 10px 10px 0px 0px #1E1E1E;
+                    }
+                }
+
+                .description-block {
+                    padding: 0 35px;
+                    max-width: 90%;
+
+                    .description {
+                        margin-top: 10px;
+                    }
+                }
             }
         }
     }

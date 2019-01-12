@@ -120,7 +120,7 @@
 }
 
 /* Cases slider */
-.swiper-slide {
+.cases .swiper-slide {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding-bottom: 100px;
@@ -152,7 +152,7 @@
   width: 30%;
   height: 2px;
   top: 94%;
-  border-bottom: 1px solid #373739;
+  background: #373739;
   left: 35%;
 
   &:before {
@@ -236,7 +236,7 @@
     right: 20%;
   }
 
-  .swiper-slide {
+  .cases .swiper-slide {
     height: 100%;
   }
 }
@@ -253,6 +253,12 @@
 
   .swiper-button-next {
     right: 10%;
+  }
+}
+
+@include media-max-width($xs-max) {
+  .partners .swiper-slide {
+    height: 700px;
   }
 }
 
