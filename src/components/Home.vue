@@ -17,7 +17,7 @@
             </div>
 
             <div class="section" id="partners">
-                <Partners :partners="partners" :footer-width="7300"/>
+                <Partners :partners="partners"/>
             </div>
 
             <div class="section">
@@ -43,12 +43,8 @@
   import Cases from './Cases';
   import Contacts from './Contacts';
   import Footer from './Footer';
-
-  // import Scrollr from 'skrollr';
+  import PartnersOld from './PartnersOld';
   // import * as Three from 'three';
-  import ScrollMagic from 'scrollmagic';
-  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
-  import {TweenMax, TimelineMax, Linear} from "gsap/TweenMax";
 
   export default {
     name: 'Home',
@@ -102,44 +98,7 @@
           title.find("span").contents().unwrap();
           let lines = title.html().split("<br>");
           title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
-
         });
-      });
-
-      // init controller
-      const controller = new ScrollMagic.Controller();
-
-      const tween = new TimelineMax()
-        .add([
-          TweenMax.fromTo("#realcontent", 1, {transform: "translate(0, 0)"}, {
-            transform: "translate(-6200px, 0)",
-            ease: Linear.easeNone
-          }),
-          TweenMax.fromTo("#partners-header", 1, {transform: "translate(0, 0)"}, {
-            transform: "translate(0, 0)",
-            ease: Linear.easeNone
-          }),
-          TweenMax.fromTo("#partners-progress-bar", 1, {width: 600}, {width: 7100, ease: Linear.easeNone})
-        ]);
-
-      // build scene
-      const scene = new ScrollMagic.Scene({
-        triggerElement: "#partners",
-        triggerHook: 'onLeave',
-        duration: "700%"
-      })
-        .setPin("#partners")
-        .setTween(tween)
-        .addTo(controller);
-
-      scene.on("change update progress start end enter leave", (event) => {
-        if (event.state !== "DURING") {
-          if (event.scrollPos < event.startPos) {
-            $('#partners-progress-bar').css("width", 600);
-          } else {
-            $('#partners-progress-bar').css("width", 7100);
-          }
-        }
       });
     },
 
@@ -150,7 +109,8 @@
       Services,
       Cases,
       Contacts,
-      Footer
+      Footer,
+      PartnersOld
     }
   }
 </script>
@@ -158,6 +118,7 @@
 <style lang="scss">
     .scrollmagic-pin-spacer {
         height: 100vh !important;
+        margin-bottom: 100px !important;
     }
 
     .section {

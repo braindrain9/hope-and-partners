@@ -1,120 +1,156 @@
 <template>
-    <div class="partners">
-        <h1 class="heading heading-main partners-heading" id="partners-header">партнери<span class="orange-color">:</span>
-        </h1>
-
-        <div id="realcontent">
-            <div class="partners-slider">
-                <div class="partner-item" v-for="(partner, index) in partners" :key="index">
-                    <div class="d-flex">
-                        <div class="photo-block">
-                            <div class="bg-number">{{index + 1}}</div>
-                            <div class="photo"
-                                 :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"
-                            ></div>
-                            <div class="bg-box"></div>
-                        </div>
-                        <div class="description-block">
-                            <h2 class="heading">{{partner.name}}</h2>
-                            <div class="occupation">{{partner.occupation}}</div>
-                            <div class="description" v-if="partner.description" v-html="partner.description"></div>
-                        </div>
-                    </div>
+    <section class="partners">
+        <div id="partners-container">
+            <div class="partners-title-wrapper">
+                <div class="container">
+                    <h2 class="heading heading-main">партнери<span class="orange-color">:</span></h2>
                 </div>
             </div>
-
-            <Footer class="full-width-footer"
-                    :style="{width: footerWidth + 'px', paddingLeft: footerPaddingLeft + 'px'}"
-                    link="cases"
-            >
-                <template slot="progress-bar">
-                    <div class="progress-container">
-                        <div class="d-flex justify-content-around desc">
-                            <a :href="'#partners/' + index"
-                               class="grey-color-link"
-                               v-for="(partner, index) in partners"
-                               :key="index">
-                                {{partner.firstName}}
-                            </a>
-                        </div>
-                        <div class="progress">
-                            <div id="partners-progress-bar"
-                                 class="progress-bar"
-                                 role="progressbar"
-                            ></div>
+            <div id="partners-slider-container">
+                <div class="partners-progress-container">
+                    <div id="partners">
+                        <div class="partner" v-for="(partner, index) in partners" :key="index"
+                             :id="'partner' + (index + 1)">
+                            <div class="partner-item">
+                                <div class="d-flex">
+                                    <div class="photo-block">
+                                        <div class="bg-number">{{index + 1}}</div>
+                                        <div class="photo"
+                                             :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"
+                                        ></div>
+                                        <div class="bg-box"></div>
+                                    </div>
+                                    <div class="description-block">
+                                        <h2 class="heading">{{partner.name}}</h2>
+                                        <div class="occupation">{{partner.occupation}}</div>
+                                        <div class="description" v-if="partner.description"
+                                             v-html="partner.description"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-name text-center">{{partner.firstName}}</div>
+                            </div>
                         </div>
                     </div>
-                </template>
-            </Footer>
+
+                    <div class="position-relative timeline-progressbar-container">
+                        <div class="progress-line">
+                            <div class="progress-line-fill" id="progress-line-fill"></div>
+                        </div>
+                    </div>
+
+                    <Footer class="partners-footer" link="cases"></Footer>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
-    import Footer from '../components/Footer';
+    import ScrollMagic from 'scrollmagic';
+    import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
+    import {TimelineMax} from "gsap/TweenMax";
+    import Footer from './Footer';
 
     export default {
         name: 'Partners',
 
-        props: ['partners', 'footerWidth'],
-
-        data() {
-            return {
-                footerPaddingLeft: 50
-            }
-        },
-
-        mounted() {
-            this.setPartnersFooterPos();
-        },
+        props: ['partners'],
 
         components: {
             Footer
+        },
+
+        mounted() {
+            $(document).ready(function () {
+                partnersInit();
+            });
+
+
+            function partnersInit() {
+                const controller = new ScrollMagic.Controller(),
+                    slideCount = $('.partner').length,
+                    slideWidth = document.getElementById("partner1").clientWidth,
+                    offsetLeft = $('#mainMenu')[0].offsetLeft,
+                    maxWidth = offsetLeft + (slideWidth * (slideCount - 1)),
+                    progWrap = $('.partners-progress-container'),
+                    progWrapWidth = maxWidth + offsetLeft;
+
+                const wipeAnimation = new TimelineMax()
+                    .to("#partners-slider-container", 1, {
+                        x: '' + offsetLeft + 'px'
+                    }, 0)
+                    .to(".progress-line-fill", 1, {
+                        width: progWrapWidth + 'px'
+                    }, 0)
+                    .to(".partners-progress-container", 1, {
+                        x: -progWrapWidth + 'px'
+                    }, 0);
+
+                const scene = new ScrollMagic.Scene({
+                    triggerElement: "#partners-container",
+                    triggerHook: "onLeave",
+                    duration: slideCount * 100 + "%"
+                })
+                    .setPin("#partners-container")
+                    .setTween(wipeAnimation)
+                    .addTo(controller);
+
+                // set width and position
+                $('.partner').css("width", 100 / slideCount + "%");
+
+                progWrap.css({
+                    "left": offsetLeft,
+                    "width": progWrapWidth
+                });
+
+                $('.timeline-progressbar-container').css({"left": "200px"});
+
+                // set data position to triger opacity on enter
+                const YPosition = parseFloat(progWrap.width() / slideCount);
+
+                $('.partner').each(function (index) {
+                    $(this).attr("data-position", YPosition / 3 + index * YPosition);
+                });
+            }
+
+            let lnPosition, selected;
+            $(window).scroll(function () {
+                const lineWidth = parseFloat(document.getElementById("progress-line-fill").offsetWidth);
+
+                $('.partner').each(function () {
+                    lnPosition = $(this).data('position');
+                    selected = '#' + $(this).data('partner');
+                    if ((lineWidth + 500) >= lnPosition) {
+                        $(this).addClass('fill');
+                    } else {
+                        $(this).removeClass('fill');
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                const offsetLeft = $('#mainMenu')[0].offsetLeft;
+
+                $('.partners-progress-container').css({
+                    "left": offsetLeft
+                });
+            });
         }
     }
 </script>
 
 <style scoped lang="scss">
     .partners {
-        padding-top: 150px;
-        height: 100%;
-        min-height: 500px;
-
         .heading-main {
-            top: 150px;
-            padding-left: 100px;
-        }
-
-        .partners-slider {
-            width: calc(180% + 44rem);
-            height: calc(100vh - 440px);
-            display: inline-block;
-            opacity: 1; // change from 0
-            z-index: 99;
-            -o-transition: opacity .3s ease;
-            -moz-transition: opacity .3s ease;
-            -webkit-transition: opacity .3s ease;
-            transition: opacity .3s ease;
-            top: 0;
-            position: relative;
-            padding: 0 0 0 350px;
+            padding-left: 125px;
         }
 
         .partner-item {
-            white-space: normal;
-            height: calc(100% - 0rem);
             width: 1000px;
             display: inline-block;
-            transform-origin: top;
-            -webkit-transform: translate(0, 0);
-            transition: all .5s ease;
-            -o-transition: all .5s ease;
-            -moz-transition: all .5s ease;
-            -webkit-transition: all .5s ease;
-        }
-
-        .heading {
-            margin-bottom: 10px;
+            padding: 0 0 0 150px;
+            transition: all .5s ease-in-out;
+            opacity: 1;
         }
 
         .photo-block {
@@ -139,7 +175,7 @@
                 background-position: center;
                 background-size: cover;
                 height: 395px;
-                transition: all .7s ease;
+                transition: all .5s ease;
             }
 
             .bg-box {
@@ -172,38 +208,95 @@
                 max-width: 400px;
             }
         }
-    }
 
-    .progress-container {
-        width: calc(100% - 300px);
-        padding-left: 100px;
-
-        .desc {
-            font-size: 14px;
-            padding-bottom: 5px;
+        .progress-name {
+            font-size: 18px;
+            margin-top: 50px;
+            color: white;
         }
-    }
 
-    .progress {
-        height: 2px;
-        width: 100%;
-        margin-bottom: 5px;
-        background: #373739;
-
-        .progress-bar {
-            background-color: $orange;
-            transition: width .3s ease;
+        .partners-footer {
+            margin: 0;
+            position: absolute;
+            width: calc(100% + 500px);
+            left: 0;
+            bottom: -8px;
         }
-    }
 
-    #realcontent {
-        padding-top: 50px;
-        width: 100%;
-        white-space: nowrap;
-        color: #fff;
+        #partners {
+            height: 550px;
 
-        footer {
-            white-space: normal;
+            .partner {
+                float: left;
+                width: 1200px;
+                padding: 0 0 0 150px;
+
+                &:not(.fill) {
+                    .partner-item {
+                        opacity: 0.2;
+
+                        .photo-block {
+                            .photo {
+                                filter: grayscale(100%);
+                                transition: all .2s ease-in-out;
+                            }
+                        }
+
+                        .description-block {
+                            h2, .description {
+                                color: $grey;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #partners-container {
+            padding-top: 100px;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1000;
+            margin-bottom: 185px;
+            position: relative;
+
+            .partners-title-wrapper {
+                position: absolute;
+                top: 200px;
+                width: 100%;
+                z-index: 5;
+            }
+
+            #partners-slider-container {
+                width: 500%;
+                height: 100%;
+
+                .partners-progress-container {
+                    position: absolute;
+                    bottom: 50px;
+                    left: 0;
+                    width: 100%;
+                    z-index: 4
+                }
+
+                .progress-line {
+                    position: relative;
+                    height: 3px;
+                    width: 100%;
+                    background-color: $grey;
+                    z-index: 4
+                }
+
+                .progress-line-fill {
+                    height: 3px;
+                    position: absolute;
+                    top: 0;
+                    width: 0;
+                    background-color: $orange;
+                    z-index: 4
+                }
+            }
         }
     }
 </style>

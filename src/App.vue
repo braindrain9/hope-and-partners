@@ -84,10 +84,6 @@
       });
     },
 
-    mounted() {
-			window.addEventListener('resize', this.setPartnersFooterPos);
-    },
-
     methods: {
       assignEndpointFromURL: function () {
         let endpoint = this.getQueryString('endpoint');
@@ -96,10 +92,6 @@
 
         this.$store.commit('updateEndpoint', endpoint);
       }
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('resize', this.setPartnersFooterPos);
     },
 
     components: {

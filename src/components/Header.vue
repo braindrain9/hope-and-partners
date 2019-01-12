@@ -1,6 +1,6 @@
 <template>
     <header>
-        <b-container>
+        <b-container id="mainMenu">
             <b-navbar toggleable="md" type="dark">
                 <b-nav-toggle id="openMenu" target="">Меню</b-nav-toggle>
 
@@ -165,6 +165,12 @@
                     margin: 0 15px;
                 }
 
+                &:first-child {
+                    .nav-link {
+                        padding-left: 0;
+                    }
+                }
+
                 .nav-link {
                     color: $grey;
                     letter-spacing: $base-spacing;
@@ -219,6 +225,7 @@
 
     #openMenu {
         font-size: 16px;
+        padding-left: 0;
 
         &:hover {
             color: white;
@@ -227,7 +234,7 @@
 
     #mobileMenu {
         background: #fff;
-        color: #777;
+        color: $grey;
         position: fixed;
         top: 0;
         left: 0;
@@ -237,11 +244,11 @@
 
     #fadeClose {
         font-size: 16px;
-        color: #777;
+        color: $grey;
     }
 
     .wrapper {
-        color: #777;
+        color: $grey;
 
         .nav {
             padding: 50px 0;
