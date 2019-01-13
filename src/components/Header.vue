@@ -66,79 +66,86 @@
 </template>
 
 <script>
-    import logo from '../assets/img/logo.svg';
-    import logoMobile from '../assets/img/logo-mobile.svg';
-    import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
-    import {TweenMax, TimelineMax} from 'gsap';
+  import logo from '../assets/img/logo.svg';
+  import logoMobile from '../assets/img/logo-mobile.svg';
+  import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
+  import {TweenMax, TimelineMax, TweenLite} from 'gsap';
 
-    export default {
-        name: 'Header',
+  export default {
+    name: 'Header',
 
-        data() {
-            return {
-                logo,
-                logoMobile,
-                logoDarkMobile
-            }
-        },
+    data() {
+      return {
+        logo,
+        logoMobile,
+        logoDarkMobile
+      }
+    },
 
-        computed: {
-            filteredNavLinks: function () {
-                return this.navLinks.filter(link => !link.hidden);
-            }
-        },
+    computed: {
+      filteredNavLinks: function () {
+        return this.navLinks.filter(link => !link.hidden);
+      }
+    },
 
-        mounted() {
-            const mobileMenu = document.getElementById("mobileMenu");
-            const fadeClose = document.getElementById("fadeClose");
-            const items = $(".wrapper li");
-            const mail = $(".mail-box");
+    mounted() {
+      // load animations
+      TweenLite.fromTo($('.nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
+      TweenLite.fromTo($('.language-chooser a'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
+      TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 0.8}, {opacity: 1, delay: 2.5, scale: 1});
 
-            const menuFadeOpen = new TimelineMax();
-            menuFadeOpen.pause();
+      const mobileMenu = document.getElementById("mobileMenu");
+      const fadeClose = document.getElementById("fadeClose");
+      const items = $(".wrapper li");
+      const mail = $(".mail-box");
 
-            menuFadeOpen.fromTo(mobileMenu, 1, {
-                x: -2000
-            }, {
-                opacity: 1,
-                display: 'block',
-                width: '100vw',
-                height: '100vh',
-                x: 0,
-                y: 0,
-                left: 0,
-                top: 0,
-                autoRound: false,
-                ease: Sine.easeOut
-            });
+      const menuFadeOpen = new TimelineMax();
+      menuFadeOpen.pause();
 
-            menuFadeOpen.staggerFrom(items, 1, {
-                autoAlpha: 0,
-                y: -15
-            }, 0.01);
+      menuFadeOpen.fromTo(mobileMenu, 1, {
+        x: -2000
+      }, {
+        opacity: 1,
+        display: 'block',
+        width: '100vw',
+        height: '100vh',
+        x: 0,
+        y: 0,
+        left: 0,
+        top: 0,
+        autoRound: false,
+        ease: Sine.easeOut
+      });
 
-            menuFadeOpen.staggerFrom(mail, 1, {
-                autoAlpha: 0,
-                y: 15
-            });
+      menuFadeOpen.staggerFrom(items, 1, {
+        autoAlpha: 0,
+        y: -15
+      }, 0.01);
 
-            const menuFadeClose = TweenMax.to(mobileMenu, .25, {
-                paused: true,
-                opacity: 0,
-                x: 0,
-                y: '-100vh',
-                display: 'none',
-                ease: Sine.easeOut
-            });
+      menuFadeOpen.staggerFrom(mail, 1, {
+        autoAlpha: 0,
+        y: 15
+      });
 
-            openMenu.addEventListener("click", function() {
-                menuFadeOpen.restart(); menuFadeOpen.play();
-            });
-            fadeClose.addEventListener("click", function() {
-                menuFadeClose.restart(); menuFadeClose.play();
-            });
-        }
+      const menuFadeClose = TweenMax.to(mobileMenu, .25, {
+        paused: true,
+        opacity: 0,
+        x: 0,
+        y: '-100vh',
+        display: 'none',
+        ease: Sine.easeOut
+      });
+
+      openMenu.addEventListener("click", function () {
+        menuFadeOpen.restart();
+        menuFadeOpen.play();
+      });
+      fadeClose.addEventListener("click", function () {
+        menuFadeClose.restart();
+        menuFadeClose.play();
+      });
     }
+  }
 </script>
 
 <style scoped lang="scss">

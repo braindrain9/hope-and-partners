@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="hero">
         <canvas id="canvas-hero"></canvas>
         <b-container class="hero-section section-container">
             <div class="hero-content d-flex">
@@ -21,6 +21,7 @@
 
 <script>
   import Footer from './Footer';
+  import {TweenLite} from 'gsap/TweenMax';
 
   export default {
     name: 'Hero',
@@ -31,6 +32,12 @@
     mounted() {
       // this.animateHero('canvas-hero');
       // bus.$emit('animateHero', '&');
+      TweenLite.fromTo($('.hero .heading-main'), 1.5, {opacity: 0, y: 100, delay: 0}, {opacity: 1.0, y: 0, delay: 0.5});
+      TweenLite.fromTo($('.hero .hero-content .grey-color-link'), 1.5, {opacity: 0, x: 100}, {
+        opacity: 1.0,
+        x: 0,
+        delay: 2
+      });
     },
 
     destroyed() {
@@ -49,6 +56,10 @@
             height: $home-block-height;
             align-items: center;
             justify-content: flex-end;
+
+            a {
+                display: block;
+            }
 
             .horizontal-divider {
                 position: relative;

@@ -16,10 +16,13 @@
             <b-container>
                 <div class="row">
                     <div class="photo-block col-md-5 col-sm-12">
-                        <div class="photo"></div>
-                        <div class="photo"></div>
-                        <div class="photo"></div>
-                        <div class="photo"></div>
+                        <div class="photo"
+                             data-paroller-factor="0.05"
+                             data-paroller-factor-xs="0.05"
+                             data-paroller-type="background"
+                             data-paroller-direction="vertical"
+                             v-for="i in 4"
+                        ></div>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
                         <div class="description description-dark">
@@ -175,6 +178,7 @@
   import bus from '../bus';
   import Event from './Event';
   import Footer from './Footer';
+  import 'paroller.js';
 
   export default {
     name: 'Bio',
@@ -185,6 +189,7 @@
 
     mounted() {
       document.title = 'Hope & Partners / Bio';
+      $("[data-paroller-factor]").paroller();
     },
 
     components: {

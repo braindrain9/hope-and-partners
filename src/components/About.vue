@@ -1,7 +1,16 @@
 <template>
     <div class="about">
         <div class="d-flex align-items-start">
-            <img class="about-img" src="../assets/img/about.png" alt="About me image"/>
+            <img class="about-img"
+                 src="../assets/img/about.png"
+                 alt="About me image"
+                 data-paroller-factor="0.1"
+                 data-paroller-factor-xs="-0.1"
+                 data-paroller-factor-sm="-2"
+                 data-paroller-factor-md="-1"
+                 data-paroller-type="foreground"
+                 data-paroller-direction="vertical"
+            />
             <div class="bio-container">
                 <h1 class="heading">
                     мене звати Надя,<br/>
@@ -30,12 +39,17 @@
 
 <script>
   import Event from './Event';
+  import 'paroller.js';
 
   export default {
     name: 'About',
 
     components: {
       Event
+    },
+
+    mounted() {
+      $("[data-paroller-factor]").paroller();
     }
   }
 </script>
@@ -53,6 +67,7 @@
         .bio-container {
             margin-left: -110px;
             margin-top: 200px;
+            position: relative;
         }
 
         .bio-link {
