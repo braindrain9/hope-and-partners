@@ -71,37 +71,6 @@
       });
     },
 
-    mounted() {
-      // TITLE ANIMATION WRAPPING
-      $(document).ready(function () {
-        $(".reveal-title, .slide-content-title h2").each(function () {
-
-          var title = $(this),
-            width = title.width();
-
-          title.html(function (i, html) {
-            return html.replace(/\s+/g, '*');
-          });
-          title.find('big').html(function (i, html) {
-            return html.replace(/\*/g, ' ');
-          });
-          let texts = title.html().split("*");
-          title.html('<span>' + texts.join('</span> <span>') + '</span>');
-
-          title.find("span").each(function () {
-            var span = $(this);
-            if ((span.position().left + span.width()) > width) {
-              span.before('<br>');
-            }
-          });
-
-          title.find("span").contents().unwrap();
-          let lines = title.html().split("<br>");
-          title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
-        });
-      });
-    },
-
     components: {
       About,
       Hero,
