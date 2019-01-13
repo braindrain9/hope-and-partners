@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="homepage">
-            <div class="section position-relative">
+            <div class="section position-relative" id="hero">
                 <Hero/>
             </div>
 
-            <div class="section">
+            <div class="section" id="about">
                 <b-container class="section-container">
                     <About/>
                     <Footer link="services"/>
@@ -20,14 +20,14 @@
                 <Partners :partners="partners"/>
             </div>
 
-            <div class="section">
+            <div class="section" id="cases">
                 <b-container class="section-container">
                     <Cases/>
                     <Footer link="contacts"/>
                 </b-container>
             </div>
 
-            <div class="section position-relative">
+            <div class="section position-relative" id="contacts">
                 <Contacts/>
             </div>
         </div>

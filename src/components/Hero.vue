@@ -21,7 +21,8 @@
 
 <script>
   import Footer from './Footer';
-  import {TweenLite} from 'gsap/TweenMax';
+  import {TweenLite, TimelineMax} from 'gsap/TweenMax';
+  import ScrollMagic from 'scrollmagic';
 
   export default {
     name: 'Hero',
@@ -32,12 +33,40 @@
     mounted() {
       // this.animateHero('canvas-hero');
       // bus.$emit('animateHero', '&');
-      TweenLite.fromTo($('.hero .heading-main'), 1.5, {opacity: 0, y: 100, delay: 0}, {opacity: 1.0, y: 0, delay: 0.5});
-      TweenLite.fromTo($('.hero .hero-content .grey-color-link'), 1.5, {opacity: 0, x: 100}, {
-        opacity: 1.0,
-        x: 0,
-        delay: 2
-      });
+      $(document).ready(function() {
+        const outW = $(window).outerWidth();
+
+        // loading animations
+        TweenLite.to($('.hero-section'), 1, {opacity: 1.0});
+        TweenLite.fromTo($('.hero .heading-main'), 1.5, {opacity: 0, y: 50}, {opacity: 1.0, y: 0, delay: 0.5});
+        TweenLite.fromTo($('.hero .hero-content .grey-color-link'), 1.5, {opacity: 0, x: 100}, {
+          opacity: 1.0,
+          x: 0,
+          delay: 2
+        });
+
+        if (outW > 767.98) {
+          hideFooterOnLeave();
+        }
+
+        // hide footer
+        function hideFooterOnLeave() {
+          const controller = new ScrollMagic.Controller();
+
+          const hideFooterAnimation = new TimelineMax()
+              .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
+          ;
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: ".hero",
+            triggerHook: "onLeave",
+            duration: '80%'
+          })
+              .setTween(hideFooterAnimation)
+              .addTo(controller);
+        }
+      })
+
+
     },
 
     destroyed() {
@@ -52,6 +81,8 @@
 
 <style scoped lang="scss">
     .hero-section {
+        opacity: 0;
+
         .hero-content {
             height: $home-block-height;
             align-items: center;

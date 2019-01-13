@@ -92,7 +92,7 @@
       // load animations
       TweenLite.fromTo($('.nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
       TweenLite.fromTo($('.language-chooser a'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
-      TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 0.8}, {opacity: 1, delay: 2.5, scale: 1});
+      TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2.5, scale: 1});
 
       const mobileMenu = document.getElementById("mobileMenu");
       const fadeClose = document.getElementById("fadeClose");

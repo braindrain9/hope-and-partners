@@ -112,6 +112,17 @@
       }
     }
   }
+
+  .mail-block.animation {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          animation: mail-arrow-svg .5s;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
 }
 
 @keyframes mail-arrow-svg {

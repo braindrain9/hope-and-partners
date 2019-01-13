@@ -16,13 +16,7 @@
             <b-container>
                 <div class="row">
                     <div class="photo-block col-md-5 col-sm-12">
-                        <div class="photo"
-                             data-paroller-factor="0.05"
-                             data-paroller-factor-xs="0.05"
-                             data-paroller-type="background"
-                             data-paroller-direction="vertical"
-                             v-for="i in 4"
-                        ></div>
+                        <div class="photo" v-for="i in 4"></div>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
                         <div class="description description-dark">
@@ -178,7 +172,8 @@
   import bus from '../bus';
   import Event from './Event';
   import Footer from './Footer';
-  import 'paroller.js';
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax, TweenLite} from "gsap/TweenMax";
 
   export default {
     name: 'Bio',
@@ -189,7 +184,58 @@
 
     mounted() {
       document.title = 'Hope & Partners / Bio';
-      $("[data-paroller-factor]").paroller();
+
+      $(document).ready(function() {
+        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+
+        const controller = new ScrollMagic.Controller();
+
+        const scene = new ScrollMagic.Scene({
+          triggerElement: '.bio',
+          triggerHook: "0",
+          duration: "100%"
+        })
+            .addTo(controller);
+
+        $.each($('.bio .photo-block .photo'), function(index, elem) {
+          const animPhoto = new TimelineMax()
+              .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
+
+          new ScrollMagic.Scene({
+            triggerElement: elem,
+            triggerHook: "onEnter",
+            duration: "100%"
+          })
+            .setTween(animPhoto)
+            .addTo(controller);
+        });
+
+        $.each($('.bio .row .description-block .description div'), function(index, elem) {
+          const anim = new TimelineMax()
+              .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
+
+          new ScrollMagic.Scene({
+            triggerElement: elem,
+            triggerHook: "onEnter",
+            duration: "100%"
+          })
+              .setTween(anim)
+              .addTo(controller);
+        });
+
+        const wipeAnimation2 = new TimelineMax()
+            .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
+
+        const scene2 = new ScrollMagic.Scene({
+          triggerElement: ".bio .event",
+          triggerHook: "onEnter",
+          duration: "80%"
+        })
+            .setTween(wipeAnimation2)
+            .addTo(controller);
+
+      });
     },
 
     components: {

@@ -83,6 +83,8 @@
 
 <script>
   import arrowSvg from '../assets/img/arrow-grey.svg';
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax} from "gsap/TweenMax";
 
   export default {
     name: 'Cases',
@@ -104,9 +106,9 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
           },
-          // autoplay: {
-          //   delay: 3000,
-          // },
+          autoplay: {
+            delay: 3000
+          }
         }
       }
     },
@@ -131,6 +133,44 @@
 
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
+      const controller = new ScrollMagic.Controller();
+
+      $(document).ready(function() {
+        const outW = $(window).outerWidth();
+        const controller = new ScrollMagic.Controller();
+
+        const wipeAnimation = new TimelineMax()
+            .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5})
+        ;
+
+        // hide footer
+        const addFadeIn = new ScrollMagic.Scene({
+          triggerElement: ".cases",
+          triggerHook: "onEnter",
+          duration: '90%'
+        })
+            .setTween(wipeAnimation)
+            .addTo(controller);
+
+        if (outW > 767.98) {
+          hideFooterOnLeave();
+        }
+
+        function hideFooterOnLeave() {
+          const hideFooterAnimation = new TimelineMax()
+              .fromTo($('#cases footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+          ;
+
+          // hide footer
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: "#cases",
+            triggerHook: "onLeave",
+            duration: '80%'
+          })
+              .setTween(hideFooterAnimation)
+              .addTo(controller);
+        }
+      })
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="about">
-        <div class="d-flex align-items-start">
+        <div class="about-container d-flex align-items-start">
             <img class="about-img"
                  src="../assets/img/about.png"
                  alt="About me image"
@@ -40,6 +40,8 @@
 <script>
   import Event from './Event';
   import 'paroller.js';
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax} from "gsap/TweenMax";
 
   export default {
     name: 'About',
@@ -50,6 +52,49 @@
 
     mounted() {
       $("[data-paroller-factor]").paroller();
+
+      $(document).ready(function () {
+        const outW = $(window).outerWidth();
+        const controller = new ScrollMagic.Controller();
+
+        const bioInfoAnimation = new TimelineMax()
+            .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
+            .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
+        ;
+
+        const eventAnimation = new TimelineMax()
+            .fromTo($('.about .event'), 1, {autoAlpha: 0, y: -50}, {autoAlpha: 1, y: 0, delay: 0.5});
+
+        const bioInfo = new ScrollMagic.Scene({
+          triggerElement: ".about-container",
+          triggerHook: "onEnter",
+          duration: '100%'
+        })
+            .setTween(bioInfoAnimation)
+            .addTo(controller);
+
+        const event = new ScrollMagic.Scene({
+          triggerElement: ".about .event",
+          triggerHook: "onEnter",
+          duration: '100%'
+        })
+            .setTween(eventAnimation)
+            .addTo(controller);
+
+        if (outW > 767.98) {
+          const hideFooterAnimation = new TimelineMax()
+              .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
+          ;
+
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: "#about",
+            triggerHook: "onLeave",
+            duration: '120%'
+          })
+              .setTween(hideFooterAnimation)
+              .addTo(controller);
+        }
+      });
     }
   }
 </script>
@@ -62,12 +107,17 @@
 
         .about-img {
             max-width: 50%;
+            transition: all .5s ease-in-out;
         }
 
         .bio-container {
             margin-left: -110px;
             margin-top: 200px;
             position: relative;
+
+            .heading, .description {
+                transition: all 0.5s ease-in-out;
+            }
         }
 
         .bio-link {

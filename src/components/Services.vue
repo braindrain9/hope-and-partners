@@ -44,25 +44,25 @@
                 <div class="d-block d-md-none services-slider">
                     <b-container>
                         <swiper :options="swiperOption" ref="servicesSwiper">
-                        <swiper-slide v-for="(service, index) in services" :key="index">
-                            <div class="d-flex justify-content-center">
-                                <div class="text-block">
-                                    <span class="letter d-none">{{service.letter}}</span>
-                                    <h2 :data-number="index + 1">{{service.title}}</h2>
-                                    <div class="description" v-html="service.description"></div>
+                            <swiper-slide v-for="(service, index) in services" :key="index">
+                                <div class="d-flex justify-content-center">
+                                    <div class="text-block">
+                                        <span class="letter d-none">{{service.letter}}</span>
+                                        <h2 :data-number="index + 1">{{service.title}}</h2>
+                                        <div class="description" v-html="service.description"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </swiper-slide>
-                        <div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
-                        <div
-                                class="swiper-pagination"
-                                slot="pagination"
-                                ref="pagination"
-                                :data-before="activeIndex"
-                                :data-after="afterIndex"
-                        ></div>
-                        <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
-                    </swiper>
+                            </swiper-slide>
+                            <div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
+                            <div
+                                    class="swiper-pagination"
+                                    slot="pagination"
+                                    ref="pagination"
+                                    :data-before="activeIndex"
+                                    :data-after="afterIndex"
+                            ></div>
+                            <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
+                        </swiper>
                     </b-container>
                 </div>
 
@@ -75,224 +75,257 @@
 </template>
 
 <script>
-    import Footer from './Footer';
-    import ScrollMagic from 'scrollmagic';
-    import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
-    import {TimelineMax} from "gsap/TweenMax";
-    import arrowSvg from '../assets/img/arrow-grey.svg';
+  import Footer from './Footer';
+  import ScrollMagic from 'scrollmagic';
+  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
+  import {TimelineMax} from "gsap/TweenMax";
+  import arrowSvg from '../assets/img/arrow-grey.svg';
 
-    export default {
-        name: 'Services',
+  export default {
+    name: 'Services',
 
-        props: ['services'],
+    props: ['services'],
 
-        data() {
-          return {
-              arrowSvg,
-              activeIndex: '',
-              afterIndex: '02',
-              swiperOption: {
-                  speed: 1000,
-                  parallax: true,
-                  pagination: {
-                      el: '.swiper-pagination',
-                      type: 'progressbar',
-                      clickable: true
-                  },
-                  navigation: {
-                      nextEl: '.swiper-button-next',
-                      prevEl: '.swiper-button-prev'
-                  }
-              }
+    data() {
+      return {
+        arrowSvg,
+        activeIndex: '',
+        afterIndex: '02',
+        swiperOption: {
+          speed: 1000,
+          parallax: true,
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'progressbar',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
           }
-        },
-
-        methods: {
-            onSwipe(value) {
-                const index = value.swiper.activeIndex;
-
-                this.activeIndex = index === 0
-                    ? ''
-                    : index < 10 ? '0' + index : index;
-                console.log(this.partners.length, index, 'partners');
-
-                this.afterIndex = this.partners.length === (index + 1)
-                    ? ''
-                    : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
-            }
-        },
-
-        computed: {
-            swiper() {
-                return this.$refs.servicesSwiper.swiper;
-            }
-        },
-
-        mounted() {
-            this.swiper.on('slideChange', () => this.onSwipe(this));
-            // this.animateServices('canvas');
-            // const text = $('.services-slider .swiper-slide-active .letter');
-
-            // if (text) {
-            // bus.$emit('animateServices', text.text());
-            // }
-            $(document).ready(function () {
-                $(".reveal-title, .slide-content-title h2").each(function () {
-
-                    const title = $(this),
-                        width = title.width();
-
-                    title.html(function (i, html) {
-                        return html.replace(/\s+/g, '*');
-                    });
-                    let texts = title.html().split("*");
-                    title.html('<span>' + texts.join('</span> <span>') + '</span>');
-
-                    title.find("span").each(function () {
-                        var span = $(this);
-                        if ((span.position().left + span.width()) > width) {
-                            span.before('<br>');
-                        }
-                    });
-
-                    title.find("span").contents().unwrap();
-                    let lines = title.html().split("<br>");
-                    title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
-                });
-
-                $('.services-slider').css({"opacity": 1});
-
-                const outW = $(window).outerWidth();
-
-                if (outW > 767.98) {
-
-                    sliderInit();
-
-                    var lastScrollTop = 0;
-                    const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
-
-                    $(window).scroll(function () {
-                        const st = $(this).scrollTop();
-
-                        if (st > lastScrollTop)
-                            $('.slider-dots li.dots-point').removeClass('dots-up').addClass('dots-down');
-                        else
-                            $('.slider-dots li.dots-point').removeClass('dots-down').addClass('dots-up');
-
-                        sliderDownAnim();
-
-                        lastScrollTop = st;
-                    });
-
-                    function sliderDownAnim() {
-                        const lineWidth = parseFloat(document.getElementById("progress-line").offsetWidth);
-
-                        $('.progress-pin').each(function () {
-
-                            const pointPosition = $(this).data('position');
-
-                            if (lineWidth > pointPosition) {
-
-                                var pointOffset = pointPosition + pointWidth;
-
-                                if (lineWidth < pointOffset) {
-
-                                    let slide = $('#' + $(this).data('slide'));
-                                    slide.siblings().removeClass('slide-point');
-                                    slide.addClass('slide-point');
-
-                                    let nav = $('#' + $(this).data('dots'));
-                                    nav.siblings().removeClass('dots-point');
-                                    nav.addClass('dots-point');
-
-                                }
-                            }
-                        });
-                    }
-
-                }
-
-                function sliderInit() {
-
-                    //Define variable
-                    const controller = new ScrollMagic.Controller(),
-                        sliderCount = $('.slide-content').length + 0.2,
-                        progressWrap = $('.progress-slider-wrap'),
-                        sliderContainer = $('#slider-container'),
-                        sliderXOffset = 100 - (100 / sliderCount);
-
-                    let wipeAnimation,
-                        pinPosition,
-                        yOffset,
-                        scene,
-                        html;
-
-                    //Create Slide, Progress Pin and Nav dots
-                    html = '<ul class="slider-dots">';
-                    for (let i = 1; i <= sliderCount; i++) {
-                        sliderContainer.append('<div id="slide-nav-' + i + '" class="slide"></div>');
-                        progressWrap.append('<div class="progress-pin" data-dots="dots-nav-' + i + '" data-slide="slide-' + i + '">' + i + '</div>');
-                        //
-                        // Add slide navigation dot
-                        if (i !== sliderCount)
-                            html += '<li id="dots-nav-' + i + '" data-index="' + i + '">0' + i + '</li>';
-                        }
-                    html += '</ul>';
-                    //
-                    //Apend nav dots
-                    $('#slider-wrap .services-slider').prepend(html);
-
-                    var slideWidth = $('.slide').width(),
-                        progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
-                        TimeLineAnim = progressWrapWidth * 4;
-
-                    wipeAnimation = new TimelineMax()
-                        .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
-                        .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
-                        .to(progressWrap, 1, {x: TimeLineAnim + 'px'}, 0)
-
-                    scene = new ScrollMagic.Scene({
-                        triggerElement: "#slider-wrap",
-                        triggerHook: "onLeave",
-                        duration: sliderCount * 100 + "%"
-                    })
-                        .setPin("#slider-wrap")
-                        .setTween(wipeAnimation)
-                        .addTo(controller);
-
-                    sliderContainer.css("width", sliderCount * 100 + "%");
-
-                    $('.slide').css("width", 100 / sliderCount + "%");
-
-                    progressWrap.css({
-                        "width": progressWrapWidth
-                    });
-
-                    yOffset = parseFloat(Math.trunc(progressWrapWidth / (sliderCount - 1)));
-                    $('.progress-pin').each(function (index) {
-                        pinPosition = index * yOffset;
-                        $(this).css("left", pinPosition).attr("data-position", pinPosition);
-                    });
-
-
-                    // set active slide on load
-                    $('#slide-1').addClass('slide-point');
-
-                    window.addEventListener('resize', function() {
-                        if ($(window).outerWidth() < 768) {
-                            controller.destroy(true);
-                            scene = null;
-                            wipeAnimation = null;
-                        }
-                    })
-                }
-            })
-        },
-
-        components: {
-            Footer
         }
+      }
+    },
+
+    methods: {
+      onSwipe(value) {
+        const index = value.swiper.activeIndex;
+
+        this.activeIndex = index === 0
+            ? ''
+            : index < 10 ? '0' + index : index;
+        console.log(this.partners.length, index, 'partners');
+
+        this.afterIndex = this.partners.length === (index + 1)
+            ? ''
+            : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+      }
+    },
+
+    computed: {
+      swiper() {
+        return this.$refs.servicesSwiper.swiper;
+      }
+    },
+
+    mounted() {
+      this.swiper.on('slideChange', () => this.onSwipe(this));
+      // this.animateServices('canvas');
+      // const text = $('.services-slider .swiper-slide-active .letter');
+
+      // if (text) {
+      // bus.$emit('animateServices', text.text());
+      // }
+      $(document).ready(function () {
+        $(".reveal-title, .slide-content-title h2").each(function () {
+
+          const title = $(this),
+              width = title.width();
+
+          title.html(function (i, html) {
+            return html.replace(/\s+/g, '*');
+          });
+          let texts = title.html().split("*");
+          title.html('<span>' + texts.join('</span> <span>') + '</span>');
+
+          title.find("span").each(function () {
+            var span = $(this);
+            if ((span.position().left + span.width()) > width) {
+              span.before('<br>');
+            }
+          });
+
+          title.find("span").contents().unwrap();
+          let lines = title.html().split("<br>");
+          title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
+        });
+
+        $('.services-slider').css({"opacity": 1});
+
+        const outW = $(window).outerWidth();
+
+        if (outW > 767.98) {
+
+          sliderInit();
+          hideFooterOnLeave();
+
+          var lastScrollTop = 0;
+          const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
+
+          $(window).scroll(function () {
+            const st = $(this).scrollTop();
+
+            if (st > lastScrollTop)
+              $('.slider-dots li.dots-point').removeClass('dots-up').addClass('dots-down');
+            else
+              $('.slider-dots li.dots-point').removeClass('dots-down').addClass('dots-up');
+
+            sliderDownAnim();
+
+            lastScrollTop = st;
+          });
+
+          function sliderDownAnim() {
+            let elem = document.getElementById("progress-line");
+
+            if(elem) {
+              const lineWidth = parseFloat(elem.offsetWidth);
+
+              $('.progress-pin').each(function () {
+
+                const pointPosition = $(this).data('position');
+
+                if (lineWidth > pointPosition) {
+
+                  var pointOffset = pointPosition + pointWidth;
+
+                  if (lineWidth < pointOffset) {
+
+                    let slide = $('#' + $(this).data('slide'));
+                    slide.siblings().removeClass('slide-point');
+                    slide.addClass('slide-point');
+
+                    let nav = $('#' + $(this).data('dots'));
+                    nav.siblings().removeClass('dots-point');
+                    nav.addClass('dots-point');
+
+                  }
+                }
+              });
+            }
+          }
+
+        }
+
+        function sliderInit() {
+
+          //Define variable
+          const controller = new ScrollMagic.Controller(),
+              sliderCount = $('.slide-content').length + 0.2,
+              progressWrap = $('.progress-slider-wrap'),
+              sliderContainer = $('#slider-container'),
+              sliderXOffset = 100 - (100 / sliderCount);
+
+          let wipeAnimation,
+              pinPosition,
+              yOffset,
+              scene,
+              html;
+
+          //Create Slide, Progress Pin and Nav dots
+          html = '<ul class="slider-dots">';
+          for (let i = 1; i <= sliderCount; i++) {
+            sliderContainer.append('<div id="slide-nav-' + i + '" class="slide"></div>');
+            progressWrap.append('<div class="progress-pin" data-dots="dots-nav-' + i + '" data-slide="slide-' + i + '">' + i + '</div>');
+            //
+            // Add slide navigation dot
+            if (i !== sliderCount)
+              html += '<li id="dots-nav-' + i + '" data-index="' + i + '">0' + i + '</li>';
+          }
+          html += '</ul>';
+          //
+          //Apend nav dots
+          $('#slider-wrap .services-slider').prepend(html);
+
+          var slideWidth = $('.slide').width(),
+              progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
+              TimeLineAnim = progressWrapWidth * 4;
+
+          wipeAnimation = new TimelineMax()
+              .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
+              .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
+              .to(progressWrap, 1, {x: TimeLineAnim + 'px'}, 0);
+
+          scene = new ScrollMagic.Scene({
+            triggerElement: "#slider-wrap",
+            triggerHook: "onLeave",
+            duration: sliderCount * 100 + "%"
+          })
+              .setPin("#slider-wrap")
+              .setTween(wipeAnimation)
+              .addTo(controller);
+
+          const wipeAnimation2 = new TimelineMax()
+              .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
+
+          new ScrollMagic.Scene({
+            triggerElement: "#slide-1",
+            triggerHook: "onEnter",
+            duration: "80%"
+          })
+              .setTween(wipeAnimation2)
+              .addTo(controller);
+
+          sliderContainer.css("width", sliderCount * 100 + "%");
+
+          $('.slide').css("width", 100 / sliderCount + "%");
+
+          progressWrap.css({
+            "width": progressWrapWidth
+          });
+
+          yOffset = parseFloat(Math.trunc(progressWrapWidth / (sliderCount - 1)));
+          $('.progress-pin').each(function (index) {
+            pinPosition = index * yOffset;
+            $(this).css("left", pinPosition).attr("data-position", pinPosition);
+          });
+
+
+          // set active slide on load
+          $('#slide-1').addClass('slide-point');
+
+          window.addEventListener('resize', function () {
+            if ($(window).outerWidth() < 768) {
+              controller.destroy(true);
+              scene = null;
+              wipeAnimation = null;
+            }
+          })
+        }
+
+        function hideFooterOnLeave() {
+          const controller = new ScrollMagic.Controller();
+
+          const hideFooterAnimation = new TimelineMax()
+              .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
+          ;
+
+          // hide footer
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: "#partners",
+            triggerHook: "onEnter",
+            duration: '80%'
+          })
+              .setTween(hideFooterAnimation)
+              .addTo(controller);
+        }
+      })
+    },
+
+    components: {
+      Footer
     }
+  }
 </script>
 
 <style lang="scss">
@@ -431,7 +464,7 @@
         -ms-transform: translate(0, -50%);
         transform: translate(0, -50%);
         width: 100%;
-        z-index: 3
+        z-index: 3;
     }
 
     .slide-content-title h2 {
@@ -616,7 +649,6 @@
             margin-right: 0;
         }
     }
-
 
     @include media-max-width($sm-max) {
         .slider-dots {

@@ -24,6 +24,7 @@
 <script>
   import arrowSvg from '../assets/img/arrow.svg';
   import Footer from './Footer';
+  import ScrollMagic from 'scrollmagic';
 
   export default {
     name: 'Contacts',
@@ -36,6 +37,25 @@
 
     mounted() {
       // this.animateContacts('canvas-contacts');
+      $(document).ready(function() {
+        const outW = $(window).outerWidth();
+
+        if (outW > 667) {
+          triggerMailAnimation();
+        }
+
+        function triggerMailAnimation() {
+          const controller = new ScrollMagic.Controller();
+          // hide footer
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: "#contacts",
+            triggerHook: 0.2,
+            duration: '80%'
+          })
+              .setClassToggle('#contacts .mail-block', 'animation')
+              .addTo(controller);
+        }
+      })
     },
 
     components: {
@@ -57,7 +77,7 @@
                 color: $white;
             }
 
-            .mail-text:hover {
+            .mail-text:hover, &.animation {
                 .horizontal-line > div {
                     left: 80%;
                 }

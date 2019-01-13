@@ -1,33 +1,32 @@
 <template>
-  <div id="app" v-aos>
-		<Header />
+    <div id="app" v-aos>
+        <Loading
+                v-if="loadingOn"
+                :message="loadingMessage"
+                :showWheel="loadingWheel"
+        />
 
-		<!--<TopBar-->
-				<!--@showUpdater="showUpdater = true"-->
-		<!--/>-->
+        <!--<TopBar-->
+        <!--@showUpdater="showUpdater = true"-->
+        <!--/>-->
 
-		<div id="wrapper">
+        <div id="wrapper">
+            <Header/>
 
-			<!--<Updater-->
-					<!--v-if="showUpdater"-->
-					<!--:error="error"-->
-					<!--@close="showUpdater = false"-->
-			<!--/>-->
+            <!--<Updater-->
+            <!--v-if="showUpdater"-->
+            <!--:error="error"-->
+            <!--@close="showUpdater = false"-->
+            <!--/>-->
 
-			<Loading
-					v-if="loadingOn"
-					:message="loadingMessage"
-					:showWheel="loadingWheel"
-			/>
+            <router-view :key="viewKey"/>
 
-			<router-view />
+        </div>
 
-		</div>
-
-		<!--<b-container>-->
-			<!--<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>-->
-		<!--</b-container>-->
-  </div>
+        <!--<b-container>-->
+        <!--<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>-->
+        <!--</b-container>-->
+    </div>
 </template>
 
 <script>
@@ -38,10 +37,12 @@
   import TopBar from './components/TopBar';
   import Header from './components/Header';
 
+  import {TweenLite} from 'gsap/TweenMax';
+
   export default {
     name: 'App',
 
-    data () {
+    data() {
       return {
         error: '',
         loadingOn: true,
@@ -57,7 +58,7 @@
       this.assignEndpointFromURL();
 
       bus.$on('toggleLoading', (status = true) => {
-        if(typeof status === 'string') {
+        if (typeof status === 'string') {
           this.loadingOn = true;
           this.showWheel = false;
           this.loadingMessage = status;
@@ -88,10 +89,16 @@
       assignEndpointFromURL: function () {
         let endpoint = this.getQueryString('endpoint');
 
-        if(!endpoint) return;
+        if (!endpoint) return;
 
         this.$store.commit('updateEndpoint', endpoint);
       }
+    },
+
+    mounted() {
+      $(document).ready(function () {
+        TweenLite.to($('#wrapper'), 1, {autoAlpha: 1, delay: 1})
+      });
     },
 
     components: {
@@ -105,15 +112,16 @@
 </script>
 
 <style lang="scss">
-  @import "assets/scss/_base.scss";
+    @import "assets/scss/_base.scss";
 
-  #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-  #wrapper {
-    margin: 0 auto;
-		min-height: 400px;
-  }
+    #wrapper {
+        opacity: 0;
+        margin: 0 auto;
+        min-height: 400px;
+    }
 </style>
