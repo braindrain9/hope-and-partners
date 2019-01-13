@@ -7,37 +7,63 @@
                     <h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
                 </b-container>
 
-                <div class="slider-content-wrap">
-                    <b-container class="services-slider">
+                <div class="d-none d-md-block">
+                    <div class="slider-content-wrap">
+                        <b-container class="services-slider">
 
-                        <div :id="'slide-' + (index + 1)"
-                             v-for="(service, index) in services"
-                             :key="index"
-                             class="slide-content d-flex justify-content-end"
-                        >
-                            <div class="d-flex align-items-center">
-                                <div class="slide-content-wrap text-block">
-                                    <div class="slide-content-counter">0{{index + 1}}</div>
-                                    <span class="letter d-none">{{service.letter}}</span>
-                                    <div class="bg-number">{{index + 1}}</div>
-                                    <div class="slide-content-title">
-                                        <h2>{{service.title}}</h2>
-                                    </div>
+                            <div :id="'slide-' + (index + 1)"
+                                 v-for="(service, index) in services"
+                                 :key="index"
+                                 class="slide-content d-flex justify-content-end"
+                            >
+                                <div class="d-flex align-items-center">
+                                    <div class="slide-content-wrap text-block" :data-number="index + 1">
+                                        <div class="slide-content-counter">0{{index + 1}}</div>
+                                        <span class="letter d-none">{{service.letter}}</span>
+                                        <div class="slide-content-title">
+                                            <h2>{{service.title}}</h2>
+                                        </div>
 
-                                    <div class="slide-content-text-wrap">
-                                        <div class="slide-content-text">
-                                            <p class="description" v-html="service.description"></p>
+                                        <div class="slide-content-text-wrap">
+                                            <div class="slide-content-text">
+                                                <p class="description" v-html="service.description"></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </b-container>
-                </div>
-                <div id="slider-container">
-                    <div class="progress-slider-wrap">
-                        <div class="progress-line" id="progress-line"></div>
+                        </b-container>
                     </div>
+                    <div id="slider-container">
+                        <div class="progress-slider-wrap">
+                            <div class="progress-line" id="progress-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-block d-md-none services-slider">
+                    <b-container>
+                        <swiper :options="swiperOption" ref="servicesSwiper">
+                        <swiper-slide v-for="(service, index) in services" :key="index">
+                            <div class="d-flex justify-content-center">
+                                <div class="text-block">
+                                    <span class="letter d-none">{{service.letter}}</span>
+                                    <h2 :data-number="index + 1">{{service.title}}</h2>
+                                    <div class="description" v-html="service.description"></div>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                        <div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
+                        <div
+                                class="swiper-pagination"
+                                slot="pagination"
+                                ref="pagination"
+                                :data-before="activeIndex"
+                                :data-after="afterIndex"
+                        ></div>
+                        <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
+                    </swiper>
+                    </b-container>
                 </div>
 
                 <b-container>
@@ -53,13 +79,57 @@
     import ScrollMagic from 'scrollmagic';
     import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
     import {TimelineMax} from "gsap/TweenMax";
+    import arrowSvg from '../assets/img/arrow-grey.svg';
 
     export default {
         name: 'Services',
 
         props: ['services'],
 
+        data() {
+          return {
+              arrowSvg,
+              activeIndex: '',
+              afterIndex: '02',
+              swiperOption: {
+                  speed: 1000,
+                  parallax: true,
+                  pagination: {
+                      el: '.swiper-pagination',
+                      type: 'progressbar',
+                      clickable: true
+                  },
+                  navigation: {
+                      nextEl: '.swiper-button-next',
+                      prevEl: '.swiper-button-prev'
+                  }
+              }
+          }
+        },
+
+        methods: {
+            onSwipe(value) {
+                const index = value.swiper.activeIndex;
+
+                this.activeIndex = index === 0
+                    ? ''
+                    : index < 10 ? '0' + index : index;
+                console.log(this.partners.length, index, 'partners');
+
+                this.afterIndex = this.partners.length === (index + 1)
+                    ? ''
+                    : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+            }
+        },
+
+        computed: {
+            swiper() {
+                return this.$refs.servicesSwiper.swiper;
+            }
+        },
+
         mounted() {
+            this.swiper.on('slideChange', () => this.onSwipe(this));
             // this.animateServices('canvas');
             // const text = $('.services-slider .swiper-slide-active .letter');
 
@@ -89,11 +159,12 @@
                     let lines = title.html().split("<br>");
                     title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
                 });
+
                 $('.services-slider').css({"opacity": 1});
 
                 const outW = $(window).outerWidth();
 
-                if (outW > 576) {
+                if (outW > 767.98) {
 
                     sliderInit();
 
@@ -206,6 +277,14 @@
 
                     // set active slide on load
                     $('#slide-1').addClass('slide-point');
+
+                    window.addEventListener('resize', function() {
+                        if ($(window).outerWidth() < 768) {
+                            controller.destroy(true);
+                            scene = null;
+                            wipeAnimation = null;
+                        }
+                    })
                 }
             })
         },
@@ -234,7 +313,7 @@
                 position: relative;
                 padding-right: 30px;
 
-                .slide-content-title h2 {
+                .slide-content-title h2, h2 {
                     font-weight: bold;
                     line-height: 34px;
                     font-size: 24px;
@@ -248,7 +327,8 @@
                     color: #BCBFC1;
                 }
 
-                .bg-number {
+                &:before {
+                    content: attr(data-number);
                     font-weight: bold;
                     line-height: 127px;
                     font-size: 90px;
@@ -256,6 +336,13 @@
                     position: absolute;
                     left: -25px;
                     top: -45px;
+                }
+            }
+
+            .swiper-slide {
+                > div {
+                    height: calc(100% - 200px);
+                    align-items: flex-end;
                 }
             }
         }
@@ -280,11 +367,13 @@
 
     #slider-container {
         width: 500%;
-        height: 500px;
+        height: calc(100vh - 375px);;
+        min-height: 500px;
     }
 
     .slide {
-        height: 500px;
+        min-height: 500px;
+        height: 50vh;
         width: 20%;
         float: left;
         position: relative;
@@ -353,7 +442,8 @@
         position: absolute;
         z-index: 5;
         width: 100%;
-        height: 500px;
+        min-height: 500px;
+        height: 50vh;
     }
 
     .slide-content-counter {
@@ -429,7 +519,7 @@
         transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1)
     }
 
-    .services-slider .bg-number {
+    .services-slider .text-block:before {
         opacity: 0;
         -webkit-transform: translate3d(0, 140px, 0);
         transform: translate3d(0, 140px, 0);
@@ -440,7 +530,7 @@
         transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1)
     }
 
-    .slide-point .bg-number {
+    .slide-point .text-block:before {
         opacity: 1;
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
@@ -460,6 +550,7 @@
     }
 
     .progress-line, .progress-pin, .progress-slider-wrap {
+        visibility: hidden;
         z-index: 4;
         position: absolute;
     }
@@ -499,25 +590,11 @@
         display: block
     }
 
-    @include media-max-width($md-max) {
+    @include media-max-width($lg-max) {
         .services {
-            .services-slider {
-                .text-block {
-                    width: 400px;
-                    padding-right: 0;
-
-                    .slide-content-title h2 {
-                        font-size: 22px;
-                    }
-                }
-
+            .heading {
+                padding-left: 40px;
             }
-
-        }
-
-        .slide-content-text {
-            max-width: 100%;
-            width: 100%;
         }
 
         .slider-dots {
@@ -537,6 +614,84 @@
 
         .slider-dots li:last-child {
             margin-right: 0;
+        }
+    }
+
+
+    @include media-max-width($sm-max) {
+        .slider-dots {
+            display: none;
+        }
+
+        .services {
+            .services-slider {
+                .swiper-slide {
+                    > div {
+                        height: 350px;
+                    }
+                }
+
+                .text-block {
+                    width: 100%;
+                    height: 180px;
+                    padding-left: 60px;
+
+                    h2 {
+                        font-size: 18px;
+                        line-height: 28px;
+                        position: relative;
+
+                        &:before {
+                            content: attr(data-number);
+                            opacity: 1;
+                            font-size: 60px;
+                            color: #1E1E1E;
+                            font-weight: bold;
+                            position: absolute;
+                            left: - 50px;
+                            top: 0;
+                            line-height: 60px;
+                        }
+                    }
+
+                    .description {
+                        height: 300px;
+                        overflow-y: auto;
+                    }
+                }
+            }
+        }
+
+        #slider-wrap {
+            height: 100%;
+            padding-top: 60px;
+        }
+
+        .slide-content-text {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .services {
+            .heading {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    @include media-max-width($mobile-xs) {
+        .services {
+            .services-slider {
+                .text-block {
+                    padding-right: 0;
+
+                    h2 {
+                        font-size: 16px;
+                    }
+                }
+            }
         }
     }
 </style>

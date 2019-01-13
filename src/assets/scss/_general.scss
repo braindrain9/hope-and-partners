@@ -239,6 +239,11 @@
   .cases .swiper-slide {
     height: 100%;
   }
+
+  .services .swiper-slide {
+    height: calc(100vh - 285px);
+    min-height: 450px;
+  }
 }
 
 @include media-max-width($sm-max) {
