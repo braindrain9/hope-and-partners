@@ -198,6 +198,59 @@
                     });
                 });
 
+              if (outW >= 1200 ) {
+
+                for(let i=0; i<self.partners.length; i++) {
+                  let x,
+                      y,
+                      xmouse,
+                      ymouse,
+                      dx = void 0,
+                      dy = void 0,
+                      hImg = $(`.partners #partner${i+1} .photo-block .photo`),
+                      hBox = $(`.partners #partner${i+1} .photo-block .bg-box`),
+                      hNumber = $(`.partners #partner${i+1} .photo-block .bg-number`),
+                      WindowH = $(window).height(),
+                      WindowW = $(window).width();
+
+                  $(`#partner${i + 1}`).mousemove(function(event){
+
+                    xmouse = event.clientX || event.pageX;
+                    ymouse = event.clientY || event.pageY;
+
+                    if (!x || !y) {
+                      x = ((WindowW / 2) - xmouse) * 0.1;
+                      y = ((WindowH / 2) - ymouse) * 0.1;
+                    } else {
+                      dx = (xmouse - x) * 0.125;
+                      dy = (ymouse - y) * 0.125;
+                      if (Math.abs(dx) + Math.abs(dy) < 0.1) {
+                        x = xmouse;
+                        y = ymouse;
+                      } else {
+                        x += dx;
+                        y += dy;
+                      }
+                    }
+
+                    hNumber.css({
+                      '-webit-transform':'translate3d(-'+x/60+'px,-'+y/60+'px,0)',
+                      'transform':'translate3d(-'+x/60+'px,-'+y/60+'px,0)'
+                    });
+
+                    hBox.css({
+                      '-webit-transform':'translate3d(-'+x/120+'px,-'+y/120+'px,0) translate(0,-50%)',
+                      'transform':'translate3d(-'+x/120+'px,-'+y/120+'px,0)'
+                    });
+
+                    hImg.css({
+                      '-webit-transform':'translate3d(-'+x/90+'px,'+y/90+'px,0) translate(0,-50%)',
+                      'transform':'translate3d(-'+x/90+'px,'+y/90+'px,0)'
+                    });
+                  });
+                }
+              }
+
                 function partnersInit() {
                     const slideCount = self.partners.length,
                         slideWidth = document.getElementById("partner1").clientWidth,
