@@ -62,7 +62,6 @@ const router = new VueRouter({
 });
 
 router.afterEach((to, from) => {
-  bus.$emit('bumpViewKey');
 });
 
 export default router;

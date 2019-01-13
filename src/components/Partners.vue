@@ -242,9 +242,10 @@
         }
 
         function partnersInit() {
-          const controller = new ScrollMagic.Controller(),
+          const partner1 = document.getElementById("partner1"),
+              controller = new ScrollMagic.Controller(),
               slideCount = self.partners.length,
-              slideWidth = document.getElementById("partner1").clientWidth,
+              slideWidth = partner1 ? partner1.clientWidth : 1200,
               offsetLeft = $('#mainMenu')[0].offsetLeft,
               maxWidth = offsetLeft + (slideWidth * (slideCount - 1)),
               progWrap = $('.partners-progress-container'),

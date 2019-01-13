@@ -19,7 +19,7 @@
             <!--@close="showUpdater = false"-->
             <!--/>-->
 
-            <router-view :key="viewKey"/>
+            <router-view/>
 
         </div>
 
