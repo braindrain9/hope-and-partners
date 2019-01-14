@@ -159,9 +159,7 @@
           partnersInit();
         }
 
-        if (outW > 767.98) {
-          hideFooterOnLeave();
-        }
+        hideFooterOnLeave();
 
         // set width and pos
         $('.partner').css("width", 100 / self.partners.length + "%");

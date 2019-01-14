@@ -45,9 +45,7 @@
           delay: 2
         });
 
-        if (outW > 767.98) {
-          hideFooterOnLeave();
-        }
+        hideFooterOnLeave();
 
         // hide footer
         function hideFooterOnLeave() {

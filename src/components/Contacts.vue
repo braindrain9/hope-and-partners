@@ -38,11 +38,7 @@
     mounted() {
       // this.animateContacts('canvas-contacts');
       $(document).ready(function() {
-        const outW = $(window).outerWidth();
-
-        if (outW > 667) {
-          triggerMailAnimation();
-        }
+        triggerMailAnimation();
 
         function triggerMailAnimation() {
           const controller = new ScrollMagic.Controller();

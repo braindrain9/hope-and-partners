@@ -118,8 +118,8 @@
         const index = value.swiper.activeIndex;
 
         this.activeIndex = index === 0
-            ? ''
-            : index < 10 ? '0' + index : index;
+          ? ''
+          : index < 10 ? '0' + index : index;
 
         this.afterIndex = (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
       }
@@ -133,14 +133,12 @@
 
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
-      const controller = new ScrollMagic.Controller();
 
-      $(document).ready(function() {
-        const outW = $(window).outerWidth();
+      $(document).ready(function () {
         const controller = new ScrollMagic.Controller();
 
         const wipeAnimation = new TimelineMax()
-            .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5})
+          .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5})
         ;
 
         // hide footer
@@ -149,16 +147,14 @@
           triggerHook: "onEnter",
           duration: '90%'
         })
-            .setTween(wipeAnimation)
-            .addTo(controller);
+          .setTween(wipeAnimation)
+          .addTo(controller);
 
-        if (outW > 767.98) {
-          hideFooterOnLeave();
-        }
+        hideFooterOnLeave();
 
         function hideFooterOnLeave() {
           const hideFooterAnimation = new TimelineMax()
-              .fromTo($('#cases footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+            .fromTo($('#cases footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
           ;
 
           // hide footer
@@ -167,8 +163,8 @@
             triggerHook: "onLeave",
             duration: '80%'
           })
-              .setTween(hideFooterAnimation)
-              .addTo(controller);
+            .setTween(hideFooterAnimation)
+            .addTo(controller);
         }
       })
     }

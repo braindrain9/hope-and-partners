@@ -164,10 +164,11 @@
 
         const outW = $(window).outerWidth();
 
+        hideFooterOnLeave();
+
         if (outW > 767.98) {
 
           sliderInit();
-          hideFooterOnLeave();
 
           var lastScrollTop = 0;
           const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
