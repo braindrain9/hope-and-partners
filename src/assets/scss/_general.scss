@@ -202,6 +202,12 @@
   }
 }
 
+@media only screen and (max-height: 980px) {
+  .cases .swiper-slide {
+    height: 500px;
+  }
+}
+
 @include media-max-width($lg-max) {
   .description {
     font-size: 20px;

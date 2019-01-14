@@ -169,7 +169,6 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Event from './Event';
   import Footer from './Footer';
   import ScrollMagic from 'scrollmagic';
@@ -177,10 +176,6 @@
 
   export default {
     name: 'Bio',
-
-    created: function () {
-      bus.$emit('toggleLoading', false);
-    },
 
     mounted() {
       document.title = 'Hope & Partners / Bio';

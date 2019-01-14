@@ -4,10 +4,10 @@
             <img class="about-img"
                  src="../assets/img/about.png"
                  alt="About me image"
-                 data-paroller-factor="0.1"
+                 data-paroller-factor="0.05"
                  data-paroller-factor-xs="-0.1"
-                 data-paroller-factor-sm="-2"
-                 data-paroller-factor-md="-1"
+                 data-paroller-factor-sm="-0.05"
+                 data-paroller-factor-md="-0.05"
                  data-paroller-type="foreground"
                  data-paroller-direction="vertical"
             />
@@ -38,63 +38,50 @@
 </template>
 
 <script>
-  import Event from './Event';
-  import 'paroller.js';
-  import ScrollMagic from 'scrollmagic';
-  import {TimelineMax} from "gsap/TweenMax";
+    import Event from './Event';
+    import 'paroller.js';
+    import ScrollMagic from 'scrollmagic';
+    import {TimelineMax} from "gsap/TweenMax";
 
-  export default {
-    name: 'About',
+    export default {
+        name: 'About',
 
-    components: {
-      Event
-    },
+        components: {
+            Event
+        },
 
-    mounted() {
-      $("[data-paroller-factor]").paroller();
+        mounted() {
+            $("[data-paroller-factor]").paroller();
 
-      $(document).ready(function () {
-        const outW = $(window).outerWidth();
-        const controller = new ScrollMagic.Controller();
+            $(document).ready(function () {
+                const controller = new ScrollMagic.Controller();
 
-        const bioInfoAnimation = new TimelineMax()
-          .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
-          .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
-        ;
+                const bioInfoAnimation = new TimelineMax()
+                    .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
+                    .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
+                ;
 
-        const eventAnimation = new TimelineMax()
-          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: -50}, {autoAlpha: 1, y: 0, delay: 0.5});
+                const eventAnimation = new TimelineMax()
+                    .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
-        const bioInfo = new ScrollMagic.Scene({
-          triggerElement: ".about-container",
-          triggerHook: "onEnter",
-          duration: '100%'
-        })
-          .setTween(bioInfoAnimation)
-          .addTo(controller);
+                const bioInfo = new ScrollMagic.Scene({
+                    triggerElement: ".about-container",
+                    triggerHook: "onEnter",
+                    duration: '100%'
+                })
+                    .setTween(bioInfoAnimation)
+                    .addTo(controller);
 
-        const event = new ScrollMagic.Scene({
-          triggerElement: ".about .event",
-          triggerHook: "onEnter",
-          duration: '100%'
-        })
-          .setTween(eventAnimation)
-          .addTo(controller);
-
-        const hideFooterAnimation = new TimelineMax()
-          .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
-        ;
-
-        const hideFooterScene = new ScrollMagic.Scene({
-          triggerElement: "#about",
-          triggerHook: "onLeave",
-          duration: '120%'
-        })
-          .setTween(hideFooterAnimation)
-          .addTo(controller);
-      });
+                const event = new ScrollMagic.Scene({
+                    triggerElement: ".about .event",
+                    triggerHook: "onEnter",
+                    duration: '100%'
+                })
+                    .setTween(eventAnimation)
+                    .addTo(controller);
+            });
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">

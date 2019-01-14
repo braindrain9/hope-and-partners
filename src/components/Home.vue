@@ -35,7 +35,6 @@
 </template>
 
 <script>
-  import bus from '../bus';
   import Hero from './Hero';
   import About from './About';
   import Partners from './Partners';
@@ -65,7 +64,6 @@
           next(vm => {
             vm.services = services;
             vm.partners = partners;
-            bus.$emit('toggleLoading', false);
           })
         })
       });

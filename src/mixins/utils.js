@@ -28,25 +28,25 @@ export default {
         },
         {
           name: 'about',
-          path: '/#about',
+          path: '#about',
           title: 'про мене',
           id: 2
         },
         {
           name: 'services',
-          path: '/#services',
+          path: '#services',
           title: 'послуги',
           id: 3
         },
         {
           name: 'partners',
-          path: '/#partners',
+          path: '#partners',
           title: 'партнери',
           id: 4
         },
         {
           name: 'cases',
-          path: '/#cases',
+          path: '#cases',
           title: 'кейси',
           id: 5
         }
@@ -59,38 +59,38 @@ export default {
         },
         {
           name: 'about',
-          path: '/#about',
+          path: '#about',
           title: 'про мене'
         },
         {
           name: 'services',
-          path: '/#services',
+          path: '#services',
           title: 'наші послуги'
         },
         {
           name: 'services',
-          path: '/#services',
+          path: '#services',
           title: 'наші послуги'
         },
         {
           name: 'partners',
-          path: '/#partners',
+          path: '#partners',
           title: 'наші партнери'
         },
         {
           name: 'cases',
-          path: '/#cases',
+          path: '#cases',
           title: 'наші кейси'
         },
         {
           name: 'cases',
-          path: '/#cases',
+          path: '#cases',
           title: 'наші кейси'
         },
         {
           name: 'contacts',
           title: 'де нас знайти?',
-          path: '/#contacts'
+          path: '#contacts'
         }
       ]
     }

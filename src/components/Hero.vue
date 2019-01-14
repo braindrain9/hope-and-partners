@@ -8,7 +8,7 @@
                         налагоджуємо <br/>
                         зв<span class="orange-color">’</span>язки з реальністю
                     </h1>
-                    <a href="#about" class="grey-color-link">
+                    <a href="#about" class="scrolled grey-color-link">
                         <span class="horizontal-divider"></span>
                         детальніше
                     </a>
@@ -20,61 +20,50 @@
 </template>
 
 <script>
-  import Footer from './Footer';
-  import {TweenLite, TimelineMax} from 'gsap/TweenMax';
-  import ScrollMagic from 'scrollmagic';
+    import Footer from './Footer';
+    import {TweenLite, TimelineMax} from 'gsap/TweenMax';
+    import ScrollMagic from 'scrollmagic';
 
-  export default {
-    name: 'Hero',
+    export default {
+        name: 'Hero',
 
-    created: function () {
-    },
+        created: function () {
+        },
 
-    mounted() {
-      // this.animateHero('canvas-hero');
-      // bus.$emit('animateHero', '&');
-      $(document).ready(function() {
-        const outW = $(window).outerWidth();
+        mounted() {
+            // this.animateHero('canvas-hero');
+            // bus.$emit('animateHero', '&');
+            $(document).ready(function () {
+                hideFooterOnLeave();
 
-        // loading animations
-        TweenLite.to($('.hero-section'), 1, {opacity: 1.0});
-        TweenLite.fromTo($('.hero .heading-main'), 1.5, {opacity: 0, y: 50}, {opacity: 1.0, y: 0, delay: 0.5});
-        TweenLite.fromTo($('.hero .hero-content .grey-color-link'), 1.5, {opacity: 0, x: 100}, {
-          opacity: 1.0,
-          x: 0,
-          delay: 2
-        });
+                // hide footer
+                function hideFooterOnLeave() {
+                    const controller = new ScrollMagic.Controller();
 
-        hideFooterOnLeave();
+                    const hideFooterAnimation = new TimelineMax()
+                        .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
+                    ;
+                    const hideFooterScene = new ScrollMagic.Scene({
+                        triggerElement: ".hero",
+                        triggerHook: "onLeave",
+                        duration: '80%'
+                    })
+                        .setTween(hideFooterAnimation)
+                        .addTo(controller);
+                }
+            })
 
-        // hide footer
-        function hideFooterOnLeave() {
-          const controller = new ScrollMagic.Controller();
 
-          const hideFooterAnimation = new TimelineMax()
-              .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
-          ;
-          const hideFooterScene = new ScrollMagic.Scene({
-            triggerElement: ".hero",
-            triggerHook: "onLeave",
-            duration: '80%'
-          })
-              .setTween(hideFooterAnimation)
-              .addTo(controller);
+        },
+
+        destroyed() {
+            this.removeEventListeners()
+        },
+
+        components: {
+            Footer
         }
-      })
-
-
-    },
-
-    destroyed() {
-      this.removeEventListeners()
-    },
-
-    components: {
-      Footer
     }
-  }
 </script>
 
 <style scoped lang="scss">
@@ -88,6 +77,10 @@
 
             a {
                 display: block;
+            }
+
+            .grey-color-link:hover {
+                color: white;
             }
 
             .horizontal-divider {

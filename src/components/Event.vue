@@ -7,7 +7,7 @@
                 <span class="text">
 					поговоримо про те, як перезапускати успішні продукти
 					з великою базою користувачів у догодити всім.<br/>
-					Реєстрація: <a href="http://bit.ly/2PFuA4S">http://bit.ly/2PFuA4S</a>
+					Реєстрація: <a href="http://bit.ly/2PFuA4S" target="_blank">http://bit.ly/2PFuA4S</a>
 				</span>
             </div>
         </div>

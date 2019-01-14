@@ -105,9 +105,6 @@
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
-          },
-          autoplay: {
-            delay: 3000
           }
         }
       }
@@ -231,7 +228,7 @@
                 line-height: 24px;
                 font-size: 14px;
                 margin-bottom: 20px;
-                max-height: 300px;
+                max-height: 250px;
                 overflow-y: auto;
             }
         }

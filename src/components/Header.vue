@@ -11,8 +11,7 @@
                                 :data-menuanchor="link.name"
                                 v-for="link in filteredNavLinks"
                         >
-                            <a v-on:click="goToSection(link.path)" :key="link.id" class="nav-link"
-                               active-class="active">
+                            <a :href="link.path" :key="link.id" class="nav-link" active-class="active">
                                 {{link.title}}
                             </a>
                         </li>

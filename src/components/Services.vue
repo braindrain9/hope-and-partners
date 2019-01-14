@@ -307,6 +307,18 @@
         function hideFooterOnLeave() {
           const controller = new ScrollMagic.Controller();
 
+          const hideAboutFooterAnimation = new TimelineMax()
+              .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+          ;
+
+          const hideAboutFooterScene = new ScrollMagic.Scene({
+            triggerElement: "#services",
+            triggerHook: "onEnter",
+            duration: '80%'
+          })
+              .setTween(hideAboutFooterAnimation)
+              .addTo(controller);
+
           const hideFooterAnimation = new TimelineMax()
               .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
           ;
@@ -332,8 +344,8 @@
 <style lang="scss">
 
     .services {
-        .heading {
-            padding-left: 100px;
+        .heading-main {
+            padding-left: 125px;
             position: relative;
             z-index: 1;
         }
@@ -626,7 +638,7 @@
 
     @include media-max-width($lg-max) {
         .services {
-            .heading {
+            .heading-main {
                 padding-left: 40px;
             }
         }
@@ -708,7 +720,7 @@
 
     @include media-max-width($sm-max) {
         .services {
-            .heading {
+            .heading-main {
                 padding-left: 10px;
             }
         }
