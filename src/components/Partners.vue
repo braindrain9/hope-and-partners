@@ -187,6 +187,7 @@
         });
 
         if (outW >= 1200) {
+          var timeout;
 
           for (let i = 0; i < self.partners.length; i++) {
             let x,
@@ -221,21 +222,49 @@
                 }
               }
 
+              hNumber.removeClass('animation');
+              hBox.removeClass('animation');
+              hImg.removeClass('animation');
+
               hNumber.css({
-                '-webit-transform': 'translate3d(-' + x / 60 + 'px,-' + y / 60 + 'px,0)',
+                '-webit-transform': 'translate3d(-' + x / 60 + 'px,-' + y / 60 + 'px,0) translate(-50%, 0)',
                 'transform': 'translate3d(-' + x / 60 + 'px,-' + y / 60 + 'px,0)'
               });
 
               hBox.css({
-                '-webit-transform': 'translate3d(-' + x / 120 + 'px,-' + y / 120 + 'px,0) translate(0,-50%)',
-                'transform': 'translate3d(-' + x / 120 + 'px,-' + y / 120 + 'px,0)'
+                '-webit-transform': 'translate3d(' + x / 60 + 'px,-' + y / 30 + 'px,0) translate(-50%, 0)',
+                'transform': 'translate3d(' + x / 60 + 'px,-' + y / 30 + 'px,0)'
               });
 
               hImg.css({
-                '-webit-transform': 'translate3d(-' + x / 90 + 'px,' + y / 90 + 'px,0) translate(0,-50%)',
-                'transform': 'translate3d(-' + x / 90 + 'px,' + y / 90 + 'px,0)'
+                '-webit-transform': 'translate3d(-' + x / 40 + 'px,' + y / 60 + 'px,0)',
+                'transform': 'translate3d(-' + x / 40 + 'px,' + y / 60 + 'px,0)'
               });
+
+              if (timeout) clearTimeout(timeout);
+              timeout = setTimeout(mouseStop, 350);
             });
+
+            function mouseStop() {
+              hNumber.addClass('animation');
+              hBox.addClass('animation');
+              hImg.addClass('animation');
+
+              hNumber.css({
+                '-webit-transform': 'translate3d(0, 0, 0)',
+                'transform': 'translate3d(0, 0, 0)'
+              });
+
+              hBox.css({
+                '-webit-transform': 'translate3d(0, 0, 0)',
+                'transform': 'translate3d(0, 0, 0)'
+              });
+
+              hImg.css({
+                '-webit-transform': 'translate3d(0, 0, 0)',
+                'transform': 'translate3d(0, 0, 0)'
+              });
+            }
           }
         }
 
@@ -338,6 +367,10 @@
         .photo-block {
             width: 450px;
             position: relative;
+
+            .animation {
+                transition: all 1s ease-in-out;
+            }
 
             .bg-number {
                 font-weight: bold;
