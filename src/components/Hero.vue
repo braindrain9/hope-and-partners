@@ -8,7 +8,7 @@
                         налагоджуємо <br/>
                         зв<span class="orange-color">’</span>язки з реальністю
                     </h1>
-                    <a href="#about" class="scrolled grey-color-link">
+                    <a v-on:click="goToAbout()" class="scrolled grey-color-link">
                         <span class="horizontal-divider"></span>
                         детальніше
                     </a>
@@ -20,50 +20,69 @@
 </template>
 
 <script>
-    import Footer from './Footer';
-    import {TweenLite, TimelineMax} from 'gsap/TweenMax';
-    import ScrollMagic from 'scrollmagic';
+  import Footer from './Footer';
+  import {TimelineMax} from 'gsap/TweenMax';
+  import ScrollMagic from 'scrollmagic';
 
-    export default {
-        name: 'Hero',
+  export default {
+    name: 'Hero',
 
-        created: function () {
-        },
+    methods: {
+      goToAbout: function() {
+        $('html, body').css({"scroll-behavior": "smooth"});
 
-        mounted() {
-            // this.animateHero('canvas-hero');
-            // bus.$emit('animateHero', '&');
-            $(document).ready(function () {
-                hideFooterOnLeave();
+        const target = $('#about');
 
-                // hide footer
-                function hideFooterOnLeave() {
-                    const controller = new ScrollMagic.Controller();
+        // $(document).scrollTop(target.offset().top);
 
-                    const hideFooterAnimation = new TimelineMax()
-                        .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
-                    ;
-                    const hideFooterScene = new ScrollMagic.Scene({
-                        triggerElement: ".hero",
-                        triggerHook: "onLeave",
-                        duration: '80%'
-                    })
-                        .setTween(hideFooterAnimation)
-                        .addTo(controller);
-                }
-            })
+        // setTimeout(function () {
+        // $('html, body').animate({
+        //   scrollTop: target.offset().top
+        // }, 0);
+        setTimeout(function () {
+          // DsBody.animate({
+          //   scrollTop: target.offset().top
+          // }, 0);
+          $(document).scrollTop(target.offset().top);
+          $('html, body').css({"scroll-behavior": "auto"});
+        }, 100);
+      }
+    },
 
+    mounted() {
+      // this.animateHero('canvas-hero');
+      // bus.$emit('animateHero', '&');
+      $(document).ready(function () {
+        hideFooterOnLeave();
 
-        },
+        // hide footer
+        function hideFooterOnLeave() {
+          const controller = new ScrollMagic.Controller();
 
-        destroyed() {
-            this.removeEventListeners()
-        },
-
-        components: {
-            Footer
+          const hideFooterAnimation = new TimelineMax()
+            .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
+          ;
+          const hideFooterScene = new ScrollMagic.Scene({
+            triggerElement: ".hero",
+            triggerHook: "onLeave",
+            duration: '80%'
+          })
+            .setTween(hideFooterAnimation)
+            .addTo(controller);
         }
+      })
+
+
+    },
+
+    destroyed() {
+      this.removeEventListeners()
+    },
+
+    components: {
+      Footer
     }
+  }
 </script>
 
 <style scoped lang="scss">

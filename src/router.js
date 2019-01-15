@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import bus from './bus';
 
 // components
 import Feed from './views/Feed';
