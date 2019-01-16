@@ -216,8 +216,8 @@ export default {
 
         particles = [];
 
-        for(let i=0; i<ww; i+=Math.round(ww/250)){
-          for(let j=0; j<wh; j+=Math.round(ww/250)){
+        for(let i=0; i<ww; i+=Math.round(ww/200)){
+          for(let j=0; j<wh; j+=Math.round(ww/200)){
             if(data[((i + j*ww)*4) + 3] > 200){
               particles.push(new Particle(i,j));
             }
@@ -275,7 +275,7 @@ export default {
           x: x,
           y: y
         };
-        this.r =  Math.random()*1.2 + 0.1;
+        this.r =  Math.random()*0.8 + 0.1;
         this.vx = (Math.random()-0.5)*10;
         this.vy = (Math.random()-0.5)*10;
         this.accX = 0;
@@ -408,7 +408,7 @@ export default {
           x: x,
           y: y
         };
-        this.r =  Math.random()*1.5 + 0.1;
+        this.r =  Math.random()*0.8 + 0.1;
         this.vx = (Math.random()-0.5)*5;
         this.vy = (Math.random()-0.5)*5;
         this.accX = 0;
@@ -482,7 +482,7 @@ export default {
 
         for(let i=0; i<ww; i+=Math.round(ww/150)){
           for(let j=0; j<wh; j+=Math.round(wh/150)){
-            if(data[((i + j*ww)*4) + 3] > 50){
+            if(data[((i + j*ww)*4) + 3] > 200){
               particles.push(new Particle(i,j));
             }
           }
