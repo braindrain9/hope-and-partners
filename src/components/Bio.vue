@@ -169,80 +169,82 @@
 </template>
 
 <script>
-    import Event from './Event';
-    import Footer from './Footer';
-    import ScrollMagic from 'scrollmagic';
-    import {TimelineMax, TweenLite} from "gsap/TweenMax";
+  import Event from './Event';
+  import Footer from './Footer';
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax, TweenLite} from "gsap/TweenMax";
 
-    export default {
-        name: 'Bio',
+  export default {
+    name: 'Bio',
 
-        mounted() {
-            document.title = 'Hope & Partners / Bio';
+    mounted() {
+      document.title = 'Hope & Partners / Bio';
 
-            $(document).ready(function () {
-                TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-                TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+      $(document).ready(function () {
+        TweenLite.to($('.bio'), 1, {opacity: 1});
+        TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
+        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
 
-                const controller = new ScrollMagic.Controller();
+        const controller = new ScrollMagic.Controller();
 
-                const scene = new ScrollMagic.Scene({
-                    triggerElement: '.bio',
-                    triggerHook: "0",
-                    duration: "100%"
-                })
-                    .addTo(controller);
+        const scene = new ScrollMagic.Scene({
+          triggerElement: '.bio',
+          triggerHook: "0",
+          duration: "100%"
+        })
+          .addTo(controller);
 
-                $.each($('.bio .photo-block .photo'), function (index, elem) {
-                    const animPhoto = new TimelineMax()
-                        .fromTo(elem, 1, {y: 20, opacity: index ? 0.5 : 1}, {y: 0, opacity: 1});
+        $.each($('.bio .photo-block .photo'), function (index, elem) {
+          const animPhoto = new TimelineMax()
+            .fromTo(elem, 1, {y: 20, opacity: index ? 0.5 : 1}, {y: 0, opacity: 1});
 
-                    new ScrollMagic.Scene({
-                        triggerElement: elem,
-                        triggerHook: "onEnter",
-                        duration: "100%"
-                    })
-                        .setTween(animPhoto)
-                        .addTo(controller);
-                });
+          new ScrollMagic.Scene({
+            triggerElement: elem,
+            triggerHook: "onEnter",
+            duration: "100%"
+          })
+            .setTween(animPhoto)
+            .addTo(controller);
+        });
 
-                $.each($('.bio .row .description-block .description div'), function (index, elem) {
-                    const anim = new TimelineMax()
-                        .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
+        $.each($('.bio .row .description-block .description div'), function (index, elem) {
+          const anim = new TimelineMax()
+            .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
-                    new ScrollMagic.Scene({
-                        triggerElement: elem,
-                        triggerHook: "onEnter",
-                        duration: "100%"
-                    })
-                        .setTween(anim)
-                        .addTo(controller);
-                });
+          new ScrollMagic.Scene({
+            triggerElement: elem,
+            triggerHook: "onEnter",
+            duration: "100%"
+          })
+            .setTween(anim)
+            .addTo(controller);
+        });
 
-                const wipeAnimation2 = new TimelineMax()
-                    .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
+        const wipeAnimation2 = new TimelineMax()
+          .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
 
-                const scene2 = new ScrollMagic.Scene({
-                    triggerElement: ".bio .event",
-                    triggerHook: "onEnter",
-                    duration: "80%"
-                })
-                    .setTween(wipeAnimation2)
-                    .addTo(controller);
+        const scene2 = new ScrollMagic.Scene({
+          triggerElement: ".bio .event",
+          triggerHook: "onEnter",
+          duration: "80%"
+        })
+          .setTween(wipeAnimation2)
+          .addTo(controller);
+      });
+    },
 
-            });
-        },
-
-        components: {
-            Event,
-            Footer
-        }
+    components: {
+      Event,
+      Footer
     }
+  }
 </script>
 
 <style scoped lang="scss">
     .bio {
         padding-top: 180px;
+        opacity: 0;
 
         .heading-block {
             padding-bottom: 100px;

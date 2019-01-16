@@ -34,6 +34,7 @@
   import Header from './components/Header';
 
   import {TimelineMax, TweenLite, Linear, Power4} from 'gsap/TweenMax';
+  import anime from 'animejs';
 
   export default {
     name: 'App',
@@ -95,9 +96,6 @@
       const self = this;
 
       $(document).ready(function () {
-          console.log(location.hash, 'location.hash');
-
-
           let loadedCount = 0,
             loadingProgress = 0;
 
@@ -164,11 +162,27 @@
                     x: 0,
                     delay: 2
                   });
+                  $('.hero .heading-main span').each(function () {
+                    $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+                  });
+                  TweenLite.fromTo($('footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
+
+                  anime.timeline().add({
+                    targets: '.hero .heading-main .letter',
+                    opacity: [0, 1],
+                    easing: "easeInOutQuad",
+                    duration: 1700,
+                    delay: function (el, i) {
+                      return 100 * (i + 1)
+                    }
+                  });
                 }
 
                 if ($('.bio').length) {
                   $(document).scrollTop(0);
 
+                  TweenLite.to($('.bio'), 1, {opacity: 1});
+                  TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
                   TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
                   TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
                 }
@@ -177,9 +191,20 @@
             );
 
             const DsBody = $('html, body');
+
+            // onScroll();
+            // $(document).on("scroll", onScroll);
+
             $(document).on('click', 'a[href^="#"]:not(.scrolled)', function (event) {
               event.preventDefault();
               event.stopImmediatePropagation();
+              // $(document).off("scroll");
+
+              // $('a').each(function () {
+              //   $(this).removeClass('active');
+              // });
+              //
+              // $(this).addClass('active');
 
               DsBody.css({"scroll-behavior": "auto"});
 
@@ -192,7 +217,6 @@
                 ease: Power4.easeInOut
               });
 
-
               const target = $($.attr(this, 'href'));
 
               location.href = '/' + $(this).prop("hash");
@@ -201,6 +225,8 @@
                 DsBody.animate({
                   scrollTop: target.offset().top
                 }, 0);
+                  // $(document).on("scroll", onScroll);
+                // });
               }, 600);
 
               preloaderLink.to($('.page-preloader'), 0.7, {
@@ -210,6 +236,34 @@
                 className: '+=is-hidden'
               });
             });
+
+            // function onScroll(event){
+            //   var scrollPos = $(document).scrollTop();
+            //
+            //   $('#menu a').each(function () {
+            //     var currLink = $(this);
+            //     var refElement = $(currLink.attr("href"));
+            //
+            //     if ((refElement.position().top - 200) <= scrollPos && (refElement.position().top + refElement.height()) > scrollPos) {
+            //       $('#menu a').removeClass("active");
+            //       currLink.addClass("active");
+            //     } else {
+            //       currLink.removeClass("active");
+            //     }
+            //   });
+            //
+            //   $('#mobile-menu-items a').each(function () {
+            //     var currLink = $(this);
+            //     var refElement = $(currLink.attr("href"));
+            //
+            //     if ((refElement.position().top - 200) <= scrollPos && (refElement.position().top + refElement.height()) > scrollPos) {
+            //       $('#mobile-menu-items a').removeClass("active");
+            //       currLink.addClass("active");
+            //     } else {
+            //       currLink.removeClass("active");
+            //     }
+            //   });
+            // }
           }
         }
       )

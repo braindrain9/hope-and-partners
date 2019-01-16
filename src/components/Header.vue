@@ -8,10 +8,9 @@
                     <b-navbar-nav id="menu">
                         <li
                                 class="nav-item"
-                                :data-menuanchor="link.name"
-                                v-for="link in filteredNavLinks"
+                                v-for="(link, index) in filteredNavLinks"
                         >
-                            <a :href="link.path" :key="link.id" class="nav-link" active-class="active">
+                            <a :href="link.path" :key="link.id" class="nav-link">
                                 {{link.title}}
                             </a>
                         </li>
@@ -39,16 +38,14 @@
                     </b-navbar-brand>
                 </b-navbar>
                 <div class="wrapper">
-                    <b-nav vertical>
+                    <b-nav id="mobile-menu-items" vertical>
                         <li
                                 class="nav-item"
-                                :data-menuanchor="link.name"
                                 v-for="(link, index) in navLinks"
                         >
-                            <a v-on:click="goToSection(link.path)"
+                            <a :href="link.path"
                                :key="link.id"
                                class="nav-link"
-                               active-class="active"
                                :class="{active: index === 0}"
                             >
                                 {{link.title}}
@@ -68,7 +65,7 @@
   import logo from '../assets/img/logo.svg';
   import logoMobile from '../assets/img/logo-mobile.svg';
   import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
-  import {TweenMax, TimelineMax, TweenLite} from 'gsap';
+  import {TweenMax, TimelineMax, TweenLite} from 'gsap/TweenMax';
 
   export default {
     name: 'Header',
@@ -89,11 +86,12 @@
 
     mounted() {
       // load animations
-      TweenLite.fromTo($('.nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
+      TweenLite.fromTo($('#menu .nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
       TweenLite.fromTo($('.language-chooser a'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
       TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2.5, scale: 1});
 
       const mobileMenu = document.getElementById("mobileMenu");
+      const openMenu = document.getElementById("openMenu");
       const fadeClose = document.getElementById("fadeClose");
       const items = $(".wrapper li");
       const mail = $(".mail-box");
@@ -157,6 +155,13 @@
         transform: translate3d(0, 0, 0);
         top: 0;
 
+        #menu {
+            .nav-link.active {
+                color: $white;
+                font-weight: bold;
+            }
+        }
+
         .navbar {
             padding: 0;
 
@@ -185,13 +190,7 @@
                         color: $white;
                         cursor: pointer;
                     }
-                }
 
-                &.active {
-                    .nav-link {
-                        color: $white;
-                        font-weight: bold;
-                    }
                 }
             }
 
@@ -263,9 +262,13 @@
         .nav-item {
             margin-bottom: 25px;
 
-            a.active {
-                font-weight: bold;
-                color: $base-black;
+            .nav-link {
+                color: $grey;
+
+                &.active {
+                    font-weight: bold;
+                    color: $base-black;
+                }
             }
         }
     }

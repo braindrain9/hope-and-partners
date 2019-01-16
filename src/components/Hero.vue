@@ -5,8 +5,9 @@
             <div class="hero-content d-flex">
                 <div>
                     <h1 class="heading heading-main">
-                        налагоджуємо <br/>
-                        зв<span class="orange-color">’</span>язки з реальністю
+                        <span>налагоджуємо</span><br/>
+                        <span>зв<span class="orange-color">’</span>язки</span>
+                        <span>з реальністю</span>
                     </h1>
                     <a v-on:click="goToAbout()" class="scrolled grey-color-link">
                         <span class="horizontal-divider"></span>
@@ -28,7 +29,7 @@
     name: 'Hero',
 
     methods: {
-      goToAbout: function() {
+      goToAbout: function () {
         $('html, body').css({"scroll-behavior": "smooth"});
 
         const target = $('#about');

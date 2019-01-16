@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
+    "animejs": "^3.0.0",
     "aos": "^2.3.4",
     "axios": "^0.17.1",
     "babel-plugin-syntax-jsx": "^6.18.0",
