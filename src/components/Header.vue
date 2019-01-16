@@ -17,8 +17,8 @@
                     </b-navbar-nav>
 
                     <div class="language-chooser">
-                        <b-link class="active">укр</b-link>
-                        <b-link>eng</b-link>
+                        <span class="active">укр</span>
+                        <span>eng</span>
                     </div>
                 </b-collapse>
 
@@ -87,7 +87,7 @@
     mounted() {
       // load animations
       TweenLite.fromTo($('#menu .nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
-      TweenLite.fromTo($('.language-chooser a'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
+      TweenLite.fromTo($('.language-chooser span'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
       TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2.5, scale: 1});
 
       const mobileMenu = document.getElementById("mobileMenu");
@@ -198,13 +198,15 @@
                 margin-right: 30px;
                 margin-bottom: 2px; // compensate border-bottom height
 
-                a {
+                span {
                     color: $grey;
                     border-bottom: 2px solid transparent;
                     padding-bottom: 5px;
                     margin: 0 10px;
+                    display: inline-block;
 
                     &:hover {
+                        cursor: pointer;
                         text-decoration: none;
                         color: $white;
                         font-weight: bold;

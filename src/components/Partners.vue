@@ -186,7 +186,7 @@
           }
         });
 
-        if (outW >= 1200) {
+        if (outW >= 767.98) {
           var timeout;
 
           for (let i = 0; i < self.partners.length; i++) {
