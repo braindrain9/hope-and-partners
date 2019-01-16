@@ -25,6 +25,7 @@
   import arrowSvg from '../assets/img/arrow.svg';
   import Footer from './Footer';
   import ScrollMagic from 'scrollmagic';
+  import bus from '../bus';
 
   export default {
     name: 'Contacts',
@@ -36,8 +37,12 @@
     },
 
     mounted() {
-      // this.animateContacts('canvas-contacts');
+      const self = this;
+
       $(document).ready(function() {
+        self.animateContacts('canvas-contacts');
+        bus.$emit('animateContacts', '&');
+
         triggerMailAnimation();
 
         function triggerMailAnimation() {
@@ -50,6 +55,16 @@
           })
               .setClassToggle('#contacts .mail-block', 'animation')
               .addTo(controller);
+
+          const animation = new ScrollMagic.Scene({
+            triggerElement: "#canvas-contacts",
+            triggerHook: "onEnter",
+            duration: '100%',
+          })
+            .on('start', function () {
+              bus.$emit('animateContacts', '&');
+            })
+            .addTo(controller);
         }
       })
     },

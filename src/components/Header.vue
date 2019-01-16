@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header id="header">
         <b-container id="mainMenu">
             <b-navbar toggleable="md" type="dark">
                 <b-nav-toggle id="openMenu" target="">Меню</b-nav-toggle>
@@ -148,12 +148,12 @@
 <style scoped lang="scss">
     header {
         width: 100%;
-        position: fixed;
         padding: 40px 0 20px;
         z-index: 100;
-        background: $base-black;
         transform: translate3d(0, 0, 0);
         top: 0;
+        position: fixed;
+        transition: all .5s ease-in-out;
 
         #menu {
             .nav-link.active {

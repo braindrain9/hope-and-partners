@@ -194,6 +194,20 @@
 
             // onScroll();
             // $(document).on("scroll", onScroll);
+            // When the user scrolls the page, execute myFunction
+            window.onscroll = function() {myFunction()};
+
+            var header = document.getElementById("header");
+
+            var sticky = header.offsetTop;
+
+            function myFunction() {
+              if (window.pageYOffset > sticky + 100) {
+                header.classList.add("bg-black");
+              } else {
+                header.classList.remove("bg-black");
+              }
+            }
 
             $(document).on('click', 'a[href^="#"]:not(.scrolled)', function (event) {
               event.preventDefault();

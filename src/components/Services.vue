@@ -1,10 +1,10 @@
 <template>
     <div class="services">
-        <canvas id="canvas"></canvas>
         <section class="slider-section">
             <div id="slider-wrap">
-                <b-container>
+                <b-container class="position-relative">
                     <h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
+                    <canvas id="canvas-services"></canvas>
                 </b-container>
 
                 <div class="d-none d-md-block">
@@ -80,6 +80,7 @@
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax} from "gsap/TweenMax";
   import arrowSvg from '../assets/img/arrow-grey.svg';
+  import bus from '../bus';
 
   export default {
     name: 'Services',
@@ -112,13 +113,13 @@
         const index = value.swiper.activeIndex;
 
         this.activeIndex = index === 0
-            ? ''
-            : index < 10 ? '0' + index : index;
+          ? ''
+          : index < 10 ? '0' + index : index;
         console.log(this.partners.length, index, 'partners');
 
         this.afterIndex = this.partners.length === (index + 1)
-            ? ''
-            : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+          ? ''
+          : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
       }
     },
 
@@ -129,18 +130,15 @@
     },
 
     mounted() {
+      const self = this;
       this.swiper.on('slideChange', () => this.onSwipe(this));
-      // this.animateServices('canvas');
-      // const text = $('.services-slider .swiper-slide-active .letter');
 
-      // if (text) {
-      // bus.$emit('animateServices', text.text());
-      // }
       $(document).ready(function () {
-        $(".reveal-title, .slide-content-title h2").each(function () {
+        self.animateServices('canvas-services');
 
+        $(".reveal-title, .slide-content-title h2").each(function () {
           const title = $(this),
-              width = title.width();
+            width = title.width();
 
           title.html(function (i, html) {
             return html.replace(/\s+/g, '*');
@@ -173,6 +171,8 @@
           var lastScrollTop = 0;
           const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
 
+          let prevLetter = false;
+
           $(window).scroll(function () {
             const st = $(this).scrollTop();
 
@@ -189,7 +189,7 @@
           function sliderDownAnim() {
             let elem = document.getElementById("progress-line");
 
-            if(elem) {
+            if (elem) {
               const lineWidth = parseFloat(elem.offsetWidth);
 
               $('.progress-pin').each(function () {
@@ -210,6 +210,12 @@
                     nav.siblings().removeClass('dots-point');
                     nav.addClass('dots-point');
 
+                    const text = $('.slide-content.slide-point .letter');
+
+                    if (text && (prevLetter !== text.text())) {
+                      prevLetter = text.text();
+                      bus.$emit('animateServices', text.text());
+                    }
                   }
                 }
               });
@@ -222,16 +228,16 @@
 
           //Define variable
           const controller = new ScrollMagic.Controller(),
-              sliderCount = $('.slide-content').length + 0.2,
-              progressWrap = $('.progress-slider-wrap'),
-              sliderContainer = $('#slider-container'),
-              sliderXOffset = 100 - (100 / sliderCount);
+            sliderCount = $('.slide-content').length + 0.2,
+            progressWrap = $('.progress-slider-wrap'),
+            sliderContainer = $('#slider-container'),
+            sliderXOffset = 100 - (100 / sliderCount);
 
           let wipeAnimation,
-              pinPosition,
-              yOffset,
-              scene,
-              html;
+            pinPosition,
+            yOffset,
+            scene,
+            html;
 
           //Create Slide, Progress Pin and Nav dots
           html = '<ul class="slider-dots">';
@@ -249,33 +255,33 @@
           $('#slider-wrap .services-slider').prepend(html);
 
           var slideWidth = $('.slide').width(),
-              progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
-              TimeLineAnim = progressWrapWidth * 4;
+            progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
+            TimeLineAnim = progressWrapWidth * 4;
 
           wipeAnimation = new TimelineMax()
-              .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
-              .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
-              .to(progressWrap, 1, {x: TimeLineAnim + 'px'}, 0);
+            .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
+            .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
+            .to(progressWrap, 1, {x: TimeLineAnim + 'px'}, 0);
 
           scene = new ScrollMagic.Scene({
             triggerElement: "#slider-wrap",
             triggerHook: "onLeave",
             duration: sliderCount * 100 + "%"
           })
-              .setPin("#slider-wrap")
-              .setTween(wipeAnimation)
-              .addTo(controller);
+            .setPin("#slider-wrap")
+            .setTween(wipeAnimation)
+            .addTo(controller);
 
           const wipeAnimation2 = new TimelineMax()
-              .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
+            .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
 
           new ScrollMagic.Scene({
             triggerElement: "#slide-1",
             triggerHook: "onEnter",
             duration: "80%"
           })
-              .setTween(wipeAnimation2)
-              .addTo(controller);
+            .setTween(wipeAnimation2)
+            .addTo(controller);
 
           sliderContainer.css("width", sliderCount * 100 + "%");
 
@@ -295,6 +301,9 @@
           // set active slide on load
           $('#slide-1').addClass('slide-point');
 
+          const text = $('#slide-1 .letter');
+          bus.$emit('animateServices', text.text());
+
           window.addEventListener('resize', function () {
             if ($(window).outerWidth() < 768) {
               controller.destroy(true);
@@ -308,7 +317,7 @@
           const controller = new ScrollMagic.Controller();
 
           const hideAboutFooterAnimation = new TimelineMax()
-              .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+            .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
           ;
 
           const hideAboutFooterScene = new ScrollMagic.Scene({
@@ -316,11 +325,11 @@
             triggerHook: "onEnter",
             duration: '80%'
           })
-              .setTween(hideAboutFooterAnimation)
-              .addTo(controller);
+            .setTween(hideAboutFooterAnimation)
+            .addTo(controller);
 
           const hideFooterAnimation = new TimelineMax()
-              .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
+            .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
           ;
 
           // hide footer
@@ -329,8 +338,8 @@
             triggerHook: "onEnter",
             duration: '80%'
           })
-              .setTween(hideFooterAnimation)
-              .addTo(controller);
+            .setTween(hideFooterAnimation)
+            .addTo(controller);
         }
       })
     },
@@ -342,7 +351,6 @@
 </script>
 
 <style lang="scss">
-
     .services {
         .heading-main {
             padding-left: 125px;

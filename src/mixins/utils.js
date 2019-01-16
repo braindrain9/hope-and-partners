@@ -142,7 +142,7 @@ export default {
           x: x,
           y: y
         };
-        this.r =  Math.random()*1.2 + 0.1;
+        this.r =  Math.random()*1.5 + 0.3;
         this.vx = (Math.random()-0.5)*20;
         this.vy = (Math.random()-0.5)*20;
         this.accX = 0;
@@ -247,9 +247,9 @@ export default {
       });
       window.addEventListener("resize", initScene);
       window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("touchmove", onTouchMove);
-      window.addEventListener("click", onMouseClick);
-      window.addEventListener("touchend", onTouchEnd);
+      // window.addEventListener("touchmove", onTouchMove);
+      // window.addEventListener("click", onMouseClick);
+      // window.addEventListener("touchend", onTouchEnd);
 
       requestAnimationFrame(render);
     },
@@ -275,7 +275,7 @@ export default {
           x: x,
           y: y
         };
-        this.r =  Math.random()*0.5 + 0.1;
+        this.r =  Math.random()*1.2 + 0.1;
         this.vx = (Math.random()-0.5)*10;
         this.vy = (Math.random()-0.5)*10;
         this.accX = 0;
@@ -380,9 +380,9 @@ export default {
       });
       window.addEventListener("resize", initScene);
       window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("touchmove", onTouchMove);
-      window.addEventListener("click", onMouseClick);
-      window.addEventListener("touchend", onTouchEnd);
+      // window.addEventListener("touchmove", onTouchMove);
+      // window.addEventListener("click", onMouseClick);
+      // window.addEventListener("touchend", onTouchEnd);
 
       requestAnimationFrame(render);
     },
@@ -396,7 +396,7 @@ export default {
           amount = 0,
           radius = 1;
 
-      const colors = ["#ccc"];
+      const colors = ["#fff"];
 
       var ww = canvas.width = window.innerWidth;
       var wh = canvas.height = window.innerHeight;
@@ -408,7 +408,7 @@ export default {
           x: x,
           y: y
         };
-        this.r =  Math.random()*1.2 + 0.1;
+        this.r =  Math.random()*1.5 + 0.1;
         this.vx = (Math.random()-0.5)*5;
         this.vy = (Math.random()-0.5)*5;
         this.accX = 0;
@@ -472,7 +472,7 @@ export default {
 
         ctx.font = "bold 420px Montserrat";
         ctx.textAlign = "right";
-        ctx.fillText(text, ww/2 - 200, wh/2 + 150);
+        ctx.fillText(text, 400, wh/3 + 150);
 
         const data  = ctx.getImageData(0, 0, ww, wh).data;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -513,9 +513,9 @@ export default {
         initScene('K');
       });
       window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("touchmove", onTouchMove);
-      window.addEventListener("click", onMouseClick);
-      window.addEventListener("touchend", onTouchEnd);
+      // window.addEventListener("touchmove", onTouchMove);
+      // window.addEventListener("click", onMouseClick);
+      // window.addEventListener("touchend", onTouchEnd);
 
       requestAnimationFrame(render);
     },

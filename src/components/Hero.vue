@@ -24,6 +24,7 @@
   import Footer from './Footer';
   import {TimelineMax} from 'gsap/TweenMax';
   import ScrollMagic from 'scrollmagic';
+  import bus from '../bus';
 
   export default {
     name: 'Hero',
@@ -51,9 +52,12 @@
     },
 
     mounted() {
-      // this.animateHero('canvas-hero');
-      // bus.$emit('animateHero', '&');
+      const self = this;
+
       $(document).ready(function () {
+        self.animateHero('canvas-hero');
+        bus.$emit('animateHero', '&');
+
         hideFooterOnLeave();
 
         // hide footer
