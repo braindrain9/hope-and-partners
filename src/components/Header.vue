@@ -204,9 +204,9 @@
                     padding-bottom: 5px;
                     margin: 0 10px;
                     display: inline-block;
+                    cursor: none !important;
 
                     &:hover {
-                        cursor: pointer;
                         text-decoration: none;
                         color: $white;
                         font-weight: bold;

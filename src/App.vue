@@ -22,6 +22,11 @@
         <!--<b-container>-->
         <!--<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>-->
         <!--</b-container>-->
+        <div id="mouse-icon">
+            <div class="icon">
+                <div class="inner-icon"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -96,6 +101,26 @@
       const self = this;
 
       $(document).ready(function () {
+          // var elem = document.getElementById('app');
+          var left, top;
+
+          document.addEventListener('mousemove', function (event) {
+            left = event.pageX;
+            top = event.pageY;
+            $("#mouse-icon").css({
+              top,
+              left
+            });
+          });
+
+          $(document).on("mouseover", 'a, .language-chooser span', function () {
+            $("#mouse-icon").css({opacity: 1}).addClass("hover")
+          });
+
+          $(document).on("mouseleave", 'a', function () {
+            $("#mouse-icon").css({opacity: 0}).removeClass("hover")
+          });
+
           let loadedCount = 0,
             loadingProgress = 0;
 
@@ -195,7 +220,9 @@
             // onScroll();
             // $(document).on("scroll", onScroll);
             // When the user scrolls the page, execute myFunction
-            window.onscroll = function() {myFunction()};
+            window.onscroll = function () {
+              myFunction();
+            };
 
             var header = document.getElementById("header");
 
@@ -239,7 +266,7 @@
                 DsBody.animate({
                   scrollTop: target.offset().top
                 }, 0);
-                  // $(document).on("scroll", onScroll);
+                // $(document).on("scroll", onScroll);
                 // });
               }, 600);
 
@@ -300,11 +327,66 @@
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        cursor: url(./assets/img/cursor.png), auto !important;
+    }
+
+    a {
+        cursor: none !important;
     }
 
     #wrapper {
         opacity: 0;
         margin: 0 auto;
         min-height: 400px;
+    }
+
+    #mouse-icon {
+        opacity: 0;
+        position: absolute;
+        left: -1em;
+        top: -1em;
+        z-index: 99999999999;
+        pointer-events: none;
+        width: 60px;
+        height: 60px;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0);
+        border: 1px solid rgba(255, 255, 255, 0)
+    }
+
+    #mouse-icon .icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0);
+        border: 1px solid rgba(255, 255, 255, 0);
+        transition: all .7s
+    }
+
+    #mouse-icon .icon .inner-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        content: '';
+        width: 10px;
+        height: 10px;
+        background-color: $orange;
+        border-radius: 50%;
+        transition: all .7s
+    }
+
+    #mouse-icon.hover .icon {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #f44336a6;
+    }
+
+    #mouse-icon.hover .icon .inner-icon {
+        background-color: rgba(223, 130, 130, 0.25)
     }
 </style>
