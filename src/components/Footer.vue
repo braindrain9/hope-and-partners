@@ -78,19 +78,28 @@
 
             &:hover {
                 text-decoration: none;
-
-                .divider {
-                    height: 40px;
-                }
             }
 
             .divider {
-                height: 20px;
-                width: 4px;
-                background: $white;
+                width: 2px;
                 margin-right: 10px;
                 margin-bottom: 1px;
-                transition: all 1s ease-out;
+                height: 60px;
+                display: block;
+                overflow: hidden;
+                position: relative;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    width: 2px;
+                    height: 60px;
+                    background-color: $white;
+                    animation: line-drop infinite 2.5s cubic-bezier(0.8, 0, 0.4, 1);
+                    animation-fill-mode: forwards;
+                    animation-delay: 2s;
+                }
             }
 
             .link-text {
@@ -140,20 +149,21 @@
                 display: flex;
                 align-items: center;
 
-                &:hover {
-                    .divider {
-                        height: 2px;
-                        width: 40px;
-                    }
-                }
-
                 .link-text {
                     max-width: 100%;
                 }
 
                 .divider {
                     height: 2px;
-                    width: 30px;
+                    width: 60px;
+                    border-radius: 0;
+
+                    &:before {
+                        width: 60px;
+                        height: 2px;
+                        background-color: $white;
+                        animation-name: line-drop-horizontal;
+                    }
                 }
             }
         }

@@ -92,11 +92,7 @@
                 color: $white;
             }
 
-            .mail-text:hover, &.animation {
-                .horizontal-line > div {
-                    left: 80%;
-                }
-
+            .mail-text:hover {
                 a {
                     color: $orange;
                 }
@@ -110,16 +106,21 @@
             }
 
             .horizontal-line {
-                border-bottom: 2px solid $dark-grey;
+                background: $dark-grey;
+                height: 2px;
+                width: 100%;
                 position: relative;
+                overflow: hidden;
+                display: block;
 
                 > div {
                     position: absolute;
                     width: 20%;
                     height: 2px;
                     background: $orange;
-                    left: 0;
-                    transition: all 1s ease;
+                    animation: line-horizontal infinite 4s cubic-bezier(0.8, 0, 0.4, 1);
+                    animation-fill-mode: forwards;
+                    animation-delay: 2s;
                 }
             }
         }

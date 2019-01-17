@@ -3,7 +3,7 @@
         <b-container>
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
-                    <a href="#about" class="bio-link horizontal-grey-link">назад</a>
+                    <a href="#about" class="bio-link horizontal-grey-link"><span></span>назад</a>
                     <h1 class="heading heading-main">
                         Моя<br/>
                         повна <span class="orange-color">біографія</span>
@@ -264,7 +264,7 @@
 
             .photo-block {
                 display: inline-block;
-                margin-top: -250px;
+                margin-top: -275px;
 
                 .photo {
                     height: 650px;
@@ -347,7 +347,7 @@
 
             .bio-info {
                 .photo-block {
-                    margin-top: -210px;
+                    margin-top: -235px;
 
                     .photo {
                         height: 380px;

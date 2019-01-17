@@ -22,7 +22,6 @@
     "imports-loader": "^0.8.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
-    "paroller.js": "^1.4.4",
     "scrollmagic": "^2.0.6",
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",

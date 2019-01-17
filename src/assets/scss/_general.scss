@@ -74,15 +74,24 @@
 .horizontal-grey-link {
   color: $grey;
 
-  &:before {
-    content: "";
+  > span {
     display: inline-block;
-    width: 60px;
-    background: $grey;
-    height: 1.1px;
-    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    line-height: 20px;
     margin-right: 10px;
-    transition: width .5s ease-in;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 60px;
+      background: $grey;
+      height: 2px;
+      vertical-align: middle;
+      animation: line-drop-horizontal infinite 2s cubic-bezier(0.8, 0, 0.4, 1);
+      animation-fill-mode: forwards;
+      animation-delay: 2s;
+    }
   }
 
   &:hover {
@@ -132,6 +141,55 @@
 @keyframes mail-arrow-svg {
   from {transform: rotate(0deg)}
   to {transform: rotate(180deg)}
+}
+
+@keyframes line-drop {
+  0% {
+    transform: translateY(100%);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-100%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes line-drop-horizontal {
+  0% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes line-horizontal {
+  0% {
+    transform: translateX(-100%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  40% {
+    transform: translateX(500%);
+  }
+  60% {
+    transform: translateX(500%);
+  }
+  90% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* Cases slider */

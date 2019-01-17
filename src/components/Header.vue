@@ -31,7 +31,7 @@
         <div id="mobileMenu">
             <b-container>
                 <b-navbar variant="faded" type="light">
-                    <button id="fadeClose" class="horizontal-grey-link">закрити</button>
+                    <button id="fadeClose" class="horizontal-grey-link"><span></span>закрити</button>
 
                     <b-navbar-brand href="/" right>
                         <div v-html="logoDarkMobile"></div>
@@ -247,6 +247,10 @@
         left: 0;
         display: none;
         padding-top: 40px;
+
+        .horizontal-grey-link > span {
+            line-height: 12px;
+        }
     }
 
     #fadeClose {
