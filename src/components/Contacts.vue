@@ -43,8 +43,8 @@
         const outW = $(window).outerWidth();
 
         if (outW > 576) {
-          self.animateContacts('canvas-contacts');
-          bus.$emit('animateContacts', '&');
+          // self.animateContacts('canvas-contacts');
+          // bus.$emit('animateContacts', '@');
         }
 
         triggerMailAnimation();
@@ -118,7 +118,7 @@
                     width: 20%;
                     height: 2px;
                     background: $orange;
-                    animation: line-horizontal infinite 4s cubic-bezier(0.8, 0, 0.4, 1);
+                    animation: line-horizontal infinite 6s cubic-bezier(0.8, 0, 0.4, 1);
                     animation-fill-mode: forwards;
                     animation-delay: 2s;
                 }

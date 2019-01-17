@@ -137,8 +137,8 @@
         const outW = $(window).outerWidth();
 
         if (outW > 576) {
-          self.animateServices('canvas-services');
-          bus.$emit('animateServices', '&');
+          // self.animateServices('canvas-services');
+          // bus.$emit('animateServices', '&');
         }
 
         $(".reveal-title, .slide-content-title h2").each(function () {
@@ -218,7 +218,7 @@
                     if (outW > 576) {
                       if (text && (prevLetter !== text.text())) {
                         prevLetter = text.text();
-                        bus.$emit('animateServices', text.text());
+                        // bus.$emit('animateServices', text.text());
                       }
                     }
                   }
