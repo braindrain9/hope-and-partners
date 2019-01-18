@@ -6,10 +6,14 @@
             </div>
 
             <div class="section" id="about">
-                <b-container class="section-container">
-                    <About/>
-                    <Footer link="services"/>
-                </b-container>
+                <div class="section-container">
+                    <b-container >
+                        <About/>
+                    </b-container>
+                    <b-container class="footer-container">
+                        <Footer link="services"/>
+                    </b-container>
+                </div>
             </div>
 
             <div class="position-relative" id="services">
@@ -21,10 +25,10 @@
             </div>
 
             <div class="section" id="cases">
-                <b-container class="section-container">
-                    <Cases/>
-                    <Footer link="contacts"/>
-                </b-container>
+                <div class="section-container">
+                    <b-container><Cases/></b-container>
+                    <b-container class="footer-container"><Footer link="contacts"/></b-container>
+                </div>
             </div>
 
             <div class="section position-relative" id="contacts">

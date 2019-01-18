@@ -1,23 +1,27 @@
 <template>
     <div>
         <canvas id="canvas-contacts"></canvas>
-        <b-container class="section-container">
-            <div class="contacts d-flex">
-                <div class="mail-block">
-                    <h1>напишіть нам листа</h1>
-                    <div class="mail-text">
-                        <div class="mail">
-                            <a href="mailto:hello@hopeandpartners.com">hello@hopeandpartners.com</a>
-                            <span class="arrow-svg" v-html="arrowSvg"></span>
-                        </div>
-                        <div class="horizontal-line d-none d-md-block">
-                            <div></div>
+        <div class="section-container">
+            <b-container>
+                <div class="contacts d-flex">
+                    <div class="mail-block">
+                        <h1>напишіть нам листа</h1>
+                        <div class="mail-text">
+                            <div class="mail">
+                                <a href="mailto:hello@hopeandpartners.com">hello@hopeandpartners.com</a>
+                                <span class="arrow-svg" v-html="arrowSvg"></span>
+                            </div>
+                            <div class="horizontal-line d-none d-md-block">
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <Footer is-final-mode="true"/>
-        </b-container>
+            </b-container>
+            <b-container class="footer-container">
+                <Footer is-final-mode="true"/>
+            </b-container>
+        </div>
     </div>
 </template>
 

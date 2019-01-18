@@ -66,7 +66,7 @@
                     </b-container>
                 </div>
 
-                <b-container>
+                <b-container class="footer-container">
                     <Footer link="partners"/>
                 </b-container>
             </div>

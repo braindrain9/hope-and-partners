@@ -1,22 +1,26 @@
 <template>
     <div class="hero">
         <canvas id="canvas-hero"></canvas>
-        <b-container class="hero-section section-container">
-            <div class="hero-content d-flex">
-                <div>
-                    <h1 class="heading heading-main">
-                        <span>налагоджуємо</span><br/>
-                        <span>зв<span class="orange-color">’</span>язки</span>
-                        <span>з реальністю</span>
-                    </h1>
-                    <a v-on:click="goToAbout()" class="scrolled grey-color-link">
-                        <span class="horizontal-divider"></span>
-                        детальніше
-                    </a>
+        <div class="hero-section section-container">
+            <b-container>
+                <div class="hero-content d-flex">
+                    <div>
+                        <h1 class="heading heading-main">
+                            <span>налагоджуємо</span><br/>
+                            <span>зв<span class="orange-color">’</span>язки</span>
+                            <span>з реальністю</span>
+                        </h1>
+                        <a v-on:click="goToAbout()" class="scrolled grey-color-link">
+                            <span class="horizontal-divider"></span>
+                            детальніше
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <Footer class="d-none d-md-block" link="about"/>
-        </b-container>
+            </b-container>
+            <b-container class="footer-container">
+                <Footer class="d-none d-md-block" link="about"/>
+            </b-container>
+        </div>
     </div>
 </template>
 

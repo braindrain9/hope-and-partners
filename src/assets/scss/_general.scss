@@ -264,25 +264,50 @@
   }
 }
 
-@media only screen and (max-height: 980px) {
-  .cases .swiper-slide {
-    height: 500px;
+@include media-max-width($mobile-sm) {
+  .description {
+    font-size: 14px;
+  }
+
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 15px;
+  }
+
+  .swiper-button-next {
+    right: 15px;
   }
 }
 
-@include media-max-width($lg-max) {
-  .description {
-    font-size: 20px;
+@include media-max-width($mobile-xs) {
+  /*Slider slider*/
+  .swiper-button-prev {
+    left: 10px;
   }
 
-  .contacts {
-    .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
-          width: 40px;
-        }
-      }
-    }
+  .swiper-button-next {
+    right: 10px;
+  }
+}
+
+@include media-max-width($xs-max) {
+  .partners .swiper-slide {
+    height: 700px;
+  }
+}
+
+@include media-max-width($sm-max) {
+  .description {
+    font-size: 18px;
+  }
+
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 10%;
+  }
+
+  .swiper-button-next {
+    right: 10%;
   }
 }
 
@@ -325,49 +350,40 @@
   }
 }
 
-@include media-max-width($sm-max) {
+@media only screen and (max-height: 980px) {
+  .cases .swiper-slide {
+    height: 500px;
+  }
+}
+
+@include media-max-width($lg-max) {
   .description {
-    font-size: 18px;
+    font-size: 20px;
   }
 
-  /*Cases slider*/
-  .swiper-button-prev {
-    left: 10%;
-  }
-
-  .swiper-button-next {
-    right: 10%;
-  }
-}
-
-@include media-max-width($xs-max) {
-  .partners .swiper-slide {
-    height: 700px;
+  .contacts {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          width: 40px;
+        }
+      }
+    }
   }
 }
 
-@include media-max-width($mobile-sm) {
-  .description {
-    font-size: 14px;
+@include media-min-width($lg-max) {
+  .container {
+    max-width: 1200px;
   }
 
-  /*Cases slider*/
-  .swiper-button-prev {
-    left: 15px;
+  #header {
+    .container {
+      max-width: 80%;
+    }
   }
 
-  .swiper-button-next {
-    right: 15px;
-  }
-}
-
-@include media-max-width($mobile-xs) {
-  /*Slider slider*/
-  .swiper-button-prev {
-    left: 10px;
-  }
-
-  .swiper-button-next {
-    right: 10px;
+  .container.footer-container {
+    max-width: 80%;
   }
 }
