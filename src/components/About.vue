@@ -23,7 +23,7 @@
                     Маю надію, мій досвід стане вам корисним!
                 </p>
                 <p class="bio-link">
-                    <span>повне біо <router-link to="/bio">тут</router-link></span>
+                    <span>повне біо <router-link class="strike" to="/bio"><span>тут</span></router-link></span>
                 </p>
             </div>
         </div>
@@ -113,7 +113,7 @@
                 color: $orange;
 
                 &:hover {
-                    text-decoration: underline;
+                    text-decoration: none;
                 }
             }
 

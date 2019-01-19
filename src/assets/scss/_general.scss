@@ -138,6 +138,50 @@
   }
 }
 
+.strike span {
+  transition: color .5s
+}
+
+.strike:hover span {
+  color: #fff
+}
+
+.strike span {
+  position: relative;
+  line-height: 1
+}
+
+.strike span::before, .strike span::after {
+  content: '';
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  display: block;
+  height: 2px;
+  width: 0
+}
+
+.strike span::before {
+  left: 0
+}
+
+.strike span::after {
+  right: 0;
+  transition: width 2s cubic-bezier(0.22, 0.61, 0.36, 1)
+}
+
+.strike:hover span::before {
+  width: 100%;
+  transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1)
+}
+
+.strike:hover span::after {
+  width: 100%;
+  background: transparent;
+  transition: 0s
+}
+
+// animations
 @keyframes mail-arrow-svg {
   from {transform: rotate(0deg)}
   to {transform: rotate(180deg)}
@@ -189,6 +233,24 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes RocketShuffle {
+  0% {
+    transform: rotate(0)
+  }
+
+  25% {
+    transform: rotate(-8deg)
+  }
+
+  75% {
+    transform: rotate(8deg)
+  }
+
+  100% {
+    transform: rotate(0)
   }
 }
 

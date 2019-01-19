@@ -414,6 +414,10 @@
                 opacity: 0.7;
             }
 
+            .heading {
+                margin-bottom: 10px;
+            }
+
             .description {
                 margin-top: 40px;
                 font-weight: 500;

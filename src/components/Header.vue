@@ -10,8 +10,8 @@
                                 class="nav-item"
                                 v-for="(link, index) in filteredNavLinks"
                         >
-                            <a :href="link.path" :key="link.id" class="nav-link">
-                                {{link.title}}
+                            <a :href="link.path" :key="link.id" class="nav-link strike">
+                                <span>{{link.title}}</span>
                             </a>
                         </li>
                     </b-navbar-nav>

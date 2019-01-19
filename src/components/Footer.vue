@@ -3,20 +3,24 @@
         <div v-if="isFinalMode" class="footer-content d-flex">
             <div class="copy">&copy; дві тисячі дев'ятнадцятий. hope & partners</div>
             <div class="cosmos">
-                <span class="space-ship animated pulse infinite delay-2s">🚀</span>
-                <a class="grey-color-link" href="https://cosmos.studio/" target="_blank">Made in Cosmos Studio</a>
+                <span class="space-ship">🚀</span>
+                <a class="grey-color-link strike" href="https://cosmos.studio/" target="_blank">
+                    <span>Made in Cosmos Studio</span>
+                </a>
             </div>
         </div>
         <div v-else class="footer-content d-flex justify-content-between align-items-end">
             <div>
                 <a :href="currentLink.path" class="menu-link">
                     <span class="divider d-inline-block"></span>
-                    <span class="link-text grey-color-link d-inline-block">{{currentLink.title}}</span>
+                    <span class="link-text grey-color-link d-inline-block strike">{{currentLink.title}}</span>
                 </a>
             </div>
             <slot name="progress-bar"></slot>
             <div class="d-none d-sm-block mail">
-                <a class="grey-color-link" href="mailto:hello@hopeandpartners.com">hello@hopeandpartners.com</a>
+                <a class="grey-color-link strike" href="mailto:hello@hopeandpartners.com">
+                    <span>hello@hopeandpartners.com</span>
+                </a>
             </div>
         </div>
     </footer>
@@ -121,6 +125,7 @@
                 display: block;
                 float: left;
                 width: 35px;
+                animation: .2s ease infinite RocketShuffle;
             }
         }
     }
