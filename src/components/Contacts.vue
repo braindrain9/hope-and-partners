@@ -8,7 +8,7 @@
                         <h1>напишіть нам листа</h1>
                         <div class="mail-text">
                             <div class="mail">
-                                <a href="mailto:hello@hopeandpartners.com">hello@hopeandpartners.com</a>
+                                <a class="strike" href="mailto:hello@hopeandpartners.com"><span>hello@hopeandpartners.com</span></a>
                                 <span class="arrow-svg" v-html="arrowSvg"></span>
                             </div>
                             <div class="horizontal-line d-none d-md-block">
@@ -104,10 +104,16 @@
                 color: $white;
             }
 
-            .mail-text:hover {
-                a {
-                    color: $orange;
+            .strike {
+                span {
+                    &:before, &:after {
+                        height: 6px;
+                    }
                 }
+            }
+
+            a:hover {
+                text-decoration: none;
             }
 
             .mail {

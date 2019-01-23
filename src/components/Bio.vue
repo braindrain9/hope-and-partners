@@ -3,7 +3,10 @@
         <b-container>
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
-                    <a href="#about" class="bio-link horizontal-grey-link"><span></span>назад</a>
+                    <a href="#about" class="bio-link horizontal-grey-link">
+                        <span></span>
+                        <span class="d-inline-block strike"><span>назад</span></span>
+                    </a>
                     <h1 class="heading heading-main">
                         Моя<br/>
                         повна <span class="orange-color">біографія</span>

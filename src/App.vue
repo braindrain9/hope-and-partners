@@ -182,7 +182,7 @@
                     y: 0,
                     delay: 0.5
                   });
-                  TweenLite.fromTo($('.hero .hero-content .grey-color-link'), 1.5, {opacity: 0, x: 100}, {
+                  TweenLite.fromTo($('.hero .hero-content .details-link'), 1.5, {opacity: 0, x: 100}, {
                     opacity: 1.0,
                     x: 0,
                     delay: 2

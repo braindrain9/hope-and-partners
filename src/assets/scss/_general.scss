@@ -74,7 +74,7 @@
 .horizontal-grey-link {
   color: $grey;
 
-  > span {
+  > span:first-child {
     display: inline-block;
     position: relative;
     overflow: hidden;

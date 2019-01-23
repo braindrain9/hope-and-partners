@@ -10,10 +10,10 @@
                             <span>зв<span class="orange-color">’</span>язки</span>
                             <span>з реальністю</span>
                         </h1>
-                        <a v-on:click="goToAbout()" class="scrolled grey-color-link">
+                        <div class="details-link">
                             <span class="horizontal-divider"></span>
-                            детальніше
-                        </a>
+                            <a v-on:click="goToAbout()" class="scrolled grey-color-link strike"><span>детальніше</span></a>
+                        </div>
                     </div>
                 </div>
             </b-container>
@@ -106,10 +106,6 @@
             height: $home-block-height;
             align-items: center;
             justify-content: flex-end;
-
-            a {
-                display: block;
-            }
 
             .grey-color-link:hover {
                 color: white;
