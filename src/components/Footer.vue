@@ -4,7 +4,7 @@
             <div class="copy">&copy; дві тисячі дев'ятнадцятий. hope & partners</div>
             <div class="cosmos">
                 <span class="space-ship">🚀</span>
-                <a class="grey-color-link strike" href="https://cosmos.studio/" target="_blank">
+                <a class="strike" href="https://cosmos.studio/" target="_blank">
                     <span>Made in Cosmos Studio</span>
                 </a>
             </div>
@@ -118,6 +118,11 @@
         .cosmos {
             a {
                 line-height: 36px;
+                color: $grey;
+
+                &:hover, &:active {
+                    color: $grey;
+                }
             }
 
             .space-ship {
