@@ -10,7 +10,6 @@
                 <div class="d-none d-md-block">
                     <div class="slider-content-wrap">
                         <b-container class="services-slider">
-
                             <div :id="'slide-' + (index + 1)"
                                  v-for="(service, index) in services"
                                  :key="index"
@@ -368,7 +367,6 @@
 
             .text-block {
                 color: $white;
-                width: 500px;
                 position: relative;
                 padding-right: 30px;
 
@@ -491,6 +489,10 @@
         transform: translate(0, -50%);
         width: 100%;
         z-index: 3;
+
+        > div {
+            width: 50%;
+        }
     }
 
     .slide-content-title h2 {
@@ -618,35 +620,12 @@
         z-index: 4
     }
 
-    /* Animations */
-
-    .reveal-wrap {
-        overflow: hidden;
-        display: inline-block;
-        width: 100%;
-    }
-
-    .reveal {
-        transform: translate3d(0, 135%, 0);
-        display: inline-block;
-        white-space: nowrap
-    }
-
-    .reveal-wrap:nth-child(2) .reveal {
-        transition-delay: .2s
-    }
-
-    .reveal-wrap:nth-child(3) .reveal {
-        transition-delay: .4s
-    }
-
-    .reveal-title {
-        overflow: hidden;
-        position: relative
-    }
-
-    .reveal-wrap {
-        display: block
+    @include media-min-width ($lg) {
+        .services .services-slider {
+            .text-block {
+                max-width: 600px;
+            }
+        }
     }
 
     @include media-max-width($lg-max) {

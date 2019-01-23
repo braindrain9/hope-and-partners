@@ -182,6 +182,36 @@
 }
 
 // animations
+
+.reveal-wrap {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.reveal {
+  transform: translate3d(0, 135%, 0);
+  display: inline-block;
+  white-space: nowrap
+}
+
+.reveal-wrap:nth-child(2) .reveal {
+  transition-delay: .2s
+}
+
+.reveal-wrap:nth-child(3) .reveal {
+  transition-delay: .4s
+}
+
+.reveal-title {
+  overflow: hidden;
+  position: relative
+}
+
+.reveal-wrap {
+  display: block
+}
+
 @keyframes mail-arrow-svg {
   from {transform: rotate(0deg)}
   to {transform: rotate(180deg)}
@@ -313,10 +343,13 @@
 
 // Responsive
 
-
-@include media-min-width($lg-max) {
+@include media-min-width ($lg) {
   .container {
     max-width: 1200px;
+  }
+
+  .services .container {
+    max-width: calc(80% - 20px);
   }
 
   #header {
