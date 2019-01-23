@@ -217,35 +217,9 @@
 
             const DsBody = $('html, body');
 
-            // onScroll();
-            // $(document).on("scroll", onScroll);
-            // When the user scrolls the page, execute myFunction
-            window.onscroll = function () {
-              myFunction();
-            };
-
-            var header = document.getElementById("header");
-
-            var sticky = header.offsetTop;
-
-            function myFunction() {
-              if (window.pageYOffset > sticky + 100) {
-                header.classList.add("bg-black");
-              } else {
-                header.classList.remove("bg-black");
-              }
-            }
-
             $(document).on('click', 'a[href^="#"]:not(.scrolled)', function (event) {
               event.preventDefault();
               event.stopImmediatePropagation();
-              // $(document).off("scroll");
-
-              // $('a').each(function () {
-              //   $(this).removeClass('active');
-              // });
-              //
-              // $(this).addClass('active');
 
               DsBody.css({"scroll-behavior": "auto"});
 
@@ -266,8 +240,6 @@
                 DsBody.animate({
                   scrollTop: target.offset().top
                 }, 0);
-                // $(document).on("scroll", onScroll);
-                // });
               }, 600);
 
               preloaderLink.to($('.page-preloader'), 0.7, {
@@ -277,34 +249,6 @@
                 className: '+=is-hidden'
               });
             });
-
-            // function onScroll(event){
-            //   var scrollPos = $(document).scrollTop();
-            //
-            //   $('#menu a').each(function () {
-            //     var currLink = $(this);
-            //     var refElement = $(currLink.attr("href"));
-            //
-            //     if ((refElement.position().top - 200) <= scrollPos && (refElement.position().top + refElement.height()) > scrollPos) {
-            //       $('#menu a').removeClass("active");
-            //       currLink.addClass("active");
-            //     } else {
-            //       currLink.removeClass("active");
-            //     }
-            //   });
-            //
-            //   $('#mobile-menu-items a').each(function () {
-            //     var currLink = $(this);
-            //     var refElement = $(currLink.attr("href"));
-            //
-            //     if ((refElement.position().top - 200) <= scrollPos && (refElement.position().top + refElement.height()) > scrollPos) {
-            //       $('#mobile-menu-items a').removeClass("active");
-            //       currLink.addClass("active");
-            //     } else {
-            //       currLink.removeClass("active");
-            //     }
-            //   });
-            // }
           }
         }
       )

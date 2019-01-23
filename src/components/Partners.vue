@@ -352,6 +352,8 @@
 
 <style scoped lang="scss">
     .partners {
+        margin-bottom: 100px;
+
         .heading-main {
             padding-left: 125px;
         }
@@ -530,7 +532,7 @@
         }
     }
 
-    @include media-max-width($lg-max) {
+    @media screen and (max-width: $lg-max), screen and (max-height: 920px) {
         .partners {
             .heading-main {
                 padding-left: 40px;

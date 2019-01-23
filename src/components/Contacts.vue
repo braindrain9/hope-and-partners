@@ -84,6 +84,10 @@
 </script>
 
 <style scoped lang="scss">
+    .section-container {
+        padding-top: 100px;
+    }
+
     .contacts {
         height: $home-block-height;
         justify-content: flex-end;

@@ -151,8 +151,6 @@
         padding: 40px 0 20px;
         z-index: 100;
         transform: translate3d(0, 0, 0);
-        top: 0;
-        position: fixed;
         transition: all .5s ease-in-out;
 
         #menu {

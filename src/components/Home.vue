@@ -94,12 +94,11 @@
 
     .section {
         background: $base-black;
-        min-height: 100vh;
+        min-height: 90vh;
         height: 100%;
     }
 
     .section-container {
-        padding-top: 100px; // compensate fixed header
         position: relative;
         z-index: 1;
 
