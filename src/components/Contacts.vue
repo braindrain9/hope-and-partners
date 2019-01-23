@@ -88,6 +88,10 @@
         padding-top: 100px;
     }
 
+    #canvas-contacts {
+        height: 100%;
+    }
+
     .contacts {
         height: $home-block-height;
         justify-content: flex-end;
@@ -161,6 +165,11 @@
     }
 
     @include media-max-width($sm-max) {
+        .section-container {
+            padding-top: 0;
+        }
+
+
         .contacts {
             justify-content: center;
             align-items: flex-end;

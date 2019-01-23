@@ -312,64 +312,37 @@
 }
 
 // Responsive
-@include media-max-width($menu-breakpoint) {
-  .horizontal-grey-link {
-    &:before {
-      width: 30px;
-    }
 
-    &:hover {
-      &:before {
-        width: 40px;
+
+@include media-min-width($lg-max) {
+  .container {
+    max-width: 1200px;
+  }
+
+  #header {
+    .container {
+      max-width: 80%;
+    }
+  }
+
+  .container.footer-container {
+    max-width: 80%;
+  }
+}
+
+@include media-max-width($lg-max) {
+  .description {
+    font-size: 20px;
+  }
+
+  .contacts {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          width: 40px;
+        }
       }
     }
-  }
-}
-
-@include media-max-width($mobile-sm) {
-  .description {
-    font-size: 14px;
-  }
-
-  /*Cases slider*/
-  .swiper-button-prev {
-    left: 15px;
-  }
-
-  .swiper-button-next {
-    right: 15px;
-  }
-}
-
-@include media-max-width($mobile-xs) {
-  /*Slider slider*/
-  .swiper-button-prev {
-    left: 10px;
-  }
-
-  .swiper-button-next {
-    right: 10px;
-  }
-}
-
-@include media-max-width($xs-max) {
-  .partners .swiper-slide {
-    height: 700px;
-  }
-}
-
-@include media-max-width($sm-max) {
-  .description {
-    font-size: 18px;
-  }
-
-  /*Cases slider*/
-  .swiper-button-prev {
-    left: 10%;
-  }
-
-  .swiper-button-next {
-    right: 10%;
   }
 }
 
@@ -412,40 +385,69 @@
   }
 }
 
-@media only screen and (max-height: 980px) {
-  .cases .swiper-slide {
-    height: 500px;
+@include media-max-width($sm-max) {
+  .description {
+    font-size: 18px;
+  }
+
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 10%;
+  }
+
+  .swiper-button-next {
+    right: 10%;
   }
 }
 
-@include media-max-width($lg-max) {
-  .description {
-    font-size: 20px;
-  }
+@include media-max-width($menu-breakpoint) {
+  .horizontal-grey-link {
+    &:before {
+      width: 30px;
+    }
 
-  .contacts {
-    .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
-          width: 40px;
-        }
+    &:hover {
+      &:before {
+        width: 40px;
       }
     }
   }
 }
 
-@include media-min-width($lg-max) {
-  .container {
-    max-width: 1200px;
+@include media-max-width($xs-max) {
+  .partners .swiper-slide {
+    height: 700px;
+  }
+}
+
+@include media-max-width($mobile-sm) {
+  .description {
+    font-size: 14px;
   }
 
-  #header {
-    .container {
-      max-width: 80%;
-    }
+  /*Cases slider*/
+  .swiper-button-prev {
+    left: 15px;
   }
 
-  .container.footer-container {
-    max-width: 80%;
+  .swiper-button-next {
+    right: 15px;
+  }
+}
+
+@include media-max-width($mobile-xs) {
+  /*Slider slider*/
+  .swiper-button-prev {
+    left: 10px;
+  }
+
+  .swiper-button-next {
+    right: 10px;
+  }
+}
+
+@media only screen and (max-height: 980px) {
+  .cases .swiper-slide {
+    min-height: 500px;
   }
 }

@@ -152,6 +152,8 @@
         z-index: 100;
         transform: translate3d(0, 0, 0);
         transition: all .5s ease-in-out;
+        position: absolute;
+        top: 0;
 
         #menu {
             .nav-link.active {
