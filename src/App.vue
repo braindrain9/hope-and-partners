@@ -104,22 +104,30 @@
           // var elem = document.getElementById('app');
           var left, top;
 
-          document.addEventListener('mousemove', function (event) {
-            left = event.pageX;
-            top = event.pageY;
-            $("#mouse-icon").css({
-              top,
-              left
-            });
-          });
+          function is_touch_device() {
+              return (('ontouchstart' in window)
+                || (navigator.MaxTouchPoints > 0)
+                || (navigator.msMaxTouchPoints > 0));
+            }
 
-          $(document).on("mouseover", 'a, .language-chooser span', function () {
-            $("#mouse-icon").css({opacity: 1}).addClass("hover")
-          });
+          if (!is_touch_device()) {
+              document.addEventListener('mousemove', function (event) {
+                left = event.pageX;
+                top = event.pageY;
+                $("#mouse-icon").css({
+                  top,
+                  left
+                });
+              });
 
-          $(document).on("mouseleave", 'a', function () {
-            $("#mouse-icon").css({opacity: 0}).removeClass("hover")
-          });
+              $(document).on("mouseover", 'a, .language-chooser span', function () {
+                $("#mouse-icon").css({opacity: 1}).addClass("hover")
+              });
+
+              $(document).on("mouseleave", 'a', function () {
+                $("#mouse-icon").css({opacity: 0}).removeClass("hover")
+              });
+            }
 
           let loadedCount = 0,
             loadingProgress = 0;
@@ -271,11 +279,6 @@
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        cursor: url(./assets/img/cursor.png), auto !important;
-    }
-
-    a {
-        cursor: none !important;
     }
 
     #wrapper {
@@ -332,5 +335,15 @@
 
     #mouse-icon.hover .icon .inner-icon {
         background-color: rgba(223, 130, 130, 0.25)
+    }
+
+    @include media-min-width($xs) {
+        a {
+            cursor: none !important;
+        }
+
+        #app {
+            cursor: url(./assets/img/cursor.png), auto !important;
+        }
     }
 </style>

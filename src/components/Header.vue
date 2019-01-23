@@ -47,6 +47,7 @@
                                :key="link.id"
                                class="nav-link"
                                :class="{active: index === 0}"
+                               v-on:click="hideMenu()"
                             >
                                 {{link.title}}
                             </a>
@@ -81,6 +82,23 @@
     computed: {
       filteredNavLinks: function () {
         return this.navLinks.filter(link => !link.hidden);
+      }
+    },
+
+    methods: {
+      hideMenu: function() {
+        const menuFadeClose = TweenMax.to(mobileMenu, .25, {
+          paused: true,
+          opacity: 0,
+          x: 0,
+          y: '-100vh',
+          display: 'none',
+          ease: Sine.easeOut
+        });
+
+        $('#header').css({"position": "absolute"});
+        menuFadeClose.restart();
+        menuFadeClose.play();
       }
     },
 
@@ -134,10 +152,12 @@
       });
 
       openMenu.addEventListener("click", function () {
+        $('#header').css({"position": "fixed"});
         menuFadeOpen.restart();
         menuFadeOpen.play();
       });
       fadeClose.addEventListener("click", function () {
+        $('#header').css({"position": "absolute"});
         menuFadeClose.restart();
         menuFadeClose.play();
       });
