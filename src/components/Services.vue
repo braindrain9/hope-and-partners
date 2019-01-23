@@ -368,7 +368,6 @@
             .text-block {
                 color: $white;
                 position: relative;
-                padding-right: 30px;
 
                 .slide-content-title h2, h2 {
                     font-weight: bold;
@@ -376,12 +375,14 @@
                     font-size: 24px;
                     position: relative;
                     margin-bottom: 20px;
+                    padding-right: 50px;
                 }
 
                 .description {
                     line-height: 20px;
                     font-size: 14px;
                     color: #BCBFC1;
+                    padding-right: 50px;
                 }
 
                 &:before {
@@ -463,21 +464,27 @@
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         right: 0;
+        border-right: 2px solid $dark-grey;
     }
 
     .slider-dots li {
-        line-height: normal;
-        font-size: 13px;
-        letter-spacing: .3em;
-        color: $grey;
-        -webkit-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        transform: rotate(90deg);
-        margin-bottom: 14px
+        line-height: 28px;
+        font-size: 18px;
+        text-align: center;
+        color: $dark-grey;
+        padding: 5px 12px 5px 0;
+        opacity: 0;
+        transition: opacity .5s ease;
+        margin-right: -2px;
+
+        &:first-child, &:last-child, &.dots-point {
+            opacity: 1;
+        }
     }
 
     .slider-dots li.dots-point {
         color: white;
+        border-right: 2px solid $orange;
     }
 
     .slide-content {
@@ -620,10 +627,18 @@
         z-index: 4
     }
 
-    @include media-min-width ($lg) {
+    @include media-min-width ('1400px') {
         .services .services-slider {
             .text-block {
                 max-width: 600px;
+            }
+        }
+    }
+
+    @include media-max-width ('1399px') {
+        .services .services-slider {
+            .text-block {
+                max-width: 100%;
             }
         }
     }
@@ -634,28 +649,21 @@
                 padding-left: 40px;
             }
         }
+    }
 
-        .slider-dots {
-            bottom: 24px;
-            right: auto;
-            top: auto;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .slider-dots li {
-            transform: none;
-            margin-bottom: 0;
-            margin-right: 14px;
-            display: inline-block;
-        }
-
-        .slider-dots li:last-child {
-            margin-right: 0;
+    @include media-max-width($md-max) {
+        .slide-content > div {
+            width: 80%;
         }
     }
 
     @include media-max-width($sm-max) {
+        .services {
+            .heading-main {
+                padding-left: 10px;
+            }
+        }
+
         .slider-dots {
             display: none;
         }
@@ -707,14 +715,6 @@
         .slide-content-text {
             max-width: 100%;
             width: 100%;
-        }
-    }
-
-    @include media-max-width($sm-max) {
-        .services {
-            .heading-main {
-                padding-left: 10px;
-            }
         }
     }
 
