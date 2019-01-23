@@ -122,6 +122,7 @@
 
                 &:hover, &:active {
                     color: $grey;
+                    text-decoration: none;
                 }
             }
 
