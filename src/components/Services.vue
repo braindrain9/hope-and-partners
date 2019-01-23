@@ -304,6 +304,7 @@
 
           // set active slide on load
           $('#slide-1').addClass('slide-point');
+          $('#dots-nav-1').addClass('dots-point');
 
           const text = $('#slide-1 .letter');
           bus.$emit('animateServices', text.text());
