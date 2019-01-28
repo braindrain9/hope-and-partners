@@ -95,6 +95,9 @@ module.exports = {
       jquery: 'jquery',
       'window.jQuery': 'jquery',
       jQuery: 'jquery'
+    }),
+    new webpack.ProvidePlugin({
+      THREE: "three"
     })
   ]
 };

@@ -1,4 +1,13 @@
 import bus from '../bus';
+// var GeometryUtils =  require('three/examples/js/utils/GeometryUtils')(THREE);
+// var OrbitControls = require('three-orbit-controls')(THREE);
+// import * as THREE from 'three';
+// var GeometryUtils = require('three/examples/js/utils/GeometryUtils')(THREE);
+import './three';
+import {TweenMax, Linear, Power4} from 'gsap/TweenMax';
+// import {inGeometry} from 'three.randompoints';
+// import '../../static/json/Montserrat_Bold'
+// var GeometryUtils = require('three/examples/js/utils/GeometryUtils')(THREE);
 
 export default {
 
@@ -522,6 +531,364 @@ export default {
 
     removeEventListeners: function() {
       // todo remove event listeners
+    },
+
+    getServicesAnimation: function() {
+      var GeometryUtils = {
+        randomPointsInGeometry: function ( geometry, n ) {
+          var face, i,
+            faces = geometry.faces,
+            vertices = geometry.vertices,
+            il = faces.length,
+            totalArea = 0,
+            cumulativeAreas = [],
+            vA, vB, vC;
+
+          // precompute face areas
+
+          for ( i = 0; i < il; i ++ ) {
+
+            face = faces[ i ];
+
+            vA = vertices[ face.a ];
+            vB = vertices[ face.b ];
+            vC = vertices[ face.c ];
+
+            face._area = this.triangleArea( vA, vB, vC );
+
+            totalArea += face._area;
+
+            cumulativeAreas[ i ] = totalArea;
+
+          }
+
+          // binary search cumulative areas array
+
+          function binarySearchIndices( value ) {
+
+            function binarySearch( start, end ) {
+
+              // return closest larger index
+              // if exact number is not found
+
+              if ( end < start )
+                return start;
+
+              var mid = start + Math.floor( ( end - start ) / 2 );
+
+              if ( cumulativeAreas[ mid ] > value ) {
+
+                return binarySearch( start, mid - 1 );
+
+              } else if ( cumulativeAreas[ mid ] < value ) {
+
+                return binarySearch( mid + 1, end );
+
+              } else {
+
+                return mid;
+
+              }
+
+            }
+
+            var result = binarySearch( 0, cumulativeAreas.length - 1 );
+            return result;
+
+          }
+
+          // pick random face weighted by face area
+
+          var r, index,
+            result = [];
+
+          var stats = {};
+
+          for ( i = 0; i < n; i ++ ) {
+
+            r = Math.random() * totalArea;
+
+            index = binarySearchIndices( r );
+
+            result[ i ] = this.randomPointInFace( faces[ index ], geometry );
+
+            if ( ! stats[ index ] ) {
+
+              stats[ index ] = 1;
+
+            } else {
+
+              stats[ index ] += 1;
+
+            }
+
+          }
+
+          return result;
+
+        },
+        randomPointInTriangle: function () {
+
+          var vector = new THREE.Vector3();
+
+          return function ( vectorA, vectorB, vectorC ) {
+
+            var point = new THREE.Vector3();
+
+            var a = Math.random();
+            var b = Math.random();
+
+            if ( ( a + b ) > 1 ) {
+
+              a = 1 - a;
+              b = 1 - b;
+
+            }
+
+            var c = 1 - a - b;
+
+            point.copy( vectorA );
+            point.multiplyScalar( a );
+
+            vector.copy( vectorB );
+            vector.multiplyScalar( b );
+
+            point.add( vector );
+
+            vector.copy( vectorC );
+            vector.multiplyScalar( c );
+
+            point.add( vector );
+
+            return point;
+
+          };
+
+        }(),
+        randomPointInFace: function ( face, geometry ) {
+
+          var vA, vB, vC;
+
+          vA = geometry.vertices[ face.a ];
+          vB = geometry.vertices[ face.b ];
+          vC = geometry.vertices[ face.c ];
+
+          return this.randomPointInTriangle( vA, vB, vC );
+
+        },
+        triangleArea: function () {
+
+          var vector1 = new THREE.Vector3();
+          var vector2 = new THREE.Vector3();
+
+          return function ( vectorA, vectorB, vectorC ) {
+
+            vector1.subVectors( vectorB, vectorA );
+            vector2.subVectors( vectorC, vectorA );
+            vector1.cross( vector2 );
+
+            return 0.5 * vector1.length();
+
+          };
+
+        }()
+      };
+
+      // Options
+      const particleCount = 4000;
+
+      const particleSize = 0.1;
+
+      const defaultAnimationSpeed = 1,
+        morphAnimationSpeed = 18,
+        color = '#FFFFFF';
+
+// Triggers
+      const triggers = $('.slide-content .letter');
+      console.log(triggers, 'triggers');
+
+// Renderer
+      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services')});
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize( window.innerWidth / 2, (window.innerHeight * 0.75) );
+      // document.body.appendChild(renderer.domElement);
+
+// Ensure Full Screen on Resize
+//       function fullScreen () {
+//         camera.aspect = window.innerWidth / window.innerHeight;
+//         camera.updateProjectionMatrix();
+//
+//         renderer.setSize( window.innerWidth, window.innerHeight );
+//       }
+
+      // window.addEventListener('resize', fullScreen, false);
+
+// Scene
+      var scene = new THREE.Scene();
+
+// Camera and position
+      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / 2 / (window.innerHeight * 0.75), 1, 10000 );
+
+      camera.position.y = 0;
+      camera.position.z = 35;
+
+// Lighting
+      var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
+      scene.add( light );
+
+// Orbit Controls
+      var controls = new THREE.OrbitControls( camera );
+      // controls.noPan = true;
+      // controls.noKeys = true;
+      // controls.noRotate = true;
+      controls.noZoom = true;
+      controls.update();
+
+// Particle Vars
+      var particles = new THREE.Geometry();
+
+      console.log(particles);
+
+      var texts = [];
+
+      var pMaterial = new THREE.PointsMaterial({
+        size: particleSize,
+      });
+
+// Texts
+      var loader = new THREE.FontLoader();
+      var typeface = '../../static/json/Montserrat_Bold.json';
+      // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
+
+      loader.load( typeface, ( font ) => {
+        Array.from(triggers).forEach((trigger, idx) => {
+          texts[idx] = {};
+
+          texts[idx].geometry = new THREE.TextGeometry( trigger.textContent, {
+            font: font,
+            size: 12,
+            height: 10,
+            curveSegments: 10,
+          });
+
+          THREE.GeometryUtils.center( texts[idx].geometry );
+
+
+          texts[idx].particles = new THREE.Geometry();
+
+          texts[idx].points = GeometryUtils.randomPointsInGeometry(texts[idx].geometry, particleCount);
+
+          console.log(texts[idx]);
+
+          createVertices(texts[idx].particles, texts[idx].points);
+
+          enableTrigger(trigger, idx);
+
+        });
+      });
+
+// Particles
+      for (var p = 0; p < particleCount; p++) {
+        var vertex = new THREE.Vector3();
+        vertex.x = 0;
+        vertex.y = 0;
+        vertex.z = 0;
+
+        particles.vertices.push(vertex);
+      }
+
+      function createVertices (emptyArray, points) {
+        for (var p = 0; p < particleCount; p++) {
+          var vertex = new THREE.Vector3();
+          vertex.x = points[p]['x'];
+          vertex.y = points[p]['y'];
+          vertex.z = points[p]['z'];
+
+          emptyArray.vertices.push(vertex);
+        }
+      }
+
+      function enableTrigger(trigger, idx) {
+        bus.$on("animateServicesParticles", function(index) {
+          console.log(index, 'index');
+
+          morphTo(texts[index || idx].particles);
+        });
+
+        if (idx == 0) {
+          morphTo(texts[idx].particles);
+        }
+      }
+
+      var particleSystem = new THREE.Points(
+        particles,
+        pMaterial
+      );
+
+      particleSystem.sortParticles = true;
+
+// Add the particles to the scene
+      scene.add(particleSystem);
+
+// Animate
+      const normalSpeed = (defaultAnimationSpeed/100),
+            fullSpeed = (morphAnimationSpeed/100)
+
+      let animationVars = {
+        speed: normalSpeed,
+        color: color,
+        rotation: -45
+      }
+
+
+      function animate() {
+
+        // particleSystem.rotation.y += animationVars.speed;
+        particles.verticesNeedUpdate = true;
+
+        // camera.position.z = animationVars.rotation;
+        // camera.position.y = animationVars.rotation;
+        // camera.lookAt( scene.position );
+
+        particleSystem.material.color = new THREE.Color( animationVars.color );
+
+        window.requestAnimationFrame( animate );
+        renderer.render( scene, camera );
+      }
+
+      animate();
+
+      function morphTo (newParticles) {
+
+        TweenMax.to(animationVars, .1, {
+          ease: Power4.easeIn,
+          speed: fullSpeed,
+          onComplete: slowDown
+        });
+
+        TweenMax.to(animationVars, 2, {
+          ease: Linear.easeNone
+        });
+        // particleSystem.material.color.setHex(color);
+
+        for (var i = 0; i < particles.vertices.length; i++){
+          TweenMax.to(particles.vertices[i], 2, {
+            ease: Elastic.easeOut.config( 0.1, .3),
+            x: newParticles.vertices[i].x,
+            y: newParticles.vertices[i].y,
+            z: newParticles.vertices[i].z
+          })
+        }
+
+        TweenMax.to(animationVars, 2, {
+          ease: Elastic.easeOut.config( 0.1, .3),
+          rotation: animationVars.rotation == 45 ? -45 : 45,
+        })
+      }
+      function slowDown () {
+        TweenMax.to(animationVars, 0.3, {ease:
+          Power2.easeOut, speed: normalSpeed, delay: 0.2});
+      }
     }
   }
 }
