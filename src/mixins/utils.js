@@ -9,6 +9,166 @@ import {TweenMax, Linear, Power4} from 'gsap/TweenMax';
 // import '../../static/json/Montserrat_Bold'
 // var GeometryUtils = require('three/examples/js/utils/GeometryUtils')(THREE);
 
+var GeometryUtils = {
+  randomPointsInGeometry: function ( geometry, n ) {
+    var face, i,
+      faces = geometry.faces,
+      vertices = geometry.vertices,
+      il = faces.length,
+      totalArea = 0,
+      cumulativeAreas = [],
+      vA, vB, vC;
+
+    // precompute face areas
+
+    for ( i = 0; i < il; i ++ ) {
+
+      face = faces[ i ];
+
+      vA = vertices[ face.a ];
+      vB = vertices[ face.b ];
+      vC = vertices[ face.c ];
+
+      face._area = this.triangleArea( vA, vB, vC );
+
+      totalArea += face._area;
+
+      cumulativeAreas[ i ] = totalArea;
+
+    }
+
+    // binary search cumulative areas array
+
+    function binarySearchIndices( value ) {
+
+      function binarySearch( start, end ) {
+
+        // return closest larger index
+        // if exact number is not found
+
+        if ( end < start )
+          return start;
+
+        var mid = start + Math.floor( ( end - start ) / 2 );
+
+        if ( cumulativeAreas[ mid ] > value ) {
+
+          return binarySearch( start, mid - 1 );
+
+        } else if ( cumulativeAreas[ mid ] < value ) {
+
+          return binarySearch( mid + 1, end );
+
+        } else {
+
+          return mid;
+
+        }
+
+      }
+
+      var result = binarySearch( 0, cumulativeAreas.length - 1 );
+      return result;
+
+    }
+
+    // pick random face weighted by face area
+
+    var r, index,
+      result = [];
+
+    var stats = {};
+
+    for ( i = 0; i < n; i ++ ) {
+
+      r = Math.random() * totalArea;
+
+      index = binarySearchIndices( r );
+
+      result[ i ] = this.randomPointInFace( faces[ index ], geometry );
+
+      if ( ! stats[ index ] ) {
+
+        stats[ index ] = 1;
+
+      } else {
+
+        stats[ index ] += 1;
+
+      }
+
+    }
+
+    return result;
+
+  },
+  randomPointInTriangle: function () {
+
+    var vector = new THREE.Vector3();
+
+    return function ( vectorA, vectorB, vectorC ) {
+
+      var point = new THREE.Vector3();
+
+      var a = Math.random();
+      var b = Math.random();
+
+      if ( ( a + b ) > 1 ) {
+
+        a = 1 - a;
+        b = 1 - b;
+
+      }
+
+      var c = 1 - a - b;
+
+      point.copy( vectorA );
+      point.multiplyScalar( a );
+
+      vector.copy( vectorB );
+      vector.multiplyScalar( b );
+
+      point.add( vector );
+
+      vector.copy( vectorC );
+      vector.multiplyScalar( c );
+
+      point.add( vector );
+
+      return point;
+
+    };
+
+  }(),
+  randomPointInFace: function ( face, geometry ) {
+
+    var vA, vB, vC;
+
+    vA = geometry.vertices[ face.a ];
+    vB = geometry.vertices[ face.b ];
+    vC = geometry.vertices[ face.c ];
+
+    return this.randomPointInTriangle( vA, vB, vC );
+
+  },
+  triangleArea: function () {
+
+    var vector1 = new THREE.Vector3();
+    var vector2 = new THREE.Vector3();
+
+    return function ( vectorA, vectorB, vectorC ) {
+
+      vector1.subVectors( vectorB, vectorA );
+      vector2.subVectors( vectorC, vectorA );
+      vector1.cross( vector2 );
+
+      return 0.5 * vector1.length();
+
+    };
+
+  }()
+};
+
 export default {
 
   data () {
@@ -113,14 +273,6 @@ export default {
 
     goBack: function() {
       this.$router.go(-1);
-    },
-
-    goToServicesFirstSlide: function() {
-      location.hash = "#services";
-    },
-
-    goToSection: function(hash) {
-      location.href = hash;
     },
 
     getQueryString: function( name ) {
@@ -534,166 +686,6 @@ export default {
     },
 
     getServicesAnimation: function() {
-      var GeometryUtils = {
-        randomPointsInGeometry: function ( geometry, n ) {
-          var face, i,
-            faces = geometry.faces,
-            vertices = geometry.vertices,
-            il = faces.length,
-            totalArea = 0,
-            cumulativeAreas = [],
-            vA, vB, vC;
-
-          // precompute face areas
-
-          for ( i = 0; i < il; i ++ ) {
-
-            face = faces[ i ];
-
-            vA = vertices[ face.a ];
-            vB = vertices[ face.b ];
-            vC = vertices[ face.c ];
-
-            face._area = this.triangleArea( vA, vB, vC );
-
-            totalArea += face._area;
-
-            cumulativeAreas[ i ] = totalArea;
-
-          }
-
-          // binary search cumulative areas array
-
-          function binarySearchIndices( value ) {
-
-            function binarySearch( start, end ) {
-
-              // return closest larger index
-              // if exact number is not found
-
-              if ( end < start )
-                return start;
-
-              var mid = start + Math.floor( ( end - start ) / 2 );
-
-              if ( cumulativeAreas[ mid ] > value ) {
-
-                return binarySearch( start, mid - 1 );
-
-              } else if ( cumulativeAreas[ mid ] < value ) {
-
-                return binarySearch( mid + 1, end );
-
-              } else {
-
-                return mid;
-
-              }
-
-            }
-
-            var result = binarySearch( 0, cumulativeAreas.length - 1 );
-            return result;
-
-          }
-
-          // pick random face weighted by face area
-
-          var r, index,
-            result = [];
-
-          var stats = {};
-
-          for ( i = 0; i < n; i ++ ) {
-
-            r = Math.random() * totalArea;
-
-            index = binarySearchIndices( r );
-
-            result[ i ] = this.randomPointInFace( faces[ index ], geometry );
-
-            if ( ! stats[ index ] ) {
-
-              stats[ index ] = 1;
-
-            } else {
-
-              stats[ index ] += 1;
-
-            }
-
-          }
-
-          return result;
-
-        },
-        randomPointInTriangle: function () {
-
-          var vector = new THREE.Vector3();
-
-          return function ( vectorA, vectorB, vectorC ) {
-
-            var point = new THREE.Vector3();
-
-            var a = Math.random();
-            var b = Math.random();
-
-            if ( ( a + b ) > 1 ) {
-
-              a = 1 - a;
-              b = 1 - b;
-
-            }
-
-            var c = 1 - a - b;
-
-            point.copy( vectorA );
-            point.multiplyScalar( a );
-
-            vector.copy( vectorB );
-            vector.multiplyScalar( b );
-
-            point.add( vector );
-
-            vector.copy( vectorC );
-            vector.multiplyScalar( c );
-
-            point.add( vector );
-
-            return point;
-
-          };
-
-        }(),
-        randomPointInFace: function ( face, geometry ) {
-
-          var vA, vB, vC;
-
-          vA = geometry.vertices[ face.a ];
-          vB = geometry.vertices[ face.b ];
-          vC = geometry.vertices[ face.c ];
-
-          return this.randomPointInTriangle( vA, vB, vC );
-
-        },
-        triangleArea: function () {
-
-          var vector1 = new THREE.Vector3();
-          var vector2 = new THREE.Vector3();
-
-          return function ( vectorA, vectorB, vectorC ) {
-
-            vector1.subVectors( vectorB, vectorA );
-            vector2.subVectors( vectorC, vectorA );
-            vector1.cross( vector2 );
-
-            return 0.5 * vector1.length();
-
-          };
-
-        }()
-      };
-
       // Options
       const particleCount = 4000;
 
@@ -711,7 +703,6 @@ export default {
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize( window.innerWidth / 2, (window.innerHeight * 0.75) );
-      // document.body.appendChild(renderer.domElement);
 
 // Ensure Full Screen on Resize
 //       function fullScreen () {
@@ -747,8 +738,6 @@ export default {
 // Particle Vars
       var particles = new THREE.Geometry();
 
-      console.log(particles);
-
       var texts = [];
 
       var pMaterial = new THREE.PointsMaterial({
@@ -757,7 +746,7 @@ export default {
 
 // Texts
       var loader = new THREE.FontLoader();
-      var typeface = '../../static/json/Montserrat_Bold.json';
+      var typeface = 'static/json/Montserrat_Bold.json';
       // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
 
       loader.load( typeface, ( font ) => {
@@ -767,12 +756,11 @@ export default {
           texts[idx].geometry = new THREE.TextGeometry( trigger.textContent, {
             font: font,
             size: 12,
-            height: 10,
+            height: 2,
             curveSegments: 10,
           });
 
           THREE.GeometryUtils.center( texts[idx].geometry );
-
 
           texts[idx].particles = new THREE.Geometry();
 
@@ -842,13 +830,18 @@ export default {
 
 
       function animate() {
+        particleSystem.rotation.y += animationVars.speed;
 
-        // particleSystem.rotation.y += animationVars.speed;
-        particles.verticesNeedUpdate = true;
+        // camera.position.y += (mouseY - camera.position.y) * 0.005;
+        // targetRotation += 0.01;
 
         // camera.position.z = animationVars.rotation;
         // camera.position.y = animationVars.rotation;
         // camera.lookAt( scene.position );
+
+        // camera.lookAt(scene.position);
+
+        particles.verticesNeedUpdate = true;
 
         particleSystem.material.color = new THREE.Color( animationVars.color );
 
@@ -885,6 +878,7 @@ export default {
           rotation: animationVars.rotation == 45 ? -45 : 45,
         })
       }
+
       function slowDown () {
         TweenMax.to(animationVars, 0.3, {ease:
           Power2.easeOut, speed: normalSpeed, delay: 0.2});
