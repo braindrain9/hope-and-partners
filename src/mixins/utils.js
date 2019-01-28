@@ -708,7 +708,7 @@ export default {
       console.log(triggers, 'triggers');
 
 // Renderer
-      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services')});
+      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize( window.innerWidth / 2, (window.innerHeight * 0.75) );
       // document.body.appendChild(renderer.domElement);
