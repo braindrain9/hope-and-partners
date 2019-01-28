@@ -246,7 +246,7 @@
 
 <style scoped lang="scss">
     .bio {
-        padding-top: 180px;
+        padding-top: 150px;
         opacity: 0;
 
         .heading-block {

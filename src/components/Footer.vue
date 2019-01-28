@@ -82,6 +82,10 @@
 
             &:hover {
                 text-decoration: none;
+
+                .grey-color-link {
+                    color: $white;
+                }
             }
 
             .divider {

@@ -11,8 +11,10 @@
                             <span>з реальністю</span>
                         </h1>
                         <div class="details-link">
-                            <span class="horizontal-divider"></span>
-                            <a v-on:click="goToAbout()" class="scrolled grey-color-link strike"><span>детальніше</span></a>
+                            <a v-on:click="goToAbout()" class="scrolled grey-color-link">
+                                <span class="horizontal-divider"></span>
+                                <span class="link">детальніше</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -107,29 +109,49 @@
             align-items: center;
             justify-content: flex-end;
 
-            .grey-color-link:hover {
-                color: white;
+            .details-link {
+                .link {
+                    margin-left: 60px;
+                }
+
+                .horizontal-divider {
+                    position: absolute;
+                    top: 10px;
+                    width: 30px;
+                    height: 2px;
+                    background-color: $orange;
+                    display: inline-block;
+                    margin-right: 10px;
+                    margin-left: 15px;
+                    transition: width 1s cubic-bezier(0.8, 0, 0.4, 1), color .5s ease-in-out;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: inline-block;
+                        height: 2px;
+                        width: 8px;
+                        background: $orange;
+                        left: -15px;
+                        transition: width .2s cubic-bezier(0.8, 0, 0.4, 1), color .5s ease-in-out;
+                    }
+                }
+
+                &:hover {
+                    .horizontal-divider {
+                        background-color: $white;
+                        width: 155px;
+
+                        &:before {
+                            width: 15px;
+                            background: $white;
+                        }
+                    }
+                }
             }
 
-            .horizontal-divider {
-                position: relative;
-                width: 30px;
-                height: 2px;
-                background-color: $orange;
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 10px;
-                margin-left: 15px;
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                    display: inline-block;
-                    height: 2px;
-                    width: 8px;
-                    background: $orange;
-                    left: -15px;
-                }
+            .grey-color-link:hover {
+                color: white;
             }
         }
     }

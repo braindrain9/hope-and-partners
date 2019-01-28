@@ -23,6 +23,7 @@
                     Маю надію, мій досвід стане вам корисним!
                 </p>
                 <p class="bio-link">
+                    <span class="divider"></span>
                     <span>повне біо <router-link class="strike" to="/bio"><span>тут</span></router-link></span>
                 </p>
             </div>
@@ -117,14 +118,27 @@
                 }
             }
 
-            &:before {
-                content: "";
+            .divider {
                 width: 40%;
+                margin-right: 10px;
                 height: 2px;
-                background-color: $white;
+                overflow: hidden;
+                position: relative;
                 display: inline-block;
                 vertical-align: middle;
-                margin-right: 20px;
+                line-height: 30px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    width: 100%;
+                    height: 2px;
+                    background-color: $white;
+                    animation: line-drop-horizontal infinite 2.5s cubic-bezier(0.8, 0, 0.4, 1);
+                    animation-fill-mode: forwards;
+                    animation-delay: 2s;
+                }
             }
         }
     }
@@ -168,8 +182,12 @@
             }
 
             .bio-link {
-                &:before {
-                    width: 40px;
+                .divider {
+                    width: 60px;
+
+                    &:before {
+                        width: 60px;
+                    }
                 }
             }
         }
