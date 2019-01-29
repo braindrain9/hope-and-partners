@@ -5,7 +5,12 @@
             <swiper-slide class="d-flex align-items-center">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
+                        <iframe src="https://www.youtube.com/embed/XzLMlK6Y4Q8"
+                                class="video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                >
+                        </iframe>
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
@@ -32,7 +37,12 @@
             <swiper-slide>
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe class="video" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>
+                        <iframe src="https://www.youtube.com/embed/k6tdM-71wl4"
+                                class="video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        >
+                        </iframe>
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
