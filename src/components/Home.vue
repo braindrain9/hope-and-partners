@@ -27,7 +27,7 @@
             <div class="section" id="cases">
                 <div class="section-container">
                     <b-container><Cases/></b-container>
-                    <b-container class="footer-container"><Footer link="contacts"/></b-container>
+                    <b-container class="cases-footer footer-container"><Footer link="contacts"/></b-container>
                 </div>
             </div>
 
@@ -106,6 +106,10 @@
             padding-top: 150px;
             height: 100%;
         }
+    }
+
+    .cases-footer {
+        margin-top: 100px;
     }
 
     @include media-max-width($sm-max) {

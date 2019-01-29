@@ -159,6 +159,7 @@
 <style scoped lang="scss">
     .cases {
         height: $home-block-height;
+        min-height: 700px;
         position: relative;
         margin: 0 auto;
         padding-top: 50px;
