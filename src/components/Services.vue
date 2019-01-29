@@ -521,7 +521,7 @@
 
     .slide-content {
         position: absolute;
-        top: 50%;
+        top: 55%;
         left: 0;
         -webkit-transform: translate(0, -50%);
         -ms-transform: translate(0, -50%);

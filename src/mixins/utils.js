@@ -697,7 +697,6 @@ export default {
 
 // Triggers
       const triggers = $('.slide-content .letter');
-      console.log(triggers, 'triggers');
 
 // Renderer
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
@@ -729,8 +728,8 @@ export default {
 
 // Orbit Controls
       var controls = new THREE.OrbitControls( camera );
-      // controls.noPan = true;
-      // controls.noKeys = true;
+      controls.noPan = true;
+      controls.noKeys = true;
       // controls.noRotate = true;
       controls.noZoom = true;
       controls.update();
@@ -766,8 +765,6 @@ export default {
 
           texts[idx].points = GeometryUtils.randomPointsInGeometry(texts[idx].geometry, particleCount);
 
-          console.log(texts[idx]);
-
           createVertices(texts[idx].particles, texts[idx].points);
 
           enableTrigger(trigger, idx);
@@ -798,8 +795,6 @@ export default {
 
       function enableTrigger(trigger, idx) {
         bus.$on("animateServicesParticles", function(index) {
-          console.log(index, 'index');
-
           morphTo(texts[index || idx].particles);
         });
 
@@ -812,6 +807,9 @@ export default {
         particles,
         pMaterial
       );
+
+      // particleSystem.position.x = -15;
+      // particleSystem.position.y = 4;
 
       particleSystem.sortParticles = true;
 
@@ -837,9 +835,8 @@ export default {
 
         // camera.position.z = animationVars.rotation;
         // camera.position.y = animationVars.rotation;
-        // camera.lookAt( scene.position );
-
-        // camera.lookAt(scene.position);
+        // camera.lookAt( particleSystem.position );
+        // camera.lookAt(0, 0, 0);
 
         particles.verticesNeedUpdate = true;
 
