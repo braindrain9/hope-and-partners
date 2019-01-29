@@ -306,8 +306,8 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0);
         border: 1px solid rgba(255, 255, 255, 0);
@@ -328,8 +328,8 @@
     }
 
     #mouse-icon.hover .icon {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
         border: 2px solid #f44336a6;
     }
 
