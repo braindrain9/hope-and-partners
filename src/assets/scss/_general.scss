@@ -111,14 +111,14 @@
 .contacts {
   .mail-text {
     arrow-svg {
-      & >>> svg {
+      & /deep/ svg {
         transition: all 1s ease-in-out;
       }
     }
 
     &:hover {
       .arrow-svg {
-        & >>> svg {
+        & /deep/ svg {
           animation: mail-arrow-svg .5s;
           transform: rotate(180deg);
         }
@@ -129,7 +129,7 @@
   .mail-block.animation {
     .mail-text {
       .arrow-svg {
-        & >>> svg {
+        & /deep/ svg {
           animation: mail-arrow-svg .5s;
           transform: rotate(180deg);
         }
@@ -371,7 +371,7 @@
   .contacts {
     .mail-text {
       .arrow-svg {
-        & >>> svg {
+        & /deep/ svg {
           width: 40px;
         }
       }
@@ -393,7 +393,7 @@
   .contacts {
     .mail-text {
       .arrow-svg {
-        & >>> svg {
+        & /deep/ svg {
           width: 30px;
         }
       }
