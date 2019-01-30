@@ -63,10 +63,7 @@
       $(document).ready(function () {
         const outW = $(window).outerWidth();
 
-        if (outW > 576) {
-          // self.animateHero('canvas-hero');
-          // bus.$emit('animateHero', '&');
-        }
+        self.getHeroAnimation();
 
         hideFooterOnLeave();
 

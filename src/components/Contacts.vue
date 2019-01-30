@@ -46,10 +46,7 @@
       $(document).ready(function() {
         const outW = $(window).outerWidth();
 
-        if (outW > 576) {
-          // self.animateContacts('canvas-contacts');
-          // bus.$emit('animateContacts', '@');
-        }
+        self.getContactsAnimation();
 
         triggerMailAnimation();
 

@@ -16,7 +16,7 @@
                         </li>
                     </b-navbar-nav>
 
-                    <div class="language-chooser">
+                    <div class="d-none language-chooser">
                         <span class="active">укр</span>
                         <span>eng</span>
                     </div>
