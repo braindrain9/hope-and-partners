@@ -1,6 +1,7 @@
 <template>
     <div class="page-preloader">
         <span class="preloader-bar"></span>
+        <img src="../assets/img/loader.gif" alt="loader image">
     </div>
 </template>
 
@@ -31,6 +32,12 @@
         background-color: $base-black;
         z-index: 999;
         text-align: center;
+
+        img {
+            opacity: 0;
+            display: block;
+            margin: 40vh auto;
+        }
     }
 
     .preloader-bar {

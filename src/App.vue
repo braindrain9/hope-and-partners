@@ -147,6 +147,7 @@
           }
 
           progressTl
+            .insert(new TweenLite($('.page-preloader img'), .1, {opacity : 1, ease: Linear.easeNone}), 0,)
             .insert(new TweenLite($('.preloader-bar'), 1, {width: "100%", ease: Linear.easeNone}), 0,);
 
           function progressUpdate() {
@@ -179,7 +180,8 @@
             setTimeout(function () {
                 new TimelineMax()
                   .to($('.preloader-bar'), 0.3, {autoAlpha: 0, ease: Linear.easeIn})
-                  .set($('.page-preloader'), {className: '+=is-hidden'});
+                  .set($('.page-preloader'), {className: '+=is-hidden'})
+                  .set($('.page-preloader img'), {className: '+=is-hidden'});
 
                 TweenLite.to($('#wrapper'), 1, {autoAlpha: 1});
                 // hero loading animations
