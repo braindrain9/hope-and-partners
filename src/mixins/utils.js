@@ -1105,35 +1105,14 @@ export default {
       var loader = new THREE.FontLoader();
       var typeface = 'static/json/Montserrat_Bold.json';
       // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
-      var mouse = {x:0,y:0};
+      var mouseX = 0, mouseY = 0;
+      var windowHalfX = window.innerWidth / 2;
+      var windowHalfY = window.innerHeight / 2;
 
-      function onMouseMove(e){
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      }
-
-      var moveForce = 2; // max popup movement in pixels
-      var moveForceY = 2; // max popup movement in pixels
-      var rotateForceY = 2; // max popup rotation in deg
-      var rotateForceX = 2; // max popup rotation in deg
 
       $(document).mousemove(function(e) {
-        var docX = $(document).width();
-        var docY = $(document).height();
-
-        var moveX = (e.pageX - docX/2) / (docX/2) * -moveForce;
-        var moveY = ((e.pageX / docX * moveForceY*2) - moveForceY) * 0.5;
-
-        var rotateX = (((e.pageY / docY * rotateForceX*4) - rotateForceX)) * 0.5;
-        var rotateY = ((e.pageX / docX * rotateForceY*2) - rotateForceY) * 0.5;
-
-        console.log(rotateX, rotateY);
-
-        particleSystem.position.x = moveX / 2;
-        particleSystem.position.y = moveY / 2;
-
-        particleSystem.rotation.x = 45 + rotateX;
-        particleSystem.rotation.y = rotateY > -0.15 && rotateY < 0.15 ? rotateY : particleSystem.rotation.y;
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
       });
 
       loader.load( typeface, ( font ) => {
@@ -1200,6 +1179,10 @@ export default {
 
       function animate() {
         // particleSystem.rotation.y += -animationVars.speed;
+        camera.position.x = ( mouseX - camera.position.x ) * 0.005;
+        camera.position.y = ( - mouseY - camera.position.y ) * 0.005;
+        camera.position.z = 25;
+        camera.lookAt( scene.position );
 
         particles.verticesNeedUpdate = true;
 
