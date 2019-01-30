@@ -4,7 +4,7 @@ import bus from '../bus';
 // import * as THREE from 'three';
 // var GeometryUtils = require('three/examples/js/utils/GeometryUtils')(THREE);
 import './three';
-import {TweenMax, Linear, Power4} from 'gsap/TweenMax';
+import {TweenMax, Linear, Power4,TimelineMax, TweenLite, Sine} from 'gsap/TweenMax';
 // import {inGeometry} from 'three.randompoints';
 // import '../../static/json/Montserrat_Bold'
 // var GeometryUtils = require('three/examples/js/utils/GeometryUtils')(THREE);
@@ -884,7 +884,7 @@ export default {
 
     getContactsAnimation: function() {
       // Options
-      const particleCount = 2000;
+      const particleCount = 3000;
 
       const particleSize = 0.1;
 
@@ -985,8 +985,6 @@ export default {
         pMaterial
       );
 
-      particleSystem.rotation.y = 5;
-
       particleSystem.sortParticles = true;
 
       scene.add(particleSystem);
@@ -1002,8 +1000,7 @@ export default {
 
 
       function animate() {
-        particleSystem.rotation.y += -animationVars.speed;
-
+        particleSystem.rotation.y -= animationVars.speed;
         particles.verticesNeedUpdate = true;
 
         particleSystem.material.color = new THREE.Color( animationVars.color );
@@ -1058,35 +1055,20 @@ export default {
         morphAnimationSpeed = 18,
         color = '#F44336';
 
-// Renderer
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-hero'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize( window.innerWidth * 2 / 3, (window.innerHeight * 0.75) );
+      renderer.setSize( window.innerWidth, (window.innerHeight) );
 
-// Ensure Full Screen on Resize
-//       function fullScreen () {
-//         camera.aspect = window.innerWidth / window.innerHeight;
-//         camera.updateProjectionMatrix();
-//
-//         renderer.setSize( window.innerWidth, window.innerHeight );
-//       }
-
-      // window.addEventListener('resize', fullScreen, false);
-
-// Scene
       var scene = new THREE.Scene();
 
-// Camera and position
-      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth * 2 / 3 / (window.innerHeight * 0.75), 1, 10000 );
+      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / (window.innerHeight), 1, 10000 );
 
       camera.position.y = 0;
-      camera.position.z = 25;
+      camera.position.z = 35;
 
-// Lighting
       var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
       scene.add( light );
 
-// Orbit Controls
       var controls = new THREE.OrbitControls( camera );
       controls.noPan = true;
       controls.noKeys = true;
@@ -1104,11 +1086,19 @@ export default {
 
       var loader = new THREE.FontLoader();
       var typeface = 'static/json/Montserrat_Bold.json';
-      // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
       var mouseX = 0, mouseY = 0;
       var windowHalfX = window.innerWidth / 2;
       var windowHalfY = window.innerHeight / 2;
 
+      var maxOffset = 8;
+      var minTime = 2.5;
+      var maxTime = 4.5;
+
+      function random(min, max) {
+        if (max == null) { max = min; min = 0; }
+        if (min > max) { var tmp = min; min = max; max = tmp; }
+        return min + (max - min) * Math.random();
+      }
 
       $(document).mousemove(function(e) {
         mouseX = event.clientX - windowHalfX;
@@ -1119,8 +1109,7 @@ export default {
         text.geometry = new THREE.TextGeometry( '&', {
           font: font,
           size: 16,
-          height: 2,
-          curveSegments: 10,
+          height: 5
         });
 
         THREE.GeometryUtils.center( text.geometry );
@@ -1134,7 +1123,7 @@ export default {
         morphTo(text.particles);
       });
 
-// Particles
+
       for (var p = 0; p < particleCount; p++) {
         var vertex = new THREE.Vector3();
         vertex.x = 0;
@@ -1155,10 +1144,30 @@ export default {
         }
       }
 
+      function animateParticles(particles) {
+        console.log(particles.vertices, 'particles');
+
+        particles.vertices.forEach((particle) => {
+          animateXY().progress(Math.random());
+
+          function animateXY() {
+            return TweenLite.to(particle, random(minTime, maxTime), {
+              x: random(particle.x - maxOffset, particle.x + maxOffset),
+              y: random(particle.y - maxOffset, particle.y + maxOffset),
+              ease: Sine.easeInOut,
+              onComplete: animateXY
+            });
+          }
+        });
+      }
+
+      animateParticles(particles);
+
       var particleSystem = new THREE.Points(
         particles,
         pMaterial
       );
+
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
@@ -1166,6 +1175,7 @@ export default {
       particleSystem.sortParticles = true;
 
       scene.add(particleSystem);
+      particleSystem.position.x = -10;
 
       const normalSpeed = (defaultAnimationSpeed/300),
         fullSpeed = (morphAnimationSpeed/100)
@@ -1178,11 +1188,20 @@ export default {
 
 
       function animate() {
-        // particleSystem.rotation.y += -animationVars.speed;
-        camera.position.x = ( mouseX - camera.position.x ) * 0.005;
+        camera.position.x = particleSystem.position.x + ( mouseX - camera.position.x ) * 0.005;
         camera.position.y = ( - mouseY - camera.position.y ) * 0.005;
-        camera.position.z = 25;
+        camera.position.z = 35;
         camera.lookAt( scene.position );
+
+        // var pCount = particleCount;
+        // while (pCount--)
+        //
+        // {
+        //   var particle = particles.vertices[pCount];
+        //   console.log(particle.y, 'particle.y');
+        //   // particle.y += Math.random();
+        //   particleSystem.geometry.vertices.needsUpdate = true;
+        // }
 
         particles.verticesNeedUpdate = true;
 
@@ -1193,7 +1212,6 @@ export default {
       }
 
       animate();
-
       function morphTo (newParticles) {
 
         TweenMax.to(animationVars, .1, {

@@ -98,6 +98,10 @@
 </script>
 
 <style scoped lang="scss">
+    #canvas-hero {
+        top: - 100px;
+    }
+
     .hero-section {
         opacity: 0;
 
