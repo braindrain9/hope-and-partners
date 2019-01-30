@@ -172,7 +172,7 @@
         min-height: 700px;
         position: relative;
         margin: 0 auto;
-        padding-top: 50px;
+        padding-top: 100px;
         z-index: 11;
 
         .heading-main {

@@ -112,9 +112,17 @@
         margin-top: 100px;
     }
 
+    #hero {
+        padding-top: 100px;
+    }
+
     @include media-max-width($sm-max) {
         .section-container {
             padding-top: 60px;
+        }
+
+        #hero {
+            padding-top: 0;
         }
     }
 </style>

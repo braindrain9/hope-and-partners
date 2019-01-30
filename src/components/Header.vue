@@ -172,6 +172,8 @@
         z-index: 100;
         transform: translate3d(0, 0, 0);
         transition: all .5s ease-in-out;
+        position: absolute;
+        top: 0;
 
         #menu {
             .nav-link.active {
@@ -304,13 +306,6 @@
         p {
             font-size: 20px;
             text-decoration: underline;
-        }
-    }
-
-    @include media-max-width($sm-max) {
-        header {
-            position: absolute;
-            top: 0;
         }
     }
 </style>
