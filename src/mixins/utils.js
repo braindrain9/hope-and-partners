@@ -1087,10 +1087,10 @@ export default {
         mouseY = event.clientY - windowHalfY;
       });
 
-      loader.load( typeface, ( font ) => {
+      loader.load(typeface, (font) => {
         text.geometry = new THREE.TextGeometry( '&', {
           font: font,
-          size: outW > 1200 ? 16 : outW > 992 ? 12 : 8,
+          size: outW > 1200 ? 16 : outW > 992 ? 12 : 10,
           height: outW > 992 ? 5 : 2
         });
 
@@ -1150,6 +1150,7 @@ export default {
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
+      particleSystem.position.y = outW > 992 ? 0 : 4;
 
       particleSystem.sortParticles = true;
 

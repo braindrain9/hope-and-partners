@@ -18,8 +18,11 @@
         <div class="bio-info">
             <b-container>
                 <div class="row">
-                    <div class="photo-block col-md-5 col-sm-12">
-                        <div class="photo" v-for="i in 4"></div>
+                    <div class="photo-block col-md-5 col-sm-12 d-none d-md-block">
+                        <div class="photo" :class="'photo-' + (i + 1)" v-for="(photo, i) in 4"></div>
+                    </div>
+                    <div class="photo-block col-sm-12 d-md-none">
+                        <div class="photo photo-1"></div>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
                         <div class="description description-dark">
@@ -62,6 +65,8 @@
                                 </div>
                             </div>
 
+                            <div class="photo photo-2 d-md-none"></div>
+
                             <div>
                                 <h4>Освіта</h4>
 
@@ -102,6 +107,8 @@
                                 </div>
                             </div>
 
+                            <div class="photo photo-3 d-md-none"></div>
+
                             <div>
                                 <h4>Бізнес</h4>
                                 <div>
@@ -133,6 +140,8 @@
                                     <br/>
                                 </div>
                             </div>
+
+                            <div class="photo photo-4 d-md-none"></div>
 
                             <div>
                                 <h4>Відзнаки</h4>
@@ -246,7 +255,7 @@
 
 <style scoped lang="scss">
     .bio {
-        padding-top: 150px;
+        padding-top: 220px;
         opacity: 0;
 
         .heading-block {
@@ -268,28 +277,28 @@
             .photo-block {
                 display: inline-block;
                 margin-top: -275px;
+            }
 
-                .photo {
-                    height: 650px;
-                    background-position: center;
-                    background-size: cover;
-                    margin-bottom: 40px;
+            .photo {
+                height: 650px;
+                background-position: center;
+                background-size: cover;
+                margin-bottom: 40px;
 
-                    &:first-child {
-                        background-image: url(../assets/bio/bio1.png);
-                    }
+                &.photo-1 {
+                    background-image: url(../assets/bio/bio1.png);
+                }
 
-                    &:nth-child(2) {
-                        background-image: url(../assets/bio/1.jpg);
-                    }
+                &.photo-2 {
+                    background-image: url(../assets/bio/1.jpg);
+                }
 
-                    &:nth-child(3) {
-                        background-image: url(../assets/bio/3.jpg);
-                    }
+                &.photo-3 {
+                    background-image: url(../assets/bio/3.jpg);
+                }
 
-                    &:nth-child(4) {
-                        background-image: url(../assets/bio/4.jpg);
-                    }
+                &.photo-4 {
+                    background-image: url(../assets/bio/4.jpg);
                 }
             }
 
@@ -319,10 +328,8 @@
     @include media-max-width($lg-max) {
         .bio {
             .bio-info {
-                .photo-block {
-                    .photo {
-                        height: 550px;
-                    }
+                .photo {
+                    height: 550px;
                 }
 
                 .description-block {
@@ -351,10 +358,10 @@
             .bio-info {
                 .photo-block {
                     margin-top: -235px;
+                }
 
-                    .photo {
-                        height: 380px;
-                    }
+                .photo {
+                    height: 380px;
                 }
 
                 .description-block {
@@ -382,12 +389,13 @@
                 .photo-block {
                     margin-top: -75px;
                     display: block;
+                }
 
-                    .photo {
-                        height: 600px;
-                        max-width: 100%;
-                        margin: 0 auto 20px;
-                    }
+                .photo {
+                    height: 600px;
+                    max-width: 100%;
+                    margin: 0 auto 20px;
+                    opacity: 1 !important;
                 }
 
                 .description-block {
@@ -409,10 +417,8 @@
     @include media-max-width('450px') {
         .bio {
             .bio-info {
-                .photo-block {
-                    .photo {
-                        height: 500px;
-                    }
+                .photo {
+                    height: 500px;
                 }
             }
         }
@@ -421,10 +427,8 @@
     @include media-max-width($mobile-xs) {
         .bio {
             .bio-info {
-                .photo-block {
-                    .photo {
-                        height: 400px;
-                    }
+                .photo {
+                    height: 400px;
                 }
             }
         }

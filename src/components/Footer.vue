@@ -85,6 +85,7 @@
 
                 .grey-color-link {
                     color: $white;
+                    font-weight: bold;
                 }
             }
 
@@ -92,7 +93,7 @@
                 width: 2px;
                 margin-right: 10px;
                 margin-bottom: 1px;
-                height: 60px;
+                height: 50px;
                 display: block;
                 overflow: hidden;
                 position: relative;
@@ -102,7 +103,7 @@
                     position: absolute;
                     display: block;
                     width: 2px;
-                    height: 60px;
+                    height: 50px;
                     background-color: $white;
                     animation: line-drop infinite 2.5s cubic-bezier(0.8, 0, 0.4, 1);
                     animation-fill-mode: forwards;

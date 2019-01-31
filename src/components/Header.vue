@@ -34,7 +34,7 @@
                     <button id="fadeClose" class="horizontal-grey-link"><span></span>закрити</button>
 
                     <b-navbar-brand href="/" right>
-                        <div v-html="logoDarkMobile"></div>
+                        <div v-html="logoMobile"></div>
                     </b-navbar-brand>
                 </b-navbar>
                 <div class="wrapper">
@@ -175,13 +175,6 @@
         position: absolute;
         top: 0;
 
-        #menu {
-            .nav-link.active {
-                color: $white;
-                font-weight: bold;
-            }
-        }
-
         .navbar {
             padding: 0;
 
@@ -229,7 +222,6 @@
                     &:hover {
                         text-decoration: none;
                         color: $white;
-                        font-weight: bold;
                     }
 
                     &.active {
@@ -260,13 +252,13 @@
     }
 
     #mobileMenu {
-        background: #fff;
+        background: $base-black;
         color: $grey;
         position: fixed;
         top: 0;
         left: 0;
         display: none;
-        padding-top: 40px;
+        padding-top: 20px;
 
         .horizontal-grey-link > span {
             line-height: 12px;
@@ -293,7 +285,7 @@
 
                 &.active {
                     font-weight: bold;
-                    color: $base-black;
+                    color: $white;
                 }
             }
         }
@@ -306,6 +298,12 @@
         p {
             font-size: 20px;
             text-decoration: underline;
+        }
+    }
+
+    @include media-max-width($xs-max) {
+        header {
+            padding-top: 20px;
         }
     }
 </style>

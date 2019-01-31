@@ -600,6 +600,8 @@
 
     @include media-max-width($xs-max) {
         .partners {
+            margin-bottom: 0;
+
             #partners-container {
                 height: 100%;
                 margin-bottom: 0;
