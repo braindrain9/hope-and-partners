@@ -687,15 +687,15 @@ export default {
 
     getServicesAnimation: function() {
       // Options
-      const particleCount = 4000;
+      const particleCount = 2500;
 
       const particleSize = 0.1;
 
       const defaultAnimationSpeed = 1,
-        morphAnimationSpeed = 18,
+        morphAnimationSpeed = 0,
         color = '#FFFFFF';
 
-      const triggers = $('.services-slider .text-block .letter');
+      const triggers = $('.services-slider .slide-content .letter');
 
       const outW = $(window).outerWidth();
 
@@ -736,7 +736,7 @@ export default {
       var typeface = 'static/json/Montserrat_Bold.json';
       // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
 
-      loader.load( typeface, ( font ) => {
+      loader.load(typeface, (font) => {
         Array.from(triggers).forEach((trigger, idx) => {
           texts[idx] = {};
 
@@ -786,7 +786,7 @@ export default {
           morphTo(texts[index || idx].particles);
         });
 
-        if (idx == 0) {
+        if (idx === 0) {
           morphTo(texts[idx].particles);
         }
       }
@@ -805,7 +805,7 @@ export default {
       scene.add(particleSystem);
 
 // Animate
-      const normalSpeed = (defaultAnimationSpeed/100),
+      const normalSpeed = (defaultAnimationSpeed/200),
             fullSpeed = (morphAnimationSpeed/100)
 
       let animationVars = {
@@ -844,13 +844,13 @@ export default {
           onComplete: slowDown
         });
 
-        TweenMax.to(animationVars, 2, {
+        TweenMax.to(animationVars, 1, {
           ease: Linear.easeNone
         });
         // particleSystem.material.color.setHex(color);
 
         for (var i = 0; i < particles.vertices.length; i++){
-          TweenMax.to(particles.vertices[i], 2, {
+          TweenMax.to(particles.vertices[i], 4.5, {
             ease: Elastic.easeOut.config( 0.1, .3),
             x: newParticles.vertices[i].x,
             y: newParticles.vertices[i].y,

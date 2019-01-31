@@ -80,6 +80,7 @@
   import {TimelineMax} from "gsap/TweenMax";
   import arrowSvg from '../assets/img/arrow-grey.svg';
   import bus from '../bus';
+  import Timeout from 'smart-timeout';
 
   export default {
     name: 'Services',
@@ -216,7 +217,13 @@
                     if (outW > 576) {
                       if (text && (prevLetter !== text.text())) {
                         prevLetter = text.text();
-                        bus.$emit('animateServicesParticles', index > 1 ? index - 1 : 0);
+
+                        function animateParticles() {
+                          bus.$emit('animateServicesParticles', index > 1 ? index - 1 : 0)
+                        }
+
+                        Timeout.clear(animateParticles);
+                        Timeout.set(animateParticles, 500);
                       }
                     }
                   }
@@ -299,7 +306,6 @@
             pinPosition = index * yOffset;
             $(this).css("left", pinPosition).attr("data-position", pinPosition);
           });
-
 
           // set active slide on load
           $('#slide-1').addClass('slide-point');
