@@ -695,46 +695,34 @@ export default {
         morphAnimationSpeed = 18,
         color = '#FFFFFF';
 
-// Triggers
-      const triggers = $('.slide-content .letter');
+      const triggers = $('.services-slider .text-block .letter');
 
-// Renderer
+      const outW = $(window).outerWidth();
+
+      var canvasWidth = window.innerWidth / (outW > 1140 ? 3 : outW > 768 ? 2 : 1);
+      var canvasHeight = window.innerHeight * 0.75;
+
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize( window.innerWidth / 2, (window.innerHeight * 0.75) );
+      renderer.setSize(canvasWidth, canvasHeight);
 
-// Ensure Full Screen on Resize
-//       function fullScreen () {
-//         camera.aspect = window.innerWidth / window.innerHeight;
-//         camera.updateProjectionMatrix();
-//
-//         renderer.setSize( window.innerWidth, window.innerHeight );
-//       }
-
-      // window.addEventListener('resize', fullScreen, false);
-
-// Scene
       var scene = new THREE.Scene();
 
-// Camera and position
-      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / 2 / (window.innerHeight * 0.75), 1, 10000 );
+      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
 
       camera.position.y = 0;
       camera.position.z = 35;
 
-// Lighting
       var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
       scene.add( light );
 
-// Orbit Controls
       var controls = new THREE.OrbitControls( camera );
       controls.noPan = true;
       controls.noKeys = true;
-      // controls.noRotate = true;
+      controls.noRotate = outW < 768;
       controls.noZoom = true;
       controls.update();
 
-// Particle Vars
       var particles = new THREE.Geometry();
 
       var texts = [];
@@ -892,35 +880,25 @@ export default {
         morphAnimationSpeed = 18,
         color = '#F44336';
 
-// Renderer
+      const outW = $(window).outerWidth();
+
+      var canvasWidth = outW > 768 ? window.innerWidth / 2 : window.innerWidth;
+      var canvasHeight = window.innerHeight * 0.75;
+
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-contacts'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize( window.innerWidth / 2, (window.innerHeight * 0.75) );
+      renderer.setSize( canvasWidth, canvasHeight);
 
-// Ensure Full Screen on Resize
-//       function fullScreen () {
-//         camera.aspect = window.innerWidth / window.innerHeight;
-//         camera.updateProjectionMatrix();
-//
-//         renderer.setSize( window.innerWidth, window.innerHeight );
-//       }
-
-      // window.addEventListener('resize', fullScreen, false);
-
-// Scene
       var scene = new THREE.Scene();
 
-// Camera and position
-      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / 2 / (window.innerHeight * 0.75), 1, 10000 );
+      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
 
       camera.position.y = 0;
       camera.position.z = 35;
 
-// Lighting
       var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
       scene.add( light );
 
-// Orbit Controls
       var controls = new THREE.OrbitControls( camera );
       controls.noPan = true;
       controls.noKeys = true;
@@ -938,7 +916,6 @@ export default {
 
       var loader = new THREE.FontLoader();
       var typeface = 'static/json/Montserrat_Bold.json';
-      // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
 
       loader.load( typeface, ( font ) => {
         text.geometry = new THREE.TextGeometry( '@', {
@@ -1055,13 +1032,18 @@ export default {
         morphAnimationSpeed = 18,
         color = '#F44336';
 
+      const outW = $(window).outerWidth();
+
+      var canvasWidth = window.innerWidth;
+      var canvasHeight = window.innerHeight;
+
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-hero'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize( window.innerWidth, (window.innerHeight) );
+      renderer.setSize(canvasWidth, canvasHeight);
 
       var scene = new THREE.Scene();
 
-      var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / (window.innerHeight), 1, 10000 );
+      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
 
       camera.position.y = 0;
       camera.position.z = 35;
@@ -1108,8 +1090,8 @@ export default {
       loader.load( typeface, ( font ) => {
         text.geometry = new THREE.TextGeometry( '&', {
           font: font,
-          size: 16,
-          height: 5
+          size: outW > 1200 ? 16 : outW > 992 ? 12 : 8,
+          height: outW > 992 ? 5 : 2
         });
 
         THREE.GeometryUtils.center( text.geometry );
@@ -1145,8 +1127,6 @@ export default {
       }
 
       function animateParticles(particles) {
-        console.log(particles.vertices, 'particles');
-
         particles.vertices.forEach((particle) => {
           animateXY().progress(Math.random());
 
@@ -1168,14 +1148,13 @@ export default {
         pMaterial
       );
 
-
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
 
       particleSystem.sortParticles = true;
 
       scene.add(particleSystem);
-      particleSystem.position.x = -10;
+      particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : 0;
 
       const normalSpeed = (defaultAnimationSpeed/300),
         fullSpeed = (morphAnimationSpeed/100)

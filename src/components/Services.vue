@@ -114,11 +114,12 @@
         this.activeIndex = index === 0
           ? ''
           : index < 10 ? '0' + index : index;
-        console.log(this.partners.length, index, 'partners');
 
-        this.afterIndex = this.partners.length === (index + 1)
+        this.afterIndex = this.services.length === (index + 1)
           ? ''
           : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+
+        bus.$emit('animateServicesParticles', index);
       }
     },
 
@@ -136,11 +137,6 @@
         self.getServicesAnimation();
 
         const outW = $(window).outerWidth();
-
-        if (outW > 576) {
-          // self.animateServices('canvas-services');
-          // bus.$emit('animateServices', '&');
-        }
 
         $(".reveal-title, .slide-content-title h2").each(function () {
           const title = $(this),
@@ -311,14 +307,6 @@
 
           const text = $('#slide-1 .letter');
           bus.$emit('animateServices', text.text());
-
-          window.addEventListener('resize', function () {
-            if ($(window).outerWidth() < 768) {
-              controller.destroy(true);
-              scene = null;
-              wipeAnimation = null;
-            }
-          })
         }
 
         function hideFooterOnLeave() {
