@@ -1,5 +1,5 @@
 <template>
-    <div class="page-preloader">
+    <div class="page-preloader d-flex align-items-center justify-content-center">
         <span class="preloader-bar"></span>
         <img src="../assets/img/loader.gif" alt="loader image">
     </div>
@@ -36,7 +36,6 @@
         img {
             opacity: 0;
             display: block;
-            margin: 40vh auto;
         }
     }
 
