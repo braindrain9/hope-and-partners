@@ -219,7 +219,7 @@
                         prevLetter = text.text();
 
                         function animateParticles() {
-                          bus.$emit('animateServicesParticles', index > 1 ? index - 1 : 0)
+                          bus.$emit('animateServicesParticles', index - 1)
                         }
 
                         Timeout.clear(animateParticles);

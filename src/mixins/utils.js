@@ -783,7 +783,7 @@ export default {
 
       function enableTrigger(trigger, idx) {
         bus.$on("animateServicesParticles", function(index) {
-          morphTo(texts[index || idx].particles);
+          morphTo(texts[index].particles);
         });
 
         if (idx === 0) {
