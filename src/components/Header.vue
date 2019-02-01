@@ -31,7 +31,7 @@
         <div id="mobileMenu">
             <b-container>
                 <b-navbar variant="faded" type="light">
-                    <button id="fadeClose" class="horizontal-grey-link"><span></span>закрити</button>
+                    <button id="fadeClose" class="horizontal-grey-link">закрити<span></span></button>
 
                     <b-navbar-brand href="/" right>
                         <div v-html="logoMobile"></div>
@@ -243,12 +243,12 @@
     }
 
     #openMenu {
+        color: white;
         font-size: 16px;
         padding-left: 0;
-
-        &:hover {
-            color: white;
-        }
+        padding-right: 0;
+        border-radius: 0;
+        border-bottom: 1px solid white;
     }
 
     #mobileMenu {
@@ -267,25 +267,41 @@
 
     #fadeClose {
         font-size: 16px;
-        color: $grey;
+        color: $white;
+        padding-top: 10px;
+
+        > span {
+            display: block;
+            margin-right: 0;
+
+            &:before {
+                background: $white;
+                height: 1px;
+            }
+        }
     }
 
     .wrapper {
         color: $grey;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .nav {
             padding: 50px 0;
         }
 
         .nav-item {
-            margin-bottom: 25px;
+            margin-bottom: 10px;
 
             .nav-link {
-                color: $grey;
+                color: $white;
+                font-weight: bold;
+                font-size: 36px;
 
                 &.active {
-                    font-weight: bold;
-                    color: $white;
+                    color: $orange;
                 }
             }
         }
