@@ -165,11 +165,12 @@
               const target = $(location.hash);
 
               setTimeout(function () {
-                // $(document).scrollTop(target.offset().top);
-                $('html, body').animate({
-                  scrollTop: target.offset().top
-                }, 0);
-              }, 600);
+                  if (target && target.offset()) {
+                    $('html, body').animate({
+                      scrollTop: target.offset().top
+                    }, 0);
+                  }
+                }, 600);
             } else if ($('.homepage').length) {
               $(document).scrollTop(0);
             }

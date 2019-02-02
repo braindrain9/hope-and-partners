@@ -61,8 +61,6 @@
       const self = this;
 
       $(document).ready(function () {
-        const outW = $(window).outerWidth();
-
         self.getHeroAnimation();
 
         hideFooterOnLeave();

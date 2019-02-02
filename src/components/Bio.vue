@@ -184,6 +184,7 @@
   import Event from './Event';
   import Footer from './Footer';
   import ScrollMagic from 'scrollmagic';
+  import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax, TweenLite} from "gsap/TweenMax";
 
   export default {

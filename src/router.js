@@ -2,12 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 // components
-import Feed from './views/Feed';
-import Post from './views/Post';
-import Partners from './components/Partners';
-import Home from './components/Home';
-import Bio from './components/Bio';
-import NotFoundPage from './views/NotFoundPage';
+const Home = () => import('./components/Home');
+const Bio = () => import('./components/Bio');
+const NotFoundPage = () => import('./views/NotFoundPage');
 
 Vue.use(VueRouter);
 
@@ -18,16 +15,6 @@ const routes = [
     component: Home
   },
   {
-    name: 'post',
-    path: '/posts/:slug',
-    component: Post
-  },
-  {
-    name: 'page',
-    path: '/page/:page',
-    component: Feed
-  },
-  {
     name: 'notFoundPage',
     path: '/404',
     component: NotFoundPage
@@ -36,11 +23,6 @@ const routes = [
     name: 'bio',
     path: '/bio',
     component: Bio
-  },
-  {
-    name: 'partners',
-    path: '/partners',
-    component: Partners
   },
   {
     path: '*',
