@@ -2,7 +2,7 @@
     <div class="hero">
         <canvas id="canvas-hero"></canvas>
         <div class="hero-section section-container">
-            <b-container>
+            <div class="container">
                 <div class="hero-content d-flex">
                     <div>
                         <h1 class="heading heading-main">
@@ -18,10 +18,10 @@
                         </div>
                     </div>
                 </div>
-            </b-container>
-            <b-container class="footer-container">
+            </div>
+            <div class="container footer-container">
                 <Footer class="d-none d-md-block" link="about"/>
-            </b-container>
+            </div>
         </div>
     </div>
 </template>

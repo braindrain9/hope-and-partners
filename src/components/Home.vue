@@ -7,12 +7,12 @@
 
             <div class="section" id="about">
                 <div class="section-container">
-                    <b-container >
+                    <div class="container">
                         <About/>
-                    </b-container>
-                    <b-container class="footer-container">
+                    </div>
+                    <div class="container footer-container">
                         <Footer link="services"/>
-                    </b-container>
+                    </div>
                 </div>
             </div>
 
@@ -26,8 +26,8 @@
 
             <div class="section" id="cases">
                 <div class="section-container">
-                    <b-container><Cases/></b-container>
-                    <b-container class="cases-footer footer-container"><Footer link="contacts"/></b-container>
+                    <div class="container"><Cases/></div>
+                    <div class="container cases-footer footer-container"><Footer link="contacts"/></div>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@
     <div>
         <canvas id="canvas-contacts"></canvas>
         <div class="section-container">
-            <b-container>
+            <div class="container">
                 <div class="contacts d-flex">
                     <div class="mail-block">
                         <h1>напишіть нам листа</h1>
@@ -17,10 +17,10 @@
                         </div>
                     </div>
                 </div>
-            </b-container>
-            <b-container class="footer-container">
+            </div>
+            <div class="container footer-container">
                 <Footer is-final-mode="true"/>
-            </b-container>
+            </div>
         </div>
     </div>
 </template>

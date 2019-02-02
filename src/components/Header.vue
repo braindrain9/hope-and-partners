@@ -1,6 +1,6 @@
 <template>
     <header id="header">
-        <b-container id="mainMenu">
+        <div class="container" id="mainMenu">
             <b-navbar toggleable="md" type="dark">
                 <b-nav-toggle id="openMenu" target="">Меню</b-nav-toggle>
 
@@ -27,9 +27,9 @@
                     <div class="d-block d-md-none" v-html="logoMobile"></div>
                 </b-navbar-brand>
             </b-navbar>
-        </b-container>
+        </div>
         <div id="mobileMenu">
-            <b-container>
+            <div class="container">
                 <b-navbar variant="faded" type="light">
                     <button id="fadeClose" class="horizontal-grey-link">закрити<span></span></button>
 
@@ -57,7 +57,7 @@
                         <p class="mail">hello@hopeandpartners.com</p>
                     </div>
                 </div>
-            </b-container>
+            </div>
         </div>
     </header>
 </template>

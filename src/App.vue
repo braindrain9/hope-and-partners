@@ -19,9 +19,6 @@
 
         </div>
 
-        <!--<b-container>-->
-        <!--<Footer :link="this.$route.name === 'bio' ? 'partners' : 'home'"/>-->
-        <!--</b-container>-->
         <div id="mouse-icon">
             <div class="icon">
                 <div class="inner-icon"></div>

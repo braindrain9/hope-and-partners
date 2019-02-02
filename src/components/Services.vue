@@ -2,14 +2,14 @@
     <div class="services">
         <section class="slider-section">
             <div id="slider-wrap">
-                <b-container class="position-relative">
+                <div class="container position-relative">
                     <h1 class="heading heading-main">послуги<span class="orange-color">:</span></h1>
                     <canvas id="canvas-services"></canvas>
-                </b-container>
+                </div>
 
                 <div class="d-none d-md-block">
                     <div class="slider-content-wrap">
-                        <b-container class="services-slider">
+                        <div class="container services-slider">
                             <div :id="'slide-' + (index + 1)"
                                  v-for="(service, index) in services"
                                  :key="index"
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </b-container>
+                        </div>
                     </div>
                     <div id="slider-container">
                         <div class="progress-slider-wrap">
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="d-block d-md-none services-slider">
-                    <b-container>
+                    <div class="container">
                         <swiper :options="swiperOption" ref="servicesSwiper">
                             <swiper-slide v-for="(service, index) in services" :key="index">
                                 <div class="d-flex justify-content-center">
@@ -62,12 +62,12 @@
                             ></div>
                             <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
                         </swiper>
-                    </b-container>
+                    </div>
                 </div>
 
-                <b-container class="footer-container">
+                <div class="container footer-container">
                     <Footer link="partners"/>
-                </b-container>
+                </div>
             </div>
         </section>
     </div>

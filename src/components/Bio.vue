@@ -1,6 +1,6 @@
 <template>
     <div class="bio">
-        <b-container>
+        <div class="container">
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
                     <a href="#about" class="bio-link horizontal-grey-link">
@@ -14,9 +14,9 @@
                     <div class="tiny-font-size white-color">останній апдейт 20.12.2018</div>
                 </div>
             </div>
-        </b-container>
+        </div>
         <div class="bio-info">
-            <b-container>
+            <div class="container">
                 <div class="row">
                     <div class="photo-block col-md-5 col-sm-12 d-none d-md-block">
                         <div class="photo" :class="'photo-' + (i + 1)" v-for="(photo, i) in 4"></div>
@@ -171,12 +171,12 @@
                         </div>
                     </div>
                 </div>
-            </b-container>
+            </div>
         </div>
         <Event/>
-        <b-container class="footer-container">
+        <div class="container footer-container">
             <Footer link="partners"/>
-        </b-container>
+        </div>
     </div>
 </template>
 

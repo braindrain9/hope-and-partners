@@ -10,7 +10,7 @@ import store from './store';
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
-import BootstrapVue from 'bootstrap-vue';
+import { Navbar } from 'bootstrap-vue/es/components';
 
 Vue.mixin(utils);
 
@@ -20,7 +20,7 @@ Vue.use(VueAnalytics, {
   router
 });
 Vue.use(VueLazyload);
-Vue.use(BootstrapVue);
+Vue.use(Navbar);
 Vue.set(Vue.prototype, '_', _);
 Vue.use(VueAwesomeSwiper);
 

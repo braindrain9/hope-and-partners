@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div id="d-block d-sm-none partners-mobile-slider">
-                <b-container>
+                <div class="container">
                     <swiper :options="swiperOption" ref="partnersSwiper">
                         <swiper-slide v-for="(partner, index) in partners" :key="index"
                         >
@@ -84,7 +84,7 @@
                     </swiper>
 
                     <Footer link="cases"></Footer>
-                </b-container>
+                </div>
             </div>
         </div>
     </section>
