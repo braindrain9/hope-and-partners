@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-aos>
+    <div id="app">
         <Loading/>
 
         <!--<TopBar-->
