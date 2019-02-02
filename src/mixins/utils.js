@@ -1032,7 +1032,7 @@ export default {
         morphAnimationSpeed = 18,
         color = '#F44336';
 
-      const outW = $(window).outerWidth();
+      const outW = $(window).innerWidth();
 
       var canvasWidth = window.innerWidth;
       var canvasHeight = window.innerHeight;
@@ -1090,8 +1090,8 @@ export default {
       loader.load(typeface, (font) => {
         text.geometry = new THREE.TextGeometry( '&', {
           font: font,
-          size: outW > 1200 ? 16 : outW > 992 ? 12 : 10,
-          height: outW > 992 ? 5 : 2
+          size: outW > 1200 ? 16 : outW > 768 ? 12 : 10,
+          height: outW > 768 ? 5 : 2
         });
 
         THREE.GeometryUtils.center( text.geometry );
@@ -1150,12 +1150,12 @@ export default {
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
-      particleSystem.position.y = outW > 992 ? 0 : 4;
+      particleSystem.position.y = outW > 768 ? 0 : 4;
 
       particleSystem.sortParticles = true;
 
       scene.add(particleSystem);
-      particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : 0;
+      particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : outW > 768 ? -2 : 0;
 
       const normalSpeed = (defaultAnimationSpeed/300),
         fullSpeed = (morphAnimationSpeed/100)
