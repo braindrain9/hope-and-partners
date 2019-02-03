@@ -16,7 +16,7 @@
                                     <div class="photo-block">
                                         <div class="bg-number">{{index + 1}}</div>
                                         <div class="photo"
-                                             :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"
+                                             :style="{'background-image': 'url(src/assets/img/partners/' + partner.imageUrl + ')'}"
                                         ></div>
                                         <div class="bg-box"></div>
                                     </div>
@@ -59,7 +59,7 @@
                             <div class="partner-item">
                                 <div class="photo-block">
                                     <div class="photo"
-                                         :style="{'background-image': 'url(static/img/partners/' + partner.imageUrl + ')'}"
+                                         :style="{'background-image': 'url(src/assets/img/partners/' + partner.imageUrl + ')'}"
                                     ></div>
                                 </div>
                                 <div class="description-block">

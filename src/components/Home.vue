@@ -63,8 +63,8 @@
     beforeRouteEnter(to, from, next) {
       document.title = 'Hope & Partners';
 
-      $.getJSON('/static/json/services.json', function (services) {
-        $.getJSON('/static/json/partners.json', function (partners) {
+      $.getJSON('src/assets/json/services.json', function (services) {
+        $.getJSON('src/assets/json/partners.json', function (partners) {
           next(vm => {
             vm.services = services;
             vm.partners = partners;

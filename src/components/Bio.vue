@@ -287,19 +287,19 @@
                 margin-bottom: 40px;
 
                 &.photo-1 {
-                    background-image: url(../assets/bio/bio1.png);
+                    background-image: url(../assets/img/bio/bio1.png);
                 }
 
                 &.photo-2 {
-                    background-image: url(../assets/bio/1.jpg);
+                    background-image: url(../assets/img/bio/1.jpg);
                 }
 
                 &.photo-3 {
-                    background-image: url(../assets/bio/3.jpg);
+                    background-image: url(../assets/img/bio/3.jpg);
                 }
 
                 &.photo-4 {
-                    background-image: url(../assets/bio/4.jpg);
+                    background-image: url(../assets/img/bio/4.jpg);
                 }
             }
 
