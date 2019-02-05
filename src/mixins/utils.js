@@ -169,6 +169,8 @@ var GeometryUtils = {
   }()
 };
 
+const typeface = 'dist/src/assets/json/Montserrat_Bold.json';
+
 export default {
 
   data () {
@@ -733,7 +735,6 @@ export default {
 
 // Texts
       var loader = new THREE.FontLoader();
-      var typeface = 'src/assets/json/Montserrat_Bold.json';
       // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
 
       loader.load(typeface, (font) => {
@@ -915,7 +916,6 @@ export default {
       });
 
       var loader = new THREE.FontLoader();
-      var typeface = 'src/assets/json/Montserrat_Bold.json';
 
       loader.load( typeface, ( font ) => {
         text.geometry = new THREE.TextGeometry( '@', {
@@ -1067,7 +1067,6 @@ export default {
       });
 
       var loader = new THREE.FontLoader();
-      var typeface = 'src/assets/json/Montserrat_Bold.json';
       var mouseX = 0, mouseY = 0;
       var windowHalfX = window.innerWidth / 2;
       var windowHalfY = window.innerHeight / 2;
