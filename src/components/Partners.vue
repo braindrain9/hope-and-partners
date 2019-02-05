@@ -15,9 +15,10 @@
                                 <div class="d-flex">
                                     <div class="photo-block">
                                         <div class="bg-number">{{index + 1}}</div>
-                                        <div class="photo"
-                                             :style="{'background-image': 'url(src/assets/img/partners/' + partner.imageUrl + ')'}"
-                                        ></div>
+                                        <img class="photo"
+                                             v-lazy="'dist/src/assets/img/partners/' + partner.imageUrl"
+                                             alt="partner image"
+                                        />
                                         <div class="bg-box"></div>
                                     </div>
                                     <div class="description-block">
@@ -58,9 +59,10 @@
                         >
                             <div class="partner-item">
                                 <div class="photo-block">
-                                    <div class="photo"
-                                         :style="{'background-image': 'url(src/assets/img/partners/' + partner.imageUrl + ')'}"
-                                    ></div>
+                                    <img class="photo"
+                                         v-lazy="'dist/src/assets/img/partners/' + partner.imageUrl"
+                                         alt="partner image"
+                                    />
                                 </div>
                                 <div class="description-block">
                                     <h2 class="heading">{{partner.name}}</h2>
@@ -131,10 +133,7 @@
       onSwipe(value) {
         const index = value.swiper.activeIndex;
 
-        this.activeIndex = index === 0
-            ? ''
-            : index < 10 ? '0' + index : index;
-        console.log(this.partners.length, index, 'partners');
+        this.activeIndex = index === 0 ? '' : index < 10 ? '0' + index : index;
 
         this.afterIndex = this.partners.length === (index + 1)
             ? ''
@@ -388,11 +387,9 @@
                 left: 90px;
                 z-index: 1;
                 width: 265px;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
                 height: 395px;
                 transition: all .5s ease;
+                object-fit: cover;
             }
 
             .bg-box {
