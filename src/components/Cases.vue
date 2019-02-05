@@ -5,12 +5,14 @@
             <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe :src="item.videoUrl"
+                        <lazy-component tag="div">
+                            <iframe :src="item.videoUrl"
                                 class="video"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 >
                         </iframe>
+                        </lazy-component>
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
@@ -97,10 +99,6 @@
 
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
-
-      this.cases.forEach((item) => {
-        item.videoId = this.$youtube.getIdFromURL(item.videoUrl);
-      })
 
       $(document).ready(function () {
         const controller = new ScrollMagic.Controller();

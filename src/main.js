@@ -8,7 +8,7 @@ import router from './router';
 import utils from './mixins/utils';
 import store from './store';
 
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 import { Navbar } from 'bootstrap-vue/es/components';
 
@@ -19,7 +19,9 @@ Vue.use(VueAnalytics, {
   id: GA_TRACKING_ID,
   router
 });
-Vue.use(VueLazyload);
+Vue.use(VueLazyload, {
+  lazyComponent: true
+});
 Vue.use(Navbar);
 Vue.set(Vue.prototype, '_', _);
 Vue.use(VueAwesomeSwiper);
