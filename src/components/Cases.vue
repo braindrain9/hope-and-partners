@@ -2,10 +2,10 @@
     <div class="cases">
         <h1 class="heading heading-main">кейси<span class="orange-color">:</span></h1>
         <swiper :options="swiperOption" ref="casesSwiper">
-            <swiper-slide class="d-flex align-items-center">
+            <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <iframe src="https://www.youtube.com/embed/XzLMlK6Y4Q8"
+                        <iframe :src="item.videoUrl"
                                 class="video"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -14,12 +14,9 @@
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
-                        <h2>окко</h2>
+                        <h2>{{item.heading}}</h2>
                         <p class="description">
-                            на підтримку нової стратегії ми розробили рекламну кампанію.
-                            вона про те, що який складний не видався б день,
-                            заїхати на смачну каву, хот-дог чи просто посидіти
-                            потупити у вікно – це завжди гарна ідея.
+                            {{item.description}}
                         </p>
                         <div class="horizontal-line"></div>
                         <div class="comment d-flex">
@@ -34,47 +31,16 @@
                     </div>
                 </div>
             </swiper-slide>
-            <swiper-slide>
-                <div class="slider-item d-flex">
-                    <div class="photo-block">
-                        <iframe src="https://www.youtube.com/embed/k6tdM-71wl4"
-                                class="video"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        >
-                        </iframe>
-                        <div class="bg-image"></div>
-                    </div>
-                    <div class="text-block">
-                        <h2>окко</h2>
-                        <p class="description">
-                            на підтримку нової стратегії ми розробили рекламну кампанію.
-                            вона про те, що який складний не видався б день,
-                            заїхати на смачну каву, хот-дог чи просто посидіти
-                            потупити у вікно – це завжди гарна ідея.
-                        </p>
-                        <div class="horizontal-line"></div>
-                        <div class="comment d-flex">
-                            <div class="photo">
-                                <img src="../assets/img/comment.png" alt="">
-                            </div>
-                            <div class="text">
-                                <h3>Анатолій - СТО</h3>
-                                <p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </swiper-slide>
-            <div class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
+            <div v-if="showControls" class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
             <div
                     class="swiper-pagination"
                     slot="pagination"
                     ref="pagination"
                     :data-before="activeIndex"
                     :data-after="afterIndex"
+                    v-if="showControls"
             ></div>
-            <div class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
+            <div v-if="showControls" class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
         </swiper>
     </div>
 </template>
@@ -86,6 +52,8 @@
 
   export default {
     name: 'Cases',
+
+    props: ['cases'],
 
     data() {
       return {
@@ -104,7 +72,8 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
           }
-        }
+        },
+        showControls: this.cases.length > 1
       }
     },
 
@@ -112,11 +81,11 @@
       onSwipe(value) {
         const index = value.swiper.activeIndex;
 
-        this.activeIndex = index === 0
-          ? ''
-          : index < 10 ? '0' + index : index;
+        this.activeIndex = index === 0 ? '' : index < 10 ? '0' + index : index;
 
-        this.afterIndex = (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+        this.afterIndex = this.cases.length === (index + 1)
+          ? ''
+          : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
       }
     },
 
@@ -128,6 +97,10 @@
 
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
+
+      this.cases.forEach((item) => {
+        item.videoId = this.$youtube.getIdFromURL(item.videoUrl);
+      })
 
       $(document).ready(function () {
         const controller = new ScrollMagic.Controller();

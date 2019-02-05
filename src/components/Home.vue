@@ -16,17 +16,17 @@
                 </div>
             </div>
 
-            <div class="position-relative" id="services">
-                <Services v-if="services.length" :services="services"/>
+            <div class="position-relative" id="services" v-if="services.length">
+                <Services :services="services"/>
             </div>
 
-            <div class="section" id="partners">
+            <div class="section" id="partners" v-if="partners.length">
                 <Partners :partners="partners"/>
             </div>
 
-            <div class="section" id="cases">
+            <div class="section" id="cases" v-if="cases.length">
                 <div class="section-container">
-                    <div class="container"><Cases/></div>
+                    <div class="container"><Cases :cases="cases"/></div>
                     <div class="container cases-footer footer-container"><Footer link="contacts"/></div>
                 </div>
             </div>
@@ -56,18 +56,20 @@
       return {
         services: [],
         partners: [],
+        cases: [],
         progressBar: 600
       }
     },
 
-    beforeRouteEnter(to, from, next) {
+    created() {
       document.title = 'Hope & Partners';
 
-      $.getJSON('src/assets/json/services.json', function (services) {
-        $.getJSON('src/assets/json/partners.json', function (partners) {
-          next(vm => {
-            vm.services = services;
-            vm.partners = partners;
+      $.getJSON('dist/src/assets/json/services.json', (services) => {
+        $.getJSON('dist/src/assets/json/partners.json', (partners) => {
+          $.getJSON('dist/src/assets/json/cases.json', (cases) => {
+            this.services = services;
+            this.partners = partners;
+            this.cases = cases;
           })
         })
       });
