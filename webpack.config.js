@@ -1,19 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 var config = require('./config');
-var pkg = require('./package.json');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const banner = `
-  ${pkg.name} - ${pkg.description}
-  Author: ${pkg.author}
-  Version: v${pkg.version}
-  URL: ${pkg.homepage}
-  License: ${pkg.license}
-`;
 
 module.exports = {
   entry: ['babel-polyfill', './src/main.js'],
@@ -106,9 +97,6 @@ module.exports = {
   devtool: '#eval-source-map',
   plugins: [
     new webpack.DefinePlugin(config),
-    new webpack.BannerPlugin({
-      banner
-    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jquery: 'jquery',
@@ -156,7 +144,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.js',
-      minChunks: ({ resource }) => /node_modules/.test(resource)
+      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
     }),
     // new HtmlWebpackPlugin({
     //   filename: 'index.html',
