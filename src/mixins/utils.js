@@ -719,10 +719,10 @@ export default {
       scene.add( light );
 
       var controls = new THREE.OrbitControls( camera );
-      controls.noPan = true;
-      controls.noKeys = true;
-      controls.noRotate = outW < 768;
-      controls.noZoom = true;
+      controls.enablePan = false;
+      controls.enableKeys = false;
+      controls.enableRotate = outW > 768;
+      controls.enableZoom = false;
       controls.update();
 
       var particles = new THREE.Geometry();
@@ -748,7 +748,7 @@ export default {
             curveSegments: 10,
           });
 
-          THREE.GeometryUtils.center( texts[idx].geometry );
+          texts[idx].geometry.center();
 
           texts[idx].particles = new THREE.Geometry();
 
@@ -901,10 +901,10 @@ export default {
       scene.add( light );
 
       var controls = new THREE.OrbitControls( camera );
-      controls.noPan = true;
-      controls.noKeys = true;
-      controls.noRotate = true;
-      controls.noZoom = true;
+      controls.enablePan = false;
+      controls.enableKeys = false;
+      controls.enableRotate = false;
+      controls.enableZoom = false;
       controls.update();
 
       var text = {};
@@ -925,7 +925,7 @@ export default {
           curveSegments: 10,
         });
 
-        THREE.GeometryUtils.center( text.geometry );
+        text.geometry.center();
 
         text.particles = new THREE.Geometry();
 
@@ -1052,10 +1052,10 @@ export default {
       scene.add( light );
 
       var controls = new THREE.OrbitControls( camera );
-      controls.noPan = true;
-      controls.noKeys = true;
-      controls.noRotate = true;
-      controls.noZoom = true;
+      controls.enablePan = false;
+      controls.enableKeys = false;
+      controls.enableRotate = false;
+      controls.enableZoom = false;
       controls.update();
 
       var text = {};
@@ -1093,7 +1093,7 @@ export default {
           height: outW > 768 ? 5 : 2
         });
 
-        THREE.GeometryUtils.center( text.geometry );
+        text.geometry.center();
 
         text.particles = new THREE.Geometry();
 
