@@ -20,7 +20,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    // filename: '[name].js',
+    // chunkFilename: '[name]-[chunkhash].js',
   },
   module: {
     rules: [
@@ -75,7 +77,8 @@ module.exports = {
           limit: 10 * 1024,
           name (file) {
             return '/[path][name].[ext]';
-          }
+          },
+          exclude: ['src/assets/img/partners']
         }
       },
       {
@@ -116,7 +119,8 @@ module.exports = {
       THREE: "three"
     }),
     new CopyWebpackPlugin([
-      { from: 'src/assets/json', to: 'src/assets/json' }
+      { from: 'src/assets/json', to: 'src/assets/json' },
+      { from: 'src/assets/img/partners', to: 'src/assets/img/partners' }
     ])
   ]
 };
@@ -143,7 +147,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new ImageminPlugin({
       pngquant: {
-        quality: '95-100'
+        quality: '85-90'
       }
     }),
     new BundleAnalyzerPlugin({
@@ -152,10 +156,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.js',
-      minChunks(module) {
-        var context = module.context;
-        return context && context.indexOf('node_modules') >= 0;
-      },
+      minChunks: ({ resource }) => /node_modules/.test(resource)
     }),
     // new HtmlWebpackPlugin({
     //   filename: 'index.html',
