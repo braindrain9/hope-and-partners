@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import _ from 'lodash';
 import Vue from 'vue';
-import VueAnalytics from 'vue-analytics';
 import VueLazyload from 'vue-lazyload'
 import App from './App.vue';
 import router from './router';
@@ -14,11 +13,6 @@ import { Navbar } from 'bootstrap-vue/es/components';
 
 Vue.mixin(utils);
 
-//-- Initialize Google Analytics tracking.
-Vue.use(VueAnalytics, {
-  id: GA_TRACKING_ID,
-  router
-});
 Vue.use(VueLazyload, {
   lazyComponent: true
 });
