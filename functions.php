@@ -10,6 +10,7 @@ add_action('init', 'remove_redirects');
 
 // Load scripts
 function load_vue_scripts() {
-    wp_enqueue_script('blankslate/app.js', get_template_directory_uri() . '/dist/build.js', null, null, true);
+    wp_enqueue_script('blankslate/app.js', get_template_directory_uri() . '/dist/bundle.js', null, null, true);
+    wp_enqueue_script('blankslate/app.js', get_template_directory_uri() . '/dist/vendor.js', null, null, true);
 }
 add_action('wp_enqueue_scripts', 'load_vue_scripts', 100);
