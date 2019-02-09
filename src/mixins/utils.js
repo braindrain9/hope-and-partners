@@ -1084,45 +1084,53 @@ export default {
         return min + (max - min) * Math.random();
       }
 
-      $(document).mousemove(function(e) {
-        e.preventDefault();
+      function is_touch_device() {
+        return (('ontouchstart' in window)
+          || (navigator.MaxTouchPoints > 0)
+          || (navigator.msMaxTouchPoints > 0));
+      }
 
-        mouseX = e.clientX - windowHalfX;
-        mouseY = e.clientY - windowHalfY;
+      if (!is_touch_device()) {
+        $(document).mousemove(function(e) {
+          e.preventDefault();
 
-        mouse.x = ( e.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-        mouse.y = - ( e.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+          mouseX = e.clientX - windowHalfX;
+          mouseY = e.clientY - windowHalfY;
 
-        raycaster.setFromCamera( mouse, camera );
-        var intersects = raycaster.intersectObjects(scene.children, true);
+          mouse.x = ( e.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+          mouse.y = - ( e.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
-        if (intersects.length > 0) {
-          intersects = intersects.filter(obj => obj.distanceToRay < 0.8);
-          intersects.forEach((obj, i) => {
-            const index = intersects[i].index,
-                  point = particles.vertices[index],
-                  startX = point.x,
-                  startY = point.y;
+          raycaster.setFromCamera( mouse, camera );
+          var intersects = raycaster.intersectObjects(scene.children, true);
 
-            TweenMax.to(point, 3, {
-              x: random(point.x - maxOffset / 2, point.x + maxOffset / 2),
-              y: random(point.y - maxOffset / 2, point.y + maxOffset / 2),
-              ease: Sine.easeInOut,
-              onComplete
-            });
-            
-            function onComplete() {
-              TweenMax.to(point, 1, {
-                x: startX,
-                y: startY,
-                ease: Power2.easeOut,
-                speed: normalSpeed,
-                delay: 0.1
+          if (intersects.length > 0) {
+            intersects = intersects.filter(obj => obj.distanceToRay < 0.8);
+            intersects.forEach((obj, i) => {
+              const index = intersects[i].index,
+                point = particles.vertices[index],
+                startX = point.x,
+                startY = point.y;
+
+              TweenMax.to(point, 3, {
+                x: random(point.x - maxOffset / 2, point.x + maxOffset / 2),
+                y: random(point.y - maxOffset / 2, point.y + maxOffset / 2),
+                ease: Sine.easeInOut,
+                onComplete
               });
-            }
-          })
-        }
-      });
+
+              function onComplete() {
+                TweenMax.to(point, 1, {
+                  x: startX,
+                  y: startY,
+                  ease: Power2.easeOut,
+                  speed: normalSpeed,
+                  delay: 0.1
+                });
+              }
+            })
+          }
+        });
+      }
 
       loader.load(typeface, (font) => {
         text.geometry = new THREE.TextGeometry( '&', {
