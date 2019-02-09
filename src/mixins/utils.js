@@ -1060,6 +1060,9 @@ export default {
 
       var text = {};
 
+      var raycaster = new THREE.Raycaster(); // create once and reuse
+      var mouse = new THREE.Vector2(); // create once and reuse
+
       var particles = new THREE.Geometry();
 
       var pMaterial = new THREE.PointsMaterial({
@@ -1082,8 +1085,43 @@ export default {
       }
 
       $(document).mousemove(function(e) {
-        mouseX = event.clientX - windowHalfX;
-        mouseY = event.clientY - windowHalfY;
+        e.preventDefault();
+
+        mouseX = e.clientX - windowHalfX;
+        mouseY = e.clientY - windowHalfY;
+
+        mouse.x = ( e.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+        mouse.y = - ( e.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+        raycaster.setFromCamera( mouse, camera );
+        var intersects = raycaster.intersectObjects(scene.children, true);
+
+        if (intersects.length > 0) {
+          intersects = intersects.filter(obj => obj.distanceToRay < 0.8);
+          intersects.forEach((obj, i) => {
+            const index = intersects[i].index,
+                  point = particles.vertices[index],
+                  startX = point.x,
+                  startY = point.y;
+
+            TweenMax.to(point, 3, {
+              x: random(point.x - maxOffset / 2, point.x + maxOffset / 2),
+              y: random(point.y - maxOffset / 2, point.y + maxOffset / 2),
+              ease: Sine.easeInOut,
+              onComplete
+            });
+            
+            function onComplete() {
+              TweenMax.to(point, 1, {
+                x: startX,
+                y: startY,
+                ease: Power2.easeOut,
+                speed: normalSpeed,
+                delay: 0.1
+              });
+            }
+          })
+        }
       });
 
       loader.load(typeface, (font) => {
@@ -1157,7 +1195,7 @@ export default {
       particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : outW > 768 ? -2 : 0;
 
       const normalSpeed = (defaultAnimationSpeed/300),
-        fullSpeed = (morphAnimationSpeed/100)
+            fullSpeed = (morphAnimationSpeed/100);
 
       let animationVars = {
         speed: normalSpeed,
@@ -1171,16 +1209,6 @@ export default {
         camera.position.y = ( - mouseY - camera.position.y ) * 0.005;
         camera.position.z = 35;
         camera.lookAt( scene.position );
-
-        // var pCount = particleCount;
-        // while (pCount--)
-        //
-        // {
-        //   var particle = particles.vertices[pCount];
-        //   console.log(particle.y, 'particle.y');
-        //   // particle.y += Math.random();
-        //   particleSystem.geometry.vertices.needsUpdate = true;
-        // }
 
         particles.verticesNeedUpdate = true;
 
