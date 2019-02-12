@@ -7,7 +7,7 @@
     </router-link>
     <span>
       <i>&mdash;</i>
-        {{ getFormattedDate(post.date) }}
+        <!--{{ getFormattedDate(post.date) }}-->
       <i>&mdash;</i>
     </span>
     <h3>

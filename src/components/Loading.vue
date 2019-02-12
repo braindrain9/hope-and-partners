@@ -1,7 +1,7 @@
 <template>
     <div class="page-preloader d-flex align-items-center justify-content-center">
         <span class="preloader-bar"></span>
-        <img src="../assets/img/loader.gif" alt="loader image">
+        <img :src="imageUrl" alt="loader image">
     </div>
 </template>
 
@@ -17,6 +17,12 @@
       showWheel: {
         type: Boolean,
         default: true
+      }
+    },
+
+    data() {
+      return {
+        imageUrl: this.$store.state.content_endpoint + 'src/assets/img/loader.gif'
       }
     }
   }

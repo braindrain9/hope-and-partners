@@ -353,34 +353,6 @@
 </script>
 
 <style lang="scss">
-    triggers {
-        bottom: 20px;
-        color: white;
-        left: 50%;
-        position: absolute;
-        text-align: center;
-        transform: translateX(-50%);
-        width: 100%;
-        z-index: 10;
-
-        span {
-            cursor: pointer;
-            display: inline-block;
-            font-size: 14px;
-            margin: 0 20px;
-            padding: 2px 4px;
-            transition: opacity .5s, color .5s;
-
-            &[data-disabled="true"] {
-                opacity: 0.3;
-                pointer-events: none;
-            }
-            &:hover {
-                color: red;
-            }
-        }
-    }
-
     .services {
         .heading-main {
             padding-left: 125px;

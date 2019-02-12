@@ -6,6 +6,7 @@ import App from './App.vue';
 import router from './router';
 import utils from './mixins/utils';
 import store from './store';
+import VueResource from 'vue-resource';
 
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 
@@ -16,9 +17,13 @@ Vue.mixin(utils);
 Vue.use(VueLazyload, {
   lazyComponent: true
 });
+
+Vue.use(VueResource);
 Vue.use(Navbar);
 Vue.set(Vue.prototype, '_', _);
 Vue.use(VueAwesomeSwiper);
+
+Vue.http.options.root = 'http://localhost:8888/wp-json/';
 
 new Vue({
   el: '#app',

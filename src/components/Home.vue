@@ -46,8 +46,6 @@
   import Cases from './Cases';
   import Contacts from './Contacts';
   import Footer from './Footer';
-  import PartnersOld from './PartnersOld';
-  // import * as Three from 'three';
 
   export default {
     name: 'Home',
@@ -61,19 +59,31 @@
       }
     },
 
+    methods: {
+      transformResponseData: function (data) {
+        return data && data.length
+          ? data.reduce((arr, item) => {
+              arr.push({id: item.id, ...item.acf});
+              return arr;
+            }, [])
+          : [];
+      }
+    },
+
     created() {
       document.title = 'Hope & Partners';
 
-      // http://localhost:8890/wp-content/themes/wp-vue
-      $.getJSON('dist/src/assets/json/services.json', (services) => {
-        $.getJSON('dist/src/assets/json/partners.json', (partners) => {
-          $.getJSON('dist/src/assets/json/cases.json', (cases) => {
-            this.services = services;
-            this.partners = partners;
-            this.cases = cases;
-          })
-        })
-      });
+      this.$http.get('wp/v2/services').then(response => {
+        this.services = this.transformResponseData(response.data);
+      }, error => console.log(error));
+
+      this.$http.get('wp/v2/partners').then(response => {
+        this.partners = this.transformResponseData(response.data);
+      }, error => console.log(error));
+
+      this.$http.get('wp/v2/cases').then(response => {
+        this.cases = this.transformResponseData(response.data);
+      }, error => console.log(error));
     },
 
     components: {
@@ -83,8 +93,7 @@
       Services,
       Cases,
       Contacts,
-      Footer,
-      PartnersOld
+      Footer
     }
   }
 </script>

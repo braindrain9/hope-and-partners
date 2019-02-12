@@ -16,18 +16,16 @@
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
-                        <h2>{{item.heading}}</h2>
-                        <p class="description">
-                            {{item.description}}
-                        </p>
+                        <h2>{{item.title}}</h2>
+                        <p class="description" v-html="item.description"></p>
                         <div class="horizontal-line"></div>
-                        <div class="comment d-flex">
-                            <div class="photo">
-                                <img src="../assets/img/comment.png" alt="">
+                        <div class="comment d-flex" v-if="item.includeComment">
+                            <div class="photo" v-if="item.commentImageUrl">
+                                <img :src="item.commentImageUrl" alt="comment author image">
                             </div>
                             <div class="text">
-                                <h3>Анатолій - СТО</h3>
-                                <p>дякую проект мені зайшов на всі 100% заробив багато%)</p>
+                                <h3>{{item.commentAuthorName}}</h3>
+                                <p>{{item.commentDescription}}</p>
                             </div>
                         </div>
                     </div>
@@ -157,6 +155,7 @@
 
         .photo-block {
             position: relative;
+            min-width: 400px;
 
             // to compensate bg-image indent
             margin-right: 35px;
@@ -212,8 +211,9 @@
             margin-top: 30px;
 
             .photo {
-                width: 40%;
+                width: 80px;
                 min-width: 65px;
+                font-size: 12px;
 
                 img {
                     border-radius: 50%;
@@ -316,6 +316,8 @@
             padding-top: 0;
 
             .photo-block {
+                min-width: 200px;
+
                 .video {
                     width: 320px;
                     height: 260px;
@@ -334,9 +336,10 @@
 
             .photo-block {
                 padding-left: 10px;
+                min-width: 150px;
 
                 .video {
-                    width: 100%;
+                    width: 90%;
                     height: 220px;
                 }
             }

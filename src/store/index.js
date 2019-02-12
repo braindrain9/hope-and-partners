@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     endpoint: REST_ENDPOINT,
+    content_endpoint: CONTENT_ENDPOINT,
     sliding: true
   },
 

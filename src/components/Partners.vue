@@ -16,7 +16,7 @@
                                     <div class="photo-block">
                                         <div class="bg-number">{{index + 1}}</div>
                                         <img class="photo"
-                                             v-lazy="'dist/src/assets/img/partners/' + partner.imageUrl"
+                                             v-lazy="partner.imageUrl"
                                              alt="partner image"
                                         />
                                         <div class="bg-box"></div>
@@ -60,7 +60,7 @@
                             <div class="partner-item">
                                 <div class="photo-block">
                                     <img class="photo"
-                                         v-lazy="'dist/src/assets/img/partners/' + partner.imageUrl"
+                                         v-lazy="partner.imageUrl"
                                          alt="partner image"
                                     />
                                 </div>
