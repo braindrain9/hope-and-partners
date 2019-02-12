@@ -58,18 +58,6 @@
         progressBar: 600
       }
     },
-
-    methods: {
-      transformResponseData: function (data) {
-        return data && data.length
-          ? data.reduce((arr, item) => {
-              arr.push({id: item.id, ...item.acf});
-              return arr;
-            }, [])
-          : [];
-      }
-    },
-
     created() {
       document.title = 'Hope & Partners';
 

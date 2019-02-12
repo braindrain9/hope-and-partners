@@ -67,6 +67,12 @@
   &-dark {
     color: $dark-black;
   }
+
+  .paragraph {
+    & /deep/ p {
+      margin-bottom: 28px;
+    }
+  }
 }
 
 .horizontal-grey-link {
@@ -341,12 +347,14 @@
 // Responsive
 
 @include media-min-width ($lg) {
-  .container {
-    max-width: 1200px;
-  }
-
   .services .container {
     max-width: calc(80% - 20px);
+  }
+}
+
+@include media-min-width ('1400px') {
+  .container {
+    max-width: 1200px;
   }
 
   #header {
@@ -357,6 +365,18 @@
 
   .container.footer-container {
     max-width: 90%;
+  }
+}
+
+@include media-max-width('1400px') {
+  #header {
+    .container {
+      max-width: 95%;
+    }
+  }
+
+  .container.footer-container {
+    max-width: 95%;
   }
 }
 

@@ -246,6 +246,15 @@ export default {
   },
 
   methods: {
+    transformResponseData: function (data) {
+      return data && data.length
+        ? data.reduce((arr, item) => {
+          arr.push({id: item.id, ...item.acf});
+          return arr;
+        }, [])
+        : [];
+    },
+
     goBack: function() {
       this.$router.go(-1);
     },
