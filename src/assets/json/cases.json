@@ -1,9 +1,11 @@
 [
   {
     "id": "1",
-    "videoUrl": "https://www.youtube.com/embed/XzLMlK6Y4Q8",
     "title": "окко",
     "description": "на підтримку нової стратегії ми розробили рекламну кампанію. вона про те, що який складний не видався б день, заїхати на смачну каву, хот-дог чи просто посидіти потупити у вікно – це завжди гарна ідея.",
+    "mediaContentType": "Video",
+    "videoUrl": "https://www.youtube.com/embed/XzLMlK6Y4Q8",
+    "imageUrl": "",
     "includeComment": true,
     "commentAuthorName": "Анатолій",
     "commentDescription": "дякую, проект зайшов мені на всі 100%",
@@ -11,9 +13,11 @@
   },
   {
     "id": "2",
-    "videoUrl": "https://www.youtube.com/embed/k6tdM-71wl4",
-    "title": "окко",
-    "description": "на підтримку нової стратегії ми розробили рекламну кампанію. вона про те, що який складний не видався б день, заїхати на смачну каву, хот-дог чи просто посидіти потупити у вікно – це завжди гарна ідея.",
+    "title": "YES, GOD, YES",
+    "description": "Багатьом може здаватися, що висока мода і великі знижки – це зірки різних опер. Але одного разу за брендингом до нас прийшов фешн-аутлет і ми вирішили довести, що на справі все зовсім не так.",
+    "mediaContentType": "Photo",
+    "videoUrl": "",
+    "imageUrl": "https://d3n32ilufxuvd1.cloudfront.net/548b08371f7e672525803aeb/494397/upload-0f599670-9ca0-11e8-8381-59763a43c6a2.png",
     "includeComment": false,
     "commentAuthorName": "Анатолій",
     "commentDescription": "дякую, проект зайшов мені на всі 100%",

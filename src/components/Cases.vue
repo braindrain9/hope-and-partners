@@ -5,14 +5,15 @@
             <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
                 <div class="slider-item d-flex">
                     <div class="photo-block">
-                        <lazy-component tag="div">
+                        <lazy-component tag="div" v-if="item.mediaContentType === 'Video'">
                             <iframe :src="item.videoUrl"
                                 class="video"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                >
+                            >
                         </iframe>
                         </lazy-component>
+                        <img class="video" v-else :src="item.imageUrl" alt="Case image">
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
