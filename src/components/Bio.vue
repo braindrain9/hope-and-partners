@@ -259,6 +259,11 @@
         padding-top: 220px;
         opacity: 0;
 
+        a:not(.horizontal-grey-link):hover {
+            color: $orange;
+            text-decoration: underline;
+        }
+
         .heading-block {
             padding-bottom: 100px;
 
