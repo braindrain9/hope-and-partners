@@ -2,26 +2,12 @@
     <div class="about">
         <div class="about-container d-flex align-items-start">
             <img class="about-img"
-                 src="../assets/img/about.png"
+                 :src="content.imageUrl"
                  alt="About me image"
             />
             <div class="bio-container">
-                <h1 class="heading">
-                    мене звати Надя,<br/>
-                    я консультант із комунікацій<span class="orange-color">.</span>
-                </h1>
-                <p class="description">
-                    Тут має бути текст про досягнення, написаний копірайтерами, з назвами гучних компаній і проектів.
-                    Так дійсно легше для сприйняття. Проте моя робота не про легкі, швидкі й готові рішення, їх
-                    достатньо на ринку.
-                    Я допомагаю проектам самотужки долати виклики у комунікації – бренду, PR та репутації.
-                    <br/>
-                    <br/>
-                    Зараз усвідомлено розвиваю агентство Нope&Partners, викладаю і виступаю як бізнес-спікер.
-                    <br/>
-                    <br/>
-                    Маю надію, мій досвід стане вам корисним!
-                </p>
+                <h1 class="heading" v-html="content.title"></h1>
+                <p class="description" v-html="content.description"></p>
                 <p class="bio-link">
                     <span class="divider"></span>
                     <span>повне біо <router-link class="strike" to="/bio"><span>тут</span></router-link></span>
@@ -40,8 +26,20 @@
   export default {
     name: 'About',
 
+    data() {
+      return {
+        content: {}
+      }
+    },
+
     components: {
       Event
+    },
+
+    created() {
+      this.$http.get('wp/v2/about').then(response => {
+        this.content = this.transformResponseData(response.data)[0] || {};
+      }, error => console.log(error));
     },
 
     mounted() {
@@ -86,7 +84,7 @@
         }
 
         .about-img {
-            max-width: 50%;
+            width: 50%;
             transition: all .5s ease-in-out;
             position: sticky;
             top: 120px;
@@ -150,7 +148,7 @@
             }
 
             .about-img {
-                max-width: 40%;
+                width: 40%;
             }
 
             .bio-container {
@@ -171,7 +169,7 @@
             }
 
             .about-img {
-                max-width: 80%;
+                width: 80%;
                 margin: 0 auto;
                 position: static;
             }

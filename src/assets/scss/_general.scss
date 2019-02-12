@@ -75,6 +75,14 @@
   }
 }
 
+.bio-container {
+  .description {
+    & /deep/ p {
+      margin-bottom: 28px;
+    }
+  }
+}
+
 .horizontal-grey-link {
   color: $grey;
 
