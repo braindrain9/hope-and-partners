@@ -1,27 +1,29 @@
 <template>
     <div class="event">
         <div class="event-container">
-            <div class="description">
-                <div class="category-title">наступна зустріч</div>
-                <div class="text light-grey-color">projector - 05 жовтня</div>
-                <span class="text">
-					поговоримо про те, як перезапускати успішні продукти
-					з великою базою користувачів у догодити всім.<br/>
-					Реєстрація: <a href="http://bit.ly/2PFuA4S" target="_blank">http://bit.ly/2PFuA4S</a>
-				</span>
+            <div class="description" v-for="(event, i) in events" :key="i">
+                <div class="category-title" v-if="event.type">{{event.type}}</div>
+                <div class="text light-grey-color" v-if="event.title">{{event.title}}</div>
+                <div class="text" v-html="event.description"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import bus from '../bus';
-
   export default {
     name: 'Event',
 
+    data() {
+      return {
+        events: []
+      }
+    },
+
     created: function () {
-      bus.$emit('toggleLoading', false);
+      this.$http.get('wp/v2/events').then(response => {
+        this.events = this.transformResponseData(response.data);
+      }, error => console.log(error));
     }
   }
 </script>

@@ -26,7 +26,7 @@
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
                         <div class="description description-dark">
-                            <div v-for="(bio, i) in biography" :key="bio.id">
+                            <div v-for="bio in biography" :key="bio.id">
                                 <div class="photo d-md-none"
                                      v-if="bio.imageUrl"
                                      :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
@@ -68,10 +68,7 @@
     created() {
       this.$http.get('wp/v2/bio').then(response => {
         this.biography = this.transformResponseData(response.data);
-        console.log(this.biography, 'biography');
-
         this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
-        console.log(this.photos);
       }, error => console.log(error));
     },
 
