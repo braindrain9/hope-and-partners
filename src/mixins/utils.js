@@ -169,6 +169,7 @@ var GeometryUtils = {
   }()
 };
 
+// http://localhost:8890/wp-content/themes/wp-vue
 const typeface = 'dist/src/assets/json/Montserrat_Bold.json';
 
 export default {

@@ -64,6 +64,7 @@
     created() {
       document.title = 'Hope & Partners';
 
+      // http://localhost:8890/wp-content/themes/wp-vue
       $.getJSON('dist/src/assets/json/services.json', (services) => {
         $.getJSON('dist/src/assets/json/partners.json', (partners) => {
           $.getJSON('dist/src/assets/json/cases.json', (cases) => {

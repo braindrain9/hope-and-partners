@@ -69,7 +69,7 @@ module.exports = {
           name (file) {
             return '/[path][name].[ext]';
           },
-          exclude: ['src/assets/img/partners']
+          exclude: '/src/assets/img/partners/'
         }
       },
       {

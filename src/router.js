@@ -2,9 +2,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 // components
-const Home = () => import('./components/Home');
-const Bio = () => import('./components/Bio');
-const NotFoundPage = () => import('./views/NotFoundPage');
+// const Home = () => import('./components/Home');
+// const Bio = () => import('./components/Bio');
+// const NotFoundPage = () => import('./views/NotFoundPage');
+import Home from './components/Home';
+import Bio from './components/Bio';
+import NotFoundPage from './views/NotFoundPage';
 
 Vue.use(VueRouter);
 
