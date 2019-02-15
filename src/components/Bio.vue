@@ -66,21 +66,23 @@
     },
 
     created() {
-      this.$http.get('wp/v2/bio').then(response => {
-        this.biography = this.transformResponseData(response.data);
-        this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
-      }, error => console.log(error));
+      this.$http.get('wp/v2/bio')
+        .then(response => {
+            this.biography = this.transformResponseData(response.data);
+            this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
+        }, error => console.log(error))
+        .finally(() => {
+          TweenLite.to($('.bio'), 1, {opacity: 1});
+          TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
+          TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+          TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+        })
     },
 
     mounted() {
       document.title = 'Hope & Partners / Bio';
 
       $(document).ready(function () {
-        TweenLite.to($('.bio'), 1, {opacity: 1});
-        TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
-        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-
         const controller = new ScrollMagic.Controller();
 
         const scene = new ScrollMagic.Scene({
