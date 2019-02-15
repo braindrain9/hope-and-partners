@@ -9,17 +9,6 @@
   export default {
     name: 'Loading',
 
-    props: {
-      message: {
-        type: String
-      },
-
-      showWheel: {
-        type: Boolean,
-        default: true
-      }
-    },
-
     data() {
       return {
         imageUrl: this.$store.state.content_endpoint + 'src/assets/img/loader.gif'

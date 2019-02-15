@@ -18,8 +18,8 @@
             </div>
             <slot name="progress-bar"></slot>
             <div class="d-none d-sm-block mail">
-                <a class="grey-color-link strike" href="mailto:hello@hopeandpartners.com">
-                    <span>hello@hopeandpartners.com</span>
+                <a class="grey-color-link strike" :href="'mailto:' + $store.state.content.email">
+                    <span>{{$store.state.content.email}}</span>
                 </a>
             </div>
         </div>

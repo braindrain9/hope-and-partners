@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     endpoint: REST_ENDPOINT,
     content_endpoint: CONTENT_ENDPOINT,
-    sliding: true
+    sliding: true,
+    content: {}
   },
 
   mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     updateSliding (state, value) {
       state.sliding = value;
+    },
+    updateGeneralContent (state, content) {
+      state.content = content;
     }
   },
 

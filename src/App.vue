@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import bus from './bus';
   import Footer from './components/Footer';
   import Loading from './components/Loading';
   import Updater from './components/Updater';
@@ -41,57 +40,12 @@
   export default {
     name: 'App',
 
-    data() {
-      return {
-        error: '',
-        loadingOn: true,
-        loadingMessage: 'Hope & Partners',
-        loadingWheel: true,
-        showUpdater: false,
-        viewKey: 0
-      }
-    },
-
     created: function () {
+      this.$http.get('wp/v2/general').then(response => {
+          const general = this.transformResponseData(response.data)[0] || {};
 
-      this.assignEndpointFromURL();
-
-      bus.$on('toggleLoading', (status = true) => {
-        if (typeof status === 'string') {
-          this.loadingOn = true;
-          this.showWheel = false;
-          this.loadingMessage = status;
-          return;
-        }
-
-        this.loadingMessage = 'Loading...';
-        this.loadingWheel = true;
-        this.loadingOn = status;
-      });
-
-      bus.$on('bumpViewKey', (loadingMessage) => {
-        bus.$emit('toggleLoading', loadingMessage);
-        this.viewKey = this.viewKey + 1;
-      });
-
-      bus.$on('showUpdater', (errorMessage) => {
-        this.showUpdater = true;
-        this.error = errorMessage;
-      });
-
-      bus.$on('clearError', () => {
-        this.error = '';
-      });
-    },
-
-    methods: {
-      assignEndpointFromURL: function () {
-        let endpoint = this.getQueryString('endpoint');
-
-        if (!endpoint) return;
-
-        this.$store.commit('updateEndpoint', endpoint);
-      }
+          this.$store.commit('updateGeneralContent', general);
+        }, error => console.log(error));
     },
 
     mounted() {
