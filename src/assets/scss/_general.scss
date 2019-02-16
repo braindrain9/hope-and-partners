@@ -72,6 +72,11 @@
     & /deep/ p {
       margin-bottom: 28px;
     }
+
+    & /deep/ a:hover {
+      color: $orange;
+      text-decoration: underline;
+    }
   }
 }
 
