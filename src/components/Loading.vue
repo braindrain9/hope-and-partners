@@ -11,7 +11,7 @@
 
     data() {
       return {
-        imageUrl: this.$store.state.content_endpoint + 'src/assets/img/loader.gif'
+        imageUrl: this.$store.state.content_endpoint + 'dist/src/assets/img/loader.gif'
       }
     }
   }
