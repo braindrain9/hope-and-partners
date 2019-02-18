@@ -13,7 +13,7 @@
                             >
                         </iframe>
                         </lazy-component>
-                        <img class="video" v-else :src="item.imageUrl" alt="Case image">
+                        <img class="video" v-else v-lazy="item.imageUrl" alt="Case image">
                         <div class="bg-image"></div>
                     </div>
                     <div class="text-block">
