@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="position-relative" id="services" v-if="services.length">
+            <div class="position-relative" id="services" v-if="services.length && partnersLoaded">
                 <Services :services="services"/>
             </div>
 
@@ -55,19 +55,25 @@
         services: [],
         partners: [],
         cases: [],
-        progressBar: 600
+        progressBar: 600,
+        partnersLoaded: false
       }
     },
     created() {
       document.title = 'Hope & Partners';
 
       this.$http.get('wp/v2/services').then(response => {
+        response.data.sort((a, b) => {
+          return parseInt(_.get(a, 'title.rendered')) - parseInt(_.get(b, 'title.rendered'));
+        });
         this.services = this.transformResponseData(response.data);
       }, error => console.log(error));
 
-      this.$http.get('wp/v2/partners').then(response => {
-        this.partners = this.transformResponseData(response.data);
-      }, error => console.log(error));
+      this.$http.get('wp/v2/partners')
+        .then(response => {
+            this.partners = this.transformResponseData(response.data);
+        }, error => console.log(error))
+        .finally(() => this.partnersLoaded = true);
 
       this.$http.get('wp/v2/cases').then(response => {
         this.cases = this.transformResponseData(response.data);
