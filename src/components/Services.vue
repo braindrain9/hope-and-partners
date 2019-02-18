@@ -223,7 +223,7 @@
                         }
 
                         Timeout.clear(animateParticles);
-                        Timeout.set(animateParticles, 500);
+                        Timeout.set(animateParticles, 0);
                       }
                     }
                   }

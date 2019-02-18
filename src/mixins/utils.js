@@ -285,6 +285,10 @@ export default {
       const outW = $(window).outerWidth();
 
       var canvasWidth = window.innerWidth / (outW > 1140 ? 3 : outW > 768 ? 2 : 1);
+
+      if (outW > 768 && canvasWidth < 500) {
+        canvasWidth = 550;
+      }
       var canvasHeight = window.innerHeight * 0.75;
 
       var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
