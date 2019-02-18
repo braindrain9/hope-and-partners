@@ -39,6 +39,8 @@
         }
 
         .description {
+            margin-bottom: 50px;
+
             .category-title {
                 font-weight: 500;
                 line-height: 21px;
