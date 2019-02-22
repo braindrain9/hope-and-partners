@@ -2,14 +2,13 @@
     <header id="header">
         <div class="container" id="mainMenu">
             <b-navbar toggleable="md" type="dark">
-                <b-nav-toggle id="openMenu" target="">Меню</b-nav-toggle>
+                <button id="openMenu" v-on:click="showMenu()" class="scrolled">
+                    <span>Меню</span>
+                </button>
 
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
                     <b-navbar-nav id="menu">
-                        <li
-                                class="nav-item"
-                                v-for="(link, index) in filteredNavLinks"
-                        >
+                        <li class="nav-item" v-for="(link, index) in filteredNavLinks" :key="index">
                             <a :href="link.path" :key="link.id" class="nav-link strike">
                                 <span>{{link.title}}</span>
                             </a>
@@ -31,7 +30,9 @@
         <div id="mobileMenu">
             <div class="container">
                 <b-navbar variant="faded" type="light">
-                    <button id="fadeClose" class="horizontal-grey-link">закрити<span></span></button>
+                    <button id="fadeClose" class="horizontal-grey-link" v-on:click="hideMenu()">
+                        закрити<span></span>
+                    </button>
 
                     <b-navbar-brand href="/" right>
                         <div v-html="logoMobile"></div>
@@ -39,22 +40,17 @@
                 </b-navbar>
                 <div class="wrapper">
                     <b-nav id="mobile-menu-items" vertical>
-                        <li
-                                class="nav-item"
-                                v-for="(link, index) in navLinks"
-                        >
+                        <li class="nav-item" v-for="(link, index) in navLinks">
                             <a :href="link.path"
                                :key="link.id"
                                class="nav-link"
                                :class="{active: index === 0}"
                                v-on:click="hideMenu()"
-                            >
-                                {{link.title}}
-                            </a>
+                            >{{link.title}}</a>
                         </li>
                     </b-nav>
                     <div class="mail-box">
-                        <p class="mail">hello@hopeandpartners.com</p>
+                        <p class="mail">{{$store.state.content.email}}</p>
                     </div>
                 </div>
             </div>
@@ -86,9 +82,41 @@
     },
 
     methods: {
+      showMenu: function() {
+        const mobileMenu = document.getElementById("mobileMenu"),
+          items = $(".wrapper li"),
+          mail = $(".mail-box"),
+          menuFadeOpen = new TimelineMax()
+          .fromTo(mobileMenu, 0.6, {
+              x: -1000
+            },
+            {
+              opacity: 1,
+              display: 'block',
+              width: '100vw',
+              height: '100vh',
+              x: 0,
+              y: 0,
+              left: 0,
+              top: 0,
+              autoRound: false,
+              ease: Sine.easeOut
+            })
+            .staggerFrom(items, 1, {
+              autoAlpha: 0,
+              y: -15
+            }, 0.01)
+            .staggerFrom(mail, 0.75, {
+              autoAlpha: 0,
+              y: 15
+            });
+
+        $('#header').css({"position": "fixed"});
+      },
+
       hideMenu: function() {
-        const menuFadeClose = TweenMax.to(mobileMenu, .25, {
-          paused: true,
+        const mobileMenu = document.getElementById("mobileMenu"),
+          menuFadeClose = TweenMax.to(mobileMenu, .25, {
           opacity: 0,
           x: 0,
           y: '-100vh',
@@ -97,8 +125,6 @@
         });
 
         $('#header').css({"position": "absolute"});
-        menuFadeClose.restart();
-        menuFadeClose.play();
       }
     },
 
@@ -107,60 +133,6 @@
       TweenLite.fromTo($('#menu .nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
       TweenLite.fromTo($('.language-chooser span'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
       TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2.5, scale: 1});
-
-      const mobileMenu = document.getElementById("mobileMenu");
-      const openMenu = document.getElementById("openMenu");
-      const fadeClose = document.getElementById("fadeClose");
-      const items = $(".wrapper li");
-      const mail = $(".mail-box");
-
-      const menuFadeOpen = new TimelineMax();
-      menuFadeOpen.pause();
-
-      menuFadeOpen.fromTo(mobileMenu, 1, {
-        x: -2000
-      }, {
-        opacity: 1,
-        display: 'block',
-        width: '100vw',
-        height: '100vh',
-        x: 0,
-        y: 0,
-        left: 0,
-        top: 0,
-        autoRound: false,
-        ease: Sine.easeOut
-      });
-
-      menuFadeOpen.staggerFrom(items, 1, {
-        autoAlpha: 0,
-        y: -15
-      }, 0.01);
-
-      menuFadeOpen.staggerFrom(mail, 1, {
-        autoAlpha: 0,
-        y: 15
-      });
-
-      const menuFadeClose = TweenMax.to(mobileMenu, .25, {
-        paused: true,
-        opacity: 0,
-        x: 0,
-        y: '-100vh',
-        display: 'none',
-        ease: Sine.easeOut
-      });
-
-      openMenu.addEventListener("click", function () {
-        $('#header').css({"position": "fixed"});
-        menuFadeOpen.restart();
-        menuFadeOpen.play();
-      });
-      fadeClose.addEventListener("click", function () {
-        $('#header').css({"position": "absolute"});
-        menuFadeClose.restart();
-        menuFadeClose.play();
-      });
     }
   }
 </script>
@@ -231,7 +203,7 @@
             }
         }
 
-        .navbar-toggler, button {
+        button {
             border: none;
             background: none;
             font-weight: normal;
@@ -245,10 +217,13 @@
     #openMenu {
         color: white;
         font-size: 16px;
-        padding-left: 0;
-        padding-right: 0;
         border-radius: 0;
-        border-bottom: 1px solid white;
+        padding: 10px 20px 20px 0;
+
+        > span {
+            border-bottom: 1px solid white;
+            padding-bottom: 7px;
+        }
     }
 
     #mobileMenu {
@@ -314,6 +289,12 @@
         p {
             font-size: 20px;
             text-decoration: underline;
+        }
+    }
+
+    @include media-min-width($sm) {
+        #openMenu {
+            display: none;
         }
     }
 
