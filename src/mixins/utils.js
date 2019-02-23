@@ -272,7 +272,7 @@ export default {
 
     getServicesAnimation: function() {
       // Options
-      const particleCount = 2500;
+      const particleCount = 2000;
 
       const particleSize = 0.1;
 
@@ -406,14 +406,6 @@ export default {
       function animate() {
         particleSystem.rotation.y += animationVars.speed;
 
-        // camera.position.y += (mouseY - camera.position.y) * 0.005;
-        // targetRotation += 0.01;
-
-        // camera.position.z = animationVars.rotation;
-        // camera.position.y = animationVars.rotation;
-        // camera.lookAt( particleSystem.position );
-        // camera.lookAt(0, 0, 0);
-
         particles.verticesNeedUpdate = true;
 
         particleSystem.material.color = new THREE.Color( animationVars.color );
@@ -432,29 +424,28 @@ export default {
           onComplete: slowDown
         });
 
-        TweenMax.to(animationVars, 1, {
+        TweenMax.to(animationVars, 0, {
           ease: Linear.easeNone
         });
-        // particleSystem.material.color.setHex(color);
 
         for (var i = 0; i < particles.vertices.length; i++){
-          TweenMax.to(particles.vertices[i], 4.5, {
-            ease: Elastic.easeOut.config( 0.1, .3),
+          TweenMax.to(particles.vertices[i], 2.5, {
+            ease: Power4.easeInOut,
             x: newParticles.vertices[i].x,
             y: newParticles.vertices[i].y,
             z: newParticles.vertices[i].z
           })
         }
 
-        TweenMax.to(animationVars, 2, {
-          ease: Elastic.easeOut.config( 0.1, .3),
-          rotation: animationVars.rotation == 45 ? -45 : 45,
-        })
+        // TweenMax.to(animationVars, .1, {
+        //   ease: Elastic.easeOut.config( 0.1, .3),
+        //   rotation: animationVars.rotation == 45 ? -45 : 45,
+        // })
       }
 
       function slowDown () {
         TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0.2});
+          Power2.easeOut, speed: normalSpeed, delay: 0});
       }
     },
 
@@ -554,7 +545,7 @@ export default {
       scene.add(particleSystem);
 
       const normalSpeed = (defaultAnimationSpeed/300),
-        fullSpeed = (morphAnimationSpeed/100)
+        fullSpeed = (morphAnimationSpeed/100);
 
       let animationVars = {
         speed: normalSpeed,
@@ -564,7 +555,7 @@ export default {
 
 
       function animate() {
-        particleSystem.rotation.y -= animationVars.speed;
+        // particleSystem.rotation.y -= animationVars.speed;
         particles.verticesNeedUpdate = true;
 
         particleSystem.material.color = new THREE.Color( animationVars.color );
@@ -597,10 +588,10 @@ export default {
           })
         }
 
-        TweenMax.to(animationVars, 2, {
-          ease: Elastic.easeOut.config( 0.1, .3),
-          rotation: animationVars.rotation == 45 ? -45 : 45,
-        })
+        // TweenMax.to(animationVars, 2, {
+        //   ease: Elastic.easeOut.config( 0.1, .3),
+        //   rotation: animationVars.rotation == 45 ? -45 : 45,
+        // })
       }
 
       function slowDown () {
@@ -698,7 +689,7 @@ export default {
                 startX = point.x,
                 startY = point.y;
 
-              TweenMax.to(point, 3, {
+              TweenMax.to(point, 1, {
                 x: random(point.x - maxOffset / 2, point.x + maxOffset / 2),
                 y: random(point.y - maxOffset / 2, point.y + maxOffset / 2),
                 ease: Sine.easeInOut,
@@ -706,7 +697,7 @@ export default {
               });
 
               function onComplete() {
-                TweenMax.to(point, 1, {
+                TweenMax.to(point, 1.5, {
                   x: startX,
                   y: startY,
                   ease: Power2.easeOut,
@@ -797,7 +788,6 @@ export default {
         color: color,
         rotation: -45
       }
-
 
       function animate() {
         camera.position.x = particleSystem.position.x + ( mouseX - camera.position.x ) * 0.005;

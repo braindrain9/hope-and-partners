@@ -16,15 +16,12 @@
                                  class="slide-content d-flex justify-content-end"
                             >
                                 <div class="d-flex align-items-center">
-                                    <div class="slide-content-wrap text-block" :data-number="index + 1">
+                                    <div class="text-block" :data-number="index + 1">
                                         <div class="slide-content-counter">0{{index + 1}}</div>
                                         <span class="letter d-none">{{service.letter}}</span>
-                                        <div class="slide-content-title">
-                                            <h2>{{service.title}}</h2>
-                                        </div>
-
                                         <div class="slide-content-text-wrap">
                                             <div class="slide-content-text">
+                                                <h2 class="slide-content-title">{{service.title}}</h2>
                                                 <p class="description" v-html="service.description"></p>
                                             </div>
                                         </div>
@@ -139,28 +136,6 @@
 
         const outW = $(window).outerWidth();
 
-        $(".reveal-title, .slide-content-title h2").each(function () {
-          const title = $(this),
-            width = title.width();
-
-          title.html(function (i, html) {
-            return html.replace(/\s+/g, '*');
-          });
-          let texts = title.html().split("*");
-          title.html('<span>' + texts.join('</span> <span>') + '</span>');
-
-          title.find("span").each(function () {
-            var span = $(this);
-            if ((span.position().left + span.width()) > width) {
-              span.before('<br>');
-            }
-          });
-
-          title.find("span").contents().unwrap();
-          let lines = title.html().split("<br>");
-          title.html('<span class="reveal-wrap"><span class="reveal">' + lines.join('</span></span><span class="reveal-wrap"><span class="reveal">') + '</span></span>');
-        });
-
         $('.services-slider').css({"opacity": 1});
 
         hideFooterOnLeave();
@@ -223,7 +198,7 @@
                         }
 
                         Timeout.clear(animateParticles);
-                        Timeout.set(animateParticles, 0);
+                        Timeout.set(animateParticles, 300);
                       }
                     }
                   }
@@ -500,10 +475,6 @@
         }
     }
 
-    .slide-content-title h2 {
-        white-space: nowrap
-    }
-
     .slider-content-wrap {
         position: absolute;
         z-index: 5;
@@ -533,30 +504,6 @@
         margin-right: 12px
     }
 
-    .slide-content-title .reveal {
-        -webkit-transition: -webkit-transform .3s ease;
-        transition: -webkit-transform .3s ease;
-        -o-transition: transform .3s ease;
-        transition: transform .3s ease;
-        transition: transform .3s ease, -webkit-transform .3s ease
-    }
-
-    .slide-point .slide-content-title .reveal {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        -webkit-transition: -webkit-transform .6s ease .4s;
-        transition: -webkit-transform .6s ease .4s;
-        -o-transition: transform .6s ease .4s;
-        transition: transform .6s ease .4s;
-        transition: transform .6s ease .4s, -webkit-transform .6s ease .4s
-    }
-
-    .slide-point .slide-content-title .reveal-wrap:nth-child(2) .reveal {
-        -webkit-transition-delay: .6s;
-        -o-transition-delay: .6s;
-        transition-delay: .6s
-    }
-
     .slide-content-text-wrap {
         position: relative;
         overflow: hidden
@@ -565,46 +512,42 @@
     .slide-content-text {
         width: 470px;
         opacity: 0;
-        -webkit-transform: translate3d(0, 140px, 0);
-        transform: translate3d(0, 140px, 0);
-        -webkit-transition: opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1);
-        transition: opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1);
-        -o-transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1)
+
+        .description, .slide-content-title {
+            opacity: 0;
+            transform: translate3d(0, 140px, 0);
+        }
     }
 
     .slide-point .slide-content-text {
         opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        -webkit-transition: opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1);
-        transition: opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1);
-        -o-transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1)
+
+        .slide-content-title {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transition: opacity 2s ease, transform 2s ease;
+            transition-delay: .8s;
+        }
+
+        .description {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transition: opacity 2s cubic-bezier(.4, .25, 0, 1), transform 2.4s cubic-bezier(.4, .25, 0, 1);
+            transition-delay: 1.5s;
+        }
     }
 
     .services-slider .text-block:before {
         opacity: 0;
-        -webkit-transform: translate3d(0, 140px, 0);
-        transform: translate3d(0, 140px, 0);
-        -webkit-transition: opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1);
-        transition: opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1);
-        -o-transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.2s cubic-bezier(.4, .25, 0, 1), opacity .7s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.2s cubic-bezier(.4, .25, 0, 1)
+        transform: translate3d(-10px, 60px, 0);
+        transition: opacity 2s cubic-bezier(.4, .25, 0, 1), transform 1.2s cubic-bezier(.4, .25, 0, 1);
     }
 
     .slide-point .text-block:before {
         opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
-        -webkit-transition: opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1);
-        transition: opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1);
-        -o-transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1);
-        transition: transform 1.4s cubic-bezier(.4, .25, 0, 1), opacity .9s cubic-bezier(.4, .25, 0, 1), -webkit-transform 1.4s cubic-bezier(.4, .25, 0, 1)
+        transition: opacity 1s cubic-bezier(.4, .25, 0, 1), transform 1.4s cubic-bezier(.4, .25, 0, 1);
+        transition-delay: 1.2s;
     }
 
     .slider-dots li {
