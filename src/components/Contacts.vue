@@ -8,7 +8,7 @@
                         <h1>напишіть нам листа</h1>
                         <div class="mail-text">
                             <div class="mail">
-                                <a class="strike" href="mailto:hello@hopeandpartners.com"><span>hello@hopeandpartners.com</span></a>
+                                <a class="strike" :href="'mailto:' + $store.state.content.email"><span>{{$store.state.content.email}}</span></a>
                                 <span class="arrow-svg" v-html="arrowSvg"></span>
                             </div>
                             <div class="horizontal-line d-none d-md-block">

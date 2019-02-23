@@ -23,7 +23,7 @@ Vue.use(Navbar);
 Vue.set(Vue.prototype, '_', _);
 Vue.use(VueAwesomeSwiper);
 
-Vue.http.options.root = 'http://hopeandpart.com/wp-json/';
+Vue.http.options.root = 'https://hopeandpart.com/wp-json/';
 
 new Vue({
   el: '#app',
