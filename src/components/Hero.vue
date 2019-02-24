@@ -5,11 +5,7 @@
             <div class="container">
                 <div class="hero-content d-flex">
                     <div>
-                        <h1 class="heading heading-main">
-                            <span>налагоджуємо</span><br/>
-                            <span>зв<span class="orange-color">’</span>язки</span>
-                            <span>з реальністю</span>
-                        </h1>
+                        <h1 class="heading heading-main">{{$store.state.content.heroHeading}}</h1>
                         <div class="details-link">
                             <a v-on:click="goToAbout()" class="scrolled grey-color-link">
                                 <span class="horizontal-divider"></span>
@@ -30,7 +26,6 @@
   import Footer from './Footer';
   import {TimelineMax} from 'gsap/TweenMax';
   import ScrollMagic from 'scrollmagic';
-  import bus from '../bus';
 
   export default {
     name: 'Hero',
@@ -41,16 +36,7 @@
 
         const target = $('#about');
 
-        // $(document).scrollTop(target.offset().top);
-
-        // setTimeout(function () {
-        // $('html, body').animate({
-        //   scrollTop: target.offset().top
-        // }, 0);
         setTimeout(function () {
-          // DsBody.animate({
-          //   scrollTop: target.offset().top
-          // }, 0);
           $(document).scrollTop(target.offset().top);
           $('html, body').css({"scroll-behavior": "auto"});
         }, 100);
@@ -104,6 +90,10 @@
             align-items: center;
             justify-content: flex-end;
 
+            >  div {
+                max-width: 580px;
+            }
+
             .details-link {
                 .link {
                     margin-left: 60px;
@@ -151,6 +141,12 @@
         }
     }
 
+    @include media-max-width($md-max) {
+        .hero-section .hero-content > div {
+            max-width: 420px;
+        }
+    }
+
     @include media-max-width($sm-max) {
         .hero-section {
             .hero-content {
@@ -165,6 +161,10 @@
         .hero-section {
             .hero-content {
                 height: calc(100vh - 150px);
+
+                > div {
+                    max-width: 100%;
+                }
             }
         }
     }
