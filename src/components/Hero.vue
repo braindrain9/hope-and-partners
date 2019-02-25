@@ -56,7 +56,7 @@
           const controller = new ScrollMagic.Controller();
 
           const hideFooterAnimation = new TimelineMax()
-            .fromTo($('.hero footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
+            .fromTo($('.hero .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
           ;
           const hideFooterScene = new ScrollMagic.Scene({
             triggerElement: ".hero",

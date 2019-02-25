@@ -51,9 +51,6 @@
           .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
         ;
 
-        const eventAnimation = new TimelineMax()
-          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
-
         const photoAnimation = new TimelineMax()
           .fromTo($('.about .about-image'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
@@ -63,14 +60,6 @@
           duration: '100%'
         })
           .setTween(bioInfoAnimation)
-          .addTo(controller);
-
-        const event = new ScrollMagic.Scene({
-          triggerElement: ".about .event",
-          triggerHook: "onEnter",
-          duration: '100%'
-        })
-          .setTween(eventAnimation)
           .addTo(controller);
       });
     }

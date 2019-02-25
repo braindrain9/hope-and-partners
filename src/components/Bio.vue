@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
-                    <a href="#about" class="bio-link horizontal-grey-link">
+                    <a href="/#about" class="bio-link horizontal-grey-link">
                         <span></span>
                         <span class="d-inline-block strike"><span>назад</span></span>
                     </a>
@@ -25,17 +25,15 @@
                              :key="i"></div>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
-                        <div class="description description-dark">
-                            <div v-for="bio in biography" :key="bio.id">
-                                <div class="photo d-md-none"
-                                     v-if="bio.imageUrl"
-                                     :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
-                                ></div>
+                        <div class="description description-dark" v-for="bio in biography" :key="bio.id">
+                            <div class="photo d-md-none"
+                                 v-if="bio.imageUrl"
+                                 :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
+                            ></div>
 
-                                <h4 v-if="bio.title">{{bio.title}}</h4>
+                            <h2 v-if="bio.title">{{bio.title}}</h2>
 
-                                <div class="paragraph" v-if="bio.content" v-html="bio.content"></div>
-                            </div>
+                            <div class="paragraph" v-if="bio.content" v-html="bio.content"></div>
                         </div>
                     </div>
                 </div>
@@ -72,17 +70,17 @@
             this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
         }, error => console.log(error))
         .finally(() => {
-          TweenLite.to($('.bio'), 1, {opacity: 1});
-          TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
-          TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-          TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+          this.addBioAnimation();
         })
     },
 
-    mounted() {
-      document.title = 'Hope & Partners / Bio';
+    methods: {
+      addBioAnimation: function() {
+        TweenLite.to($('.bio'), 1, {opacity: 1});
+        TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
+        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
 
-      $(document).ready(function () {
         const controller = new ScrollMagic.Controller();
 
         const scene = new ScrollMagic.Scene({
@@ -105,7 +103,7 @@
             .addTo(controller);
         });
 
-        $.each($('.bio .row .description-block .description div'), function (index, elem) {
+        $.each($('.bio .row .description-block .description'), function (index, elem) {
           const anim = new TimelineMax()
             .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
@@ -117,18 +115,11 @@
             .setTween(anim)
             .addTo(controller);
         });
+      }
+    },
 
-        const wipeAnimation2 = new TimelineMax()
-          .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
-
-        const scene2 = new ScrollMagic.Scene({
-          triggerElement: ".bio .event",
-          triggerHook: "onEnter",
-          duration: "80%"
-        })
-          .setTween(wipeAnimation2)
-          .addTo(controller);
-      });
+    mounted() {
+      document.title = 'Hope & Partners / Bio';
     },
 
     components: {
@@ -189,7 +180,7 @@
                         margin-bottom: 60px;
                     }
 
-                    h4 {
+                    h2 {
                         font-weight: bold;
                         font-size: 24px;
                         margin-bottom: 15px;
@@ -208,7 +199,7 @@
 
                 .description-block {
                     .description {
-                        h4 {
+                        h2 {
                             font-size: 20px;
                         }
                         div {
@@ -276,7 +267,7 @@
                     margin-top: -80px;
 
                     .description {
-                        h4 {
+                        h2 {
                             font-size: 20px;
                         }
                         div {

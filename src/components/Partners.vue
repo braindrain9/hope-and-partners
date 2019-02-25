@@ -332,7 +332,7 @@
           const controller = new ScrollMagic.Controller();
 
           const hideFooterAnimation = new TimelineMax()
-              .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
+              .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
           ;
 
           // hide footer

@@ -9,7 +9,10 @@
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
                     <b-navbar-nav id="menu">
                         <li class="nav-item" v-for="(link, index) in filteredNavLinks" :key="index">
-                            <a :href="link.path" :key="link.id" class="nav-link strike">
+                            <a :href="($route.name === 'home' ? '' : '/') + link.path"
+                               :key="link.id"
+                               class="nav-link strike"
+                            >
                                 <span>{{link.title}}</span>
                             </a>
                         </li>
@@ -21,7 +24,7 @@
                     </div>
                 </b-collapse>
 
-                <b-navbar-brand href="/" right>
+                <b-navbar-brand href="/" right aria-label="Hope & Partners Logo">
                     <div class="d-none d-md-block" v-html="logo"></div>
                     <div class="d-block d-md-none" v-html="logoMobile"></div>
                 </b-navbar-brand>
@@ -34,7 +37,7 @@
                         закрити<span></span>
                     </button>
 
-                    <b-navbar-brand href="/" right>
+                    <b-navbar-brand href="/" right aria-label="Hope & Partners Logo">
                         <div v-html="logoMobile"></div>
                     </b-navbar-brand>
                 </b-navbar>

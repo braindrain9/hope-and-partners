@@ -11,6 +11,9 @@
 </template>
 
 <script>
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax} from "gsap/TweenMax";
+
   export default {
     name: 'Event',
 
@@ -22,8 +25,22 @@
 
     created: function () {
       this.$http.get('wp/v2/events').then(response => {
-        this.events = this.transformResponseData(response.data);
-      }, error => console.log(error));
+          this.events = this.transformResponseData(response.data);
+        }, error => console.log(error))
+        .finally(() => {
+          const controller = new ScrollMagic.Controller();
+
+          const wipeAnimation2 = new TimelineMax()
+            .fromTo($('.event .description'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1, delay: 0.5});
+
+          const scene2 = new ScrollMagic.Scene({
+            triggerElement: ".event",
+            triggerHook: "onEnter",
+            duration: "80%"
+          })
+            .setTween(wipeAnimation2)
+            .addTo(controller);
+        })
     }
   }
 </script>

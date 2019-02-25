@@ -15,7 +15,7 @@
             <!--@close="showUpdater = false"-->
             <!--/>-->
 
-            <router-view/>
+            <router-view role="main"/>
 
         </div>
 
@@ -153,7 +153,7 @@
                   });
 
                   heroHeading.html(heroHeading.text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-                  TweenLite.fromTo($('footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
+                  TweenLite.fromTo($('.footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
 
                   anime.timeline().add({
                     targets: '.hero .heading-main .letter',

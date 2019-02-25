@@ -152,13 +152,7 @@
           $(window).scroll(function () {
             const st = $(this).scrollTop();
 
-            if (st > lastScrollTop)
-              $('.slider-dots li.dots-point').removeClass('dots-up').addClass('dots-down');
-            else
-              $('.slider-dots li.dots-point').removeClass('dots-down').addClass('dots-up');
-
             sliderDownAnim();
-
             lastScrollTop = st;
           });
 
@@ -237,7 +231,7 @@
           html += '</ul>';
           //
           //Apend nav dots
-          $('#slider-wrap .services-slider').prepend(html);
+          $('.slider-content-wrap .services-slider').prepend(html);
 
           var slideWidth = $('.slide').width(),
             progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
@@ -294,7 +288,7 @@
           const controller = new ScrollMagic.Controller();
 
           const hideAboutFooterAnimation = new TimelineMax()
-            .fromTo($('#about footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+            .fromTo($('#about .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
           ;
 
           const hideAboutFooterScene = new ScrollMagic.Scene({
@@ -306,7 +300,7 @@
             .addTo(controller);
 
           const hideFooterAnimation = new TimelineMax()
-            .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
+            .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
           ;
 
           // hide footer

@@ -10,6 +10,7 @@
                                 class="video"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                aria-label="video"
                             >
                         </iframe>
                         </lazy-component>
@@ -119,7 +120,7 @@
 
         function hideFooterOnLeave() {
           const hideFooterAnimation = new TimelineMax()
-            .fromTo($('#cases footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
+            .fromTo($('#cases .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
           ;
 
           // hide footer
