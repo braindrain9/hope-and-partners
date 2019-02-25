@@ -115,6 +115,17 @@
             .setTween(anim)
             .addTo(controller);
         });
+
+        const wipeAnimation2 = new TimelineMax()
+          .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
+
+        const scene2 = new ScrollMagic.Scene({
+          triggerElement: ".bio .event",
+          triggerHook: "onEnter",
+          duration: "80%"
+        })
+          .setTween(wipeAnimation2)
+          .addTo(controller);
       }
     },
 

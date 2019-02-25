@@ -61,6 +61,17 @@
         })
           .setTween(bioInfoAnimation)
           .addTo(controller);
+
+        const eventAnimation = new TimelineMax()
+          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
+
+        const event = new ScrollMagic.Scene({
+          triggerElement: ".about .event",
+          triggerHook: "onEnter",
+          duration: '100%'
+        })
+          .setTween(eventAnimation)
+          .addTo(controller);
       });
     }
   }
