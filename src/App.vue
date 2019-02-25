@@ -211,7 +211,7 @@
               }).set($('.page-preloader'), {
                 className: '+=is-hidden'
               });
-            }, false);
+            });
           }
         }
       )
