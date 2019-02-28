@@ -62,20 +62,20 @@
     created() {
       document.title = 'Hope & Partners';
 
-      this.$http.get('wp/v2/services').then(response => {
+      this.$http.get('wp/v2/services?lang=en').then(response => {
         response.data.sort((a, b) => {
           return parseInt(_.get(a, 'title.rendered')) - parseInt(_.get(b, 'title.rendered'));
         });
         this.services = this.transformResponseData(response.data);
       }, error => console.log(error));
 
-      this.$http.get('wp/v2/partners')
+      this.$http.get('wp/v2/partners?lang=en')
         .then(response => {
             this.partners = this.transformResponseData(response.data);
         }, error => console.log(error))
         .finally(() => this.partnersLoaded = true);
 
-      this.$http.get('wp/v2/cases').then(response => {
+      this.$http.get('wp/v2/cases?lang=en').then(response => {
         this.cases = this.transformResponseData(response.data);
       }, error => console.log(error));
     },

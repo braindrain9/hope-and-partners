@@ -10,7 +10,7 @@
                 <p class="description" v-html="content.description"></p>
                 <p class="bio-link">
                     <span class="divider"></span>
-                    <span>повне біо <router-link class="strike" to="/bio"><span>тут</span></router-link></span>
+                    <span>{{$t('completeBio')}} <router-link class="strike" to="/bio"><span>{{$t('here')}}</span></router-link></span>
                 </p>
             </div>
         </div>
@@ -37,7 +37,7 @@
     },
 
     created() {
-      this.$http.get('wp/v2/about').then(response => {
+      this.$http.get('wp/v2/about?lang=en').then(response => {
         this.content = this.transformResponseData(response.data)[0] || {};
       }, error => console.log(error));
     },

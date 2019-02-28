@@ -9,7 +9,7 @@
                         <div class="details-link">
                             <a v-on:click="goToAbout()" class="scrolled grey-color-link">
                                 <span class="horizontal-divider"></span>
-                                <span class="link">детальніше</span>
+                                <span class="link">{{$t('detailed')}}</span>
                             </a>
                         </div>
                     </div>

@@ -5,13 +5,10 @@
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
                     <a href="/#about" class="bio-link horizontal-grey-link">
                         <span></span>
-                        <span class="d-inline-block strike"><span>назад</span></span>
+                        <span class="d-inline-block strike"><span>{{$t('back')}}</span></span>
                     </a>
-                    <h1 class="heading heading-main">
-                        Моя<br/>
-                        повна <span class="orange-color">біографія</span>
-                    </h1>
-                    <div class="tiny-font-size white-color">останній апдейт 20.12.2018</div>
+                    <h1 class="heading heading-main"v-html="$t('myCompleteBio')"></h1>
+                    <div class="tiny-font-size white-color">{{$t('updatedAt')}} {{updated}}</div>
                 </div>
             </div>
         </div>
@@ -59,15 +56,17 @@
     data() {
       return {
         biography: [],
-        photos: []
+        photos: [],
+        updated: ''
       }
     },
 
     created() {
-      this.$http.get('wp/v2/bio')
+      this.$http.get('wp/v2/bio?lang=en')
         .then(response => {
             this.biography = this.transformResponseData(response.data);
             this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
+            this.updated = this.formatDate(this.findLatestDate(response.data));
         }, error => console.log(error))
         .finally(() => {
           this.addBioAnimation();
@@ -75,6 +74,30 @@
     },
 
     methods: {
+      findLatestDate: function (dates) {
+        if (dates.length === 0) return null;
+
+        let latestDate = dates[0].modified;
+
+        dates.forEach((date) => {
+          if (date.modified > latestDate){
+            latestDate = date.modified;
+          }
+        });
+
+        return latestDate;
+      },
+      formatDate: function(date) {
+        if (date) {
+          let formattedDate = new Date(date);
+
+          formattedDate = formattedDate.toLocaleDateString(undefined, {day:'2-digit'})
+            + '.' + formattedDate.toLocaleDateString(undefined, {month:'2-digit'})
+            + '.' + formattedDate.toLocaleDateString(undefined, {year:'numeric'});
+
+          return formattedDate;
+        }
+      },
       addBioAnimation: function() {
         TweenLite.to($('.bio'), 1, {opacity: 1});
         TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});

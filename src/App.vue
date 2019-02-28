@@ -41,7 +41,7 @@
     name: 'App',
 
     created: function () {
-      this.$http.get('wp/v2/general').then(response => {
+      this.$http.get('wp/v2/general?lang=en').then(response => {
           const general = this.transformResponseData(response.data)[0] || {};
 
           this.$store.commit('updateGeneralContent', general);

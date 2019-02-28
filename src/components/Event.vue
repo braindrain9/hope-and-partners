@@ -21,7 +21,7 @@
     },
 
     created: function () {
-      this.$http.get('wp/v2/events').then(response => {
+      this.$http.get('wp/v2/events?lang=en').then(response => {
         this.events = this.transformResponseData(response.data);
       }, error => console.log(error));
     }

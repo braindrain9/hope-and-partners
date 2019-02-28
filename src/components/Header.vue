@@ -3,7 +3,7 @@
         <div class="container" id="mainMenu">
             <b-navbar toggleable="md" type="dark">
                 <button id="openMenu" v-on:click="showMenu()" class="scrolled">
-                    <span>Меню</span>
+                    <span>{{$t('menu')}}</span>
                 </button>
 
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
@@ -13,7 +13,7 @@
                                :key="link.id"
                                class="nav-link strike"
                             >
-                                <span>{{link.title}}</span>
+                                <span>{{$t(link.title)}}</span>
                             </a>
                         </li>
                     </b-navbar-nav>
@@ -34,7 +34,7 @@
             <div class="container">
                 <b-navbar variant="faded" type="light">
                     <button id="fadeClose" class="horizontal-grey-link" v-on:click="hideMenu()">
-                        закрити<span></span>
+                        {{$t('close')}}<span></span>
                     </button>
 
                     <b-navbar-brand href="/" right aria-label="Hope & Partners Logo">
@@ -49,7 +49,7 @@
                                class="nav-link"
                                :class="{active: index === 0}"
                                v-on:click="hideMenu()"
-                            >{{link.title}}</a>
+                            >{{$t(link.title)}}</a>
                         </li>
                     </b-nav>
                     <div class="mail-box">

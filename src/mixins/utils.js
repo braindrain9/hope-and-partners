@@ -169,7 +169,7 @@ export default {
       navLinks: [
         {
           name: 'home',
-          title: 'на головну',
+          title: 'home',
           path: '/',
           hidden: true,
           id: 1
@@ -177,25 +177,25 @@ export default {
         {
           name: 'about',
           path: '#about',
-          title: 'про мене',
+          title: 'about',
           id: 2
         },
         {
           name: 'services',
           path: '#services',
-          title: 'послуги',
+          title: 'services',
           id: 3
         },
         {
           name: 'partners',
           path: '#partners',
-          title: 'партнери',
+          title: 'partners',
           id: 4
         },
         {
           name: 'cases',
           path: '#cases',
-          title: 'кейси',
+          title: 'cases',
           id: 5
         }
       ],
@@ -203,41 +203,31 @@ export default {
         {
           name: 'home',
           path: '/',
-          title: 'на головну'
+          title: 'home'
         },
         {
           name: 'about',
           path: '#about',
-          title: 'про мене'
+          title: 'about'
         },
         {
           name: 'services',
           path: '#services',
-          title: 'наші послуги'
-        },
-        {
-          name: 'services',
-          path: '#services',
-          title: 'наші послуги'
+          title: 'ourServices'
         },
         {
           name: 'partners',
           path: '#partners',
-          title: 'наші партнери'
+          title: 'ourPartners'
         },
         {
           name: 'cases',
           path: '#cases',
-          title: 'наші кейси'
-        },
-        {
-          name: 'cases',
-          path: '#cases',
-          title: 'наші кейси'
+          title: 'ourCases'
         },
         {
           name: 'contacts',
-          title: 'де нас знайти?',
+          title: 'howToFindUs',
           path: '#contacts'
         }
       ],

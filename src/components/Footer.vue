@@ -1,7 +1,7 @@
 <template>
     <div class="footer" :class="{'is-final-mode': isFinalMode}">
         <div v-if="isFinalMode" class="footer-content d-flex">
-            <div class="copy">&copy; дві тисячі дев'ятнадцятий. hope & partners</div>
+            <div class="copy">{{$store.state.content.footerCredentials}}</div>
             <div class="cosmos">
                 <span class="space-ship">🚀</span>
                 <a class="strike" href="https://cosmos.studio/" target="_blank">
@@ -13,7 +13,7 @@
             <div>
                 <a :href="($route.name === 'home' ? '' : '/') + currentLink.path" class="menu-link">
                     <span class="divider d-inline-block"></span>
-                    <span class="link-text grey-color-link d-inline-block strike">{{currentLink.title}}</span>
+                    <span class="link-text grey-color-link d-inline-block strike">{{$t(currentLink.title)}}</span>
                 </a>
             </div>
             <slot name="progress-bar"></slot>
