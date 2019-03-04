@@ -43,6 +43,22 @@ const routes = [
     }
   },
   {
+    name: 'notFoundPageEng',
+    path: '/en/404',
+    component: NotFoundPage,
+    beforeEnter (to, from, next) {
+      if (i18n.locale !== 'en') {
+        i18n.locale = 'en';
+      }
+
+      return next();
+    }
+  },
+  {
+    path: '/en/*',
+    redirect: '/en/404'
+  },
+  {
     name: 'bio',
     path: '/bio',
     component: Bio

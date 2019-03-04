@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
-                    <a href="/#about" class="bio-link horizontal-grey-link">
+                    <a :href="lang === 'en' ? '/en#about' : '/#about'" class="bio-link horizontal-grey-link">
                         <span></span>
                         <span class="d-inline-block strike"><span>{{$t('back')}}</span></span>
                     </a>
@@ -160,13 +160,6 @@
 
     mounted() {
       document.title = 'Hope & Partners / Bio';
-
-      bus.$on('fetchData', (lang) => {
-        if (this.lang !== lang) {
-          this.lang = lang;
-          this.getBioData();
-        }
-      });
     },
 
     components: {
