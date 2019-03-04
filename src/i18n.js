@@ -4,8 +4,8 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 export const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: 'uk',
+  fallbackLocale: 'uk',
   messages: {
     en: {
       about: 'about me',

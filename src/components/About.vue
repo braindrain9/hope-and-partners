@@ -22,13 +22,16 @@
   import Event from './Event';
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'About',
 
     data() {
       return {
-        content: {}
+        content: {},
+        lang: i18n.locale
       }
     },
 
@@ -37,12 +40,25 @@
     },
 
     created() {
-      this.$http.get('wp/v2/about?lang=en').then(response => {
-        this.content = this.transformResponseData(response.data)[0] || {};
-      }, error => console.log(error));
+      this.getAboutData();
+    },
+
+    methods: {
+      getAboutData: function() {
+        this.$http.get(`wp/v2/about?lang=${this.lang}`).then(response => {
+          this.content = this.transformResponseData(response.data)[0] || {};
+        }, error => console.log(error));
+      }
     },
 
     mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getAboutData();
+        }
+      });
+
       $(document).ready(function () {
         const controller = new ScrollMagic.Controller();
 

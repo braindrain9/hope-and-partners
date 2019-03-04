@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import {i18n} from "./i18n";
 
 // components
 // const Home = () => import('./components/Home');
@@ -18,9 +19,28 @@ const routes = [
     component: Home
   },
   {
-    name: 'notFoundPage',
-    path: '/404',
-    component: NotFoundPage
+    name: 'homeEng',
+    path: '/en',
+    component: Home,
+    beforeEnter (to, from, next) {
+      if (i18n.locale !== 'en') {
+        i18n.locale = 'en';
+      }
+
+      return next();
+    }
+  },
+  {
+    name: 'bioEng',
+    path: '/en/bio',
+    component: Bio,
+    beforeEnter (to, from, next) {
+      if (i18n.locale !== 'en') {
+        i18n.locale = 'en';
+      }
+
+      return next();
+    }
   },
   {
     name: 'bio',
@@ -28,8 +48,13 @@ const routes = [
     component: Bio
   },
   {
+    name: 'notFoundPage',
+    path: '/404',
+    component: NotFoundPage
+  },
+  {
     path: '*',
-    redirect: '/404'
+    redirect: '404'
   }
 ];
 

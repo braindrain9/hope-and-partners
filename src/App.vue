@@ -37,18 +37,30 @@
   import {TimelineMax, TweenLite, Linear, Power4} from 'gsap/TweenMax';
   import anime from 'animejs';
 
+  import {i18n} from "./i18n";
+  import bus from './bus';
+
   export default {
     name: 'App',
 
-    created: function () {
-      this.$http.get('wp/v2/general?lang=en').then(response => {
-          const general = this.transformResponseData(response.data)[0] || {};
+    data() {
+      return {
+        lang: i18n.locale
+      }
+    },
 
-          this.$store.commit('updateGeneralContent', general);
-        }, error => console.log(error));
+    created: function () {
+      this.getGeneralContent();
     },
 
     mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getGeneralContent();
+        }
+      });
+
       const self = this;
 
       $(document).ready(function () {
@@ -213,9 +225,17 @@
               });
             });
           }
-        }
-      )
-      ;
+        });
+    },
+
+    methods: {
+      getGeneralContent: function() {
+        this.$http.get(`wp/v2/general?lang=${this.lang}`).then(response => {
+          const general = this.transformResponseData(response.data)[0] || {};
+
+          this.$store.commit('updateGeneralContent', general);
+        }, error => console.log(error));
+      }
     },
 
     components: {

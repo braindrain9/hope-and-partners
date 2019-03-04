@@ -49,6 +49,8 @@
   import ScrollMagic from 'scrollmagic';
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax, TweenLite} from "gsap/TweenMax";
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'Bio',
@@ -57,23 +59,27 @@
       return {
         biography: [],
         photos: [],
-        updated: ''
+        updated: '',
+        lang: i18n.locale
       }
     },
 
     created() {
-      this.$http.get('wp/v2/bio?lang=en')
-        .then(response => {
-            this.biography = this.transformResponseData(response.data);
-            this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
-            this.updated = this.formatDate(this.findLatestDate(response.data));
-        }, error => console.log(error))
-        .finally(() => {
-          this.addBioAnimation();
-        })
+      this.getBioData();
     },
 
     methods: {
+      getBioData: function() {
+        this.$http.get(`wp/v2/bio?lang=${this.lang}`)
+          .then(response => {
+            this.biography = this.transformResponseData(response.data);
+            this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
+            this.updated = this.formatDate(this.findLatestDate(response.data));
+          }, error => console.log(error))
+          .finally(() => {
+            this.addBioAnimation();
+          });
+      },
       findLatestDate: function (dates) {
         if (dates.length === 0) return null;
 
@@ -154,6 +160,13 @@
 
     mounted() {
       document.title = 'Hope & Partners / Bio';
+
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getBioData();
+        }
+      });
     },
 
     components: {

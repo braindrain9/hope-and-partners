@@ -46,6 +46,8 @@
   import Cases from './Cases';
   import Contacts from './Contacts';
   import Footer from './Footer';
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'Home',
@@ -56,28 +58,40 @@
         partners: [],
         cases: [],
         progressBar: 600,
-        partnersLoaded: false
+        partnersLoaded: false,
+        lang: i18n.locale
       }
     },
     created() {
       document.title = 'Hope & Partners';
 
-      this.$http.get('wp/v2/services?lang=en').then(response => {
-        response.data.sort((a, b) => {
-          return parseInt(_.get(a, 'title.rendered')) - parseInt(_.get(b, 'title.rendered'));
-        });
-        this.services = this.transformResponseData(response.data);
-      }, error => console.log(error));
+      this.getServices();
+      this.getPartners();
+      this.getCases();
 
-      this.$http.get('wp/v2/partners?lang=en')
-        .then(response => {
+    },
+
+    methods: {
+      getServices: function() {
+        this.$http.get(`wp/v2/services?lang=${this.lang}`).then(response => {
+          response.data.sort((a, b) => {
+            return parseInt(_.get(a, 'title.rendered')) - parseInt(_.get(b, 'title.rendered'));
+          });
+          this.services = this.transformResponseData(response.data);
+        }, error => console.log(error));
+      },
+      getPartners: function() {
+        this.$http.get(`wp/v2/partners?lang=${this.lang}`)
+          .then(response => {
             this.partners = this.transformResponseData(response.data);
-        }, error => console.log(error))
-        .finally(() => this.partnersLoaded = true);
-
-      this.$http.get('wp/v2/cases?lang=en').then(response => {
-        this.cases = this.transformResponseData(response.data);
-      }, error => console.log(error));
+          }, error => console.log(error))
+          .finally(() => this.partnersLoaded = true);
+      },
+      getCases: function() {
+        this.$http.get(`wp/v2/cases?lang=${this.lang}`).then(response => {
+          this.cases = this.transformResponseData(response.data);
+        }, error => console.log(error));
+      }
     },
 
     components: {
@@ -88,6 +102,17 @@
       Cases,
       Contacts,
       Footer
+    },
+
+    mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getServices();
+          this.getPartners();
+          this.getCases();
+        }
+      })
     }
   }
 </script>

@@ -18,9 +18,8 @@
                         </li>
                     </b-navbar-nav>
 
-                    <div class="d-none language-chooser">
-                        <span class="active">укр</span>
-                        <span>eng</span>
+                    <div class="language-chooser">
+                        <span v-for="lang in languages" :key="lang.key" v-on:click="changeLang(lang.key)">{{lang.title}}</span>
                     </div>
                 </b-collapse>
 
@@ -66,6 +65,8 @@
   import logoMobile from '../assets/img/logo-mobile.svg';
   import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
   import {TweenMax, TimelineMax, TweenLite} from 'gsap/TweenMax';
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'Header',
@@ -74,7 +75,15 @@
       return {
         logo,
         logoMobile,
-        logoDarkMobile
+        logoDarkMobile,
+        languages: [
+          {
+            key: 'en',
+            title: 'eng'
+          }, {
+            key: 'uk',
+            title: 'укр'
+          }]
       }
     },
 
@@ -85,6 +94,20 @@
     },
 
     methods: {
+      changeLang: function(lang) {
+        if (i18n.locale !== lang) {
+          i18n.locale = lang;
+
+          if (lang === 'en') {
+            this.$router.push(`/en${this.$route.name === 'bio' ? '/bio' : ''}`);
+
+          } else {
+            this.$router.push(`/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
+          }
+
+          bus.$emit('fetchData', i18n.locale);
+        }
+      },
       showMenu: function() {
         const mobileMenu = document.getElementById("mobileMenu"),
           items = $(".wrapper li"),
@@ -116,7 +139,6 @@
 
         $('#header').css({"position": "fixed"});
       },
-
       hideMenu: function() {
         const mobileMenu = document.getElementById("mobileMenu"),
           menuFadeClose = TweenMax.to(mobileMenu, .25, {

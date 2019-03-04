@@ -11,19 +11,38 @@
 </template>
 
 <script>
+  import {i18n} from "../i18n";
+  import bus from '../bus';
+
   export default {
     name: 'Event',
 
     data() {
       return {
-        events: []
+        events: [],
+        lang: i18n.locale
       }
     },
 
     created: function () {
-      this.$http.get('wp/v2/events?lang=en').then(response => {
-        this.events = this.transformResponseData(response.data);
-      }, error => console.log(error));
+      this.getEvents();
+    },
+
+    methods: {
+      getEvents: function() {
+        this.$http.get(`wp/v2/events?lang=${this.lang}`).then(response => {
+          this.events = this.transformResponseData(response.data);
+        }, error => console.log(error));
+      }
+    },
+
+    mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getEvents();
+        }
+      });
     }
   }
 </script>
