@@ -390,6 +390,7 @@
                 height: 395px;
                 transition: all .5s ease;
                 object-fit: cover;
+                object-position: top;
             }
 
             .bg-box {
