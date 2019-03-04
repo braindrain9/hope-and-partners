@@ -6,6 +6,14 @@
                     <span>{{$t('menu')}}</span>
                 </button>
 
+                <div class="language-chooser d-md-none">
+                    <span v-for="lang in languages"
+                          :key="lang.key"
+                          v-on:click="changeLang(lang.key)"
+                          :class="{'active': lang.key === currentLang}"
+                    >{{lang.title}}</span>
+                </div>
+
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
                     <b-navbar-nav id="menu">
                         <li class="nav-item" v-for="(link, index) in filteredNavLinks" :key="index">
@@ -70,7 +78,6 @@
   import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
   import {TweenMax, TimelineMax, TweenLite} from 'gsap/TweenMax';
   import {i18n} from "../i18n";
-  import bus from '../bus';
 
   export default {
     name: 'Header',
@@ -104,14 +111,11 @@
           i18n.locale = lang;
 
           if (lang === 'en') {
-            this.$router.push(`/en${this.$route.name === 'bio' ? '/bio' : ''}`);
+            location.href = (`/en${this.$route.name === 'bio' ? '/bio' : ''}`);
 
           } else {
-            this.$router.push(`/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
+            location.href = (`/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
           }
-
-          this.currentLang = i18n.locale;
-          bus.$emit('fetchData', i18n.locale);
         }
       },
       showMenu: function() {
@@ -333,6 +337,14 @@
     @include media-max-width($xs-max) {
         header {
             padding-top: 20px;
+
+            .navbar {
+                flex-wrap: nowrap;
+
+                .language-chooser {
+                    margin-right: 0;
+                }
+            }
         }
     }
 </style>
