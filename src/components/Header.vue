@@ -19,7 +19,11 @@
                     </b-navbar-nav>
 
                     <div class="language-chooser">
-                        <span v-for="lang in languages" :key="lang.key" v-on:click="changeLang(lang.key)">{{lang.title}}</span>
+                        <span v-for="lang in languages"
+                              :key="lang.key"
+                              v-on:click="changeLang(lang.key)"
+                              :class="{'active': lang.key === currentLang}"
+                        >{{lang.title}}</span>
                     </div>
                 </b-collapse>
 
@@ -73,6 +77,7 @@
 
     data() {
       return {
+        currentLang: i18n.locale,
         logo,
         logoMobile,
         logoDarkMobile,
@@ -105,6 +110,7 @@
             this.$router.push(`/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
           }
 
+          this.currentLang = i18n.locale;
           bus.$emit('fetchData', i18n.locale);
         }
       },
@@ -223,6 +229,7 @@
 
                     &.active {
                         border-bottom-color: $orange;
+                        color: white;
                     }
                 }
             }
