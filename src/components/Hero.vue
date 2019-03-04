@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="hero-content d-flex">
                     <div>
-                        <h1 class="heading heading-main">{{$store.state.content.heroHeading}}</h1>
+                        <h1 class="heading heading-main" v-html="$store.state.content.heroHeading"></h1>
                         <div class="details-link">
                             <a v-on:click="goToAbout()" class="scrolled grey-color-link">
                                 <span class="horizontal-divider"></span>
@@ -29,19 +29,6 @@
 
   export default {
     name: 'Hero',
-
-    methods: {
-      goToAbout: function () {
-        $('html, body').css({"scroll-behavior": "smooth"});
-
-        const target = $('#about');
-
-        setTimeout(function () {
-          $(document).scrollTop(target.offset().top);
-          $('html, body').css({"scroll-behavior": "auto"});
-        }, 100);
-      }
-    },
 
     mounted() {
       const self = this;
@@ -69,6 +56,19 @@
       })
 
 
+    },
+
+    methods: {
+      goToAbout: function () {
+        $('html, body').css({"scroll-behavior": "smooth"});
+
+        const target = $('#about');
+
+        setTimeout(function () {
+          $(document).scrollTop(target.offset().top);
+          $('html, body').css({"scroll-behavior": "auto"});
+        }, 100);
+      }
     },
 
     destroyed() {

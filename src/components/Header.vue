@@ -52,7 +52,7 @@
                         </li>
                     </b-nav>
                     <div class="mail-box">
-                        <p class="mail">{{$store.state.content.email}}</p>
+                        <p class="mail" v-html="$store.state.content.email"></p>
                     </div>
                 </div>
             </div>

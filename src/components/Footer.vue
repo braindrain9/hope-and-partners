@@ -1,7 +1,7 @@
 <template>
     <div class="footer" :class="{'is-final-mode': isFinalMode}">
         <div v-if="isFinalMode" class="footer-content d-flex">
-            <div class="copy">{{$store.state.content.footerCredentials}}</div>
+            <div class="copy" v-html="$store.state.content.footerCredentials"></div>
             <div class="cosmos">
                 <span class="space-ship">🚀</span>
                 <a class="strike" href="https://cosmos.studio/" target="_blank">
@@ -19,7 +19,7 @@
             <slot name="progress-bar"></slot>
             <div class="d-none d-sm-block mail">
                 <a class="grey-color-link strike" :href="'mailto:' + $store.state.content.email">
-                    <span>{{$store.state.content.email}}</span>
+                    <span v-html="$store.state.content.email"></span>
                 </a>
             </div>
         </div>
