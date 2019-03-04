@@ -1,7 +1,7 @@
 <template>
-    <footer :class="{'is-final-mode': isFinalMode}">
+    <div class="footer" :class="{'is-final-mode': isFinalMode}">
         <div v-if="isFinalMode" class="footer-content d-flex">
-            <div class="copy">&copy; дві тисячі дев'ятнадцятий. hope & partners</div>
+            <div class="copy">{{$store.state.content.footerCredentials}}</div>
             <div class="cosmos">
                 <span class="space-ship">🚀</span>
                 <a class="strike" href="https://cosmos.studio/" target="_blank">
@@ -11,9 +11,9 @@
         </div>
         <div v-else class="footer-content d-flex justify-content-between align-items-end">
             <div>
-                <a :href="currentLink.path" class="menu-link">
+                <a :href="($route.name === 'home' ? '' : '/') + currentLink.path" class="menu-link">
                     <span class="divider d-inline-block"></span>
-                    <span class="link-text grey-color-link d-inline-block strike">{{currentLink.title}}</span>
+                    <span class="link-text grey-color-link d-inline-block strike">{{$t(currentLink.title)}}</span>
                 </a>
             </div>
             <slot name="progress-bar"></slot>
@@ -23,7 +23,7 @@
                 </a>
             </div>
         </div>
-    </footer>
+    </div>
 </template>
 
 <script>
@@ -55,7 +55,7 @@
 </script>
 
 <style scoped lang="scss">
-    footer {
+    .footer {
         width: 100%;
         margin: 40px 0 60px;
         font-size: 14px;
@@ -142,7 +142,7 @@
     }
 
     @include media-max-width($sm-max) {
-        footer {
+        .footer {
             &.is-final-mode {
                 .footer-content {
                     border: none;

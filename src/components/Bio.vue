@@ -3,15 +3,12 @@
         <div class="container">
             <div class="row">
                 <div class="heading-block col-sm-12 offset-sm-0 col-md-7 offset-md-5">
-                    <a href="#about" class="bio-link horizontal-grey-link">
+                    <a href="/#about" class="bio-link horizontal-grey-link">
                         <span></span>
-                        <span class="d-inline-block strike"><span>назад</span></span>
+                        <span class="d-inline-block strike"><span>{{$t('back')}}</span></span>
                     </a>
-                    <h1 class="heading heading-main">
-                        Моя<br/>
-                        повна <span class="orange-color">біографія</span>
-                    </h1>
-                    <div class="tiny-font-size white-color">останній апдейт 20.12.2018</div>
+                    <h1 class="heading heading-main"v-html="$t('myCompleteBio')"></h1>
+                    <div class="tiny-font-size white-color">{{$t('updatedAt')}} {{updated}}</div>
                 </div>
             </div>
         </div>
@@ -25,17 +22,15 @@
                              :key="i"></div>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
-                        <div class="description description-dark">
-                            <div v-for="bio in biography" :key="bio.id">
-                                <div class="photo d-md-none"
-                                     v-if="bio.imageUrl"
-                                     :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
-                                ></div>
+                        <div class="description description-dark" v-for="bio in biography" :key="bio.id">
+                            <div class="photo d-md-none"
+                                 v-if="bio.imageUrl"
+                                 :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
+                            ></div>
 
-                                <h4 v-if="bio.title">{{bio.title}}</h4>
+                            <h2 v-if="bio.title">{{bio.title}}</h2>
 
-                                <div class="paragraph" v-if="bio.content" v-html="bio.content"></div>
-                            </div>
+                            <div class="paragraph" v-if="bio.content" v-html="bio.content"></div>
                         </div>
                     </div>
                 </div>
@@ -54,6 +49,8 @@
   import ScrollMagic from 'scrollmagic';
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax, TweenLite} from "gsap/TweenMax";
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'Bio',
@@ -61,28 +58,58 @@
     data() {
       return {
         biography: [],
-        photos: []
+        photos: [],
+        updated: '',
+        lang: i18n.locale
       }
     },
 
     created() {
-      this.$http.get('wp/v2/bio')
-        .then(response => {
-            this.biography = this.transformResponseData(response.data);
-            this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
-        }, error => console.log(error))
-        .finally(() => {
-          TweenLite.to($('.bio'), 1, {opacity: 1});
-          TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
-          TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-          TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-        })
+      this.getBioData();
     },
 
-    mounted() {
-      document.title = 'Hope & Partners / Bio';
+    methods: {
+      getBioData: function() {
+        this.$http.get(`wp/v2/bio?lang=${this.lang}`)
+          .then(response => {
+            this.biography = this.transformResponseData(response.data);
+            this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
+            this.updated = this.formatDate(this.findLatestDate(response.data));
+          }, error => console.log(error))
+          .finally(() => {
+            this.addBioAnimation();
+          });
+      },
+      findLatestDate: function (dates) {
+        if (dates.length === 0) return null;
 
-      $(document).ready(function () {
+        let latestDate = dates[0].modified;
+
+        dates.forEach((date) => {
+          if (date.modified > latestDate){
+            latestDate = date.modified;
+          }
+        });
+
+        return latestDate;
+      },
+      formatDate: function(date) {
+        if (date) {
+          let formattedDate = new Date(date);
+
+          formattedDate = formattedDate.toLocaleDateString(undefined, {day:'2-digit'})
+            + '.' + formattedDate.toLocaleDateString(undefined, {month:'2-digit'})
+            + '.' + formattedDate.toLocaleDateString(undefined, {year:'numeric'});
+
+          return formattedDate;
+        }
+      },
+      addBioAnimation: function() {
+        TweenLite.to($('.bio'), 1, {opacity: 1});
+        TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
+        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+
         const controller = new ScrollMagic.Controller();
 
         const scene = new ScrollMagic.Scene({
@@ -105,7 +132,7 @@
             .addTo(controller);
         });
 
-        $.each($('.bio .row .description-block .description div'), function (index, elem) {
+        $.each($('.bio .row .description-block .description'), function (index, elem) {
           const anim = new TimelineMax()
             .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
@@ -128,6 +155,17 @@
         })
           .setTween(wipeAnimation2)
           .addTo(controller);
+      }
+    },
+
+    mounted() {
+      document.title = 'Hope & Partners / Bio';
+
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getBioData();
+        }
       });
     },
 
@@ -189,7 +227,7 @@
                         margin-bottom: 60px;
                     }
 
-                    h4 {
+                    h2 {
                         font-weight: bold;
                         font-size: 24px;
                         margin-bottom: 15px;
@@ -208,7 +246,7 @@
 
                 .description-block {
                     .description {
-                        h4 {
+                        h2 {
                             font-size: 20px;
                         }
                         div {
@@ -276,7 +314,7 @@
                     margin-top: -80px;
 
                     .description {
-                        h4 {
+                        h2 {
                             font-size: 20px;
                         }
                         div {

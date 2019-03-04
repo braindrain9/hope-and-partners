@@ -10,7 +10,7 @@
                 <p class="description" v-html="content.description"></p>
                 <p class="bio-link">
                     <span class="divider"></span>
-                    <span>повне біо <router-link class="strike" to="/bio"><span>тут</span></router-link></span>
+                    <span>{{$t('completeBio')}} <router-link class="strike" to="/bio"><span>{{$t('here')}}</span></router-link></span>
                 </p>
             </div>
         </div>
@@ -22,13 +22,16 @@
   import Event from './Event';
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
+  import {i18n} from "../i18n";
+  import bus from '../bus';
 
   export default {
     name: 'About',
 
     data() {
       return {
-        content: {}
+        content: {},
+        lang: i18n.locale
       }
     },
 
@@ -37,12 +40,25 @@
     },
 
     created() {
-      this.$http.get('wp/v2/about').then(response => {
-        this.content = this.transformResponseData(response.data)[0] || {};
-      }, error => console.log(error));
+      this.getAboutData();
+    },
+
+    methods: {
+      getAboutData: function() {
+        this.$http.get(`wp/v2/about?lang=${this.lang}`).then(response => {
+          this.content = this.transformResponseData(response.data)[0] || {};
+        }, error => console.log(error));
+      }
     },
 
     mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getAboutData();
+        }
+      });
+
       $(document).ready(function () {
         const controller = new ScrollMagic.Controller();
 
@@ -50,9 +66,6 @@
           .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
           .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
         ;
-
-        const eventAnimation = new TimelineMax()
-          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
         const photoAnimation = new TimelineMax()
           .fromTo($('.about .about-image'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
@@ -64,6 +77,9 @@
         })
           .setTween(bioInfoAnimation)
           .addTo(controller);
+
+        const eventAnimation = new TimelineMax()
+          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
         const event = new ScrollMagic.Scene({
           triggerElement: ".about .event",

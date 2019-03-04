@@ -81,6 +81,11 @@
 }
 
 .bio-container {
+  .heading {
+    & /deep/ p {
+      margin-bottom: 0;
+    }
+  }
   .description {
     & /deep/ p {
       margin-bottom: 28px;

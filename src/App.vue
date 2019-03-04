@@ -15,7 +15,7 @@
             <!--@close="showUpdater = false"-->
             <!--/>-->
 
-            <router-view/>
+            <router-view role="main"/>
 
         </div>
 
@@ -37,18 +37,30 @@
   import {TimelineMax, TweenLite, Linear, Power4} from 'gsap/TweenMax';
   import anime from 'animejs';
 
+  import {i18n} from "./i18n";
+  import bus from './bus';
+
   export default {
     name: 'App',
 
-    created: function () {
-      this.$http.get('wp/v2/general').then(response => {
-          const general = this.transformResponseData(response.data)[0] || {};
+    data() {
+      return {
+        lang: i18n.locale
+      }
+    },
 
-          this.$store.commit('updateGeneralContent', general);
-        }, error => console.log(error));
+    created: function () {
+      this.getGeneralContent();
     },
 
     mounted() {
+      bus.$on('fetchData', (lang) => {
+        if (this.lang !== lang) {
+          this.lang = lang;
+          this.getGeneralContent();
+        }
+      });
+
       const self = this;
 
       $(document).ready(function () {
@@ -138,8 +150,10 @@
                 TweenLite.to($('#wrapper'), 1, {autoAlpha: 1});
                 // hero loading animations
                 if ($('.hero').length) {
+                  const heroHeading = $('.hero .heading-main');
+
                   TweenLite.to($('.hero-section'), 1, {opacity: 1.0});
-                  TweenLite.fromTo($('.hero .heading-main'), 1.5, {opacity: 0, y: 50}, {
+                  TweenLite.fromTo(heroHeading, 1.5, {opacity: 0, y: 50}, {
                     opacity: 1.0,
                     y: 0,
                     delay: 0.5
@@ -149,10 +163,9 @@
                     x: 0,
                     delay: 2
                   });
-                  $('.hero .heading-main span').each(function () {
-                    $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-                  });
-                  TweenLite.fromTo($('footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
+
+                  heroHeading.html(heroHeading.text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+                  TweenLite.fromTo($('.footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
 
                   anime.timeline().add({
                     targets: '.hero .heading-main .letter',
@@ -212,9 +225,17 @@
               });
             });
           }
-        }
-      )
-      ;
+        });
+    },
+
+    methods: {
+      getGeneralContent: function() {
+        this.$http.get(`wp/v2/general?lang=${this.lang}`).then(response => {
+          const general = this.transformResponseData(response.data)[0] || {};
+
+          this.$store.commit('updateGeneralContent', general);
+        }, error => console.log(error));
+      }
     },
 
     components: {

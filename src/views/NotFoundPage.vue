@@ -1,8 +1,8 @@
 <template>
 	<div class="page-not-found d-flex align-items-center justify-content-center">
 		<div class="text-center">
-			Cторінка, яку Ви шукаєте, не існує.<br/>
-			<a href="/" class="white-color-link">Повернутись на головну</a>
+			{{$t('notFound')}}<br/>
+			<a href="/" class="white-color-link">{{$t('backToHome')}}</a>
 		</div>
 	</div>
 </template>

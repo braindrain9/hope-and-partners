@@ -3,7 +3,7 @@
         <div id="partners-container">
             <div class="partners-title-wrapper">
                 <div class="container">
-                    <h2 class="heading heading-main">партнери<span class="orange-color">:</span></h2>
+                    <h2 class="heading heading-main">{{$t('partners')}}<span class="orange-color">:</span></h2>
                 </div>
             </div>
             <div class="d-none d-sm-block" id="partners-slider-container">
@@ -332,7 +332,7 @@
           const controller = new ScrollMagic.Controller();
 
           const hideFooterAnimation = new TimelineMax()
-              .fromTo($('#services footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
+              .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3})
           ;
 
           // hide footer
