@@ -158,10 +158,6 @@
       }
     },
 
-    mounted() {
-      document.title = 'Hope & Partners / Bio';
-    },
-
     components: {
       Event,
       Footer
