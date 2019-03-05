@@ -538,7 +538,7 @@ export default {
 
 
       function animate() {
-        // particleSystem.rotation.y -= animationVars.speed;
+        particleSystem.rotation.y -= animationVars.speed;
         particles.verticesNeedUpdate = true;
 
         particleSystem.material.color = new THREE.Color( animationVars.color );
