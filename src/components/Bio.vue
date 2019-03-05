@@ -119,7 +119,7 @@
         })
           .addTo(controller);
 
-        $.each($('.bio .photo-block .photo'), function (index, elem) {
+        $.each($('.bio .photo-block > .photo'), function (index, elem) {
           const animPhoto = new TimelineMax()
             .fromTo(elem, 1, {y: 20, opacity: index ? 0.5 : 1}, {y: 0, opacity: 1});
 
@@ -132,7 +132,7 @@
             .addTo(controller);
         });
 
-        $.each($('.bio .row .description-block .description'), function (index, elem) {
+        $.each($('.bio .row .description-block .description .paragraph'), function (index, elem) {
           const anim = new TimelineMax()
             .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
