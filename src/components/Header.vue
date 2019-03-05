@@ -17,9 +17,10 @@
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
                     <b-navbar-nav id="menu">
                         <li class="nav-item" v-for="(link, index) in filteredNavLinks" :key="index">
-                            <a :href="($route.name === 'home' ? '' : '/') + link.path"
+                            <a :data-link="link.path"
                                :key="link.id"
                                class="nav-link strike"
+                               href="javascript:void(0)"
                             >
                                 <span>{{$t(link.title)}}</span>
                             </a>
@@ -55,11 +56,12 @@
                 <div class="wrapper">
                     <b-nav id="mobile-menu-items" vertical>
                         <li class="nav-item" v-for="(link, index) in navLinks">
-                            <a :href="link.path"
+                            <a :data-link="link.path"
                                :key="link.id"
                                class="nav-link"
                                :class="{active: index === 0}"
                                v-on:click="hideMenu()"
+                               href="javascript:void(0)"
                             >{{$t(link.title)}}</a>
                         </li>
                     </b-nav>

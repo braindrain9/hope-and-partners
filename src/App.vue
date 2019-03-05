@@ -192,7 +192,7 @@
 
             const DsBody = $('html, body');
 
-            $(document).on('click', 'a[href^="#"]:not(.scrolled)', function (event) {
+            $(document).on('click', 'a[data-link]', function (event) {
               event.preventDefault();
               event.stopImmediatePropagation();
 
@@ -207,9 +207,10 @@
                 ease: Power4.easeInOut
               });
 
-              const target = $($.attr(this, 'href'));
+              const hash = $.attr(this, 'data-link');
+              const target = $(hash);
 
-              location.href = '/' + $(this).prop("hash");
+              location.href = (i18n.locale === 'en' ? '/en' : '/') + hash;
 
               setTimeout(function () {
                 DsBody.animate({

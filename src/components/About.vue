@@ -207,10 +207,15 @@
         }
     }
 
-    @include media-max-width($xs-max) {
+    @include media-max-width($mobile-sm) {
         .about {
             .bio-link {
                 font-size: 18px;
+
+                .divider {
+                    display: block;
+                    margin-bottom: 10px;
+                }
             }
         }
     }
