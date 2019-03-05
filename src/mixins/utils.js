@@ -168,13 +168,6 @@ export default {
     return {
       navLinks: [
         {
-          name: 'home',
-          title: 'home',
-          path: '/',
-          hidden: true,
-          id: 1
-        },
-        {
           name: 'about',
           path: '#about',
           title: 'about',
@@ -202,7 +195,7 @@ export default {
       footerNavLinks: [
         {
           name: 'home',
-          path: '/',
+          path: '#hero',
           title: 'home'
         },
         {
