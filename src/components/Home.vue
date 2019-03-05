@@ -63,8 +63,6 @@
       }
     },
     created() {
-      document.title = 'Hope & Partners';
-
       this.getServices();
       this.getPartners();
       this.getCases();
@@ -105,14 +103,7 @@
     },
 
     mounted() {
-      bus.$on('fetchData', (lang) => {
-        if (this.lang !== lang) {
-          this.lang = lang;
-          this.getServices();
-          this.getPartners();
-          this.getCases();
-        }
-      })
+      document.title = this.$store.state.content.mainPageTitle || 'Hope & Partners';
     }
   }
 </script>
