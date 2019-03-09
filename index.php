@@ -9,7 +9,7 @@
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700">
    <meta name="viewport"
         content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0">
-   <meta name="description" content="<?php echo getDescription(); ?">
+   <meta name="description" content="<?php echo getDescription(); ?>">
    <meta property="og:site_name" content="Hope&Partners"/>
    <meta property="og:locale" content="<?php echo getLocale(); ?>"/>
    <meta property="og:title" content="Hope&Partners"/>
@@ -19,8 +19,8 @@
    <meta property="og:image" content="https://hopeandpart.com/opengraph-image.jpg"/>
    <meta name="twitter:card" content="summary"/>
    <meta name="twitter:title" content="Hope&Partners"/>
-   <meta name="twitter:description" content="<?php echo getDescription(); ?"/>
-   <meta property="twitter:image" content="https://hopeandpart.com/opengraph-image.jpg"/>
+   <meta name="twitter:description" content="<?php echo getDescription(); ?>"/>
+   <meta name="twitter:image" content="https://hopeandpart.com/opengraph-image.jpg"/>
 
    <?php
      function getSiteUrl() {
