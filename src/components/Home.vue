@@ -47,7 +47,6 @@
   import Contacts from './Contacts';
   import Footer from './Footer';
   import {i18n} from "../i18n";
-  import bus from '../bus';
 
   export default {
     name: 'Home',
@@ -100,10 +99,6 @@
       Cases,
       Contacts,
       Footer
-    },
-
-    mounted() {
-      document.title = this.$store.state.content.mainPageTitle || 'Hope & Partners';
     }
   }
 </script>

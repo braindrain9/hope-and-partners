@@ -54,13 +54,6 @@
     },
 
     mounted() {
-      bus.$on('fetchData', (lang) => {
-        if (this.lang !== lang) {
-          this.lang = lang;
-          this.getGeneralContent();
-        }
-      });
-
       const self = this;
 
       $(document).ready(function () {
@@ -233,6 +226,11 @@
       getGeneralContent: function() {
         this.$http.get(`wp/v2/general?lang=${this.lang}`).then(response => {
           const general = this.transformResponseData(response.data)[0] || {};
+          console.log(this.$route, 'route');
+          document.title = ((this.$route.name === 'bio' || this.$route.name === 'bioEng')
+            ? general.bioPageTitle
+            : general.mainPageTitle)
+            || 'Hope & Partners';
 
           this.$store.commit('updateGeneralContent', general);
         }, error => console.log(error));
