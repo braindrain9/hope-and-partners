@@ -38,7 +38,6 @@
   import anime from 'animejs';
 
   import {i18n} from "./i18n";
-  import bus from './bus';
 
   export default {
     name: 'App',
@@ -226,7 +225,6 @@
       getGeneralContent: function() {
         this.$http.get(`wp/v2/general?lang=${this.lang}`).then(response => {
           const general = this.transformResponseData(response.data)[0] || {};
-          console.log(this.$route, 'route');
           document.title = ((this.$route.name === 'bio' || this.$route.name === 'bioEng')
             ? general.bioPageTitle
             : general.mainPageTitle)

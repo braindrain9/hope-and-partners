@@ -38,7 +38,7 @@ add_action('wp_enqueue_scripts', 'load_vue_scripts', 100);
 function add_defer_attribute($tag, $handle) {
     // add script handles to the array below
    $scripts_to_defer = array('vendor.js', 'bundle.js', 'font.json');
-
+ 
    foreach($scripts_to_defer as $defer_script) {
       if ($defer_script === $handle) {
          return str_replace(' src', ' defer="defer" src', $tag);
@@ -53,7 +53,7 @@ function remove_embeded_scripts(){
 }
 add_action( 'wp_footer', 'remove_embeded_scripts' );
 
-function remove_jquery() {
+function remove_jquery() {    
     if( !is_admin()){
      wp_deregister_script('jquery');
     }
