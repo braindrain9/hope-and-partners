@@ -15,6 +15,7 @@
    <meta property="og:description" content="Маркетингова агенція яка налагоджує зв'язки з реальністю"/>
    <meta property="og:title" content="Hope & Partners"/>
    <meta property="og:type" content="website"/>
+   <meta property="og:image" content="//hopeandpart.com/opengraph-image.jpg"/>
    <meta name="twitter:card" content="summary"/>
    <meta name="twitter:title" content="Hope & Partners"/>
    <meta name="twitter:description" content="Маркетингова агенція яка налагоджує зв'язки з реальністю"/>
