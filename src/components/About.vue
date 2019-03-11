@@ -10,7 +10,7 @@
                 <p class="description" v-html="content.description"></p>
                 <p class="bio-link">
                     <span class="divider"></span>
-                    <span>{{$t('completeBio')}} <router-link class="strike" :to="lang === 'en' ? '/en/bio' : '/bio'"><span>{{$t('here')}}</span></router-link></span>
+                    <span>{{$t('allAchievements')}} <router-link class="strike" :to="lang === 'en' ? '/en/bio' : '/bio'"><span>{{$t('here')}}</span></router-link></span>
                 </p>
             </div>
         </div>

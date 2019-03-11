@@ -9,11 +9,11 @@ export const i18n = new VueI18n({
   messages: {
     en: {
       about: 'about me',
+      allAchievements: 'All achievements are',
       back: 'back',
       backToHome: 'Back to home',
       cases: 'cases',
       close: 'close',
-      completeBio: 'All achievements are',
       contactUs: 'contact us',
       detailed: 'more detailed',
       here: 'here',
@@ -31,11 +31,11 @@ export const i18n = new VueI18n({
     },
     uk: {
       about: 'про мене',
+      allAchievements: 'Усі напрацювання',
       back: 'назад',
       backToHome: 'Повернутись на головну',
       cases: 'кейси',
       close: 'закрити',
-      completeBio: 'Усі напрацювання',
       contactUs: 'напишіть нам листа',
       detailed: 'детальніше',
       here: 'тут',

@@ -1,8 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -10,9 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'bundle.js',
-    // filename: '[name].js',
-    // chunkFilename: '[name]-[chunkhash].js',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -112,7 +109,6 @@ module.exports = {
 if (process.env.NODE_ENV === 'production') {
 
   module.exports.devtool = false;
-  // module.exports.output.filename = '[name].[hash].js';
 
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -141,13 +137,7 @@ if (process.env.NODE_ENV === 'production') {
       name: 'vendor',
       filename: 'vendor.js',
       minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
-    }),
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: 'index.html',
-    //   inject: true,
-    //   chunksSortMode: 'dependency'
-    // })
+    })
   ]);
 
 }
