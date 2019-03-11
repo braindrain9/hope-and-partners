@@ -3,11 +3,8 @@ import VueRouter from 'vue-router';
 import {i18n} from "./i18n";
 
 // components
-// const Home = () => import('./components/Home');
-// const Bio = () => import('./components/Bio');
-// const NotFoundPage = () => import('./views/NotFoundPage');
-import Home from './components/Home';
-import Bio from './components/Bio';
+import HomePage from './views/HomePage';
+import BioPage from './views/BioPage';
 import NotFoundPage from './views/NotFoundPage';
 
 Vue.use(VueRouter);
@@ -16,12 +13,12 @@ const routes = [
   {
     name: 'home',
     path: '/',
-    component: Home
+    component: HomePage
   },
   {
     name: 'homeEng',
     path: '/en',
-    component: Home,
+    component: HomePage,
     beforeEnter (to, from, next) {
       if (i18n.locale !== 'en') {
         i18n.locale = 'en';
@@ -33,7 +30,7 @@ const routes = [
   {
     name: 'bioEng',
     path: '/en/bio',
-    component: Bio,
+    component: BioPage,
     beforeEnter (to, from, next) {
       if (i18n.locale !== 'en') {
         i18n.locale = 'en';
@@ -61,7 +58,7 @@ const routes = [
   {
     name: 'bio',
     path: '/bio',
-    component: Bio
+    component: BioPage
   },
   {
     name: 'notFoundPage',

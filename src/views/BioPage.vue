@@ -44,16 +44,15 @@
 </template>
 
 <script>
-  import Event from './Event';
-  import Footer from './Footer';
+  import Event from '../components/Event';
+  import Footer from '../components/Footer';
   import ScrollMagic from 'scrollmagic';
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax, TweenLite} from "gsap/TweenMax";
   import {i18n} from "../i18n";
-  import bus from '../bus';
 
   export default {
-    name: 'Bio',
+    name: 'BioPage',
 
     data() {
       return {

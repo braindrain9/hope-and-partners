@@ -39,17 +39,17 @@
 </template>
 
 <script>
-  import Hero from './Hero';
-  import About from './About';
-  import Partners from './Partners';
-  import Services from './Services';
-  import Cases from './Cases';
-  import Contacts from './Contacts';
-  import Footer from './Footer';
+  import Hero from '../components/Hero';
+  import About from '../components/About';
+  import Partners from '../components/Partners';
+  import Services from '../components/Services';
+  import Cases from '../components/Cases';
+  import Contacts from '../components/Contacts';
+  import Footer from '../components/Footer';
   import {i18n} from "../i18n";
 
   export default {
-    name: 'Home',
+    name: 'HomePage',
 
     data() {
       return {
