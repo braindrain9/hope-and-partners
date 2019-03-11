@@ -43,7 +43,7 @@
        if(get_locale() == 'en_US') {
          return 'We build connection with reality';
        } else {
-         return 'Налагоджуємо зв`язки з реальністю';
+         return 'Налагоджуємо зв’язки з реальністю';
        }
      }
     ?>
