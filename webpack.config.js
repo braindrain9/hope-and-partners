@@ -67,8 +67,7 @@ module.exports = {
           limit: 10 * 1024,
           name (file) {
             return '/[path][name].[ext]';
-          },
-          exclude: '/src/assets/img/partners/'
+          }
         }
       },
       {
@@ -105,8 +104,7 @@ module.exports = {
       THREE: "three"
     }),
     new CopyWebpackPlugin([
-      { from: 'src/assets/json', to: 'src/assets/json' },
-      { from: 'src/assets/img/partners', to: 'src/assets/img/partners' }
+      { from: 'src/assets/json', to: 'src/assets/json' }
     ])
   ]
 };

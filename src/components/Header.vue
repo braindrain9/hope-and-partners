@@ -77,7 +77,6 @@
 <script>
   import logo from '../assets/img/logo.svg';
   import logoMobile from '../assets/img/logo-mobile.svg';
-  import logoDarkMobile from '../assets/img/logo-dark-mobile.svg';
   import {TweenMax, TimelineMax, TweenLite} from 'gsap/TweenMax';
   import {i18n} from "../i18n";
 
@@ -89,7 +88,6 @@
         currentLang: i18n.locale,
         logo,
         logoMobile,
-        logoDarkMobile,
         languages: [
           {
             key: 'en',
