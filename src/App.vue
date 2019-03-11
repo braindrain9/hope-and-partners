@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Loading/>
+        <Loader/>
 
         <div id="wrapper">
             <Header/>
@@ -18,7 +18,7 @@
 
 <script>
   import Footer from './components/Footer';
-  import Loading from './components/Loading';
+  import Loader from './components/Loader';
   import Header from './components/Header';
 
   import {TimelineMax, TweenLite, Linear, Power4} from 'gsap/TweenMax';
@@ -225,7 +225,7 @@
     components: {
       Header,
       Footer,
-      Loading
+      Loader
     }
   }
 </script>

@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'Loading',
+    name: 'Loader',
 
     data() {
       return {
