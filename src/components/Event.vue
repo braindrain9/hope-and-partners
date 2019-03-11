@@ -70,7 +70,7 @@
 
             .text {
                 font-weight: 500;
-                font-size: 32px;
+                font-size: $extra-medium-font-size;
             }
         }
     }
@@ -83,7 +83,7 @@
 
             .description {
                 .text {
-                    font-size: 24px;
+                    font-size: $extra-medium-base-font-size;
                 }
             }
         }
@@ -103,10 +103,10 @@
 
             .description {
                 .category-title {
-                    font-size: 12px;
+                    font-size: $tiny-font-size;
                 }
                 .text {
-                    font-size: 18px;
+                    font-size: $base-font-size;
                 }
             }
         }
@@ -129,10 +129,10 @@
 
             .description {
                 .category-title {
-                    font-size: 10px;
+                    font-size: $extra-tiny-font-size;
                 }
                 .text {
-                    font-size: 16px;
+                    font-size: $small-base-font-size;
                 }
             }
         }

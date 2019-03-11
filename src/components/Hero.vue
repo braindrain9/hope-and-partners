@@ -136,7 +136,7 @@
             }
 
             .grey-color-link:hover {
-                color: white;
+                color: $white;
             }
         }
     }

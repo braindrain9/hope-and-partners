@@ -172,7 +172,7 @@
             }
 
             .bg-image {
-                background: #1E1E1E;
+                background: $extra-dark-grey;
                 width: 105%;
                 height: 100%;
                 position: absolute;
@@ -190,14 +190,14 @@
             h2 {
                 font-weight: bold;
                 line-height: 34px;
-                font-size: 24px;
+                font-size: $extra-medium-base-font-size;
                 margin-bottom: 15px;
             }
 
             .description {
                 font-weight: 500;
                 line-height: 24px;
-                font-size: 14px;
+                font-size: $small-font-size;
                 margin-bottom: 20px;
                 max-height: 250px;
                 overflow-y: auto;
@@ -215,7 +215,7 @@
             .photo {
                 width: 80px;
                 min-width: 65px;
-                font-size: 12px;
+                font-size: $tiny-font-size;
 
                 img {
                     border-radius: 50%;
@@ -228,14 +228,14 @@
                 h3 {
                     font-weight: 500;
                     line-height: 20px;
-                    font-size: 14px;
+                    font-size: $small-font-size;
                     margin-bottom: 5px;
                 }
 
                 p {
                     line-height: 20px;
-                    font-size: 14px;
-                    color: #BCBFC1;
+                    font-size: $small-font-size;
+                    color: $light-grey;
 
                     &:before,
                     &:after {

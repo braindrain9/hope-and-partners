@@ -64,7 +64,7 @@
     .footer {
         width: 100%;
         margin: 40px 0 60px;
-        font-size: 14px;
+        font-size: $small-font-size;
         position: relative;
         z-index: 10;
 
@@ -123,7 +123,7 @@
         }
 
         .mail {
-            font-size: 12px;
+            font-size: $tiny-font-size;
         }
 
         .cosmos {
@@ -138,7 +138,7 @@
             }
 
             .space-ship {
-                font-size: 24px;
+                font-size: $extra-medium-base-font-size;
                 display: block;
                 float: left;
                 width: 35px;
@@ -161,7 +161,7 @@
                         padding-top: 10px;
 
                         &.copy {
-                            font-size: 12px;
+                            font-size: $tiny-font-size;
                         }
                     }
                 }

@@ -119,7 +119,7 @@
         .bio-link {
             font-weight: 500;
             line-height: 32px;
-            font-size: 24px;
+            font-size: $extra-medium-base-font-size;
             letter-spacing: $base-spacing;
             color: $white;
 
@@ -173,7 +173,7 @@
             }
 
             .bio-link {
-                font-size: 20px;
+                font-size: $medium-base-font-size;
             }
         }
     }
@@ -210,7 +210,7 @@
     @include media-max-width($mobile-sm) {
         .about {
             .bio-link {
-                font-size: 18px;
+                font-size: $base-font-size;
 
                 .divider {
                     display: block;

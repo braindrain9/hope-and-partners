@@ -178,7 +178,7 @@
             padding-bottom: 100px;
 
             .bio-link {
-                font-size: 24px;
+                font-size: $extra-medium-base-font-size;
             }
 
             .heading-main {
@@ -211,13 +211,13 @@
                     div {
                         font-weight: 500;
                         line-height: 27px;
-                        font-size: 20px;
+                        font-size: $medium-base-font-size;
                         margin-bottom: 60px;
                     }
 
                     h2 {
                         font-weight: bold;
-                        font-size: 24px;
+                        font-size: $extra-medium-base-font-size;
                         margin-bottom: 15px;
                     }
                 }
@@ -235,10 +235,10 @@
                 .description-block {
                     .description {
                         h2 {
-                            font-size: 20px;
+                            font-size: $medium-base-font-size;
                         }
                         div {
-                            font-size: 16px;
+                            font-size: $small-base-font-size;
                             margin-bottom: 40px;
                         }
                     }
@@ -251,7 +251,7 @@
         .bio {
             .heading-block {
                 .bio-link {
-                    font-size: 18px;
+                    font-size: $base-font-size;
                 }
             }
 
@@ -267,7 +267,7 @@
                 .description-block {
                     .description {
                         div {
-                            font-size: 14px;
+                            font-size: $small-font-size;
                         }
                     }
                 }
@@ -281,7 +281,7 @@
 
             .heading-block {
                 .bio-link {
-                    font-size: 16px;
+                    font-size: $small-base-font-size;
                 }
             }
 
@@ -303,10 +303,10 @@
 
                     .description {
                         h2 {
-                            font-size: 20px;
+                            font-size: $medium-base-font-size;
                         }
                         div {
-                            font-size: 14px;
+                            font-size: $small-font-size;
                         }
                     }
                 }

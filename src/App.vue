@@ -254,8 +254,8 @@
         width: 60px;
         height: 60px;
         transform: translate(-50%, -50%);
-        background-color: rgba(255, 255, 255, 0);
-        border: 1px solid rgba(255, 255, 255, 0)
+        background-color: transparent;
+        border: 1px solid transparent;
     }
 
     #mouse-icon .icon {
@@ -266,8 +266,8 @@
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0);
-        border: 1px solid rgba(255, 255, 255, 0);
+        background-color: transparent;
+        border: 1px solid transparent;
         transition: all .7s
     }
 
@@ -287,7 +287,7 @@
     #mouse-icon.hover .icon {
         width: 60px;
         height: 60px;
-        border: 2px solid #f44336a6;
+        border: 2px solid $orange;
     }
 
     #mouse-icon.hover .icon .inner-icon {

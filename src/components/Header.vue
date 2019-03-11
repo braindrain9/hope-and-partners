@@ -230,7 +230,7 @@
 
                     &.active {
                         border-bottom-color: $orange;
-                        color: white;
+                        color: $white;
                     }
                 }
             }
@@ -248,13 +248,13 @@
     }
 
     #openMenu {
-        color: white;
-        font-size: 16px;
+        color: $white;
+        font-size: $small-base-font-size;
         border-radius: 0;
         padding: 10px 20px 20px 0;
 
         > span {
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid $white;
             padding-bottom: 7px;
         }
     }
@@ -274,7 +274,7 @@
     }
 
     #fadeClose {
-        font-size: 16px;
+        font-size: $small-base-font-size;
         color: $white;
         padding-top: 10px;
 
@@ -306,7 +306,7 @@
             .nav-link {
                 color: $white;
                 font-weight: bold;
-                font-size: 36px;
+                font-size: $secondary-header-font-size;
 
                 &.active {
                     color: $orange;
@@ -320,7 +320,7 @@
         bottom: 5%;
 
         p {
-            font-size: 20px;
+            font-size: $medium-base-font-size;
             text-decoration: underline;
         }
     }

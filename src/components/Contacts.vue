@@ -98,7 +98,7 @@
 
         .mail-block {
             h1 {
-                font-size: 24px;
+                font-size: $extra-medium-base-font-size;
                 font-weight: bold;
                 color: $white;
             }
@@ -116,7 +116,7 @@
             }
 
             .mail {
-                font-size: 46px;
+                font-size: $main-header-font-size;
                 font-weight: bold;
                 color: $orange;
                 margin-bottom: 20px;
@@ -147,10 +147,10 @@
         .contacts {
             .mail-block {
                 h1 {
-                    font-size: 20px;
+                    font-size: $medium-base-font-size;
                 }
                 .mail {
-                    font-size: 32px;
+                    font-size: $secondary-header-font-size;
                 }
             }
         }
@@ -160,10 +160,10 @@
         .contacts {
             .mail-block {
                 h1 {
-                    font-size: 16px;
+                    font-size: $small-base-font-size;
                 }
                 .mail {
-                    font-size: 28px;
+                    font-size: $medium-font-size;
                 }
             }
         }
@@ -184,12 +184,12 @@
                 height: 30%;
 
                 h1 {
-                    font-size: 20px;
+                    font-size: $medium-base-font-size;
                     margin-bottom: 20px;
                 }
 
                 .mail {
-                    font-size: 20px;
+                    font-size: $medium-base-font-size;
                 }
 
                 .arrow-svg {

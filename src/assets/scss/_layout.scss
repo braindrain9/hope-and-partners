@@ -1,7 +1,5 @@
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
-  //scroll-behavior: smooth;
 }
 
 *,
@@ -20,9 +18,9 @@ body {
   font-family: $base-font-family;
   background-color: $base-black;
   color: $grey;
-  font-size: $base-font-size;
+  font-size: $small-base-font-size;
   letter-spacing: $base-spacing;
-  overflow-x: hidden
+  overflow-x: hidden;
 }
 
 canvas {
@@ -44,7 +42,7 @@ a {
   }
 
   &:focus {
-    outline: 1px solid $grey;
+    outline: 1px solid $dark-grey;
   }
 }
 

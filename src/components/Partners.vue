@@ -376,8 +376,8 @@
             .bg-number {
                 font-weight: bold;
                 line-height: 407px;
-                font-size: 288px;
-                color: #1E1E1E;
+                font-size: $extra-large-letter-font-size;
+                color: $extra-dark-grey;
                 position: absolute;
                 top: -70px;
             }
@@ -396,7 +396,7 @@
             .bg-box {
                 width: 307px;
                 left: 80px;
-                background: #1E1E1E;
+                background: $extra-dark-grey;
                 height: 354px;
                 position: absolute;
                 top: 70px;
@@ -409,8 +409,8 @@
 
             .occupation {
                 line-height: 28px;
-                font-size: 18px;
-                color: #BCBFC1;
+                font-size: $base-font-size;
+                color: $light-grey;
                 opacity: 0.7;
             }
 
@@ -422,8 +422,8 @@
                 margin-top: 40px;
                 font-weight: 500;
                 line-height: 25px;
-                font-size: 14px;
-                letter-spacing: 0.01em;
+                font-size: $small-font-size;
+                letter-spacing: $base-spacing;
                 max-width: 400px;
                 height: 300px;
                 overflow-y: auto;
@@ -431,12 +431,12 @@
         }
 
         .progress-name {
-            font-size: 18px;
+            font-size: $base-font-size;
             padding-bottom: 20px;
             transition: color .5s ease-in-out;
 
             &.fill {
-                color: white;
+                color: $white;
             }
         }
 
@@ -565,7 +565,7 @@
                     }
 
                     .occupation {
-                        font-size: 14px;
+                        font-size: $small-font-size;
                     }
 
                     .description {
@@ -575,7 +575,7 @@
             }
 
             .progress-name {
-                font-size: 14px;
+                font-size: $small-font-size;
             }
         }
     }
@@ -629,9 +629,9 @@
                         position: static;
                         width: 200px;
                         height: 200px;
-                        -webkit-box-shadow: 10px 10px 0px 0px #1E1E1E;
-                        -moz-box-shadow: 10px 10px 0px 0px #1E1E1E;
-                        box-shadow: 10px 10px 0px 0px #1E1E1E;
+                        -webkit-box-shadow: 10px 10px 0px 0px $extra-dark-grey;
+                        -moz-box-shadow: 10px 10px 0px 0px $extra-dark-grey;
+                        box-shadow: 10px 10px 0px 0px $extra-dark-grey;
                     }
                 }
 

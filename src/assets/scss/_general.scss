@@ -164,7 +164,7 @@
 }
 
 .strike:hover span {
-  color: #fff
+  color: $white;
 }
 
 .strike span {
@@ -174,7 +174,7 @@
 
 .strike span::before, .strike span::after {
   content: '';
-  background: #fff;
+  background: $white;
   position: absolute;
   top: 50%;
   display: block;
@@ -338,7 +338,7 @@
   width: 30%;
   height: 2px;
   top: 94%;
-  background: #373739;
+  background: $dark-grey;
   left: 35%;
 
   &:before {
@@ -400,7 +400,7 @@
 
 @include media-max-width($lg-max) {
   .description {
-    font-size: 20px;
+    font-size: $medium-base-font-size;
   }
 
   .contacts {
@@ -416,12 +416,12 @@
 
 @include media-max-width($md-max) {
   .heading {
-    font-size: 28px;
+    font-size: $medium-font-size;
     line-height: 40px;
     margin-bottom: 20px;
 
     &-main {
-      font-size: 36px;
+      font-size: $secondary-header-font-size;
     }
   }
 
@@ -455,7 +455,7 @@
 
 @include media-max-width($sm-max) {
   .description {
-    font-size: 18px;
+    font-size: $base-font-size;
   }
 
   /*Cases slider*/
@@ -490,7 +490,7 @@
 
 @include media-max-width($mobile-sm) {
   .description {
-    font-size: 14px;
+    font-size: $small-font-size;
   }
 
   /*Cases slider*/

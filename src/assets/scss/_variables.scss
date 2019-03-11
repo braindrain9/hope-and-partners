@@ -8,53 +8,29 @@ $white: #fff;
 $grey: #777;
 $light-grey: #BCBFC1;
 $dark-grey: #373739;
+$extra-dark-grey: #1E1E1E;
 $orange: #F44336;
-
-// Sizes
-$home-block-height: calc(100vh - 250px);
-
-// before
-
-// Line height
-$base-line-height: 1.5;
-$heading-line-height: 1.2;
 
 // Font sizes
 $main-header-font-size: 48px;
 $header-font-size: 40px;
+$secondary-header-font-size: 36px;
+$extra-medium-font-size: 32px;
 $medium-font-size: 28px;
-$base-font-size: 16px;
+$extra-medium-base-font-size: 24px;
+$medium-base-font-size: 20px;
+$base-font-size: 18px;
+$small-base-font-size: 16px;
 $small-font-size: 14px;
 $tiny-font-size: 12px;
+$extra-tiny-font-size: 10px;
+
+$extra-large-letter-font-size: 288px;
+$large-letter-font-size: 90px;
+$medium-letter-font-size: 60px;
+
+// Sizes
+$home-block-height: calc(100vh - 250px);
 
 // Other Sizes
-$base-border-radius: 3px;
 $base-spacing: 0.01em;
-$small-spacing: $base-spacing / 2;
-
-// Colors
-$blue: #1565c0;
-$grey--medium: #999;
-$grey--mediumLight: lighten($grey--medium, 25%);
-$grey--light: #fafafa;
-$salmon: #E56B70;
-
-// Font Colors
-$base-font-color: $grey;
-
-// Border
-$base-border-color: $grey--light;
-$base-border: 1px solid $base-border-color;
-
-// Background Colors
-$base-background-color: #fff;
-
-// Focus
-$focus-outline-color: transparentize($orange, 0.4);
-$focus-outline-width: 3px;
-$focus-outline: $focus-outline-width solid $focus-outline-color;
-$focus-outline-offset: 2px;
-
-// Animations
-$base-duration: 150ms;
-$base-timing: ease;

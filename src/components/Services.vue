@@ -17,7 +17,6 @@
                             >
                                 <div class="d-flex align-items-center">
                                     <div class="text-block" :data-number="index + 1">
-                                        <div class="slide-content-counter">0{{index + 1}}</div>
                                         <span class="letter d-none">{{service.letter}}</span>
                                         <div class="slide-content-text-wrap">
                                             <div class="slide-content-text">
@@ -339,7 +338,7 @@
                 .slide-content-title h2, h2 {
                     font-weight: bold;
                     line-height: 34px;
-                    font-size: 24px;
+                    font-size: $extra-medium-base-font-size;
                     position: relative;
                     margin-bottom: 20px;
                     padding-right: 50px;
@@ -347,8 +346,8 @@
 
                 .description {
                     line-height: 20px;
-                    font-size: 14px;
-                    color: #BCBFC1;
+                    font-size: $small-font-size;
+                    color: $light-grey;
                     padding-right: 50px;
                 }
 
@@ -356,8 +355,8 @@
                     content: attr(data-number);
                     font-weight: bold;
                     line-height: 127px;
-                    font-size: 90px;
-                    color: #1E1E1E;
+                    font-size: $large-letter-font-size;
+                    color: $extra-dark-grey;
                     position: absolute;
                     left: -25px;
                     top: -45px;
@@ -402,7 +401,7 @@
         width: 20%;
         float: left;
         position: relative;
-        color: #fff;
+        color: $white;
     }
 
     .progress-slider-wrap {
@@ -436,7 +435,7 @@
 
     .slider-dots li {
         line-height: 28px;
-        font-size: 18px;
+        font-size: $base-font-size;
         text-align: center;
         color: $dark-grey;
         padding: 5px 12px 5px 0;
@@ -450,7 +449,7 @@
     }
 
     .slider-dots li.dots-point {
-        color: white;
+        color: $white;
         border-right: 2px solid $orange;
     }
 
@@ -475,27 +474,6 @@
         width: 100%;
         min-height: 500px;
         height: 50vh;
-    }
-
-    .slide-content-counter {
-        font-weight: 900;
-        line-height: normal;
-        font-size: 50px;
-        letter-spacing: .1em;
-        color: #F8F8F8;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        display: none;
-        width: 100%
-    }
-
-    .slide-content-counter:before {
-        display: inline-block;
-        width: 50px;
-        height: 4px;
-        background-color: #F8F8F8;
-        margin-right: 12px
     }
 
     .slide-content-text-wrap {
@@ -546,10 +524,6 @@
 
     .slider-dots li {
         text-transform: uppercase;
-    }
-
-    .slide-content-counter:before {
-        content: "";
     }
 
     .progress-line, .progress-pin, .progress-slider-wrap {
@@ -617,15 +591,15 @@
                     padding-left: 60px;
 
                     h2 {
-                        font-size: 18px;
+                        font-size: $base-font-size;
                         line-height: 28px;
                         position: relative;
 
                         &:before {
                             content: attr(data-number);
                             opacity: 1;
-                            font-size: 60px;
-                            color: #1E1E1E;
+                            font-size: $medium-letter-font-size;
+                            color: $extra-dark-grey;
                             font-weight: bold;
                             position: absolute;
                             left: - 50px;
@@ -660,7 +634,7 @@
                     padding-right: 0;
 
                     h2 {
-                        font-size: 16px;
+                        font-size: $small-base-font-size;
                     }
                 }
             }
