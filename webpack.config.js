@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var config = require('./config');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -96,7 +95,6 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new webpack.DefinePlugin(config),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jquery: 'jquery',
