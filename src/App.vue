@@ -2,21 +2,10 @@
     <div id="app">
         <Loading/>
 
-        <!--<TopBar-->
-        <!--@showUpdater="showUpdater = true"-->
-        <!--/>-->
-
         <div id="wrapper">
             <Header/>
 
-            <!--<Updater-->
-            <!--v-if="showUpdater"-->
-            <!--:error="error"-->
-            <!--@close="showUpdater = false"-->
-            <!--/>-->
-
             <router-view role="main"/>
-
         </div>
 
         <div id="mouse-icon">
@@ -30,8 +19,6 @@
 <script>
   import Footer from './components/Footer';
   import Loading from './components/Loading';
-  import Updater from './components/Updater';
-  import TopBar from './components/TopBar';
   import Header from './components/Header';
 
   import {TimelineMax, TweenLite, Linear, Power4} from 'gsap/TweenMax';
@@ -238,9 +225,7 @@
     components: {
       Header,
       Footer,
-      Loading,
-      Updater,
-      TopBar
+      Loading
     }
   }
 </script>
