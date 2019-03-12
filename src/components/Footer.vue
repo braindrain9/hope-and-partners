@@ -4,7 +4,7 @@
             <div class="copy" v-html="$store.state.content.footerCredentials"></div>
             <div class="cosmos">
                 <span class="space-ship">🚀</span>
-                <a class="strike" href="https://cosmos.studio/" target="_blank">
+                <a class="strike" href="https://cosmos.studio/" target="_blank" rel="noopener">
                     <span>Made in Cosmos Studio</span>
                 </a>
             </div>

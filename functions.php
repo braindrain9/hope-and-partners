@@ -31,13 +31,12 @@ add_action('init', 'remove_redirects');
 function load_vue_scripts() {
     wp_enqueue_script('vendor.js', get_template_directory_uri() . '/dist/vendor.js', null, null, true);
     wp_enqueue_script('bundle.js', get_template_directory_uri() . '/dist/bundle.js', null, null, true);
-    wp_enqueue_script('font.json', get_template_directory_uri() . '/dist/src/assets/json/Montserrat_Bold.json', null, null, true);
 }
 add_action('wp_enqueue_scripts', 'load_vue_scripts', 100);
 
 function add_defer_attribute($tag, $handle) {
     // add script handles to the array below
-   $scripts_to_defer = array('vendor.js', 'bundle.js', 'font.json');
+   $scripts_to_defer = array('vendor.js', 'bundle.js');
  
    foreach($scripts_to_defer as $defer_script) {
       if ($defer_script === $handle) {
