@@ -3,20 +3,12 @@
   color: $orange;
 }
 
-.grey-color {
-  color: $grey;
-}
-
 .light-grey-color {
   color: $light-grey;
 }
 
 .white-color {
   color: $white;
-}
-
-.bg-black {
-  background: $base-black;
 }
 
 .grey-color-link {
@@ -128,36 +120,7 @@
   }
 }
 
-/* Contacts */
-.contacts {
-  .mail-text {
-    arrow-svg {
-      & /deep/ svg {
-        transition: all 1s ease-in-out;
-      }
-    }
-
-    &:hover {
-      .arrow-svg {
-        & /deep/ svg {
-          animation: mail-arrow-svg .5s;
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
-
-  .mail-block.animation {
-    .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
-          animation: mail-arrow-svg .5s;
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
-}
+// animations
 
 .strike span {
   transition: color .5s
@@ -200,37 +163,6 @@
   width: 100%;
   background: transparent;
   transition: 0s
-}
-
-// animations
-
-.reveal-wrap {
-  overflow: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-.reveal {
-  transform: translate3d(0, 135%, 0);
-  display: inline-block;
-  white-space: nowrap
-}
-
-.reveal-wrap:nth-child(2) .reveal {
-  transition-delay: .2s
-}
-
-.reveal-wrap:nth-child(3) .reveal {
-  transition-delay: .4s
-}
-
-.reveal-title {
-  overflow: hidden;
-  position: relative
-}
-
-.reveal-wrap {
-  display: block
 }
 
 @keyframes mail-arrow-svg {
@@ -305,6 +237,37 @@
   }
 }
 
+/* Contacts */
+.contacts {
+  .mail-text {
+    arrow-svg {
+      & /deep/ svg {
+        transition: all 1s ease-in-out;
+      }
+    }
+
+    &:hover {
+      .arrow-svg {
+        & /deep/ svg {
+          animation: mail-arrow-svg .5s;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .mail-block.animation {
+    .mail-text {
+      .arrow-svg {
+        & /deep/ svg {
+          animation: mail-arrow-svg .5s;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
 /* Cases slider */
 .cases .swiper-slide {
   -webkit-box-sizing: border-box;
@@ -363,7 +326,6 @@
 }
 
 // Responsive
-
 @include media-min-width ($lg) {
   .services .container {
     max-width: calc(80% - 20px);
