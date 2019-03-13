@@ -16,17 +16,18 @@
             <div class="container">
                 <div class="row">
                     <div class="photo-block col-md-5 col-sm-12 d-none d-md-block">
-                        <div class="photo"
-                             :style="{backgroundImage: 'url(' + photo + ')'}"
+                        <img class="photo"
+                             v-lazy="photo"
                              v-for="(photo, i) in photos"
-                             :key="i"></div>
+                             alt="bio image"
+                             :key="i"/>
                     </div>
                     <div class="description-block col-md-7 col-sm-12">
                         <div class="description description-dark" v-for="bio in biography" :key="bio.id">
-                            <div class="photo d-md-none"
+                            <img class="photo d-md-none"
                                  v-if="bio.imageUrl"
-                                 :style="{backgroundImage: 'url(' + bio.imageUrl + ')'}"
-                            ></div>
+                                 v-lazy="bio.imageUrl"
+                                 alt="bio image"/>
 
                             <h2 v-if="bio.title">{{bio.title}}</h2>
 
@@ -197,9 +198,10 @@
 
             .photo {
                 height: 650px;
-                background-position: center;
-                background-size: cover;
                 margin-bottom: 40px;
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
             }
 
             .description-block {
