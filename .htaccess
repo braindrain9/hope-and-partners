@@ -118,9 +118,12 @@ ExpiresByType font/woff "access plus 6 month"
 
 
 <FilesMatch "\.(ogg|svg|eot|woff|ttf|jpg|jpeg|gif|png|ico|tgz|gz|json)$">
-    Header set Cache-Control "max-age=604800, must-revalidate, public"
+    Header set Cache-Control "max-age=31536000, must-revalidate, public"
 </FilesMatch>
 
+<IfModule mod_headers.c>
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
 
 <IfModule mod_gzip.c>
   mod_gzip_on Yes
