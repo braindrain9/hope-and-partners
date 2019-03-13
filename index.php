@@ -21,6 +21,8 @@
    <meta name="twitter:title" content="Hope&Partners"/>
    <meta name="twitter:description" content="<?php echo getDescription(); ?>"/>
    <meta name="twitter:image" content="https://hopeandpart.com/opengraph-image.jpg"/>
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <link rel="canonical" href="<?php echo getSiteUrl(); ?>" />
 
    <?php
      function getSiteUrl() {
