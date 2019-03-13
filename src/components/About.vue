@@ -6,12 +6,14 @@
                  alt="About me image"
             />
             <div class="bio-container">
-                <h1 class="heading" v-html="content.title"></h1>
-                <p class="description" v-html="content.description"></p>
-                <p class="bio-link">
+                <div class="heading-container">
+                    <h1 class="heading" v-html="content.title"></h1>
+                </div>
+                <div class="description" v-html="content.description"></div>
+                <div class="bio-link">
                     <span class="divider"></span>
                     <span>{{$t('allAchievements')}} <router-link class="strike" :to="lang === 'en' ? '/en/bio' : '/bio'"><span>{{$t('here')}}</span></router-link></span>
-                </p>
+                </div>
             </div>
         </div>
         <Event/>

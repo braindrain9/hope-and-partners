@@ -60,28 +60,23 @@
     color: $dark-black;
   }
 
-  .paragraph {
-    & /deep/ p {
-      margin-bottom: 28px;
-    }
+  p {
+    margin-bottom: 28px;
+  }
 
-    & /deep/ a:hover {
-      color: $orange;
-      text-decoration: underline;
-    }
+   a:hover {
+    color: $orange;
+    text-decoration: underline;
   }
 }
 
 .bio-container {
-  .heading {
-    & /deep/ p {
-      margin-bottom: 0;
-    }
+  p {
+    margin-bottom: 28px;
   }
-  .description {
-    & /deep/ p {
-      margin-bottom: 28px;
-    }
+
+  .heading-container p {
+    margin-bottom: 0;
   }
 }
 
@@ -240,28 +235,29 @@
 /* Contacts */
 .contacts {
   .mail-text {
-    arrow-svg {
-      & /deep/ svg {
-        transition: all 1s ease-in-out;
-      }
+    svg {
+      transition: all 1s ease-in-out;
     }
 
     &:hover {
-      .arrow-svg {
-        & /deep/ svg {
-          animation: mail-arrow-svg .5s;
-          transform: rotate(180deg);
-        }
+      svg {
+        animation: mail-arrow-svg .5s;
+        transform: rotate(180deg);
       }
     }
   }
 
   .mail-block.animation {
     .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
+      svg {
+        animation: mail-arrow-svg .5s;
+        transform: rotate(180deg);
+      }
+
+      &:hover {
+        svg {
           animation: mail-arrow-svg .5s;
-          transform: rotate(180deg);
+          transform: rotate(0deg);
         }
       }
     }
@@ -367,10 +363,8 @@
 
   .contacts {
     .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
-          width: 40px;
-        }
+      svg {
+        width: 45px;
       }
     }
   }
@@ -384,16 +378,6 @@
 
     &-main {
       font-size: $secondary-header-font-size;
-    }
-  }
-
-  .contacts {
-    .mail-text {
-      .arrow-svg {
-        & /deep/ svg {
-          width: 30px;
-        }
-      }
     }
   }
 

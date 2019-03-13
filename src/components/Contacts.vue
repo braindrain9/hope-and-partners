@@ -11,7 +11,7 @@
                                 <a class="strike" :href="'mailto:' + $store.state.content.email">
                                     <span v-html="$store.state.content.email"></span>
                                 </a>
-                                <span class="arrow-svg" v-html="arrowSvg"></span>
+                                <span class="d-none d-md-inline-block" v-html="arrowSvg"></span>
                             </div>
                             <div class="horizontal-line d-none d-md-block">
                                 <div></div>
