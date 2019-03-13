@@ -118,7 +118,7 @@ ExpiresByType font/woff "access plus 6 month"
 
 
 <FilesMatch "\.(ogg|svg|eot|woff|ttf|jpg|jpeg|gif|png|ico|tgz|gz|json)$">
-    Header set Cache-Control "max-age=964224000, must-revalidate"
+    Header set Cache-Control "max-age=604800, must-revalidate, public"
 </FilesMatch>
 
 
