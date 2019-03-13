@@ -52,6 +52,18 @@ function remove_embeded_scripts(){
 }
 add_action( 'wp_footer', 'remove_embeded_scripts' );
 
+if ( is_plugin_active( 'autoptimize/autoptimize.php' ) ) {
+    add_filter('autoptimize_html_after_minify', function($content) {
+        $content = str_replace("type='text/javascript'", '', $content);
+        $content = str_replace('type="text/javascript"', '', $content);
+
+        $content = str_replace("type='text/css'", '', $content);
+        $content = str_replace('type="text/css"', '', $content);
+
+        return $content;
+    }, 10, 1);
+}
+
 function remove_jquery() {    
     if( !is_admin()){
      wp_deregister_script('jquery');
