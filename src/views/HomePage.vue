@@ -71,9 +71,11 @@
     methods: {
       getServices: function() {
         this.$http.get(`wp/v2/services?lang=${this.lang}`).then(response => {
-          response.data.sort((a, b) => {
-            return parseInt(_.get(a, 'title.rendered')) - parseInt(_.get(b, 'title.rendered'));
-          });
+          if(response.data.length) {
+            response.data.sort((a, b) => {
+              return parseInt(a['title']['rendered']) - parseInt(b['title']['rendered']);
+            });
+          }
           this.services = this.transformResponseData(response.data);
         }, error => console.log(error));
       },

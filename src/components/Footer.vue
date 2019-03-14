@@ -46,14 +46,14 @@
 
     created() {
       // init on load
-      this.currentLink = _.find(this.footerNavLinks, {name: this.link}) || this.footerNavLinks[0];
+      this.currentLink = this.footerNavLinks.find(link => link.name === this.link) || this.footerNavLinks[0];
     },
 
     watch: {
       '$route'() {
         // update on route change
         if (this.$route.name === 'bio') {
-          this.currentLink = _.find(this.footerNavLinks, {name: 'services'});
+          this.currentLink = this.footerNavLinks.find(link => link.name === 'services');
         }
       }
     }

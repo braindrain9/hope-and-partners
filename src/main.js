@@ -1,6 +1,5 @@
 // general
 import 'babel-polyfill';
-import _ from 'lodash';
 import Vue from 'vue';
 import VueLazyload from 'vue-lazyload';
 import VueResource from 'vue-resource';
@@ -14,7 +13,6 @@ import {i18n} from './i18n';
 
 import App from './App.vue';
 
-Vue.set(Vue.prototype, '_', _);
 Vue.use(VueLazyload, {
   lazyComponent: true
 });
