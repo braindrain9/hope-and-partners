@@ -71,10 +71,6 @@
       }
     },
 
-    destroyed() {
-      this.removeEventListeners()
-    },
-
     components: {
       Footer
     }

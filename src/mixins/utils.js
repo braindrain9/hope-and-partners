@@ -1,169 +1,9 @@
 import bus from '../bus';
-import './three';
+import {GeometryUtils} from './three';
 import {TweenMax, Linear, Power4, TweenLite, Sine} from 'gsap/TweenMax';
-
-const GeometryUtils = {
-  randomPointsInGeometry: function ( geometry, n ) {
-    var face, i,
-      faces = geometry.faces,
-      vertices = geometry.vertices,
-      il = faces.length,
-      totalArea = 0,
-      cumulativeAreas = [],
-      vA, vB, vC;
-
-    // precompute face areas
-
-    for ( i = 0; i < il; i ++ ) {
-
-      face = faces[ i ];
-
-      vA = vertices[ face.a ];
-      vB = vertices[ face.b ];
-      vC = vertices[ face.c ];
-
-      face._area = this.triangleArea( vA, vB, vC );
-
-      totalArea += face._area;
-
-      cumulativeAreas[ i ] = totalArea;
-
-    }
-
-    // binary search cumulative areas array
-
-    function binarySearchIndices( value ) {
-
-      function binarySearch( start, end ) {
-
-        // return closest larger index
-        // if exact number is not found
-
-        if ( end < start )
-          return start;
-
-        var mid = start + Math.floor( ( end - start ) / 2 );
-
-        if ( cumulativeAreas[ mid ] > value ) {
-
-          return binarySearch( start, mid - 1 );
-
-        } else if ( cumulativeAreas[ mid ] < value ) {
-
-          return binarySearch( mid + 1, end );
-
-        } else {
-
-          return mid;
-
-        }
-
-      }
-
-      var result = binarySearch( 0, cumulativeAreas.length - 1 );
-      return result;
-
-    }
-
-    // pick random face weighted by face area
-
-    var r, index,
-      result = [];
-
-    var stats = {};
-
-    for ( i = 0; i < n; i ++ ) {
-
-      r = Math.random() * totalArea;
-
-      index = binarySearchIndices( r );
-
-      result[ i ] = this.randomPointInFace( faces[ index ], geometry );
-
-      if ( ! stats[ index ] ) {
-
-        stats[ index ] = 1;
-
-      } else {
-
-        stats[ index ] += 1;
-
-      }
-
-    }
-
-    return result;
-
-  },
-  randomPointInTriangle: function () {
-
-    var vector = new THREE.Vector3();
-
-    return function ( vectorA, vectorB, vectorC ) {
-
-      var point = new THREE.Vector3();
-
-      var a = Math.random();
-      var b = Math.random();
-
-      if ( ( a + b ) > 1 ) {
-
-        a = 1 - a;
-        b = 1 - b;
-
-      }
-
-      var c = 1 - a - b;
-
-      point.copy( vectorA );
-      point.multiplyScalar( a );
-
-      vector.copy( vectorB );
-      vector.multiplyScalar( b );
-
-      point.add( vector );
-
-      vector.copy( vectorC );
-      vector.multiplyScalar( c );
-
-      point.add( vector );
-
-      return point;
-
-    };
-
-  }(),
-  randomPointInFace: function ( face, geometry ) {
-
-    var vA, vB, vC;
-
-    vA = geometry.vertices[ face.a ];
-    vB = geometry.vertices[ face.b ];
-    vC = geometry.vertices[ face.c ];
-
-    return this.randomPointInTriangle( vA, vB, vC );
-
-  },
-  triangleArea: function () {
-
-    var vector1 = new THREE.Vector3();
-    var vector2 = new THREE.Vector3();
-
-    return function ( vectorA, vectorB, vectorC ) {
-
-      vector1.subVectors( vectorB, vectorA );
-      vector2.subVectors( vectorC, vectorA );
-      vector1.cross( vector2 );
-
-      return 0.5 * vector1.length();
-
-    };
-
-  }()
-};
+require('three/examples/js/controls/OrbitControls.js');
 
 export default {
-
   data () {
     return {
       navLinks: [
@@ -238,122 +78,110 @@ export default {
         : [];
     },
 
-    goBack: function() {
-      this.$router.go(-1);
-    },
-
-    getQueryString: function( name ) {
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      let results = regex.exec(location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    },
-
-    removeEventListeners: function() {
-      // todo remove event listeners
-    },
-
     getServicesAnimation: function() {
-      // Options
-      const particleCount = 2000;
+      // default options
+      const particleCount = 2000,
+            particleSize = 0.1,
+            defaultAnimationSpeed = 1,
+            morphAnimationSpeed = 0,
+            color = '#FFFFFF',
+            triggers = $('.services-slider .slide-content .letter'),
+            outW = $(window).outerWidth(),
+            canvasHeight = window.innerHeight * 0.75,
+            fontConfig = {
+              size: 12,
+              height: 2
+            },
+            normalSpeed = (defaultAnimationSpeed/200),
+            fullSpeed = (morphAnimationSpeed/100),
+            animationVars = {
+              speed: normalSpeed,
+              rotation: -45
+            };
 
-      const particleSize = 0.1;
-
-      const defaultAnimationSpeed = 1,
-        morphAnimationSpeed = 0,
-        color = '#FFFFFF';
-
-      const triggers = $('.services-slider .slide-content .letter');
-
-      const outW = $(window).outerWidth();
-
-      var canvasWidth = window.innerWidth / (outW > 1140 ? 3 : outW > 768 ? 2 : 1);
+      // set canvas width
+      let canvasWidth = window.innerWidth / (outW > 1140 ? 3 : outW > 768 ? 2 : 1);
 
       if (outW > 768 && canvasWidth < 500) {
         canvasWidth = 550;
       }
-      var canvasHeight = window.innerHeight * 0.75;
 
-      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true});
+      // three.js options
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-services'), alpha : true}),
+            scene = new THREE.Scene(),
+            camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 ),
+            light = new THREE.AmbientLight( 0xFFFFFF, 1 );
+
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(canvasWidth, canvasHeight);
-
-      var scene = new THREE.Scene();
-
-      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
 
       camera.position.y = 0;
       camera.position.z = 35;
 
-      var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
-      scene.add( light );
+      scene.add(light);
 
-      var controls = new THREE.OrbitControls( camera );
+      // set controls
+      const controls = new THREE.OrbitControls(camera);
+
       controls.enablePan = false;
       controls.enableKeys = false;
       controls.enableRotate = outW > 768;
       controls.enableZoom = false;
       controls.update();
 
-      var particles = new THREE.Geometry();
-
-      var texts = [];
-
-      var pMaterial = new THREE.PointsMaterial({
-        size: particleSize,
-      });
-
-// Texts
-      var loader = new THREE.FontLoader();
-      // https://dl.dropboxusercontent.com/s/bkqic142ik0zjed/swiss_black_cond.json?
+      // particles
+      const particles = new THREE.Geometry(),
+            texts = [],
+            pMaterial = new THREE.PointsMaterial({
+              size: particleSize,
+            }),
+            loader = new THREE.FontLoader();
 
       loader.load(this.typeface, (font) => {
         Array.from(triggers).forEach((trigger, idx) => {
           texts[idx] = {};
-
-          texts[idx].geometry = new THREE.TextGeometry( trigger.textContent, {
-            font: font,
-            size: 12,
-            height: 2,
-            curveSegments: 10,
+          texts[idx].geometry = new THREE.TextGeometry(trigger.textContent, {
+            font,
+            size: fontConfig.size,
+            height: fontConfig.height
           });
 
           texts[idx].geometry.center();
-
           texts[idx].particles = new THREE.Geometry();
-
           texts[idx].points = GeometryUtils.randomPointsInGeometry(texts[idx].geometry, particleCount);
-
           createVertices(texts[idx].particles, texts[idx].points);
-
           enableTrigger(trigger, idx);
-
         });
       });
 
-// Particles
-      for (var p = 0; p < particleCount; p++) {
-        var vertex = new THREE.Vector3();
+      for (let p = 0; p < particleCount; p++) {
+        const vertex = new THREE.Vector3();
+
         vertex.x = 0;
         vertex.y = 0;
         vertex.z = 0;
-
         particles.vertices.push(vertex);
       }
 
+      const particleSystem = new THREE.Points(particles, pMaterial);
+
+      scene.add(particleSystem);
+
+      animate();
+
       function createVertices (emptyArray, points) {
-        for (var p = 0; p < particleCount; p++) {
-          var vertex = new THREE.Vector3();
+        for (let p = 0; p < particleCount; p++) {
+          const vertex = new THREE.Vector3();
+
           vertex.x = points[p]['x'];
           vertex.y = points[p]['y'];
           vertex.z = points[p]['z'];
-
           emptyArray.vertices.push(vertex);
         }
       }
 
       function enableTrigger(trigger, idx) {
-        bus.$on("animateServicesParticles", function(index) {
+        bus.$on("animateServicesParticles", index => {
           morphTo(texts[index].particles);
         });
 
@@ -362,45 +190,16 @@ export default {
         }
       }
 
-      var particleSystem = new THREE.Points(
-        particles,
-        pMaterial
-      );
-
-      // particleSystem.position.x = -15;
-      // particleSystem.position.y = 4;
-
-      particleSystem.sortParticles = true;
-
-// Add the particles to the scene
-      scene.add(particleSystem);
-
-// Animate
-      const normalSpeed = (defaultAnimationSpeed/200),
-            fullSpeed = (morphAnimationSpeed/100)
-
-      let animationVars = {
-        speed: normalSpeed,
-        color: color,
-        rotation: -45
-      }
-
-
       function animate() {
         particleSystem.rotation.y += animationVars.speed;
-
         particles.verticesNeedUpdate = true;
+        particleSystem.material.color = new THREE.Color(color);
 
-        particleSystem.material.color = new THREE.Color( animationVars.color );
-
-        window.requestAnimationFrame( animate );
-        renderer.render( scene, camera );
+        window.requestAnimationFrame(animate);
+        renderer.render(scene, camera);
       }
 
-      animate();
-
-      function morphTo (newParticles) {
-
+      function morphTo(newParticles) {
         TweenMax.to(animationVars, .1, {
           ease: Power4.easeIn,
           speed: fullSpeed,
@@ -411,146 +210,123 @@ export default {
           ease: Linear.easeNone
         });
 
-        for (var i = 0; i < particles.vertices.length; i++){
-          TweenMax.to(particles.vertices[i], 2.5, {
+        particles.vertices.forEach((point, i) => {
+          TweenMax.to(point, 2.5, {
             ease: Power4.easeInOut,
             x: newParticles.vertices[i].x,
             y: newParticles.vertices[i].y,
             z: newParticles.vertices[i].z
           })
-        }
-
-        // TweenMax.to(animationVars, .1, {
-        //   ease: Elastic.easeOut.config( 0.1, .3),
-        //   rotation: animationVars.rotation == 45 ? -45 : 45,
-        // })
+        });
       }
 
       function slowDown () {
         TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0});
+          Power2.easeOut, speed: normalSpeed, delay: 0
+        });
       }
     },
 
     getContactsAnimation: function() {
-      // Options
-      const particleCount = 3000;
+      // default options
+      const particleCount = 3000,
+        particleSize = 0.1,
+        defaultAnimationSpeed = 1,
+        morphAnimationSpeed = 0,
+        color = '#F44336',
+        outW = $(window).outerWidth(),
+        canvasHeight = window.innerHeight * 0.75,
+        fontConfig = {
+          size: 12,
+          height: 2
+        },
+        normalSpeed = (defaultAnimationSpeed/300),
+        fullSpeed = (morphAnimationSpeed/100),
+        animationVars = {
+          speed: normalSpeed,
+          rotation: -45
+        },
+        canvasWidth = outW > 768 ? window.innerWidth / 2 : window.innerWidth;
 
-      const particleSize = 0.1;
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-contacts'), alpha : true}),
+            scene = new THREE.Scene(),
+            camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 ),
+            light = new THREE.AmbientLight( 0xFFFFFF, 1 );
 
-      const defaultAnimationSpeed = 1,
-        morphAnimationSpeed = 18,
-        color = '#F44336';
-
-      const outW = $(window).outerWidth();
-
-      var canvasWidth = outW > 768 ? window.innerWidth / 2 : window.innerWidth;
-      var canvasHeight = window.innerHeight * 0.75;
-
-      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-contacts'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize( canvasWidth, canvasHeight);
-
-      var scene = new THREE.Scene();
-
-      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
+      renderer.setSize(canvasWidth, canvasHeight);
 
       camera.position.y = 0;
       camera.position.z = 35;
 
-      var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
-      scene.add( light );
+      scene.add(light);
 
-      var controls = new THREE.OrbitControls( camera );
+      // set controls
+      const controls = new THREE.OrbitControls(camera);
+
       controls.enablePan = false;
       controls.enableKeys = false;
       controls.enableRotate = false;
       controls.enableZoom = false;
       controls.update();
 
-      var text = {};
+      const particles = new THREE.Geometry(),
+            text = {},
+            pMaterial = new THREE.PointsMaterial({
+              size: particleSize,
+            }),
+            loader = new THREE.FontLoader();
 
-      var particles = new THREE.Geometry();
-
-      var pMaterial = new THREE.PointsMaterial({
-        size: particleSize,
-      });
-
-      var loader = new THREE.FontLoader();
-
-      loader.load(this.typeface, ( font ) => {
-        text.geometry = new THREE.TextGeometry( '@', {
-          font: font,
-          size: 12,
-          height: 2,
-          curveSegments: 10,
+      loader.load(this.typeface, (font) => {
+        text.geometry = new THREE.TextGeometry('@', {
+          font,
+          size: fontConfig.size,
+          height: fontConfig.height
         });
 
         text.geometry.center();
-
         text.particles = new THREE.Geometry();
-
         text.points = GeometryUtils.randomPointsInGeometry(text.geometry, particleCount);
-
         createVertices(text.particles, text.points);
-
         morphTo(text.particles);
       });
 
-// Particles
-      for (var p = 0; p < particleCount; p++) {
-        var vertex = new THREE.Vector3();
+      for (let p = 0; p < particleCount; p++) {
+        const vertex = new THREE.Vector3();
+
         vertex.x = 0;
         vertex.y = 0;
         vertex.z = 0;
-
         particles.vertices.push(vertex);
       }
 
+      const particleSystem = new THREE.Points(particles, pMaterial);
+
+      scene.add(particleSystem);
+
+      animate();
+
       function createVertices (emptyArray, points) {
-        for (var p = 0; p < particleCount; p++) {
-          var vertex = new THREE.Vector3();
+        for (let p = 0; p < particleCount; p++) {
+          const vertex = new THREE.Vector3();
+
           vertex.x = points[p]['x'];
           vertex.y = points[p]['y'];
           vertex.z = points[p]['z'];
-
           emptyArray.vertices.push(vertex);
         }
       }
 
-      var particleSystem = new THREE.Points(
-        particles,
-        pMaterial
-      );
-
-      particleSystem.sortParticles = true;
-
-      scene.add(particleSystem);
-
-      const normalSpeed = (defaultAnimationSpeed/300),
-        fullSpeed = (morphAnimationSpeed/100);
-
-      let animationVars = {
-        speed: normalSpeed,
-        color: color,
-        rotation: -45
-      }
-
-
       function animate() {
         particleSystem.rotation.y -= animationVars.speed;
         particles.verticesNeedUpdate = true;
+        particleSystem.material.color = new THREE.Color(color);
 
-        particleSystem.material.color = new THREE.Color( animationVars.color );
-
-        window.requestAnimationFrame( animate );
-        renderer.render( scene, camera );
+        window.requestAnimationFrame(animate);
+        renderer.render(scene, camera);
       }
 
-      animate();
-
       function morphTo (newParticles) {
-
         TweenMax.to(animationVars, .1, {
           ease: Power4.easeIn,
           speed: fullSpeed,
@@ -560,95 +336,107 @@ export default {
         TweenMax.to(animationVars, 2, {
           ease: Linear.easeNone
         });
-        // particleSystem.material.color.setHex(color);
 
-        for (var i = 0; i < particles.vertices.length; i++){
-          TweenMax.to(particles.vertices[i], 2, {
+        particles.vertices.forEach((point, i) => {
+          TweenMax.to(point, 2, {
             ease: Elastic.easeOut.config( 0.1, .3),
             x: newParticles.vertices[i].x,
             y: newParticles.vertices[i].y,
             z: newParticles.vertices[i].z
           })
-        }
-
-        // TweenMax.to(animationVars, 2, {
-        //   ease: Elastic.easeOut.config( 0.1, .3),
-        //   rotation: animationVars.rotation == 45 ? -45 : 45,
-        // })
+        });
       }
 
       function slowDown () {
         TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0.2});
+          Power2.easeOut, speed: normalSpeed, delay: 0.2
+        });
       }
     },
 
     getHeroAnimation: function() {
-      // Options
-      const particleCount = 5000;
+      const particleCount = 5000,
+            particleSize = 0.1,
+            defaultAnimationSpeed = 1,
+            morphAnimationSpeed = 18,
+            color = '#F44336',
+            outW = $(window).innerWidth(),
+            canvasWidth = window.innerWidth,
+            fontConfig = {
+              size: outW > 1200 ? 16 : outW > 768 ? 12 : 10,
+              height: outW > 768 ? 5 : 2
+            },
+            normalSpeed = (defaultAnimationSpeed/300),
+            fullSpeed = (morphAnimationSpeed/100),
+            animationVars = {
+              speed: normalSpeed,
+              rotation: -45
+            },
+            canvasHeight = window.innerHeight;
 
-      const particleSize = 0.1;
+      // three.js options
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-hero'), alpha : true}),
+            scene = new THREE.Scene(),
+            camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 ),
+            light = new THREE.AmbientLight( 0xFFFFFF, 1 );
 
-      const defaultAnimationSpeed = 1,
-        morphAnimationSpeed = 18,
-        color = '#F44336';
-
-      const outW = $(window).innerWidth();
-
-      var canvasWidth = window.innerWidth;
-      var canvasHeight = window.innerHeight;
-
-      var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-hero'), alpha : true});
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(canvasWidth, canvasHeight);
-
-      var scene = new THREE.Scene();
-
-      var camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 );
 
       camera.position.y = 0;
       camera.position.z = 35;
 
-      var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
-      scene.add( light );
+      scene.add(light);
 
-      var controls = new THREE.OrbitControls( camera );
+      // set controls
+      const controls = new THREE.OrbitControls(camera);
+
       controls.enablePan = false;
       controls.enableKeys = false;
       controls.enableRotate = false;
       controls.enableZoom = false;
       controls.update();
 
-      var text = {};
+      // mouse move animation
+      const raycaster = new THREE.Raycaster(),
+            mouse = new THREE.Vector2();
 
-      var raycaster = new THREE.Raycaster(); // create once and reuse
-      var mouse = new THREE.Vector2(); // create once and reuse
+      let mouseX = 0, mouseY = 0;
 
-      var particles = new THREE.Geometry();
+      const windowHalfX = window.innerWidth / 2,
+        windowHalfY = window.innerHeight / 2,
+        maxOffset = 8,
+        minTime = 2.5,
+        maxTime = 4.5;
 
-      var pMaterial = new THREE.PointsMaterial({
-        size: particleSize,
+      // particles
+      const particles = new THREE.Geometry(),
+        text = {},
+        pMaterial = new THREE.PointsMaterial({
+          size: particleSize,
+        }),
+        loader = new THREE.FontLoader();
+
+      loader.load(this.typeface, (font) => {
+        text.geometry = new THREE.TextGeometry('&', {
+          font,
+          size: fontConfig.size,
+          height: fontConfig.height
+        });
+        text.geometry.center();
+        text.particles = new THREE.Geometry();
+        text.points = GeometryUtils.randomPointsInGeometry(text.geometry, particleCount);
+        createVertices(text.particles, text.points);
+        morphTo(text.particles);
       });
 
-      var loader = new THREE.FontLoader();
-      var mouseX = 0, mouseY = 0;
-      var windowHalfX = window.innerWidth / 2;
-      var windowHalfY = window.innerHeight / 2;
+      for (let p = 0; p < particleCount; p++) {
+        const vertex = new THREE.Vector3();
 
-      var maxOffset = 8;
-      var minTime = 2.5;
-      var maxTime = 4.5;
-
-      function random(min, max) {
-        if (max == null) { max = min; min = 0; }
-        if (min > max) { var tmp = min; min = max; max = tmp; }
-        return min + (max - min) * Math.random();
-      }
-
-      function is_touch_device() {
-        return (('ontouchstart' in window)
-          || (navigator.MaxTouchPoints > 0)
-          || (navigator.msMaxTouchPoints > 0));
+        vertex.x = 0;
+        vertex.y = 0;
+        vertex.z = 0;
+        particles.vertices.push(vertex);
       }
 
       if (!is_touch_device()) {
@@ -658,11 +446,11 @@ export default {
           mouseX = e.clientX - windowHalfX;
           mouseY = e.clientY - windowHalfY;
 
-          mouse.x = ( e.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-          mouse.y = - ( e.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+          mouse.x = (e.clientX / renderer.domElement.clientWidth) * 2 - 1;
+          mouse.y = - (e.clientY / renderer.domElement.clientHeight) * 2 + 1;
 
-          raycaster.setFromCamera( mouse, camera );
-          var intersects = raycaster.intersectObjects(scene.children, true);
+          raycaster.setFromCamera(mouse, camera);
+          let intersects = raycaster.intersectObjects(scene.children, true);
 
           if (intersects.length > 0) {
             intersects = intersects.filter(obj => obj.distanceToRay < 0.8);
@@ -693,45 +481,6 @@ export default {
         });
       }
 
-      loader.load(this.typeface, (font) => {
-        text.geometry = new THREE.TextGeometry( '&', {
-          font: font,
-          size: outW > 1200 ? 16 : outW > 768 ? 12 : 10,
-          height: outW > 768 ? 5 : 2
-        });
-
-        text.geometry.center();
-
-        text.particles = new THREE.Geometry();
-
-        text.points = GeometryUtils.randomPointsInGeometry(text.geometry, particleCount);
-
-        createVertices(text.particles, text.points);
-
-        morphTo(text.particles);
-      });
-
-
-      for (var p = 0; p < particleCount; p++) {
-        var vertex = new THREE.Vector3();
-        vertex.x = 0;
-        vertex.y = 0;
-        vertex.z = 0;
-
-        particles.vertices.push(vertex);
-      }
-
-      function createVertices (emptyArray, points) {
-        for (var p = 0; p < particleCount; p++) {
-          var vertex = new THREE.Vector3();
-          vertex.x = points[p]['x'];
-          vertex.y = points[p]['y'];
-          vertex.z = points[p]['z'];
-
-          emptyArray.vertices.push(vertex);
-        }
-      }
-
       function animateParticles(particles) {
         particles.vertices.forEach((particle) => {
           animateXY().progress(Math.random());
@@ -747,48 +496,56 @@ export default {
         });
       }
 
-      animateParticles(particles);
+      const particleSystem = new THREE.Points(particles, pMaterial);
 
-      var particleSystem = new THREE.Points(
-        particles,
-        pMaterial
-      );
+      animateParticles(particles);
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
       particleSystem.position.y = outW > 768 ? 0 : 4;
-
-      particleSystem.sortParticles = true;
-
-      scene.add(particleSystem);
       particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : outW > 768 ? -2 : 0;
 
-      const normalSpeed = (defaultAnimationSpeed/300),
-            fullSpeed = (morphAnimationSpeed/100);
+      scene.add(particleSystem);
 
-      let animationVars = {
-        speed: normalSpeed,
-        color: color,
-        rotation: -45
+      animate();
+
+      function random(min, max) {
+        if (max == null) { max = min; min = 0; }
+        if (min > max) { var tmp = min; min = max; max = tmp; }
+        return min + (max - min) * Math.random();
+      }
+
+      function is_touch_device() {
+        return (('ontouchstart' in window)
+          || (navigator.MaxTouchPoints > 0)
+          || (navigator.msMaxTouchPoints > 0));
+      }
+
+      function createVertices (emptyArray, points) {
+        for (let p = 0; p < particleCount; p++) {
+          const vertex = new THREE.Vector3();
+
+          vertex.x = points[p]['x'];
+          vertex.y = points[p]['y'];
+          vertex.z = points[p]['z'];
+          emptyArray.vertices.push(vertex);
+        }
       }
 
       function animate() {
-        camera.position.x = particleSystem.position.x + ( mouseX - camera.position.x ) * 0.005;
+        camera.position.x = particleSystem.position.x + (mouseX - camera.position.x) * 0.005;
         camera.position.y = ( - mouseY - camera.position.y ) * 0.005;
         camera.position.z = 35;
-        camera.lookAt( scene.position );
 
+        camera.lookAt(scene.position);
         particles.verticesNeedUpdate = true;
+        particleSystem.material.color = new THREE.Color(color);
 
-        particleSystem.material.color = new THREE.Color( animationVars.color );
-
-        window.requestAnimationFrame( animate );
-        renderer.render( scene, camera );
+        window.requestAnimationFrame(animate);
+        renderer.render(scene, camera);
       }
 
-      animate();
       function morphTo (newParticles) {
-
         TweenMax.to(animationVars, .1, {
           ease: Power4.easeIn,
           speed: fullSpeed,
@@ -798,26 +555,26 @@ export default {
         TweenMax.to(animationVars, 2, {
           ease: Linear.easeNone
         });
-        // particleSystem.material.color.setHex(color);
 
-        for (var i = 0; i < particles.vertices.length; i++){
-          TweenMax.to(particles.vertices[i], 2, {
+        particles.vertices.forEach((point, i) => {
+          TweenMax.to(point, 2, {
             ease: Elastic.easeOut.config( 0.1, .3),
             x: newParticles.vertices[i].x,
             y: newParticles.vertices[i].y,
             z: newParticles.vertices[i].z
           })
-        }
+        });
 
         TweenMax.to(animationVars, 2, {
           ease: Elastic.easeOut.config( 0.1, .3),
-          rotation: animationVars.rotation == 45 ? -45 : 45,
-        })
+          rotation: animationVars.rotation === 45 ? -45 : 45,
+        });
       }
 
       function slowDown () {
         TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0.2});
+          Power2.easeOut, speed: normalSpeed, delay: 0.2
+        });
       }
     }
   }

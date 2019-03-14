@@ -101,7 +101,7 @@ module.exports = {
       THREE: "three"
     }),
     new CopyWebpackPlugin([
-      { from: 'src/assets/json', to: 'src/assets/json' }
+      {from: 'src/assets/json', to: 'src/assets/json'}
     ])
   ]
 };
