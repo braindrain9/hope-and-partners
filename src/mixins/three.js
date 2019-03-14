@@ -1,3 +1,5 @@
+import {Linear, Power4, TweenMax, Elastic, Power2, TweenLite, Sine} from "gsap/TweenMax";
+
 export const GeometryUtils = {
   randomPointsInGeometry: function ( geometry, n ) {
     var face, i,
@@ -157,3 +159,110 @@ export const GeometryUtils = {
 
   }()
 };
+
+export const ParticleUtils = {
+  createVertices: function (particleCount, emptyArray, points) {
+    for (let p = 0; p < particleCount; p++) {
+      const vertex = new THREE.Vector3();
+
+      vertex.x = points[p]['x'];
+      vertex.y = points[p]['y'];
+      vertex.z = points[p]['z'];
+      emptyArray.vertices.push(vertex);
+    }
+  },
+  fillParticles: function(particles, particleCount) {
+    for (let p = 0; p < particleCount; p++) {
+      const vertex = new THREE.Vector3();
+
+      vertex.x = 0;
+      vertex.y = 0;
+      vertex.z = 0;
+      particles.vertices.push(vertex);
+    }
+  },
+  morphToServices: function(animationVars, particles, newParticles) {
+    TweenMax.to(animationVars, .1, {
+      ease: Power4.easeIn,
+      speed: animationVars.fullSpeed,
+      onComplete: slowDown
+    });
+
+    TweenMax.to(animationVars, 0, {
+      ease: Linear.easeNone
+    });
+
+    particles.vertices.forEach((point, i) => {
+      TweenMax.to(point, 2.5, {
+        ease: Power4.easeInOut,
+        x: newParticles.vertices[i].x,
+        y: newParticles.vertices[i].y,
+        z: newParticles.vertices[i].z
+      })
+    });
+
+    function slowDown () {
+      TweenMax.to(animationVars, 0.3, {
+        ease: Power2.easeOut,
+        speed: animationVars.normalSpeed,
+        delay: 0
+      });
+    }
+  },
+  morphTo: function(animationVars, particles, newParticles) {
+    TweenMax.to(animationVars, .1, {
+      ease: Power4.easeIn,
+      speed: animationVars.fullSpeed,
+      onComplete: slowDown
+    });
+
+    TweenMax.to(animationVars, 2, {
+      ease: Linear.easeNone
+    });
+
+    particles.vertices.forEach((point, i) => {
+      TweenMax.to(point, 2, {
+        ease: Elastic.easeOut.config( 0.1, .3),
+        x: newParticles.vertices[i].x,
+        y: newParticles.vertices[i].y,
+        z: newParticles.vertices[i].z
+      })
+    });
+
+    TweenMax.to(animationVars, 2, {
+      ease: Elastic.easeOut.config( 0.1, .3),
+      rotation: animationVars.rotation === 45 ? -45 : 45,
+    });
+
+    function slowDown () {
+      TweenMax.to(animationVars, 0.3, {
+        ease: Power2.easeOut,
+        speed: animationVars.normalSpeed,
+        delay: 0.2
+      });
+    }
+  },
+  random: function(min, max) {
+  if (max == null) { max = min; min = 0; }
+  if (min > max) { var tmp = min; min = max; max = tmp; }
+  return min + (max - min) * Math.random();
+},
+  animateParticles: function (particles) {
+    const maxOffset = 8,
+      minTime = 2.5,
+      maxTime = 4.5;
+
+    particles.vertices.forEach((particle) => {
+      const animateXY = () => {
+        return TweenLite.to(particle, this.random(minTime, maxTime), {
+          x: this.random(particle.x - maxOffset, particle.x + maxOffset),
+          y: this.random(particle.y - maxOffset, particle.y + maxOffset),
+          ease: Sine.easeInOut,
+          onComplete: animateXY
+        });
+      };
+
+      animateXY().progress(Math.random());
+    });
+  }
+}

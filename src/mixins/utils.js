@@ -1,6 +1,6 @@
 import bus from '../bus';
-import {GeometryUtils} from './three';
-import {TweenMax, Linear, Power4, TweenLite, Sine} from 'gsap/TweenMax';
+import {GeometryUtils, ParticleUtils} from './three';
+import {TweenMax, Sine} from 'gsap/TweenMax';
 require('three/examples/js/controls/OrbitControls.js');
 
 export default {
@@ -69,6 +69,11 @@ export default {
   },
 
   methods: {
+    isTouchDevice: function () {
+      return (('ontouchstart' in window)
+        || (navigator.MaxTouchPoints > 0)
+        || (navigator.msMaxTouchPoints > 0))
+    },
     transformResponseData: function (data) {
       return data && data.length
         ? data.reduce((arr, item) => {
@@ -92,11 +97,10 @@ export default {
               size: 12,
               height: 2
             },
-            normalSpeed = (defaultAnimationSpeed/200),
-            fullSpeed = (morphAnimationSpeed/100),
             animationVars = {
-              speed: normalSpeed,
-              rotation: -45
+              speed: defaultAnimationSpeed/200,
+              normalSpeed: defaultAnimationSpeed/200,
+              fullSpeed: morphAnimationSpeed/100
             };
 
       // set canvas width
@@ -149,19 +153,12 @@ export default {
           texts[idx].geometry.center();
           texts[idx].particles = new THREE.Geometry();
           texts[idx].points = GeometryUtils.randomPointsInGeometry(texts[idx].geometry, particleCount);
-          createVertices(texts[idx].particles, texts[idx].points);
+          ParticleUtils.createVertices(particleCount, texts[idx].particles, texts[idx].points);
           enableTrigger(trigger, idx);
         });
       });
 
-      for (let p = 0; p < particleCount; p++) {
-        const vertex = new THREE.Vector3();
-
-        vertex.x = 0;
-        vertex.y = 0;
-        vertex.z = 0;
-        particles.vertices.push(vertex);
-      }
+      ParticleUtils.fillParticles(particles, particleCount);
 
       const particleSystem = new THREE.Points(particles, pMaterial);
 
@@ -169,24 +166,13 @@ export default {
 
       animate();
 
-      function createVertices (emptyArray, points) {
-        for (let p = 0; p < particleCount; p++) {
-          const vertex = new THREE.Vector3();
-
-          vertex.x = points[p]['x'];
-          vertex.y = points[p]['y'];
-          vertex.z = points[p]['z'];
-          emptyArray.vertices.push(vertex);
-        }
-      }
-
       function enableTrigger(trigger, idx) {
         bus.$on("animateServicesParticles", index => {
-          morphTo(texts[index].particles);
+          ParticleUtils.morphToServices(animationVars, particles, texts[index].particles);
         });
 
         if (idx === 0) {
-          morphTo(texts[idx].particles);
+          ParticleUtils.morphToServices(animationVars, particles, texts[idx].particles);
         }
       }
 
@@ -197,33 +183,6 @@ export default {
 
         window.requestAnimationFrame(animate);
         renderer.render(scene, camera);
-      }
-
-      function morphTo(newParticles) {
-        TweenMax.to(animationVars, .1, {
-          ease: Power4.easeIn,
-          speed: fullSpeed,
-          onComplete: slowDown
-        });
-
-        TweenMax.to(animationVars, 0, {
-          ease: Linear.easeNone
-        });
-
-        particles.vertices.forEach((point, i) => {
-          TweenMax.to(point, 2.5, {
-            ease: Power4.easeInOut,
-            x: newParticles.vertices[i].x,
-            y: newParticles.vertices[i].y,
-            z: newParticles.vertices[i].z
-          })
-        });
-      }
-
-      function slowDown () {
-        TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0
-        });
       }
     },
 
@@ -240,11 +199,10 @@ export default {
           size: 12,
           height: 2
         },
-        normalSpeed = (defaultAnimationSpeed/300),
-        fullSpeed = (morphAnimationSpeed/100),
         animationVars = {
-          speed: normalSpeed,
-          rotation: -45
+          speed: defaultAnimationSpeed/300,
+          normalSpeed: defaultAnimationSpeed/300,
+          fullSpeed: morphAnimationSpeed/100
         },
         canvasWidth = outW > 768 ? window.innerWidth / 2 : window.innerWidth;
 
@@ -287,35 +245,17 @@ export default {
         text.geometry.center();
         text.particles = new THREE.Geometry();
         text.points = GeometryUtils.randomPointsInGeometry(text.geometry, particleCount);
-        createVertices(text.particles, text.points);
-        morphTo(text.particles);
+        ParticleUtils.createVertices(particleCount, text.particles, text.points);
+        ParticleUtils.morphTo(animationVars, particles, text.particles);
       });
 
-      for (let p = 0; p < particleCount; p++) {
-        const vertex = new THREE.Vector3();
-
-        vertex.x = 0;
-        vertex.y = 0;
-        vertex.z = 0;
-        particles.vertices.push(vertex);
-      }
+      ParticleUtils.fillParticles(particles, particleCount);
 
       const particleSystem = new THREE.Points(particles, pMaterial);
 
       scene.add(particleSystem);
 
       animate();
-
-      function createVertices (emptyArray, points) {
-        for (let p = 0; p < particleCount; p++) {
-          const vertex = new THREE.Vector3();
-
-          vertex.x = points[p]['x'];
-          vertex.y = points[p]['y'];
-          vertex.z = points[p]['z'];
-          emptyArray.vertices.push(vertex);
-        }
-      }
 
       function animate() {
         particleSystem.rotation.y -= animationVars.speed;
@@ -324,33 +264,6 @@ export default {
 
         window.requestAnimationFrame(animate);
         renderer.render(scene, camera);
-      }
-
-      function morphTo (newParticles) {
-        TweenMax.to(animationVars, .1, {
-          ease: Power4.easeIn,
-          speed: fullSpeed,
-          onComplete: slowDown
-        });
-
-        TweenMax.to(animationVars, 2, {
-          ease: Linear.easeNone
-        });
-
-        particles.vertices.forEach((point, i) => {
-          TweenMax.to(point, 2, {
-            ease: Elastic.easeOut.config( 0.1, .3),
-            x: newParticles.vertices[i].x,
-            y: newParticles.vertices[i].y,
-            z: newParticles.vertices[i].z
-          })
-        });
-      }
-
-      function slowDown () {
-        TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0.2
-        });
       }
     },
 
@@ -366,19 +279,25 @@ export default {
               size: outW > 1200 ? 16 : outW > 768 ? 12 : 10,
               height: outW > 768 ? 5 : 2
             },
-            normalSpeed = (defaultAnimationSpeed/300),
-            fullSpeed = (morphAnimationSpeed/100),
             animationVars = {
-              speed: normalSpeed,
-              rotation: -45
+              speed: defaultAnimationSpeed/300,
+              normalSpeed: defaultAnimationSpeed/300,
+              fullSpeed: morphAnimationSpeed/100
             },
-            canvasHeight = window.innerHeight;
+            canvasHeight = window.innerHeight,
+            windowHalfX = window.innerWidth / 2,
+            windowHalfY = window.innerHeight / 2,
+            maxOffset = 8;
+
+      let mouseX = 0, mouseY = 0;
 
       // three.js options
       const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-hero'), alpha : true}),
             scene = new THREE.Scene(),
             camera = new THREE.PerspectiveCamera( 45, canvasWidth / canvasHeight, 1, 10000 ),
-            light = new THREE.AmbientLight( 0xFFFFFF, 1 );
+            light = new THREE.AmbientLight( 0xFFFFFF, 1 ),
+            raycaster = new THREE.Raycaster(),
+            mouse = new THREE.Vector2();
 
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(canvasWidth, canvasHeight);
@@ -397,18 +316,6 @@ export default {
       controls.enableZoom = false;
       controls.update();
 
-      // mouse move animation
-      const raycaster = new THREE.Raycaster(),
-            mouse = new THREE.Vector2();
-
-      let mouseX = 0, mouseY = 0;
-
-      const windowHalfX = window.innerWidth / 2,
-        windowHalfY = window.innerHeight / 2,
-        maxOffset = 8,
-        minTime = 2.5,
-        maxTime = 4.5;
-
       // particles
       const particles = new THREE.Geometry(),
         text = {},
@@ -426,20 +333,13 @@ export default {
         text.geometry.center();
         text.particles = new THREE.Geometry();
         text.points = GeometryUtils.randomPointsInGeometry(text.geometry, particleCount);
-        createVertices(text.particles, text.points);
-        morphTo(text.particles);
+        ParticleUtils.createVertices(particleCount, text.particles, text.points);
+        ParticleUtils.morphTo(animationVars, particles, text.particles);
       });
 
-      for (let p = 0; p < particleCount; p++) {
-        const vertex = new THREE.Vector3();
+      ParticleUtils.fillParticles(particles, particleCount);
 
-        vertex.x = 0;
-        vertex.y = 0;
-        vertex.z = 0;
-        particles.vertices.push(vertex);
-      }
-
-      if (!is_touch_device()) {
+      if (!this.isTouchDevice()) {
         $(document).mousemove(function(e) {
           e.preventDefault();
 
@@ -461,8 +361,8 @@ export default {
                 startY = point.y;
 
               TweenMax.to(point, 1, {
-                x: random(point.x - maxOffset / 2, point.x + maxOffset / 2),
-                y: random(point.y - maxOffset / 2, point.y + maxOffset / 2),
+                x: ParticleUtils.random(point.x - maxOffset / 2, point.x + maxOffset / 2),
+                y: ParticleUtils.random(point.y - maxOffset / 2, point.y + maxOffset / 2),
                 ease: Sine.easeInOut,
                 onComplete
               });
@@ -472,7 +372,7 @@ export default {
                   x: startX,
                   y: startY,
                   ease: Power2.easeOut,
-                  speed: normalSpeed,
+                  speed: animationVars.normalSpeed,
                   delay: 0.1
                 });
               }
@@ -481,24 +381,9 @@ export default {
         });
       }
 
-      function animateParticles(particles) {
-        particles.vertices.forEach((particle) => {
-          animateXY().progress(Math.random());
-
-          function animateXY() {
-            return TweenLite.to(particle, random(minTime, maxTime), {
-              x: random(particle.x - maxOffset, particle.x + maxOffset),
-              y: random(particle.y - maxOffset, particle.y + maxOffset),
-              ease: Sine.easeInOut,
-              onComplete: animateXY
-            });
-          }
-        });
-      }
-
       const particleSystem = new THREE.Points(particles, pMaterial);
 
-      animateParticles(particles);
+      ParticleUtils.animateParticles(particles);
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
@@ -508,29 +393,6 @@ export default {
       scene.add(particleSystem);
 
       animate();
-
-      function random(min, max) {
-        if (max == null) { max = min; min = 0; }
-        if (min > max) { var tmp = min; min = max; max = tmp; }
-        return min + (max - min) * Math.random();
-      }
-
-      function is_touch_device() {
-        return (('ontouchstart' in window)
-          || (navigator.MaxTouchPoints > 0)
-          || (navigator.msMaxTouchPoints > 0));
-      }
-
-      function createVertices (emptyArray, points) {
-        for (let p = 0; p < particleCount; p++) {
-          const vertex = new THREE.Vector3();
-
-          vertex.x = points[p]['x'];
-          vertex.y = points[p]['y'];
-          vertex.z = points[p]['z'];
-          emptyArray.vertices.push(vertex);
-        }
-      }
 
       function animate() {
         camera.position.x = particleSystem.position.x + (mouseX - camera.position.x) * 0.005;
@@ -543,38 +405,6 @@ export default {
 
         window.requestAnimationFrame(animate);
         renderer.render(scene, camera);
-      }
-
-      function morphTo (newParticles) {
-        TweenMax.to(animationVars, .1, {
-          ease: Power4.easeIn,
-          speed: fullSpeed,
-          onComplete: slowDown
-        });
-
-        TweenMax.to(animationVars, 2, {
-          ease: Linear.easeNone
-        });
-
-        particles.vertices.forEach((point, i) => {
-          TweenMax.to(point, 2, {
-            ease: Elastic.easeOut.config( 0.1, .3),
-            x: newParticles.vertices[i].x,
-            y: newParticles.vertices[i].y,
-            z: newParticles.vertices[i].z
-          })
-        });
-
-        TweenMax.to(animationVars, 2, {
-          ease: Elastic.easeOut.config( 0.1, .3),
-          rotation: animationVars.rotation === 45 ? -45 : 45,
-        });
-      }
-
-      function slowDown () {
-        TweenMax.to(animationVars, 0.3, {ease:
-          Power2.easeOut, speed: normalSpeed, delay: 0.2
-        });
       }
     }
   }

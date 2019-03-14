@@ -42,17 +42,11 @@
     mounted() {
       const self = this;
 
-      $(document).ready(function () {
+      $(document).ready(() => {
           // var elem = document.getElementById('app');
           var left, top;
 
-          function is_touch_device() {
-              return (('ontouchstart' in window)
-                || (navigator.MaxTouchPoints > 0)
-                || (navigator.msMaxTouchPoints > 0));
-            }
-
-          if (!is_touch_device()) {
+          if (!this.isTouchDevice()) {
               document.addEventListener('mousemove', function (event) {
                 left = event.pageX;
                 top = event.pageY;
