@@ -50,9 +50,34 @@
      }
     ?>
   <?php wp_head(); ?>
+  <style>
+    body {
+       background: #030301;
+    }
+
+    .noscript {
+        text-align: center;
+        color: #BCBFC1;
+        display: flex;
+        align-items: center;
+        height: 80vh;
+        flex-direction:column;
+        justify-content: center;
+        font-family: 'Montserrat';
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
+  <noscript>
+    <div class="noscript">
+       <h1>Javascript Required</h1>
+       <p style="line-height: 26px;">
+        We're sorry, but <a href="<?php echo getSiteUrl(); ?>" style="color: #F44336;">Hope&Partners</a> doesn't work properly without Javascript.<br />
+        Please enable Javascript to get a full experience of using our site.
+       </p>
+    </div>
+  </noscript>
   <?php wp_footer(); ?>
 </body>
 </html>
