@@ -287,6 +287,10 @@
         .bio {
             padding-top: 120px;
 
+            .footer-container {
+                padding-bottom: 30px;
+            }
+
             .heading-block {
                 .bio-link {
                     font-size: $small-base-font-size;
