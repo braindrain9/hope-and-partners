@@ -1,61 +1,74 @@
 <template>
-    <div class="cases">
-        <h1 class="heading heading-main">{{$t('cases')}}<span class="orange-color">:</span></h1>
-        <swiper :options="swiperOption" ref="casesSwiper">
-            <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
-                <div class="slider-item d-flex">
-                    <div class="photo-block">
-                        <lazy-component tag="div" v-if="item.mediaContentType === 'Video'">
-                            <iframe :src="item.videoUrl"
-                                class="video"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                aria-label="video"
-                            >
-                        </iframe>
-                        </lazy-component>
-                        <img class="video" v-else v-lazy="item.imageUrl" alt="Case image">
-                        <div class="bg-image"></div>
-                    </div>
-                    <div class="text-block">
-                        <h2>{{item.title}}</h2>
-                        <p class="description" v-html="item.description"></p>
-                        <div class="horizontal-line"></div>
-                        <div class="comment d-flex" v-if="item.includeComment">
-                            <div class="photo" v-if="item.commentImageUrl">
-                                <img :src="item.commentImageUrl" alt="comment author image">
+    <div class="section-container">
+        <div class="container">
+            <div class="cases">
+                <h1 class="heading heading-main">{{$t('cases')}}<span class="orange-color">:</span></h1>
+                <swiper :options="swiperOption" ref="casesSwiper">
+                    <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
+                        <div class="slider-item d-flex">
+                            <div class="photo-block">
+                                <lazy-component tag="div" v-if="item.mediaContentType === 'Video'">
+                                    <iframe :src="item.videoUrl"
+                                            class="video"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            aria-label="video"
+                                    >
+                                    </iframe>
+                                </lazy-component>
+                                <img class="video" v-else v-lazy="item.imageUrl" alt="Case image">
+                                <div class="bg-image"></div>
                             </div>
-                            <div class="text">
-                                <h3>{{item.commentAuthorName}}</h3>
-                                <p>{{item.commentDescription}}</p>
+                            <div class="text-block">
+                                <h2>{{item.title}}</h2>
+                                <p class="description" v-html="item.description"></p>
+                                <div class="horizontal-line"></div>
+                                <div class="comment d-flex" v-if="item.includeComment">
+                                    <div class="photo" v-if="item.commentImageUrl">
+                                        <img :src="item.commentImageUrl" alt="comment author image">
+                                    </div>
+                                    <div class="text">
+                                        <h3>{{item.commentAuthorName}}</h3>
+                                        <p>{{item.commentDescription}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </swiper-slide>
-            <div v-if="showControls" class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
-            <div
-                    class="swiper-pagination"
-                    slot="pagination"
-                    ref="pagination"
-                    :data-before="activeIndex"
-                    :data-after="afterIndex"
-                    v-if="showControls"
-            ></div>
-            <div v-if="showControls" class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
-        </swiper>
+                    </swiper-slide>
+                    <div v-if="showControls" class="swiper-button-prev" slot="button-prev" v-html="arrowSvg"></div>
+                    <div
+                            class="swiper-pagination"
+                            slot="pagination"
+                            ref="pagination"
+                            :data-before="activeIndex"
+                            :data-after="afterIndex"
+                            v-if="showControls"
+                    ></div>
+                    <div v-if="showControls" class="swiper-button-next" slot="button-next" v-html="arrowSvg"></div>
+                </swiper>
+            </div>
+        </div>
+        <div class="container cases-footer footer-container">
+            <Footer link="contacts"/>
+        </div>
     </div>
+
 </template>
 
 <script>
   import arrowSvg from '../assets/img/arrow-grey.svg';
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
+  import Footer from './Footer';
 
   export default {
     name: 'Cases',
 
     props: ['cases'],
+
+    components: {
+      Footer
+    },
 
     data() {
       return {
@@ -138,6 +151,10 @@
 </script>
 
 <style scoped lang="scss">
+    .cases-footer {
+        margin-top: 100px;
+    }
+
     .cases {
         height: $home-block-height;
         min-height: 700px;

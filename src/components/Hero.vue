@@ -78,6 +78,10 @@
 </script>
 
 <style scoped lang="scss">
+    .hero {
+        padding-top: 100px; // compensate header
+    }
+
     .hero-section {
         opacity: 0;
 
@@ -144,6 +148,10 @@
     }
 
     @include media-max-width($sm-max) {
+        .hero {
+            padding-top: 0;
+        }
+
         .hero-section {
             .hero-content {
                 height: calc(100vh - 200px);

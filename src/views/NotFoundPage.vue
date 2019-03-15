@@ -24,6 +24,6 @@
 <style scoped lang="scss">
     .page-not-found {
         padding-top: 100px;
-        height: 80vh;
+        height: $home-block-height;
     }
 </style>

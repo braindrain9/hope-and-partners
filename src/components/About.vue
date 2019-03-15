@@ -1,33 +1,41 @@
 <template>
-    <div class="about">
-        <div class="about-container d-flex align-items-start">
-            <img class="about-img"
-                 :src="content.imageUrl"
-                 alt="About me image"
-            />
-            <div class="bio-container">
-                <div class="heading-container">
-                    <h1 class="heading" v-html="content.title"></h1>
-                </div>
-                <div class="description" v-html="content.description"></div>
-                <div class="bio-link">
-                    <span class="divider"></span>
-                    <span>{{$t('allAchievements')}}
+    <div class="section-container">
+        <div class="container">
+            <div class="about">
+                <div class="about-container d-flex align-items-start">
+                    <img class="about-img"
+                         :src="content.imageUrl"
+                         alt="About me image"
+                    />
+                    <div class="bio-container">
+                        <div class="heading-container">
+                            <h1 class="heading" v-html="content.title"></h1>
+                        </div>
+                        <div class="description" v-html="content.description"></div>
+                        <div class="bio-link">
+                            <span class="divider"></span>
+                            <span>{{$t('allAchievements')}}
                         <router-link class="strike"
                                      :to="lang === 'en' ? '/en/bio' : '/bio'"
                                      :title="$t('myCompleteBioText')">
                             <span>{{$t('here')}}.</span>
                         </router-link>
                     </span>
+                        </div>
+                    </div>
                 </div>
+                <Event/>
             </div>
         </div>
-        <Event/>
+        <div class="container footer-container">
+            <Footer link="services"/>
+        </div>
     </div>
 </template>
 
 <script>
   import Event from './Event';
+  import Footer from './Footer';
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
   import {i18n} from "../i18n";
@@ -44,7 +52,8 @@
     },
 
     components: {
-      Event
+      Event,
+      Footer
     },
 
     created() {
