@@ -148,7 +148,7 @@
 
         // event animation
         const eventAnimation = new TimelineMax()
-          .fromTo($('.bio .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
+          .fromTo($('.bio .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0});
 
         new ScrollMagic.Scene({
           triggerElement: ".bio .event",
