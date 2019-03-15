@@ -28,16 +28,16 @@
                                  v-if="bio.imageUrl"
                                  v-lazy="bio.imageUrl"
                                  alt="bio image"/>
-
                             <h2 v-if="bio.title">{{bio.title}}</h2>
-
                             <div class="paragraph" v-if="bio.content" v-html="bio.content"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <Event/>
+
         <div class="container footer-container">
             <Footer link="partners"/>
         </div>
@@ -47,6 +47,7 @@
 <script>
   import Event from '../components/Event';
   import Footer from '../components/Footer';
+
   import ScrollMagic from 'scrollmagic';
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax, TweenLite} from "gsap/TweenMax";
@@ -54,6 +55,11 @@
 
   export default {
     name: 'BioPage',
+
+    components: {
+      Event,
+      Footer
+    },
 
     data() {
       return {
@@ -112,14 +118,8 @@
 
         const controller = new ScrollMagic.Controller();
 
-        const scene = new ScrollMagic.Scene({
-          triggerElement: '.bio',
-          triggerHook: "0",
-          duration: "100%"
-        })
-          .addTo(controller);
-
-        $.each($('.bio .photo-block > .photo'), function (index, elem) {
+        // photo animation
+        $.each($('.bio .photo-block > .photo'), (index, elem) => {
           const animPhoto = new TimelineMax()
             .fromTo(elem, 1, {y: 20, opacity: index ? 0.5 : 1}, {y: 0, opacity: 1});
 
@@ -132,8 +132,9 @@
             .addTo(controller);
         });
 
-        $.each($('.bio .row .description-block .description .paragraph'), function (index, elem) {
-          const anim = new TimelineMax()
+        // description animation
+        $.each($('.bio .row .description-block .description .paragraph'), (index, elem) => {
+          const animDescription = new TimelineMax()
             .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
           new ScrollMagic.Scene({
@@ -141,26 +142,22 @@
             triggerHook: "onEnter",
             duration: "100%"
           })
-            .setTween(anim)
+            .setTween(animDescription)
             .addTo(controller);
         });
 
-        const wipeAnimation2 = new TimelineMax()
-          .fromTo($('.bio .event'), 1, {y: 50, opacity: 0}, {y: 0, opacity: 1});
+        // event animation
+        const eventAnimation = new TimelineMax()
+          .fromTo($('.bio .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
-        const scene2 = new ScrollMagic.Scene({
+        new ScrollMagic.Scene({
           triggerElement: ".bio .event",
           triggerHook: "onEnter",
-          duration: "80%"
+          duration: '100%'
         })
-          .setTween(wipeAnimation2)
+          .setTween(eventAnimation)
           .addTo(controller);
       }
-    },
-
-    components: {
-      Event,
-      Footer
     }
   }
 </script>
@@ -221,6 +218,15 @@
                         font-weight: bold;
                         font-size: $extra-medium-base-font-size;
                         margin-bottom: 15px;
+                    }
+
+                    p {
+                        margin-bottom: 28px;
+                    }
+
+                    a:hover {
+                        color: $orange;
+                        text-decoration: underline;
                     }
                 }
             }
