@@ -15,12 +15,12 @@
                         <div class="bio-link">
                             <span class="divider"></span>
                             <span>{{$t('allAchievements')}}
-                        <router-link class="strike"
-                                     :to="lang === 'en' ? '/en/bio' : '/bio'"
-                                     :title="$t('myCompleteBioText')">
-                            <span>{{$t('here')}}.</span>
-                        </router-link>
-                    </span>
+                                <router-link class="strike"
+                                             :to="lang === 'en' ? '/en/bio' : '/bio'"
+                                             :title="$t('myCompleteBioText')">
+                                    <span>{{$t('here')}}.</span>
+                                </router-link>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -36,13 +36,18 @@
 <script>
   import Event from './Event';
   import Footer from './Footer';
+
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
   import {i18n} from "../i18n";
-  import bus from '../bus';
 
   export default {
     name: 'About',
+
+    components: {
+      Event,
+      Footer
+    },
 
     data() {
       return {
@@ -51,43 +56,28 @@
       }
     },
 
-    components: {
-      Event,
-      Footer
-    },
-
     created() {
       this.getAboutData();
     },
 
     methods: {
-      getAboutData: function() {
-        this.$http.get(`wp/v2/about?lang=${this.lang}`).then(response => {
-          this.content = this.transformResponseData(response.data)[0] || {};
-        }, error => console.log(error));
-      }
-    },
-
-    mounted() {
-      bus.$on('fetchData', (lang) => {
-        if (this.lang !== lang) {
-          this.lang = lang;
-          this.getAboutData();
-        }
-      });
-
-      $(document).ready(function () {
+      getAboutData: function () {
+        this.$http.get(`wp/v2/about?lang=${this.lang}`)
+          .then(response => {
+            this.content = this.transformResponseData(response.data)[0] || {};
+          }, error => console.log(error))
+          .finally(() => this.getAboutAnimation());
+      },
+      getAboutAnimation: function () {
         const controller = new ScrollMagic.Controller();
 
+        // about animation
         const bioInfoAnimation = new TimelineMax()
           .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
           .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
         ;
 
-        const photoAnimation = new TimelineMax()
-          .fromTo($('.about .about-image'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
-
-        const bioInfo = new ScrollMagic.Scene({
+        new ScrollMagic.Scene({
           triggerElement: ".about-container",
           triggerHook: "onEnter",
           duration: '100%'
@@ -95,17 +85,18 @@
           .setTween(bioInfoAnimation)
           .addTo(controller);
 
+        // event animation
         const eventAnimation = new TimelineMax()
           .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
 
-        const event = new ScrollMagic.Scene({
+        new ScrollMagic.Scene({
           triggerElement: ".about .event",
           triggerHook: "onEnter",
           duration: '100%'
         })
           .setTween(eventAnimation)
           .addTo(controller);
-      });
+      }
     }
   }
 </script>
@@ -127,6 +118,14 @@
             margin-left: -110px;
             margin-top: 200px;
             position: relative;
+
+            p {
+                margin-bottom: 28px;
+            }
+
+            .heading-container p {
+                margin-bottom: 0;
+            }
 
             .heading, .description {
                 transition: all 0.5s ease-in-out;

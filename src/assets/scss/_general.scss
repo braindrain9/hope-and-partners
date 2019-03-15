@@ -35,7 +35,7 @@
   font-size: $tiny-font-size;
 }
 
-// Elements
+// General
 .scrollmagic-pin-spacer {
   height: 100vh !important;
   margin-bottom: 100px !important;
@@ -52,6 +52,7 @@
   z-index: 1;
 }
 
+// Elements
 .heading {
   color: $white;
   font-weight: bold;
@@ -74,16 +75,6 @@
 
   &-dark {
     color: $dark-black;
-  }
-}
-
-.bio-container {
-  p {
-    margin-bottom: 28px;
-  }
-
-  .heading-container p {
-    margin-bottom: 0;
   }
 }
 
@@ -122,8 +113,7 @@
   }
 }
 
-// animations
-
+// Animations
 .strike span {
   transition: color .5s
 }
