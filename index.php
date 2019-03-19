@@ -23,6 +23,8 @@
    <meta name="twitter:image" content="https://hopeandpart.com/opengraph-image.jpg"/>
    <meta name="apple-mobile-web-app-capable" content="yes">
    <link rel="canonical" href="<?php echo getSiteUrl(); ?>" />
+   <meta name="google-site-verification" content="4GCnA31OD27Xqb8cvbyNZEPLC5WBdPUO8BEQ3uTjs0Y" />
+
 
    <?php
      function getSiteUrl() {
@@ -78,6 +80,17 @@
        </p>
     </div>
   </noscript>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136492029-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-136492029-1');
+  </script>
+
   <?php wp_footer(); ?>
 </body>
 </html>
