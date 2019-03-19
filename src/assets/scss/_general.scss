@@ -76,6 +76,15 @@
   &-dark {
     color: $dark-black;
   }
+
+  p {
+    margin-bottom: 28px;
+  }
+
+  a:hover {
+    color: $orange;
+    text-decoration: underline;
+  }
 }
 
 .horizontal-grey-link {
@@ -226,6 +235,17 @@
 
   100% {
     transform: rotate(0)
+  }
+}
+
+/*About*/
+.bio-container {
+  p {
+    margin-bottom: 28px;
+  }
+
+  .heading-container p {
+    margin-bottom: 0;
   }
 }
 

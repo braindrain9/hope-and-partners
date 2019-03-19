@@ -9,7 +9,7 @@
                     />
                     <div class="bio-container">
                         <div class="heading-container">
-                            <h1 class="heading" v-html="content.title"></h1>
+                            <h2 class="heading" v-html="content.title"></h2>
                         </div>
                         <div class="description" v-html="content.description"></div>
                         <div class="bio-link">
@@ -118,14 +118,6 @@
             margin-left: -110px;
             margin-top: 200px;
             position: relative;
-
-            p {
-                margin-bottom: 28px;
-            }
-
-            .heading-container p {
-                margin-bottom: 0;
-            }
 
             .heading, .description {
                 transition: all 0.5s ease-in-out;

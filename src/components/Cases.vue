@@ -2,7 +2,7 @@
     <div class="section-container">
         <div class="container">
             <div class="cases">
-                <h1 class="heading heading-main">{{$t('cases')}}<span class="orange-color">:</span></h1>
+                <h2 class="heading heading-main">{{$t('cases')}}<span class="orange-color">:</span></h2>
                 <swiper :options="swiperOption" ref="casesSwiper">
                     <swiper-slide class="d-flex align-items-center" v-for="(item, index) in cases" :key="index">
                         <div class="slider-item d-flex">

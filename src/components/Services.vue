@@ -3,7 +3,7 @@
         <section class="slider-section">
             <div id="slider-wrap">
                 <div class="container position-relative">
-                    <h1 class="heading heading-main">{{$t('services')}}<span class="orange-color">:</span></h1>
+                    <h2 class="heading heading-main">{{$t('services')}}<span class="orange-color">:</span></h2>
                     <canvas id="canvas-services"></canvas>
                 </div>
 

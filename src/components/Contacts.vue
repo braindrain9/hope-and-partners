@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="contacts d-flex">
                     <div class="mail-block">
-                        <h1>{{$t('contactUs')}}</h1>
+                        <h2>{{$t('contactUs')}}</h2>
                         <div class="mail-text">
                             <div class="mail">
                                 <a class="strike" :href="'mailto:' + $store.state.content.email">
@@ -97,7 +97,7 @@
         align-items: center;
 
         .mail-block {
-            h1 {
+            h2 {
                 font-size: $extra-medium-base-font-size;
                 font-weight: bold;
                 color: $white;
@@ -146,7 +146,7 @@
     @include media-max-width($lg-max) {
         .contacts {
             .mail-block {
-                h1 {
+                h2 {
                     font-size: $medium-base-font-size;
                 }
                 .mail {
@@ -159,7 +159,7 @@
     @include media-max-width($md-max) {
         .contacts {
             .mail-block {
-                h1 {
+                h2 {
                     font-size: $small-base-font-size;
                 }
                 .mail {
@@ -183,7 +183,7 @@
             .mail-block {
                 height: 30%;
 
-                h1 {
+                h2 {
                     font-size: $medium-base-font-size;
                     margin-bottom: 20px;
                 }
