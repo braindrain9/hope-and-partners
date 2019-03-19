@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js no-svg">
 <head>
-  <meta charset="<?php bloginfo( 'charset' ); ?>">
+  <meta charset="UTF-8">
    <title>Hope & Partners</title>
    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'/>
    <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700">
