@@ -52,6 +52,14 @@ function remove_embeded_scripts(){
 }
 add_action( 'wp_footer', 'remove_embeded_scripts' );
 
+//Remove JQuery migrate
+function isa_remove_jquery_migrate( &$scripts) {
+    if(!is_admin()) {
+        $scripts->remove('jquery');
+    }
+}
+add_filter( 'wp_default_scripts', 'isa_remove_jquery_migrate' );
+
 if ( is_plugin_active( 'autoptimize/autoptimize.php' ) ) {
     add_filter('autoptimize_html_after_minify', function($content) {
         $content = str_replace("type='text/javascript'", '', $content);
