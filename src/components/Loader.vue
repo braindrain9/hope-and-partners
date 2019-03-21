@@ -11,7 +11,8 @@
 
     data() {
       return {
-        imageUrl: this.$store.state.content_endpoint + 'dist/src/assets/img/loader.gif'
+        imageUrl: this.$store.state.content_endpoint + 'dist/src/assets/img/loader.gif' + ($(window).outerWidth() > 576
+          ? '' : '.webp')
       }
     }
   }
