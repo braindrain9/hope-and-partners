@@ -28,13 +28,17 @@
 </template>
 
 <script>
-  import arrowSvg from '../assets/img/arrow.svg';
   import Footer from './Footer';
+
+  import arrowSvg from '../assets/img/arrow.svg';
   import ScrollMagic from 'scrollmagic';
-  import bus from '../bus';
 
   export default {
     name: 'Contacts',
+
+    components: {
+      Footer
+    },
 
     data() {
       return {
@@ -42,42 +46,24 @@
       }
     },
 
-    mounted() {
-      const self = this;
+    methods: {
+      addMailAnimation() {
+        const controller = new ScrollMagic.Controller();
 
-      $(document).ready(function() {
-        const outW = $(window).outerWidth();
-
-        self.getContactsAnimation();
-
-        triggerMailAnimation();
-
-        function triggerMailAnimation() {
-          const controller = new ScrollMagic.Controller();
-          // hide footer
-          const hideFooterScene = new ScrollMagic.Scene({
-            triggerElement: "#contacts",
-            triggerHook: 0.2,
-            duration: '80%'
-          })
-              .setClassToggle('#contacts .mail-block', 'animation')
-              .addTo(controller);
-
-          const animation = new ScrollMagic.Scene({
-            triggerElement: "#canvas-contacts",
-            triggerHook: "onEnter",
-            duration: '100%',
-          })
-            .on('start', function () {
-              bus.$emit('animateContacts', '&');
-            })
-            .addTo(controller);
-        }
-      })
+        // arrow animation
+        new ScrollMagic.Scene({
+          triggerElement: "#contacts",
+          triggerHook: 0.2,
+          duration: '80%'
+        })
+          .setClassToggle('#contacts .mail-block', 'animation')
+          .addTo(controller);
+      }
     },
 
-    components: {
-      Footer
+    mounted() {
+      this.getContactsAnimation();
+      this.addMailAnimation();
     }
   }
 </script>
