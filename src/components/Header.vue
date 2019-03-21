@@ -6,17 +6,9 @@
                     <span>{{$t('menu')}}</span>
                 </button>
 
-                <div class="language-chooser d-md-none">
-                    <span v-for="lang in languages"
-                          :key="lang.key"
-                          v-on:click="changeLang(lang.key)"
-                          :class="{'active': lang.key === currentLang}"
-                    >{{lang.title}}</span>
-                </div>
-
                 <b-collapse is-nav id="nav_collapse" class="justify-content-between">
                     <b-navbar-nav id="menu">
-                        <li class="nav-item" v-for="(link, index) in filteredNavLinks" :key="index">
+                        <li class="nav-item" v-for="(link, index) in navLinks" :key="index">
                             <a :data-link="link.path"
                                :key="link.id"
                                class="nav-link strike"
@@ -26,15 +18,15 @@
                             </a>
                         </li>
                     </b-navbar-nav>
-
-                    <div class="language-chooser">
-                        <span v-for="lang in languages"
-                              :key="lang.key"
-                              v-on:click="changeLang(lang.key)"
-                              :class="{'active': lang.key === currentLang}"
-                        >{{lang.title}}</span>
-                    </div>
                 </b-collapse>
+
+                <div class="language-chooser">
+                    <span v-for="lang in languages"
+                          :key="lang.key"
+                          v-on:click="changeLang(lang.key)"
+                          :class="{'active': lang.key === currentLang}"
+                    >{{lang.title}}</span>
+                </div>
 
                 <b-navbar-brand :href="currentLang === 'en' ? '/en' : '/'" right aria-label="Hope & Partners Logo">
                     <div class="d-none d-md-block" v-html="logo"></div>
@@ -99,12 +91,6 @@
       }
     },
 
-    computed: {
-      filteredNavLinks: function () {
-        return this.navLinks.filter(link => !link.hidden);
-      }
-    },
-
     methods: {
       changeLang: function(lang) {
         if (i18n.locale !== lang) {
@@ -117,10 +103,11 @@
       },
       showMenu: function() {
         const mobileMenu = document.getElementById("mobileMenu"),
-          items = $(".wrapper li"),
-          mail = $(".mail-box"),
-          menuFadeOpen = new TimelineMax()
-          .fromTo(mobileMenu, 0.6, {
+              items = $(".wrapper li"),
+              mail = $(".mail-box");
+
+          new TimelineMax()
+            .fromTo(mobileMenu, 0.6, {
               x: -1000
             },
             {
@@ -147,8 +134,9 @@
         $('#header').css({"position": "fixed"});
       },
       hideMenu: function() {
-        const mobileMenu = document.getElementById("mobileMenu"),
-          menuFadeClose = TweenMax.to(mobileMenu, .25, {
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        TweenMax.to(mobileMenu, .25, {
           opacity: 0,
           x: 0,
           y: '-100vh',
@@ -162,9 +150,9 @@
 
     mounted() {
       // load animations
-      TweenLite.fromTo($('#menu .nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.0});
-      TweenLite.fromTo($('.language-chooser span'), 1.5, {opacity: 0}, {opacity: 1, delay: 1.5});
-      TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2.5, scale: 1});
+      TweenLite.fromTo($('#menu .nav-item'), 1.5, {opacity: 0, y: -20}, {opacity: 1, y: 0, delay: 1.5});
+      TweenLite.fromTo($('.language-chooser span'), 1.5, {opacity: 0}, {opacity: 1, delay: 2});
+      TweenLite.fromTo($('a.navbar-brand'), 1.5, {opacity: 0, scale: 1.1}, {opacity: 1, delay: 2, scale: 1});
     }
   }
 </script>
