@@ -6,7 +6,7 @@
                     <h2 class="heading heading-main">{{$t('partners')}}<span class="orange-color">:</span></h2>
                 </div>
             </div>
-            <div class="d-none d-sm-block" id="partners-slider-container">
+            <div class="d-none d-md-block" id="partners-slider-container">
                 <div class="partners-progress-container">
                     <div id="partners-slider">
                         <div class="partner" v-for="(partner, index) in partners" :key="index"
@@ -52,7 +52,7 @@
                     <Footer class="partners-footer" link="cases"></Footer>
                 </div>
             </div>
-            <div id="d-block d-sm-none partners-mobile-slider">
+            <div id="d-block d-md-none partners-mobile-slider">
                 <div class="container">
                     <swiper :options="swiperOption" ref="partnersSwiper">
                         <swiper-slide v-for="(partner, index) in partners" :key="index"
@@ -334,17 +334,14 @@
       this.swiper.on('slideChange', () => this.onSwipe(this));
       this.hideFooterOnLeave();
 
-      if (outW > 576) {
-        this.partnersInit();
-      }
-
       if (outW >= 767.98) {
+        this.partnersInit();
         this.addPartnersHoverAnimation();
       }
 
       window.addEventListener('resize', () => {
         // if resized to mobile destroy scrollmagic partners
-        if ($(window).outerWidth() < 576) {
+        if ($(window).outerWidth() < 768) {
           bus.$emit('destroyController');
         } else {
           // set left position on resize
@@ -594,23 +591,11 @@
 
     @include media-max-width($sm-max) {
         .partners {
+            margin-bottom: 0;
+
             .heading-main {
                 padding-left: 10px;
             }
-        }
-    }
-
-    @media screen and (orientation: portrait) {
-        .partners {
-            #partners-slider {
-                height: 55vh;
-            }
-        }
-    }
-
-    @include media-max-width($xs-max) {
-        .partners {
-            margin-bottom: 0;
 
             #partners-container {
                 height: 100%;
@@ -655,6 +640,14 @@
                         margin-top: 10px;
                     }
                 }
+            }
+        }
+    }
+
+    @media screen and (orientation: portrait) {
+        .partners {
+            #partners-slider {
+                min-height: 55vh;
             }
         }
     }
