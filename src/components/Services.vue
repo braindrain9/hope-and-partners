@@ -83,6 +83,10 @@
 
     props: ['services'],
 
+    components: {
+      Footer
+    },
+
     data() {
       return {
         arrowSvg,
@@ -98,12 +102,109 @@
         this.activeIndex = index === 0
           ? ''
           : index < 10 ? '0' + index : index;
-
         this.afterIndex = this.services.length === (index + 1)
           ? ''
           : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
 
         bus.$emit('animateServicesParticles', index);
+      },
+      hideFooterOnLeave() {
+        const controller = new ScrollMagic.Controller(),
+          hideAboutFooterAnimation = new TimelineMax()
+            .fromTo($('#about .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0}),
+          hideFooterAnimation = new TimelineMax()
+            .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1});
+
+        new ScrollMagic.Scene({
+          triggerElement: "#services",
+          triggerHook: "onEnter",
+          duration: '80%'
+        })
+          .setTween(hideAboutFooterAnimation)
+          .addTo(controller);
+
+        // hide footer
+        new ScrollMagic.Scene({
+          triggerElement: "#partners",
+          triggerHook: "onEnter",
+          duration: '80%'
+        })
+          .setTween(hideFooterAnimation)
+          .addTo(controller);
+      },
+      sliderInit() {
+        const controller = new ScrollMagic.Controller(),
+          sliderCount = $('.slide-content').length + 0.2,
+          progressWrap = $('.progress-slider-wrap'),
+          sliderContainer = $('#slider-container'),
+          sliderXOffset = 100 - (100 / sliderCount);
+
+        let pinPosition,
+          yOffset,
+          scene,
+          html;
+
+        // create slide, progress pin and nav dots
+        html = '<ul class="slider-dots">';
+
+        for (let i = 1; i <= sliderCount; i++) {
+          sliderContainer.append('<div id="slide-nav-' + i + '" class="slide"></div>');
+          progressWrap.append('<div class="progress-pin" data-dots="dots-nav-' + i + '" data-slide="slide-' + i + '">' + i + '</div>');
+          //
+          // Add slide navigation dot
+          if (i !== sliderCount)
+            html += '<li id="dots-nav-' + i + '" data-index="' + i + '">0' + i + '</li>';
+        }
+
+        html += '</ul>';
+
+        // append nav dots
+        $('.slider-content-wrap .services-slider').prepend(html);
+
+        const slideWidth = $('.slide').width(),
+          progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
+          timeLineAnim = progressWrapWidth * 4,
+          wipeAnimation = new TimelineMax()
+            .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
+            .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
+            .to(progressWrap, 1, {x: timeLineAnim + 'px'}, 0),
+          slideAnimation = new TimelineMax()
+            .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
+
+        scene = new ScrollMagic.Scene({
+          triggerElement: "#slider-wrap",
+          triggerHook: "onLeave",
+          duration: sliderCount * 100 + "%"
+        })
+          .setPin("#slider-wrap")
+          .setTween(wipeAnimation)
+          .addTo(controller);
+
+        new ScrollMagic.Scene({
+          triggerElement: "#slide-1",
+          triggerHook: "onEnter",
+          duration: "80%"
+        })
+          .setTween(slideAnimation)
+          .addTo(controller);
+
+        sliderContainer.css("width", sliderCount * 100 + "%");
+        $('.slide').css("width", 100 / sliderCount + "%");
+        progressWrap.css({
+          "width": progressWrapWidth
+        });
+        yOffset = parseFloat(Math.trunc(progressWrapWidth / (sliderCount - 1)));
+
+        $('.progress-pin').each(function (index) {
+          pinPosition = index * yOffset;
+          $(this).css("left", pinPosition).attr("data-position", pinPosition);
+        });
+
+        // set active slide on load
+        $('#slide-1').addClass('slide-point');
+        $('#dots-nav-1').addClass('dots-point');
+
+        bus.$emit('animateServices', $('#slide-1 .letter').text());
       }
     },
 
@@ -114,189 +215,71 @@
     },
 
     mounted() {
-      const self = this;
+      const outW = $(window).outerWidth();
+
       this.swiper.on('slideChange', () => this.onSwipe(this));
+      this.getServicesAnimation();
+      this.hideFooterOnLeave();
 
-      $(document).ready(function () {
-        self.getServicesAnimation();
+      $('.services-slider').css({"opacity": 1});
 
-        const outW = $(window).outerWidth();
+      if (outW > 767.98) {
+        this.sliderInit();
 
-        $('.services-slider').css({"opacity": 1});
+        const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
 
-        hideFooterOnLeave();
+        let prevLetter = false,
+          lastScrollTop = 0;
 
-        if (outW > 767.98) {
+        $(window).scroll(function () {
+          const st = $(this).scrollTop();
 
-          sliderInit();
+          sliderDownAnim();
+          lastScrollTop = st;
+        });
 
-          var lastScrollTop = 0;
-          const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
+        // helpers
+        function sliderDownAnim() {
+          let elem = document.getElementById("progress-line");
 
-          let prevLetter = false;
+          if (elem) {
+            const lineWidth = parseFloat(elem.offsetWidth);
 
-          $(window).scroll(function () {
-            const st = $(this).scrollTop();
+            $('.progress-pin').each(function () {
+              const pointPosition = $(this).data('position');
 
-            sliderDownAnim();
-            lastScrollTop = st;
-          });
+              if (lineWidth > pointPosition) {
+                const pointOffset = pointPosition + pointWidth;
 
-          function sliderDownAnim() {
-            let elem = document.getElementById("progress-line");
+                if (lineWidth < pointOffset) {
+                  let slide = $('#' + $(this).data('slide')),
+                    nav = $('#' + $(this).data('dots'));
 
-            if (elem) {
-              const lineWidth = parseFloat(elem.offsetWidth);
+                  slide.siblings().removeClass('slide-point');
+                  slide.addClass('slide-point');
 
-              $('.progress-pin').each(function () {
+                  nav.siblings().removeClass('dots-point');
+                  nav.addClass('dots-point');
 
-                const pointPosition = $(this).data('position');
+                  const text = $('.slide-content.slide-point .letter'),
+                    index = $('.slide-content.slide-point').index();
 
-                if (lineWidth > pointPosition) {
+                  if (text && (prevLetter !== text.text())) {
+                    prevLetter = text.text();
 
-                  var pointOffset = pointPosition + pointWidth;
-
-                  if (lineWidth < pointOffset) {
-
-                    let slide = $('#' + $(this).data('slide'));
-                    slide.siblings().removeClass('slide-point');
-                    slide.addClass('slide-point');
-
-                    let nav = $('#' + $(this).data('dots'));
-                    nav.siblings().removeClass('dots-point');
-                    nav.addClass('dots-point');
-
-                    const text = $('.slide-content.slide-point .letter'),
-                          index = $('.slide-content.slide-point').index();
-
-                    if (outW > 576) {
-                      if (text && (prevLetter !== text.text())) {
-                        prevLetter = text.text();
-
-                        function animateParticles() {
-                          bus.$emit('animateServicesParticles', index - 1)
-                        }
-
-                        Timeout.clear(animateParticles);
-                        Timeout.set(animateParticles, 300);
-                      }
+                    function animateParticles() {
+                      bus.$emit('animateServicesParticles', index - 1)
                     }
+
+                    Timeout.clear(animateParticles);
+                    Timeout.set(animateParticles, 300);
                   }
                 }
-              });
-            }
+              }
+            });
           }
-
         }
-
-        function sliderInit() {
-          const controller = new ScrollMagic.Controller(),
-                sliderCount = $('.slide-content').length + 0.2,
-                progressWrap = $('.progress-slider-wrap'),
-                sliderContainer = $('#slider-container'),
-                sliderXOffset = 100 - (100 / sliderCount);
-
-          let wipeAnimation,
-              pinPosition,
-              yOffset,
-              scene,
-              html;
-
-          //Create Slide, Progress Pin and Nav dots
-          html = '<ul class="slider-dots">';
-          for (let i = 1; i <= sliderCount; i++) {
-            sliderContainer.append('<div id="slide-nav-' + i + '" class="slide"></div>');
-            progressWrap.append('<div class="progress-pin" data-dots="dots-nav-' + i + '" data-slide="slide-' + i + '">' + i + '</div>');
-            //
-            // Add slide navigation dot
-            if (i !== sliderCount)
-              html += '<li id="dots-nav-' + i + '" data-index="' + i + '">0' + i + '</li>';
-          }
-          html += '</ul>';
-          //
-          //Apend nav dots
-          $('.slider-content-wrap .services-slider').prepend(html);
-
-          var slideWidth = $('.slide').width(),
-            progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
-            TimeLineAnim = progressWrapWidth * 4;
-
-          wipeAnimation = new TimelineMax()
-            .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
-            .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
-            .to(progressWrap, 1, {x: TimeLineAnim + 'px'}, 0);
-
-          scene = new ScrollMagic.Scene({
-            triggerElement: "#slider-wrap",
-            triggerHook: "onLeave",
-            duration: sliderCount * 100 + "%"
-          })
-            .setPin("#slider-wrap")
-            .setTween(wipeAnimation)
-            .addTo(controller);
-
-          const wipeAnimation2 = new TimelineMax()
-            .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
-
-          new ScrollMagic.Scene({
-            triggerElement: "#slide-1",
-            triggerHook: "onEnter",
-            duration: "80%"
-          })
-            .setTween(wipeAnimation2)
-            .addTo(controller);
-
-          sliderContainer.css("width", sliderCount * 100 + "%");
-
-          $('.slide').css("width", 100 / sliderCount + "%");
-
-          progressWrap.css({
-            "width": progressWrapWidth
-          });
-
-          yOffset = parseFloat(Math.trunc(progressWrapWidth / (sliderCount - 1)));
-          $('.progress-pin').each(function (index) {
-            pinPosition = index * yOffset;
-            $(this).css("left", pinPosition).attr("data-position", pinPosition);
-          });
-
-          // set active slide on load
-          $('#slide-1').addClass('slide-point');
-          $('#dots-nav-1').addClass('dots-point');
-
-          const text = $('#slide-1 .letter');
-          bus.$emit('animateServices', text.text());
-        }
-
-        function hideFooterOnLeave() {
-          const controller = new ScrollMagic.Controller(),
-                hideAboutFooterAnimation = new TimelineMax()
-                  .fromTo($('#about .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0}),
-                hideFooterAnimation = new TimelineMax()
-                  .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1});
-
-          new ScrollMagic.Scene({
-            triggerElement: "#services",
-            triggerHook: "onEnter",
-            duration: '80%'
-          })
-            .setTween(hideAboutFooterAnimation)
-            .addTo(controller);
-
-          // hide footer
-          new ScrollMagic.Scene({
-            triggerElement: "#partners",
-            triggerHook: "onEnter",
-            duration: '80%'
-          })
-            .setTween(hideFooterAnimation)
-            .addTo(controller);
-        }
-      })
-    },
-
-    components: {
-      Footer
+      }
     }
   }
 </script>
