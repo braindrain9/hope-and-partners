@@ -1,7 +1,8 @@
 import bus from '../bus';
 import {GeometryUtils, ParticleUtils} from './three';
-import {TweenMax, Sine} from 'gsap/TweenMax';
+import {TweenMax, Sine, TweenLite} from 'gsap/TweenMax';
 require('three/examples/js/controls/OrbitControls.js');
+import anime from 'animejs';
 
 export default {
   data () {
@@ -69,6 +70,40 @@ export default {
   },
 
   methods: {
+    addHeroInitAnimation() {
+      const heroHeading = $('.hero .heading-main');
+
+      TweenLite.to($('.hero-section'), 1, {opacity: 1.0});
+      TweenLite.fromTo(heroHeading, 1.5, {opacity: 0, y: 50}, {
+        opacity: 1.0,
+        y: 0,
+        delay: 0.5
+      });
+      TweenLite.fromTo($('.hero .hero-content .details-link'), 1.5, {opacity: 0, x: 100}, {
+        opacity: 1.0,
+        x: 0,
+        delay: 2
+      });
+
+      heroHeading.html(heroHeading.text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+      TweenLite.fromTo($('.footer'), 1.5, {opacity: 0}, {opacity: 1, delay: 1});
+
+      anime.timeline().add({
+        targets: '.hero .heading-main .letter',
+        opacity: [0, 1],
+        easing: "easeInOutQuad",
+        duration: 1700,
+        delay: function (el, i) {
+          return 100 * (i + 1)
+        }
+      });
+    },
+    addBioInitAnimation() {
+      TweenLite.to($('.bio'), 1, {opacity: 1});
+      TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
+      TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+      TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
+    },
     isTouchDevice() {
       return (('ontouchstart' in window)
         || (navigator.MaxTouchPoints > 0)

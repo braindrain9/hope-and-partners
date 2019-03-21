@@ -83,7 +83,8 @@
             this.updated = this.formatDate(this.findLatestDate(response.data));
           }, error => console.log(error))
           .finally(() => {
-            this.addBioAnimation();
+            this.addBioInitAnimation();
+            this.addBioContentAnimation();
           });
       },
       findLatestDate (dates) {
@@ -110,12 +111,7 @@
           return formattedDate;
         }
       },
-      addBioAnimation() {
-        TweenLite.to($('.bio'), 1, {opacity: 1});
-        TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
-        TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-        TweenLite.fromTo($('.bio .heading-main'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});
-
+      addBioContentAnimation() {
         const controller = new ScrollMagic.Controller();
 
         // photo animation
