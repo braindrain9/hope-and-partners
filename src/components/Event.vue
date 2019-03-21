@@ -12,7 +12,8 @@
 
 <script>
   import {i18n} from "../i18n";
-  import bus from '../bus';
+  import ScrollMagic from 'scrollmagic';
+  import {TimelineMax} from "gsap/TweenMax";
 
   export default {
     name: 'Event',
@@ -32,17 +33,22 @@
       getEvents: function() {
         this.$http.get(`wp/v2/events?lang=${this.lang}`).then(response => {
           this.events = this.transformResponseData(response.data);
+          this.getEventAnimation();
         }, error => console.log(error));
-      }
-    },
+      },
+      getEventAnimation: function () {
+        const controller = new ScrollMagic.Controller(),
+              eventAnimation = new TimelineMax()
+                .fromTo($('.event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.1});
 
-    mounted() {
-      bus.$on('fetchData', (lang) => {
-        if (this.lang !== lang) {
-          this.lang = lang;
-          this.getEvents();
-        }
-      });
+        new ScrollMagic.Scene({
+          triggerElement: ".event",
+          triggerHook: "onEnter",
+          duration: '100%'
+        })
+          .setTween(eventAnimation)
+          .addTo(controller);
+      }
     }
   }
 </script>

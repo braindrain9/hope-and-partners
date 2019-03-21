@@ -69,13 +69,10 @@
           .finally(() => this.getAboutAnimation());
       },
       getAboutAnimation: function () {
-        const controller = new ScrollMagic.Controller();
-
-        // about animation
-        const bioInfoAnimation = new TimelineMax()
-          .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
-          .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0})
-        ;
+        const controller = new ScrollMagic.Controller(),
+              bioInfoAnimation = new TimelineMax()
+                .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})
+                .fromTo($('.about .bio-container'), 1, {autoAlpha: 0, y: -100}, {autoAlpha: 1, y: 0, delay: 0});
 
         new ScrollMagic.Scene({
           triggerElement: ".about-container",
@@ -83,18 +80,6 @@
           duration: '100%'
         })
           .setTween(bioInfoAnimation)
-          .addTo(controller);
-
-        // event animation
-        const eventAnimation = new TimelineMax()
-          .fromTo($('.about .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.5});
-
-        new ScrollMagic.Scene({
-          triggerElement: ".about .event",
-          triggerHook: "onEnter",
-          duration: '100%'
-        })
-          .setTween(eventAnimation)
           .addTo(controller);
       }
     }

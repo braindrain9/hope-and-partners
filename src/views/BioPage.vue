@@ -120,7 +120,7 @@
 
         // photo animation
         $.each($('.bio .photo-block > .photo'), (index, elem) => {
-          const animPhoto = new TimelineMax()
+          const photoAnimation = new TimelineMax()
             .fromTo(elem, 1, {y: 20, opacity: index ? 0.5 : 1}, {y: 0, opacity: 1});
 
           new ScrollMagic.Scene({
@@ -128,13 +128,13 @@
             triggerHook: "onEnter",
             duration: "100%"
           })
-            .setTween(animPhoto)
+            .setTween(photoAnimation)
             .addTo(controller);
         });
 
         // description animation
         $.each($('.bio .row .description-block .description .paragraph'), (index, elem) => {
-          const animDescription = new TimelineMax()
+          const descriptionAnimation = new TimelineMax()
             .fromTo(elem, 1, {y: 50, opacity: 0.5}, {y: 0, opacity: 1});
 
           new ScrollMagic.Scene({
@@ -142,21 +142,9 @@
             triggerHook: "onEnter",
             duration: "100%"
           })
-            .setTween(animDescription)
+            .setTween(descriptionAnimation)
             .addTo(controller);
         });
-
-        // event animation
-        const eventAnimation = new TimelineMax()
-          .fromTo($('.bio .event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0});
-
-        new ScrollMagic.Scene({
-          triggerElement: ".bio .event",
-          triggerHook: "onEnter",
-          duration: '100%'
-        })
-          .setTween(eventAnimation)
-          .addTo(controller);
       }
     }
   }
