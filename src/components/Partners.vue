@@ -99,6 +99,7 @@
   import ScrollMagic from 'scrollmagic';
   import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js';
   import {TimelineMax} from "gsap/TweenMax";
+  import bus from '../bus';
 
   export default {
     name: 'Partners',
@@ -126,7 +127,8 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
           }
-        }
+        },
+        controllerExist: false
       }
     },
 
@@ -249,6 +251,9 @@
           progBarWrap = $('.timeline-progressbar-container'),
           progWrapWidth = maxWidth + offsetLeft;
 
+        // marker do not init controller on window resize
+        this.controllerExist = true;
+
         let wipeAnimation = new TimelineMax()
           .to("#partners-slider-container", 1, {
             x: '' + offsetLeft + 'px'
@@ -308,18 +313,11 @@
           }
         });
 
-        window.addEventListener('resize', () => {
-          // set left position on resize
-          $('.partners-progress-container').css({
-            "left": $('#mainMenu')[0].offsetLeft
-          });
-
-          // if resized to mobile destroy scrollmagic partners
-          if ($(window).outerWidth() < 576) {
-            controller.destroy(true);
-            scene = null;
-            wipeAnimation = null;
-          }
+        bus.$on("destroyController", () => {
+          controller.destroy(this.controllerExist);
+          scene = null;
+          wipeAnimation = null;
+          this.controllerExist = false;
         });
       }
     },
@@ -343,6 +341,23 @@
       if (outW >= 767.98) {
         this.addPartnersHoverAnimation();
       }
+
+      window.addEventListener('resize', () => {
+        // if resized to mobile destroy scrollmagic partners
+        if ($(window).outerWidth() < 576) {
+          bus.$emit('destroyController');
+        } else {
+          // set left position on resize
+          $('.partners-progress-container').css({
+            "left": $('#mainMenu')[0].offsetLeft
+          });
+
+          // if resized from mobile to desktop init scrollmagic partners
+          if (!this.controllerExist) {
+            this.partnersInit();
+          }
+        }
+      });
     }
   }
 </script>
