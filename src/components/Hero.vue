@@ -24,55 +24,44 @@
 
 <script>
   import Footer from './Footer';
+
   import {TimelineMax} from 'gsap/TweenMax';
   import ScrollMagic from 'scrollmagic';
 
   export default {
     name: 'Hero',
 
-    mounted() {
-      const self = this;
-
-      $(document).ready(function () {
-        self.getHeroAnimation();
-
-        hideFooterOnLeave();
-
-        // hide footer
-        function hideFooterOnLeave() {
-          const controller = new ScrollMagic.Controller();
-
-          const hideFooterAnimation = new TimelineMax()
-            .fromTo($('.hero .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2})
-          ;
-          const hideFooterScene = new ScrollMagic.Scene({
-            triggerElement: ".hero",
-            triggerHook: "onLeave",
-            duration: '80%'
-          })
-            .setTween(hideFooterAnimation)
-            .addTo(controller);
-        }
-      })
-
-
+    components: {
+      Footer
     },
 
     methods: {
       goToAbout: function () {
         $('html, body').css({"scroll-behavior": "smooth"});
 
-        const target = $('#about');
-
         setTimeout(function () {
-          $(document).scrollTop(target.offset().top);
+          $(document).scrollTop($('#about').offset().top);
           $('html, body').css({"scroll-behavior": "auto"});
         }, 100);
+      },
+      hideFooterOnLeave() {
+        const controller = new ScrollMagic.Controller(),
+              hideFooterAnimation = new TimelineMax()
+                .fromTo($('.hero .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 0.2});
+
+        new ScrollMagic.Scene({
+            triggerElement: ".hero",
+            triggerHook: "onLeave",
+            duration: '80%'
+        })
+          .setTween(hideFooterAnimation)
+          .addTo(controller);
       }
     },
 
-    components: {
-      Footer
+    mounted() {
+      this.getHeroAnimation();
+      this.hideFooterOnLeave();
     }
   }
 </script>
