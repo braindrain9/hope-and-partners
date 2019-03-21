@@ -87,20 +87,7 @@
       return {
         arrowSvg,
         activeIndex: '',
-        afterIndex: '02',
-        swiperOption: {
-          speed: 1000,
-          parallax: true,
-          pagination: {
-            el: '.swiper-pagination',
-            type: 'progressbar',
-            clickable: true
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        }
+        afterIndex: '02'
       }
     },
 
@@ -203,19 +190,17 @@
         }
 
         function sliderInit() {
-
-          //Define variable
           const controller = new ScrollMagic.Controller(),
-            sliderCount = $('.slide-content').length + 0.2,
-            progressWrap = $('.progress-slider-wrap'),
-            sliderContainer = $('#slider-container'),
-            sliderXOffset = 100 - (100 / sliderCount);
+                sliderCount = $('.slide-content').length + 0.2,
+                progressWrap = $('.progress-slider-wrap'),
+                sliderContainer = $('#slider-container'),
+                sliderXOffset = 100 - (100 / sliderCount);
 
           let wipeAnimation,
-            pinPosition,
-            yOffset,
-            scene,
-            html;
+              pinPosition,
+              yOffset,
+              scene,
+              html;
 
           //Create Slide, Progress Pin and Nav dots
           html = '<ul class="slider-dots">';
@@ -284,13 +269,13 @@
         }
 
         function hideFooterOnLeave() {
-          const controller = new ScrollMagic.Controller();
+          const controller = new ScrollMagic.Controller(),
+                hideAboutFooterAnimation = new TimelineMax()
+                  .fromTo($('#about .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0}),
+                hideFooterAnimation = new TimelineMax()
+                  .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1});
 
-          const hideAboutFooterAnimation = new TimelineMax()
-            .fromTo($('#about .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
-          ;
-
-          const hideAboutFooterScene = new ScrollMagic.Scene({
+          new ScrollMagic.Scene({
             triggerElement: "#services",
             triggerHook: "onEnter",
             duration: '80%'
@@ -298,12 +283,8 @@
             .setTween(hideAboutFooterAnimation)
             .addTo(controller);
 
-          const hideFooterAnimation = new TimelineMax()
-            .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 1})
-          ;
-
           // hide footer
-          const hideFooterScene = new ScrollMagic.Scene({
+          new ScrollMagic.Scene({
             triggerElement: "#partners",
             triggerHook: "onEnter",
             duration: '80%'

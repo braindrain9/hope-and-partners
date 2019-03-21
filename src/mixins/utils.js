@@ -65,6 +65,19 @@ export default {
           path: '#contacts'
         }
       ],
+      swiperOption: {
+        speed: 1000,
+        parallax: true,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'progressbar',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      },
       typeface: this.$store.state.content_endpoint + 'dist/src/assets/json/Montserrat_Bold.json'
     }
   },

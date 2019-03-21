@@ -115,19 +115,6 @@
         arrowSvg,
         activeIndex: '',
         afterIndex: '02',
-        swiperOption: {
-          speed: 1000,
-          parallax: true,
-          pagination: {
-            el: '.swiper-pagination',
-            type: 'progressbar',
-            clickable: true
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        },
         controllerExist: false
       }
     },
@@ -142,10 +129,9 @@
             : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
       },
       hideFooterOnLeave() {
-        const controller = new ScrollMagic.Controller();
-
-        const hideFooterAnimation = new TimelineMax()
-          .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3});
+        const controller = new ScrollMagic.Controller(),
+              hideFooterAnimation = new TimelineMax()
+                .fromTo($('#services .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0, delay: 3});
 
         new ScrollMagic.Scene({
           triggerElement: "#partners",

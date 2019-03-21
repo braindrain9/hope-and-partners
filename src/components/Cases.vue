@@ -56,10 +56,11 @@
 </template>
 
 <script>
+  import Footer from './Footer';
+
   import arrowSvg from '../assets/img/arrow-grey.svg';
   import ScrollMagic from 'scrollmagic';
   import {TimelineMax} from "gsap/TweenMax";
-  import Footer from './Footer';
 
   export default {
     name: 'Cases',
@@ -75,19 +76,6 @@
         arrowSvg,
         activeIndex: '',
         afterIndex: '02',
-        swiperOption: {
-          speed: 1000,
-          parallax: true,
-          pagination: {
-            el: '.swiper-pagination',
-            type: 'progressbar',
-            clickable: true
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        },
         showControls: this.cases.length > 1
       }
     },
@@ -101,6 +89,30 @@
         this.afterIndex = this.cases.length === (index + 1)
           ? ''
           : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+      },
+      addCasesAnimation() {
+        const controller = new ScrollMagic.Controller(),
+              casesAnimation = new TimelineMax()
+                .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5}),
+              hideFooterAnimation = new TimelineMax()
+                .fromTo($('#cases .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0});
+
+        new ScrollMagic.Scene({
+          triggerElement: ".cases",
+          triggerHook: "onEnter",
+          duration: '90%'
+        })
+          .setTween(casesAnimation)
+          .addTo(controller);
+
+        // hide footer
+        new ScrollMagic.Scene({
+          triggerElement: "#cases",
+          triggerHook: "onLeave",
+          duration: '80%'
+        })
+          .setTween(hideFooterAnimation)
+          .addTo(controller);
       }
     },
 
@@ -112,40 +124,7 @@
 
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
-
-      $(document).ready(function () {
-        const controller = new ScrollMagic.Controller();
-
-        const wipeAnimation = new TimelineMax()
-          .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5})
-        ;
-
-        // hide footer
-        const addFadeIn = new ScrollMagic.Scene({
-          triggerElement: ".cases",
-          triggerHook: "onEnter",
-          duration: '90%'
-        })
-          .setTween(wipeAnimation)
-          .addTo(controller);
-
-        hideFooterOnLeave();
-
-        function hideFooterOnLeave() {
-          const hideFooterAnimation = new TimelineMax()
-            .fromTo($('#cases .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0})
-          ;
-
-          // hide footer
-          const hideFooterScene = new ScrollMagic.Scene({
-            triggerElement: "#cases",
-            triggerHook: "onLeave",
-            duration: '80%'
-          })
-            .setTween(hideFooterAnimation)
-            .addTo(controller);
-        }
-      })
+      this.addCasesAnimation();
     }
   }
 </script>
