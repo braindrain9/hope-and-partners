@@ -69,7 +69,7 @@
     },
 
     methods: {
-      getServices: function() {
+      getServices() {
         this.$http.get(`wp/v2/services?lang=${this.lang}`).then(response => {
           if(response.data.length) {
             response.data.sort((a, b) => {
@@ -79,14 +79,14 @@
           this.services = this.transformResponseData(response.data);
         }, error => console.log(error));
       },
-      getPartners: function() {
+      getPartners() {
         this.$http.get(`wp/v2/partners?lang=${this.lang}`)
           .then(response => {
             this.partners = this.transformResponseData(response.data);
           }, error => console.log(error))
           .finally(() => this.partnersLoaded = true);
       },
-      getCases: function() {
+      getCases() {
         this.$http.get(`wp/v2/cases?lang=${this.lang}`).then(response => {
           this.cases = this.transformResponseData(response.data);
         }, error => console.log(error));

@@ -92,7 +92,7 @@
     },
 
     methods: {
-      changeLang: function(lang) {
+      changeLang(lang) {
         if (i18n.locale !== lang) {
           if (lang === 'en') {
             location.href = (`/en${this.$route.name === 'bio' ? '/bio' : ''}`);
@@ -101,7 +101,7 @@
           }
         }
       },
-      showMenu: function() {
+      showMenu() {
         const mobileMenu = document.getElementById("mobileMenu"),
               items = $(".wrapper li"),
               mail = $(".mail-box");
@@ -133,7 +133,7 @@
 
         $('#header').css({"position": "fixed"});
       },
-      hideMenu: function() {
+      hideMenu() {
         const mobileMenu = document.getElementById("mobileMenu");
 
         TweenMax.to(mobileMenu, .25, {

@@ -61,14 +61,14 @@
     },
 
     methods: {
-      getAboutData: function () {
+      getAboutData () {
         this.$http.get(`wp/v2/about?lang=${this.lang}`)
           .then(response => {
             this.content = this.transformResponseData(response.data)[0] || {};
           }, error => console.log(error))
           .finally(() => this.getAboutAnimation());
       },
-      getAboutAnimation: function () {
+      getAboutAnimation () {
         const controller = new ScrollMagic.Controller(),
               bioInfoAnimation = new TimelineMax()
                 .fromTo($('.about img.about-img'), 1, {autoAlpha: 0}, {autoAlpha: 1, delay: 0.2})

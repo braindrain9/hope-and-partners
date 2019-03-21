@@ -30,13 +30,13 @@
     },
 
     methods: {
-      getEvents: function() {
+      getEvents() {
         this.$http.get(`wp/v2/events?lang=${this.lang}`).then(response => {
           this.events = this.transformResponseData(response.data);
           this.getEventAnimation();
         }, error => console.log(error));
       },
-      getEventAnimation: function () {
+      getEventAnimation() {
         const controller = new ScrollMagic.Controller(),
               eventAnimation = new TimelineMax()
                 .fromTo($('.event'), 1, {autoAlpha: 0, y: 50}, {autoAlpha: 1, y: 0, delay: 0.1});

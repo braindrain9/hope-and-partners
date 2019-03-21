@@ -69,12 +69,12 @@ export default {
   },
 
   methods: {
-    isTouchDevice: function () {
+    isTouchDevice() {
       return (('ontouchstart' in window)
         || (navigator.MaxTouchPoints > 0)
         || (navigator.msMaxTouchPoints > 0))
     },
-    transformResponseData: function (data) {
+    transformResponseData(data) {
       return data && data.length
         ? data.reduce((arr, item) => {
           arr.push({id: item.id, ...item.acf});
@@ -83,7 +83,7 @@ export default {
         : [];
     },
 
-    getServicesAnimation: function() {
+    getServicesAnimation() {
       // default options
       const particleCount = 2000,
             particleSize = 0.1,
@@ -186,7 +186,7 @@ export default {
       }
     },
 
-    getContactsAnimation: function() {
+    getContactsAnimation() {
       // default options
       const particleCount = 3000,
         particleSize = 0.1,
@@ -267,7 +267,7 @@ export default {
       }
     },
 
-    getHeroAnimation: function() {
+    getHeroAnimation() {
       const particleCount = 5000,
             particleSize = 0.1,
             defaultAnimationSpeed = 1,

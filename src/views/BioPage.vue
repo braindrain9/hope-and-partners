@@ -75,7 +75,7 @@
     },
 
     methods: {
-      getBioData: function() {
+      getBioData() {
         this.$http.get(`wp/v2/bio?lang=${this.lang}`)
           .then(response => {
             this.biography = this.transformResponseData(response.data);
@@ -86,7 +86,7 @@
             this.addBioAnimation();
           });
       },
-      findLatestDate: function (dates) {
+      findLatestDate (dates) {
         if (dates.length === 0) return null;
 
         let latestDate = dates[0].modified;
@@ -99,7 +99,7 @@
 
         return latestDate;
       },
-      formatDate: function(date) {
+      formatDate(date) {
         if (date) {
           let formattedDate = new Date(date);
 
@@ -110,7 +110,7 @@
           return formattedDate;
         }
       },
-      addBioAnimation: function() {
+      addBioAnimation() {
         TweenLite.to($('.bio'), 1, {opacity: 1});
         TweenLite.fromTo($('.bio .bio-info'), 1, {y: 100}, {y: 0});
         TweenLite.fromTo($('.bio .heading-block'), 1, {x: 50, opacity: 0}, {x: 0, opacity: 1});

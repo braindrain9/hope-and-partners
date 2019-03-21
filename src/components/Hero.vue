@@ -36,7 +36,7 @@
     },
 
     methods: {
-      goToAbout: function () {
+      goToAbout() {
         $('html, body').css({"scroll-behavior": "smooth"});
 
         setTimeout(function () {
