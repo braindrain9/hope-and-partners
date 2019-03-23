@@ -91,7 +91,8 @@
       return {
         arrowSvg,
         activeIndex: '',
-        afterIndex: '02'
+        afterIndex: '02',
+        controllerExist: false
       }
     },
 
@@ -142,7 +143,11 @@
         let pinPosition,
           yOffset,
           scene,
+          wipeAnimation,
+          slideAnimation,
           html;
+
+        this.controllerExist = true;
 
         // create slide, progress pin and nav dots
         html = '<ul class="slider-dots">';
@@ -163,12 +168,13 @@
 
         const slideWidth = $('.slide').width(),
           progressWrapWidth = (slideWidth * (sliderCount - 1)) / 5,
-          timeLineAnim = progressWrapWidth * 4,
-          wipeAnimation = new TimelineMax()
+          timeLineAnim = progressWrapWidth * 4;
+
+        wipeAnimation = new TimelineMax()
             .to(sliderContainer, 1, {x: '-' + sliderXOffset + '%'}, 0)
             .to(".progress-line", 1, {width: progressWrapWidth + 'px'}, 0)
             .to(progressWrap, 1, {x: timeLineAnim + 'px'}, 0),
-          slideAnimation = new TimelineMax()
+        slideAnimation = new TimelineMax()
             .fromTo($('#slide-1'), 1, {opacity: 0}, {opacity: 1});
 
         scene = new ScrollMagic.Scene({
@@ -205,25 +211,16 @@
         $('#dots-nav-1').addClass('dots-point');
 
         bus.$emit('animateServices', $('#slide-1 .letter').text());
-      }
-    },
 
-    computed: {
-      swiper() {
-        return this.$refs.servicesSwiper.swiper;
-      }
-    },
-
-    mounted() {
-      const outW = $(window).outerWidth();
-
-      this.swiper.on('slideChange', () => this.onSwipe(this));
-      this.getServicesAnimation();
-      this.hideFooterOnLeave();
-
-      $('.services-slider').css({"opacity": 1});
-
-      if (outW > 767.98) {
+        bus.$on('destroyServicesController', () => {
+          controller.destroy(this.controllerExist);
+          scene = null;
+          wipeAnimation = null;
+          slideAnimation = null;
+          this.controllerExist = false;
+        })
+      },
+      servicesInit() {
         this.sliderInit();
 
         const pointWidth = $('.progress-pin[data-slide="slide-2"]').data('position');
@@ -280,6 +277,33 @@
           }
         }
       }
+    },
+
+    computed: {
+      swiper() {
+        return this.$refs.servicesSwiper.swiper;
+      }
+    },
+
+    mounted() {
+      const outW = $(window).outerWidth();
+
+      this.swiper.on('slideChange', () => this.onSwipe(this));
+      this.getServicesAnimation();
+      this.hideFooterOnLeave();
+
+      $('.services-slider').css({"opacity": 1});
+
+      if (outW > 767.98) {
+       this.servicesInit();
+      }
+
+      window.addEventListener('resize', () => {
+        // if resized to mobile destroy scrollmagic partners
+        if ($(window).outerWidth() < 768) {
+            bus.$emit('destroyServicesController');
+        }
+      });
     }
   }
 </script>
