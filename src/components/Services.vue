@@ -380,11 +380,10 @@
     #slider-container {
         width: 500%;
         height: calc(100vh - 375px);;
-        min-height: 500px;
+        min-height: 300px;
     }
 
     .slide {
-        min-height: 500px;
         height: 50vh;
         width: 20%;
         float: left;
@@ -460,7 +459,6 @@
         position: absolute;
         z-index: 5;
         width: 100%;
-        min-height: 500px;
         height: 50vh;
     }
 
