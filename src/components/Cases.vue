@@ -95,7 +95,7 @@
               casesAnimation = new TimelineMax()
                 .fromTo($('.cases'), 1, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, delay: 0.5}),
               hideFooterAnimation = new TimelineMax()
-                .fromTo($('#cases .footer'), 1, {autoAlpha: 1}, {autoAlpha: 0});
+                .fromTo($('#cases .footer'), 1, {autoAlpha: 1}, {autoAlpha: $(window).innerWidth() > 420 ? 0 : 0.3, delay: 1.5});
 
         new ScrollMagic.Scene({
           triggerElement: ".cases",
@@ -167,6 +167,11 @@
                 height: 315px;
             }
 
+            img.video {
+                object-position: top;
+                object-fit: cover;
+            }
+
             .bg-image {
                 background: $extra-dark-grey;
                 width: 105%;
@@ -219,6 +224,8 @@
                     border-radius: 50%;
                     height: 60px;
                     width: 60px;
+                    object-position: top;
+                    object-fit: cover;
                 }
             }
 
@@ -288,16 +295,20 @@
                 margin-bottom: 50px;
                 padding-right: 30px;
                 padding-left: 40px;
-
-                .description {
-                    max-height: 150px;
-                }
             }
         }
     }
 
     @include media-max-width($sm-max) {
+        .cases-footer {
+            margin-top: 0;
+        }
+
         .cases {
+            .text-block {
+                margin-bottom: 100px;
+            }
+
             .heading-main {
                 padding-left: 10px;
             }
