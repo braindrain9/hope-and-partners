@@ -599,6 +599,8 @@
                     .description {
                         height: 300px;
                         overflow-y: auto;
+
+                        @include overflow-y-scroll();
                     }
                 }
             }

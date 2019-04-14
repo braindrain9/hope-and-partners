@@ -34,3 +34,28 @@ $home-block-height: calc(100vh - 250px);
 
 // Other Sizes
 $base-spacing: 0.01em;
+
+// Mixins
+@mixin overflow-y-scroll() {
+  padding-right: 10px;
+
+  /*Chrome*/
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: $orange;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $dark-black;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $dark-black;
+  }
+}

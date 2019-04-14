@@ -197,6 +197,8 @@
                 margin-bottom: 20px;
                 max-height: 250px;
                 overflow-y: auto;
+
+                @include overflow-y-scroll();
             }
         }
 
