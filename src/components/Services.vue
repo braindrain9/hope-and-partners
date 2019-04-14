@@ -573,7 +573,7 @@
 
                 .text-block {
                     width: 100%;
-                    height: 180px;
+                    height: 280px;
                     padding-left: 60px;
 
                     h2 {
