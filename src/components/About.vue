@@ -103,6 +103,7 @@
             margin-left: -110px;
             margin-top: 200px;
             position: relative;
+            width: 50%;
 
             .heading, .description {
                 transition: all 0.5s ease-in-out;
@@ -161,6 +162,7 @@
             }
 
             .bio-container {
+                width: 60%;
                 margin-left: 0;
                 margin-top: 100px;
             }
@@ -184,6 +186,7 @@
             }
 
             .bio-container {
+                width: 100%;
                 margin-left: 0;
                 margin-top: -50px;
             }

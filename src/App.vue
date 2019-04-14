@@ -260,7 +260,7 @@
     }
 
     #mouse-icon.hover .icon .inner-icon {
-        background-color: rgba(223, 130, 130, 0.25)
+        background-color: rgba(223, 130, 130, 0.25);
     }
 
     @include media-min-width($xs) {
