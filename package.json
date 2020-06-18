@@ -1,6 +1,7 @@
 {
-  "name": "wp-vue",
-  "version": "0.0.1",
+  "name": "hope-and-partners",
+  "version": "1.0.0",
+  "author": "Kateryna Vitruk",
   "scripts": {
     "deploy": "gh-pages -d deploy",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
@@ -62,7 +63,7 @@
   "main": "src/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/braindrain9/wp-vue.git"
+    "url": "https://github.com/braindrain9/hope-and-partners.git"
   },
-  "homepage": "https://github.com/braindrain9/wp-vue.git"
+  "homepage": "https://github.com/braindrain9/hope-and-partners.git"
 }
