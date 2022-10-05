@@ -490,7 +490,7 @@
 
             .partners-title-wrapper {
                 position: absolute;
-                top: 150px;
+                top: 100px;
                 width: 100%;
                 z-index: 5;
             }
