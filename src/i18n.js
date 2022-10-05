@@ -9,7 +9,8 @@ export const i18n = new VueI18n({
   messages: {
     en: {
       about: 'about me',
-      allAchievements: 'All achievements are',
+      allAchievements: 'Achievements and Honors',
+      allAchievementsStyled: 'Achievements <br> and <span class="orange-color">Honors</span>',
       back: 'back',
       backToHome: 'Back to home',
       cases: 'cases',
@@ -19,8 +20,6 @@ export const i18n = new VueI18n({
       here: 'here',
       howToFindUs: 'how to find us?',
       home: 'home',
-      myCompleteBio: 'My <br> complete <span class="orange-color">bio</span>',
-      myCompleteBioText: 'My complete bio',
       menu: 'Menu',
       notFound: 'The page you are looking for does not exist.',
       ourCases: 'our cases',
@@ -28,11 +27,12 @@ export const i18n = new VueI18n({
       ourServices: 'our services',
       partners: 'partners',
       services: 'services',
-      updatedAt: 'last updated on'
+      updatedAt: 'last updated at'
     },
     uk: {
       about: 'про мене',
-      allAchievements: 'Усі напрацювання',
+      allAchievements: 'Досягнення і Відзнаки',
+      allAchievementsStyled: 'Досягнення <br> та <span class="orange-color">Відзнаки</span>',
       back: 'назад',
       backToHome: 'Повернутись на головну',
       cases: 'кейси',
@@ -42,8 +42,6 @@ export const i18n = new VueI18n({
       here: 'тут',
       howToFindUs: 'де нас знайти?',
       home: 'на головну',
-      myCompleteBio: 'Моя <br> повна <span class="orange-color">біографія</span>',
-      myCompleteBioText: 'Моя повна біографія',
       menu: 'Меню',
       notFound: 'Сторінка, яку Ви шукаєте, не існує.',
       ourCases: 'наші кейси',

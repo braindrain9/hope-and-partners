@@ -7,7 +7,7 @@
                         <span></span>
                         <span class="d-inline-block strike"><span>{{$t('back')}}</span></span>
                     </a>
-                    <h1 class="heading heading-main"v-html="$t('myCompleteBio')"></h1>
+                    <h1 class="heading heading-main" v-html="$t('allAchievementsStyled')"></h1>
                     <div class="tiny-font-size white-color">{{$t('updatedAt')}} {{updated}}</div>
                 </div>
             </div>

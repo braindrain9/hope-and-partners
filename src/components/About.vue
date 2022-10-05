@@ -17,7 +17,7 @@
                             <span>{{$t('allAchievements')}}
                                 <router-link class="strike"
                                              :to="lang === 'en' ? '/en/bio' : '/bio'"
-                                             :title="$t('myCompleteBioText')">
+                                             :title="$t('allAchievements')">
                                     <span>{{$t('here')}}.</span>
                                 </router-link>
                             </span>
@@ -127,7 +127,7 @@
             }
 
             .divider {
-                width: 40%;
+                width: 25%;
                 margin-right: 10px;
                 height: 2px;
                 overflow: hidden;
@@ -169,6 +169,10 @@
 
             .bio-link {
                 font-size: $medium-base-font-size;
+
+                .divider {
+                    width: 15%;
+                }
             }
         }
     }
