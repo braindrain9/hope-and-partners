@@ -295,10 +295,29 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-  background: none;
+  background: $white;
   top: 94%;
   width: 50px;
   height: 50px;
+
+  > svg {
+    position: relative;
+    transition: all .4s ease-out;
+  }
+}
+
+// not working for non-hover devices
+@media (any-hover: hover) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    &:hover {
+      box-shadow: 0 0 0 3px $orange;
+
+      > svg {
+        transform: rotate(360deg);
+      }
+    }
+  }
 }
 
 .swiper-button-prev {
