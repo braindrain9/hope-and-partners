@@ -46,12 +46,12 @@ $base-spacing: 0.01em;
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background: $orange;
+    background: $dark-black;
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: $dark-black;
+    background: $orange;
   }
 
   /* Handle on hover */

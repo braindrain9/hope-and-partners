@@ -153,7 +153,7 @@
 
         .photo-block {
             position: relative;
-            min-width: 400px;
+            min-width: 500px;
 
             // to compensate bg-image indent
             margin-right: 35px;
@@ -163,8 +163,8 @@
                 background: $base-black;
                 position: relative;
                 z-index: 1;
-                width: 420px;
-                height: 315px;
+                width: 500px;
+                height: 380px;
             }
 
             img.video {
@@ -185,7 +185,7 @@
         .text-block {
             color: $white;
             width: 50%;
-            max-width: 400px;
+            max-width: 600px;
             padding-left: 50px;
 
             h2 {
@@ -259,6 +259,15 @@
         .cases {
             .heading-main {
                 padding-left: 40px;
+            }
+
+            .photo-block {
+                min-width: 420px;
+
+                .video {
+                    width: 420px;
+                    height: 315px;
+                }
             }
         }
     }
