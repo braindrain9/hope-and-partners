@@ -31,7 +31,7 @@ export const i18n = new VueI18n({
     },
     uk: {
       about: 'про мене',
-      allAchievements: 'Досягнення і Відзнаки',
+      allAchievements: 'Досягнення та Відзнаки',
       allAchievementsStyled: 'Досягнення <br> та <span class="orange-color">Відзнаки</span>',
       back: 'назад',
       backToHome: 'Повернутись на головну',
