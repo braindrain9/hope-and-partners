@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <Event/>
+                <Clients/>
             </div>
         </div>
         <div class="container footer-container">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import Event from './Event';
+  import Clients from './Clients';
   import Footer from './Footer';
 
   import ScrollMagic from 'scrollmagic';
@@ -45,7 +45,7 @@
     name: 'About',
 
     components: {
-      Event,
+      Clients,
       Footer
     },
 

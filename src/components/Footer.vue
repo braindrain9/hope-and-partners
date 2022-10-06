@@ -73,7 +73,7 @@
         }
 
         &.is-final-mode {
-            margin-bottom: 40px;
+            padding-bottom: 40px;
 
             .footer-content {
                 border-top: 1px solid $dark-grey;

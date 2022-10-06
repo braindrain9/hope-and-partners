@@ -281,18 +281,7 @@
   }
 }
 
-/* Cases slider */
-.cases .swiper-slide {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-bottom: 100px;
-  background-color: transparent !important;
-  justify-content: space-around !important;
-  height: 600px;
-  display: flex;
-  align-items: center;
-}
-
+/* Swiper slider */
 .swiper-button-prev,
 .swiper-button-next {
   background: $white;
@@ -306,26 +295,12 @@
   }
 }
 
-// not working for non-hover devices
-@media (any-hover: hover) {
-  .swiper-button-prev,
-  .swiper-button-next {
-    &:hover {
-      box-shadow: 0 0 0 3px $orange;
-
-      > svg {
-        transform: rotate(360deg);
-      }
-    }
-  }
-}
-
 .swiper-button-prev {
-  left: 25%;
+  left: 10%;
 }
 
 .swiper-button-next {
-  right: 25%;
+  right: 10%;
   transform: rotate(-180deg);
 }
 
@@ -354,6 +329,31 @@
 
   > .swiper-pagination-progressbar-fill {
     background: $orange;
+  }
+}
+
+.cases .swiper-slide {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 100px;
+  background-color: transparent !important;
+  justify-content: space-around !important;
+  height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+// not working for non-hover devices
+@media (any-hover: hover) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    &:hover {
+      box-shadow: 0 0 0 3px $orange;
+
+      > svg {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
@@ -426,6 +426,10 @@
   }
 
   .cases .swiper-slide {
+    height: 100%;
+  }
+
+  .clients .swiper-slide {
     height: 100%;
   }
 

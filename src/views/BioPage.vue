@@ -36,7 +36,9 @@
             </div>
         </div>
 
-        <Event/>
+        <div class="container">
+            <Clients/>
+        </div>
 
         <div class="container footer-container">
             <Footer link="partners"/>
@@ -45,7 +47,7 @@
 </template>
 
 <script>
-  import Event from '../components/Event';
+  import Clients from '../components/Clients';
   import Footer from '../components/Footer';
 
   import ScrollMagic from 'scrollmagic';
@@ -57,7 +59,7 @@
     name: 'BioPage',
 
     components: {
-      Event,
+      Clients,
       Footer
     },
 
@@ -214,6 +216,10 @@
                     }
                 }
             }
+        }
+
+        .footer-container {
+            padding-bottom: 10px;
         }
     }
 
