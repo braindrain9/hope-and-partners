@@ -70,7 +70,7 @@
 
     methods: {
       getServices() {
-        this.$http.get(`wp/v2/services?lang=${this.lang}`).then(response => {
+        this.$http.get(`wp/v2/services?lang=${this.lang}&per_page=100`).then(response => {
           if(response.data.length) {
             response.data.sort((a, b) => {
               return parseInt(a['title']['rendered']) - parseInt(b['title']['rendered']);
@@ -80,14 +80,14 @@
         }, error => console.log(error));
       },
       getPartners() {
-        this.$http.get(`wp/v2/partners?lang=${this.lang}`)
+        this.$http.get(`wp/v2/partners?lang=${this.lang}&per_page=100`)
           .then(response => {
             this.partners = this.transformResponseData(response.data);
           }, error => console.log(error))
           .finally(() => this.partnersLoaded = true);
       },
       getCases() {
-        this.$http.get(`wp/v2/cases?lang=${this.lang}`).then(response => {
+        this.$http.get(`wp/v2/cases?lang=${this.lang}&per_page=100`).then(response => {
           this.cases = this.transformResponseData(response.data);
         }, error => console.log(error));
       }

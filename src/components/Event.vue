@@ -31,7 +31,7 @@
 
     methods: {
       getEvents() {
-        this.$http.get(`wp/v2/events?lang=${this.lang}`).then(response => {
+        this.$http.get(`wp/v2/events?lang=${this.lang}&per_page=100`).then(response => {
           this.events = this.transformResponseData(response.data);
           this.getEventAnimation();
         }, error => console.log(error));

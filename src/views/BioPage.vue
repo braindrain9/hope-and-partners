@@ -78,7 +78,7 @@
 
     methods: {
       getBioData() {
-        this.$http.get(`wp/v2/bio?lang=${this.lang}`)
+        this.$http.get(`wp/v2/bio?lang=${this.lang}&per_page=100`)
           .then(response => {
             this.biography = this.transformResponseData(response.data);
             this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
