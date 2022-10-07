@@ -281,32 +281,26 @@
   }
 }
 
-/* Cases slider */
-.cases .swiper-slide {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-bottom: 100px;
-  background-color: transparent !important;
-  justify-content: space-around !important;
-  height: 600px;
-  display: flex;
-  align-items: center;
-}
-
+/* Swiper slider */
 .swiper-button-prev,
 .swiper-button-next {
-  background: none;
+  background: $white;
   top: 94%;
   width: 50px;
   height: 50px;
+
+  > svg {
+    position: relative;
+    transition: all .4s ease-out;
+  }
 }
 
 .swiper-button-prev {
-  left: 25%;
+  left: 10%;
 }
 
 .swiper-button-next {
-  right: 25%;
+  right: 10%;
   transform: rotate(-180deg);
 }
 
@@ -335,6 +329,31 @@
 
   > .swiper-pagination-progressbar-fill {
     background: $orange;
+  }
+}
+
+.cases .swiper-slide {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 100px;
+  background-color: transparent !important;
+  justify-content: space-around !important;
+  height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+// not working for non-hover devices
+@media (any-hover: hover) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    &:hover {
+      box-shadow: 0 0 0 3px $orange;
+
+      > svg {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
@@ -375,7 +394,7 @@
 
 @include media-max-width($lg-max) {
   .description {
-    font-size: $medium-base-font-size;
+    font-size: 20px;
   }
 
   .contacts {
@@ -389,24 +408,33 @@
 
 @include media-max-width($md-max) {
   .heading {
-    font-size: $medium-font-size;
-    line-height: 40px;
-    margin-bottom: 20px;
+    font-size: 50px;
+    line-height: 70px;
+    padding-bottom: 20px;
 
     &-main {
-      font-size: $secondary-header-font-size;
+      font-size: 40px;
+      line-height: 50px;
     }
   }
 
+  .description {
+    font-size: 25px;
+  }
+
   .swiper-button-prev {
-    left: 20%;
+    left: 3px;
   }
 
   .swiper-button-next {
-    right: 20%;
+    right: 3px;
   }
 
   .cases .swiper-slide {
+    height: 100%;
+  }
+
+  .clients .swiper-slide {
     height: 100%;
   }
 
@@ -417,6 +445,16 @@
 }
 
 @include media-max-width($sm-max) {
+  .heading {
+    font-size: $medium-font-size;
+    line-height: 40px;
+    margin-bottom: 20px;
+
+    &-main {
+      font-size: $secondary-header-font-size;
+    }
+  }
+
   .cases .swiper-slide {
     padding-bottom: 0;
   }

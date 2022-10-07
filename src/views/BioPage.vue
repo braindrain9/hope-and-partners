@@ -7,7 +7,7 @@
                         <span></span>
                         <span class="d-inline-block strike"><span>{{$t('back')}}</span></span>
                     </a>
-                    <h1 class="heading heading-main"v-html="$t('myCompleteBio')"></h1>
+                    <h1 class="heading heading-main" v-html="$t('allAchievementsStyled')"></h1>
                     <div class="tiny-font-size white-color">{{$t('updatedAt')}} {{updated}}</div>
                 </div>
             </div>
@@ -36,7 +36,9 @@
             </div>
         </div>
 
-        <Event/>
+        <div class="container">
+            <Clients/>
+        </div>
 
         <div class="container footer-container">
             <Footer link="partners"/>
@@ -45,7 +47,7 @@
 </template>
 
 <script>
-  import Event from '../components/Event';
+  import Clients from '../components/Clients';
   import Footer from '../components/Footer';
 
   import ScrollMagic from 'scrollmagic';
@@ -57,7 +59,7 @@
     name: 'BioPage',
 
     components: {
-      Event,
+      Clients,
       Footer
     },
 
@@ -76,7 +78,7 @@
 
     methods: {
       getBioData() {
-        this.$http.get(`wp/v2/bio?lang=${this.lang}`)
+        this.$http.get(`wp/v2/bio?lang=${this.lang}&per_page=100`)
           .then(response => {
             this.biography = this.transformResponseData(response.data);
             this.photos = this.biography.map(bio => bio.imageUrl).filter(image => image);
@@ -215,6 +217,10 @@
                 }
             }
         }
+
+        .footer-container {
+            padding-bottom: 10px;
+        }
     }
 
     @include media-max-width($lg-max) {
@@ -242,9 +248,15 @@
     @include media-max-width($md-max) {
         .bio {
             .heading-block {
+                padding-bottom: 50px;
+
                 .bio-link {
                     font-size: $base-font-size;
                 }
+            }
+
+            .clients {
+                padding-bottom: 50px;
             }
 
             .bio-info {
@@ -258,8 +270,13 @@
 
                 .description-block {
                     .description {
+                        h2 {
+                            font-size: 25px;
+                        }
+
                         div {
-                            font-size: $small-font-size;
+                            font-size: 20px;
+                            line-height: 25px;
                         }
                     }
                 }
@@ -270,6 +287,10 @@
     @include media-max-width($sm-max) {
         .bio {
             padding-top: 120px;
+
+            .clients {
+                padding-bottom: 0;
+            }
 
             .footer-container {
                 padding-bottom: 30px;

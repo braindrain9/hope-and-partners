@@ -17,14 +17,14 @@
                             <span>{{$t('allAchievements')}}
                                 <router-link class="strike"
                                              :to="lang === 'en' ? '/en/bio' : '/bio'"
-                                             :title="$t('myCompleteBioText')">
+                                             :title="$t('allAchievements')">
                                     <span>{{$t('here')}}.</span>
                                 </router-link>
                             </span>
                         </div>
                     </div>
                 </div>
-                <Event/>
+                <Clients/>
             </div>
         </div>
         <div class="container footer-container">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import Event from './Event';
+  import Clients from './Clients';
   import Footer from './Footer';
 
   import ScrollMagic from 'scrollmagic';
@@ -45,7 +45,7 @@
     name: 'About',
 
     components: {
-      Event,
+      Clients,
       Footer
     },
 
@@ -127,7 +127,7 @@
             }
 
             .divider {
-                width: 40%;
+                width: 25%;
                 margin-right: 10px;
                 height: 2px;
                 overflow: hidden;
@@ -169,11 +169,15 @@
 
             .bio-link {
                 font-size: $medium-base-font-size;
+
+                .divider {
+                    width: 15%;
+                }
             }
         }
     }
 
-    @include media-max-width($sm-max) {
+    @include media-max-width($md-max) {
         .about {
             > div {
                 flex-direction: column;
@@ -181,8 +185,9 @@
 
             .about-img {
                 width: 80%;
-                margin: 0 auto;
+                max-width: 434px;
                 position: static;
+                margin-bottom: 20px;
             }
 
             .bio-container {
@@ -192,6 +197,8 @@
             }
 
             .bio-link {
+                font-size: 25px;
+
                 .divider {
                     width: 60px;
 
@@ -199,6 +206,22 @@
                         width: 60px;
                     }
                 }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .about {
+            .about-img {
+                margin: 0 auto 20px auto;
+            }
+
+            .bio-container {
+                padding-top: 20px;
+            }
+
+            .heading {
+                margin-bottom: 0;
             }
         }
     }

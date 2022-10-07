@@ -20,7 +20,7 @@
                 </a>
             </div>
             <slot name="progress-bar"></slot>
-            <div class="d-none d-sm-block mail">
+            <div class="d-none d-lg-block mail">
                 <a class="grey-color-link strike" :href="'mailto:' + $store.state.content.email">
                     <span v-html="$store.state.content.email"></span>
                 </a>
@@ -73,7 +73,7 @@
         }
 
         &.is-final-mode {
-            margin-bottom: 40px;
+            padding-bottom: 40px;
 
             .footer-content {
                 border-top: 1px solid $dark-grey;
@@ -147,8 +147,10 @@
         }
     }
 
-    @include media-max-width($sm-max) {
+    @include media-max-width($md-max) {
         .footer {
+            font-size: 30px;
+
             &.is-final-mode {
                 .footer-content {
                     border: none;
@@ -161,7 +163,7 @@
                         padding-top: 10px;
 
                         &.copy {
-                            font-size: $tiny-font-size;
+                            font-size: 25px;
                         }
                     }
                 }
@@ -187,6 +189,26 @@
                         animation-name: line-drop-horizontal;
                     }
                 }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .footer {
+            font-size: 20px;
+
+            &.is-final-mode {
+                .footer-content {
+                    > div {
+                        &.copy {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+
+            .cosmos {
+                font-size: 14px;
             }
         }
     }
