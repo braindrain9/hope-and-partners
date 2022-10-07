@@ -140,7 +140,7 @@ export default {
             color = '#FFFFFF',
             triggers = $('.services-slider .slide-content .letter'),
             outW = $(window).outerWidth(),
-            canvasHeight = window.innerHeight * 0.75,
+            canvasHeight =  window.innerHeight * (outW > 992 ? 0.75 : outW > 768 ? 0.6 : 0.4),
             fontConfig = {
               size: 12,
               height: 2
@@ -177,7 +177,7 @@ export default {
 
       controls.enablePan = false;
       controls.enableKeys = false;
-      controls.enableRotate = outW > 768;
+      controls.enableRotate = outW > 992;
       controls.enableZoom = false;
       controls.update();
 
@@ -242,7 +242,7 @@ export default {
         morphAnimationSpeed = 0,
         color = '#F44336',
         outW = $(window).outerWidth(),
-        canvasHeight = window.innerHeight * 0.75,
+        canvasHeight = outW > 992 ? window.innerHeight * 0.75 : window.innerHeight * 0.6,
         fontConfig = {
           size: 12,
           height: 2
@@ -252,7 +252,7 @@ export default {
           normalSpeed: defaultAnimationSpeed/300,
           fullSpeed: morphAnimationSpeed/100
         },
-        canvasWidth = outW > 768 ? window.innerWidth / 2 : window.innerWidth;
+        canvasWidth = outW > 992 ? window.innerWidth / 2 : window.innerWidth;
 
       const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-contacts'), alpha : true}),
             scene = new THREE.Scene(),
@@ -324,8 +324,8 @@ export default {
             outW = $(window).innerWidth(),
             canvasWidth = window.innerWidth,
             fontConfig = {
-              size: outW > 1200 ? 16 : outW > 768 ? 12 : 10,
-              height: outW > 768 ? 5 : 2
+              size: outW > 1200 ? 16 : outW > 992 ? 12 : 10,
+              height: outW > 992 ? 5 : 2
             },
             animationVars = {
               speed: defaultAnimationSpeed/300,
@@ -435,8 +435,8 @@ export default {
 
       particleSystem.rotation.y = 0;
       particleSystem.rotation.x = 0;
-      particleSystem.position.y = outW > 768 ? 0 : 4;
-      particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : outW > 768 ? -2 : 0;
+      particleSystem.position.y = outW > 992 ? 0 : 4;
+      particleSystem.position.x = outW > 1400 ? -10 : outW > 1200 ? -8 : outW > 992 ? -5 : 0;
 
       scene.add(particleSystem);
 

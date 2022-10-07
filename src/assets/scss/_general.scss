@@ -394,7 +394,7 @@
 
 @include media-max-width($lg-max) {
   .description {
-    font-size: $medium-base-font-size;
+    font-size: 20px;
   }
 
   .contacts {
@@ -408,21 +408,26 @@
 
 @include media-max-width($md-max) {
   .heading {
-    font-size: $medium-font-size;
-    line-height: 40px;
-    margin-bottom: 20px;
+    font-size: 50px;
+    line-height: 70px;
+    padding-bottom: 20px;
 
     &-main {
-      font-size: $secondary-header-font-size;
+      font-size: 40px;
+      line-height: 50px;
     }
   }
 
+  .description {
+    font-size: 25px;
+  }
+
   .swiper-button-prev {
-    left: 20%;
+    left: 3px;
   }
 
   .swiper-button-next {
-    right: 20%;
+    right: 3px;
   }
 
   .cases .swiper-slide {
@@ -440,6 +445,16 @@
 }
 
 @include media-max-width($sm-max) {
+  .heading {
+    font-size: $medium-font-size;
+    line-height: 40px;
+    margin-bottom: 20px;
+
+    &-main {
+      font-size: $secondary-header-font-size;
+    }
+  }
+
   .cases .swiper-slide {
     padding-bottom: 0;
   }

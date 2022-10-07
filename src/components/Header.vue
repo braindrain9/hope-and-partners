@@ -1,7 +1,7 @@
 <template>
     <header id="header">
         <div class="container" id="mainMenu">
-            <b-navbar toggleable="md" type="dark">
+            <b-navbar toggleable="lg" type="dark">
                 <button id="openMenu" v-on:click="showMenu()" class="scrolled">
                     <span>{{$t('menu')}}</span>
                 </button>
@@ -29,8 +29,8 @@
                 </div>
 
                 <b-navbar-brand :href="currentLang === 'en' ? '/en' : '/'" right aria-label="Hope & Partners Logo">
-                    <div class="d-none d-md-block" v-html="logo"></div>
-                    <div class="d-block d-md-none" v-html="logoMobile"></div>
+                    <div class="d-none d-lg-block" v-html="logo"></div>
+                    <div class="d-block d-lg-none" v-html="logoMobile"></div>
                 </b-navbar-brand>
             </b-navbar>
         </div>
@@ -313,9 +313,25 @@
         }
     }
 
-    @include media-min-width($sm) {
+    @include media-min-width($md) {
         #openMenu {
             display: none;
+        }
+    }
+
+    @include media-max-width($md-max) {
+        #openMenu {
+            font-size: 30px;
+        }
+
+        .language-chooser {
+            font-size: 30px;
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        #openMenu, .language-chooser {
+            font-size: 16px;
         }
     }
 

@@ -195,11 +195,23 @@
         }
     }
 
+    @include media-max-width($md-max) {
+        .clients {
+            .heading-main {
+                font-size: 40px;
+                line-height: 40px;
+                padding-bottom: 10px;
+                padding-left: 0;
+            }
+        }
+    }
+
     @include media-max-width($sm-max) {
         .clients {
             padding-top: 100px;
 
             .heading-main {
+                font-size: 36px;
                 padding-left: 0;
                 padding-bottom: 40px;
             }
@@ -212,6 +224,7 @@
                 flex: 50%;
                 width: 50%;
                 max-width: 50%;
+                margin-bottom: 25px;
             }
 
             .swiper-button-prev {
@@ -224,7 +237,7 @@
 
             img {
                 max-width: 150px;
-                padding-left: 15px;
+                padding-left: 20px;
             }
         }
     }

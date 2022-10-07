@@ -248,9 +248,15 @@
     @include media-max-width($md-max) {
         .bio {
             .heading-block {
+                padding-bottom: 50px;
+
                 .bio-link {
                     font-size: $base-font-size;
                 }
+            }
+
+            .clients {
+                padding-bottom: 50px;
             }
 
             .bio-info {
@@ -264,8 +270,13 @@
 
                 .description-block {
                     .description {
+                        h2 {
+                            font-size: 25px;
+                        }
+
                         div {
-                            font-size: $small-font-size;
+                            font-size: 20px;
+                            line-height: 25px;
                         }
                     }
                 }
@@ -276,6 +287,10 @@
     @include media-max-width($sm-max) {
         .bio {
             padding-top: 120px;
+
+            .clients {
+                padding-bottom: 0;
+            }
 
             .footer-container {
                 padding-bottom: 30px;

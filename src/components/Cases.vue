@@ -278,6 +278,7 @@
 
             .heading-main {
                 margin-bottom: 40px;
+                padding-left: 0;
             }
 
             .slider-item {
@@ -285,25 +286,39 @@
                 width: 100%;
             }
 
+            .swiper-slide {
+                padding-bottom: 20px;
+            }
+
             .photo-block {
                 margin-bottom: 50px;
+                width: 94%;
 
                 .bg-image {
-                    width: 100%;
+                    display: none;
                 }
 
                 .video {
-                    width: 520px;
+                    width: 100%;
                     height: 340px;
                 }
             }
 
             .text-block {
-                width: 90%;
-                max-width: 100%;
+                width: 100%;
+                max-width: 98%;
                 margin-bottom: 50px;
-                padding-right: 30px;
-                padding-left: 40px;
+                padding: 0;
+
+                h2 {
+                    font-size: 40px;
+                    line-height: 50px;
+                }
+
+                .description {
+                    font-size: 25px;
+                    line-height: 30px;
+                }
             }
         }
     }
@@ -314,8 +329,22 @@
         }
 
         .cases {
+            .swiper-slide {
+                padding: 0;
+            }
+
             .text-block {
                 margin-bottom: 100px;
+
+                h2 {
+                    font-size: 24px;
+                    line-height: 34px;
+                }
+
+                .description {
+                    font-size: 18px;
+                    line-height: 30px;
+                }
             }
 
             .heading-main {
@@ -324,8 +353,8 @@
 
             .photo-block {
                 .video {
-                    width: 380px;
-                    height: 260px;
+                    width: 100%;
+                    height: 270px;
                 }
             }
         }
@@ -339,7 +368,7 @@
                 min-width: 200px;
 
                 .video {
-                    width: 320px;
+                    width: 100%;
                     height: 260px;
                 }
             }
@@ -349,7 +378,7 @@
     @include media-max-width($mobile-sm) {
         .cases {
             .text-block {
-                max-width: 90%;
+                max-width: 100%;
                 padding-left: 15px;
                 padding-right: 15px;
             }
@@ -359,7 +388,7 @@
                 min-width: 150px;
 
                 .video {
-                    width: 90%;
+                    width: 100%;
                     height: 220px;
                 }
             }

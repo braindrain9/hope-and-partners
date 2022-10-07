@@ -6,7 +6,7 @@
                     <h2 class="heading heading-main">{{$t('partners')}}<span class="orange-color">:</span></h2>
                 </div>
             </div>
-            <div class="d-none d-md-block" id="partners-slider-container">
+            <div class="d-none d-lg-block" id="partners-slider-container">
                 <div class="partners-progress-container">
                     <div id="partners-slider">
                         <div class="partner" v-for="(partner, index) in partners" :key="index"
@@ -52,7 +52,7 @@
                     <Footer class="partners-footer" link="cases"></Footer>
                 </div>
             </div>
-            <div id="d-block d-md-none partners-mobile-slider">
+            <div id="d-block d-lg-none partners-mobile-slider">
                 <div class="container">
                     <swiper :options="swiperOption" ref="partnersSwiper">
                         <swiper-slide v-for="(partner, index) in partners" :key="index"
@@ -320,14 +320,14 @@
       this.swiper.on('slideChange', () => this.onSwipe(this));
       this.hideFooterOnLeave();
 
-      if (outW >= 767.98) {
+      if (outW >= 991.98) {
         this.partnersInit();
         this.addPartnersHoverAnimation();
       }
 
       window.addEventListener('resize', () => {
         // if resized to mobile destroy scrollmagic partners
-        if ($(window).outerWidth() < 768) {
+        if ($(window).outerWidth() < 992) {
           bus.$emit('destroyController');
         } else {
           // set left position on resize
@@ -555,14 +555,14 @@
 
                 .description-block {
                     padding-top: 10px;
-                    height: 400px;
+                    height: 500px;
 
                     .heading {
                         margin-bottom: 0;
                     }
 
                     .occupation {
-                        font-size: $small-font-size;
+                        font-size: 20px;
                     }
 
                     .description {
@@ -577,9 +577,15 @@
         }
     }
 
-    @include media-max-width($sm-max) {
+    @include media-max-width($md-max) {
         .partners {
             margin-bottom: 0;
+
+            .heading {
+                font-size: 40px;
+                line-height: 50px;
+                padding-bottom: 10px;
+            }
 
             .heading-main {
                 padding-left: 10px;
@@ -600,32 +606,59 @@
             }
 
             .partner-item {
-                padding: 0;
+                padding: 5px;
                 width: 100%;
 
                 .photo-block {
                     width: 100%;
-                    margin-bottom: 20px;
                     text-align: center;
 
                     .photo {
                         display: inline-block;
-                        background-position: center top;
+                        background: none;
                         position: static;
-                        width: 200px;
-                        height: 200px;
-                        -webkit-box-shadow: 10px 10px 0px 0px $extra-dark-grey;
-                        -moz-box-shadow: 10px 10px 0px 0px $extra-dark-grey;
-                        box-shadow: 10px 10px 0px 0px $extra-dark-grey;
+                        width: 100%;
+                        height: 420px;
                     }
                 }
 
                 .description-block {
-                    padding: 0 35px;
-                    max-width: 90%;
+                    max-width: 98%;
 
                     .description {
                         margin-top: 10px;
+                        font-size: 25px;
+                        line-height: 40px;
+                        max-width: 100%;
+                        height: 250px;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .partners {
+            .heading {
+                font-size: 28px;
+                line-height: 30px;
+            }
+
+            .partner-item {
+                .photo-block {
+                    .photo {
+                        height: 270px;
+                    }
+                }
+
+                .description-block {
+                    .occupation {
+                        font-size: 15px;
+                    }
+
+                    .description {
+                        font-size: 16px;
+                        line-height: 24px;
                     }
                 }
             }

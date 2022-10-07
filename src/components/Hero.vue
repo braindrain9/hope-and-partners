@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="container footer-container">
-                <Footer class="d-none d-md-block" link="about"/>
+                <Footer class="d-none d-lg-block" link="about"/>
             </div>
         </div>
     </div>
@@ -131,21 +131,51 @@
     }
 
     @include media-max-width($md-max) {
-        .hero-section .hero-content > div {
-            max-width: 420px;
-        }
-    }
-
-    @include media-max-width($sm-max) {
         .hero {
             padding-top: 0;
+            padding-bottom: 150px;
+
+            .details-link {
+                font-size: 30px;
+                line-height: 18px;
+            }
+
+            .heading-main {
+                font-size: $main-header-font-size-large;
+                line-height: 70px;
+            }
         }
 
         .hero-section {
             .hero-content {
-                height: calc(100vh - 200px);
+                height: calc(100vh - 130px);
                 align-items: flex-end;
                 justify-content: left;
+
+                > div {
+                    max-width: 420px;
+                }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .hero-section {
+            .hero-content {
+                height: calc(100vh - 150px);
+            }
+
+            .heading {
+                font-size: $medium-font-size;
+                line-height: 42px;
+
+                &-main {
+                    font-size: $secondary-header-font-size;
+                }
+            }
+
+            .details-link {
+                font-size: 18px;
             }
         }
     }

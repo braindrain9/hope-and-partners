@@ -11,9 +11,9 @@
                                 <a class="strike" :href="'mailto:' + $store.state.content.email">
                                     <span v-html="$store.state.content.email"></span>
                                 </a>
-                                <span class="d-none d-md-inline-block" v-html="arrowSvg"></span>
+                                <span class="d-none d-lg-inline-block" v-html="arrowSvg"></span>
                             </div>
-                            <div class="horizontal-line d-none d-md-block">
+                            <div class="horizontal-line d-none d-lg-block">
                                 <div></div>
                             </div>
                         </div>
@@ -143,23 +143,9 @@
     }
 
     @include media-max-width($md-max) {
-        .contacts {
-            .mail-block {
-                h2 {
-                    font-size: $small-base-font-size;
-                }
-                .mail {
-                    font-size: $medium-font-size;
-                }
-            }
-        }
-    }
-
-    @include media-max-width($sm-max) {
         .section-container {
             padding-top: 0;
         }
-
 
         .contacts {
             justify-content: center;
@@ -169,6 +155,20 @@
             .mail-block {
                 height: 30%;
 
+                h2, .mail {
+                    font-size: 40px;
+                }
+
+                .arrow-svg {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .contacts {
+            .mail-block {
                 h2 {
                     font-size: $medium-base-font-size;
                     margin-bottom: 20px;
@@ -176,10 +176,6 @@
 
                 .mail {
                     font-size: $medium-base-font-size;
-                }
-
-                .arrow-svg {
-                    display: none;
                 }
             }
         }

@@ -7,7 +7,7 @@
                     <canvas id="canvas-services"></canvas>
                 </div>
 
-                <div class="d-none d-md-block">
+                <div class="d-none d-lg-block">
                     <div class="slider-content-wrap">
                         <div class="container services-slider">
                             <div :id="'slide-' + (index + 1)"
@@ -36,14 +36,14 @@
                     </div>
                 </div>
 
-                <div class="d-block d-md-none services-slider">
+                <div class="d-block d-lg-none services-slider">
                     <div class="container">
                         <swiper :options="swiperOption" ref="servicesSwiper">
                             <swiper-slide v-for="(service, index) in services" :key="index">
                                 <div class="d-flex justify-content-center">
                                     <div class="text-block">
                                         <span class="letter d-none">{{service.letter}}</span>
-                                        <h2 :data-number="index + 1">{{service.title}}</h2>
+                                        <h2 class="d-none d-lg-block" :data-number="index + 1">{{service.title}}</h2>
                                         <div class="description" v-html="service.description"></div>
                                     </div>
                                 </div>
@@ -294,13 +294,13 @@
 
       $('.services-slider').css({"opacity": 1});
 
-      if (outW > 767.98) {
+      if (outW > 991.98) {
        this.servicesInit();
       }
 
       window.addEventListener('resize', () => {
         // if resized to mobile destroy scrollmagic partners
-        if ($(window).outerWidth() < 768) {
+        if ($(window).outerWidth() < 992) {
             bus.$emit('destroyServicesController');
         }
       });
@@ -547,15 +547,9 @@
     }
 
     @include media-max-width($md-max) {
-        .slide-content > div {
-            width: 80%;
-        }
-    }
-
-    @include media-max-width($sm-max) {
         .services {
             .heading-main {
-                padding-left: 10px;
+                padding-left: 0;
             }
         }
 
@@ -567,14 +561,14 @@
             .services-slider {
                 .swiper-slide {
                     > div {
-                        height: 350px;
+                        height: 100%;
                     }
                 }
 
                 .text-block {
                     width: 100%;
-                    height: 280px;
-                    padding-left: 60px;
+                    height: 450px;
+                    padding-left: 0;
 
                     h2 {
                         font-size: $base-font-size;
@@ -595,8 +589,16 @@
                     }
 
                     .description {
-                        height: 300px;
+                        height: 100%;
                         overflow-y: auto;
+                        font-size: 30px;
+                        line-height: 40px;
+                        color: $white;
+                        font-weight: 700 !important;
+
+                        p, span {
+                            font-weight: 700 !important;
+                        }
 
                         @include overflow-y-scroll();
                     }
@@ -613,6 +615,20 @@
             max-width: 100%;
             width: 100%;
         }
+    }
+
+    @include media-max-width($sm-max) {
+        .services {
+            .services-slider .text-block {
+                height: 350px;
+
+                .description {
+                    font-size: 18px;
+                    line-height: 25px;
+                }
+            }
+        }
+
     }
 
     @include media-max-width($mobile-xs) {

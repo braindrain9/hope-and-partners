@@ -177,7 +177,7 @@
         }
     }
 
-    @include media-max-width($sm-max) {
+    @include media-max-width($md-max) {
         .about {
             > div {
                 flex-direction: column;
@@ -185,8 +185,9 @@
 
             .about-img {
                 width: 80%;
-                margin: 0 auto;
+                max-width: 434px;
                 position: static;
+                margin-bottom: 20px;
             }
 
             .bio-container {
@@ -196,6 +197,8 @@
             }
 
             .bio-link {
+                font-size: 25px;
+
                 .divider {
                     width: 60px;
 
@@ -203,6 +206,22 @@
                         width: 60px;
                     }
                 }
+            }
+        }
+    }
+
+    @include media-max-width($sm-max) {
+        .about {
+            .about-img {
+                margin: 0 auto 20px auto;
+            }
+
+            .bio-container {
+                padding-top: 20px;
+            }
+
+            .heading {
+                margin-bottom: 0;
             }
         }
     }
