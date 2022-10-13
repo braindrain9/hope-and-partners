@@ -74,7 +74,7 @@
     data() {
       return {
         arrowSvg,
-        activeIndex: '',
+        activeIndex: '01',
         afterIndex: '02',
         showControls: this.cases.length > 1
       }
@@ -84,7 +84,7 @@
       onSwipe(value) {
         const index = value.swiper.activeIndex;
 
-        this.activeIndex = index === 0 ? '' : index < 10 ? '0' + index : index;
+        this.activeIndex = index === 0 ? '01' : index < 10 ? '0' + index : index;
 
         this.afterIndex = this.cases.length === (index + 1)
           ? ''

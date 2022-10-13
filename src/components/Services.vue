@@ -90,7 +90,7 @@
     data() {
       return {
         arrowSvg,
-        activeIndex: '',
+        activeIndex: '01',
         afterIndex: '02',
         controllerExist: false
       }
@@ -101,7 +101,7 @@
         const index = value.swiper.activeIndex;
 
         this.activeIndex = index === 0
-          ? ''
+          ? '01'
           : index < 10 ? '0' + index : index;
         this.afterIndex = this.services.length === (index + 1)
           ? ''

@@ -113,7 +113,7 @@
     data() {
       return {
         arrowSvg,
-        activeIndex: '',
+        activeIndex: '01',
         afterIndex: '02',
         controllerExist: false
       }
@@ -123,7 +123,7 @@
       onSwipe(value) {
         const index = value.swiper.activeIndex;
 
-        this.activeIndex = index === 0 ? '' : index < 10 ? '0' + index : index;
+        this.activeIndex = index === 0 ? '01' : index < 10 ? '0' + index : index;
         this.afterIndex = this.partners.length === (index + 1)
             ? ''
             : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
