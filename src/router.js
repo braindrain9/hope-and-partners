@@ -50,14 +50,14 @@ const routes = [
   },
 
   // redirects
-  {
-    path: '/en/*',
-    redirect: '/en/404'
-  },
-  {
-    path: '*',
-    redirect: '404'
-  }
+  // {
+  //   path: '/en/*',
+  //   redirect: '/en/404'
+  // },
+  // {
+  //   path: '*',
+  //   redirect: '404'
+  // }
 ];
 
 function beforeEnter (to, from, next) {
