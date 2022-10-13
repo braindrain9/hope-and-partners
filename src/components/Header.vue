@@ -28,7 +28,7 @@
                     >{{lang.title}}</span>
                 </div>
 
-                <b-navbar-brand :href="currentLang === 'en' ? '/en' : '/'" right aria-label="Hope & Partners Logo">
+                <b-navbar-brand :href="currentLang === 'en' ? '/hope-and-partners/en' : '/hope-and-partners'" right aria-label="Hope & Partners Logo">
                     <div class="d-none d-md-block" v-html="logo"></div>
                     <div class="d-block d-md-none" v-html="logoMobile"></div>
                 </b-navbar-brand>
@@ -41,7 +41,7 @@
                         {{$t('close')}}<span></span>
                     </button>
 
-                    <b-navbar-brand :href="currentLang === 'en' ? '/en' : '/'" right aria-label="Hope & Partners Logo">
+                    <b-navbar-brand :href="currentLang === 'en' ? '/hope-and-partners/en' : '/hope-and-partners'" right aria-label="Hope & Partners Logo">
                         <div v-html="logoMobile"></div>
                     </b-navbar-brand>
                 </b-navbar>
@@ -95,9 +95,9 @@
       changeLang(lang) {
         if (i18n.locale !== lang) {
           if (lang === 'en') {
-            location.href = (`/en${this.$route.name === 'bio' ? '/bio' : ''}`);
+            location.href = (`/hope-and-partners/en${this.$route.name === 'bio' ? '/bio' : ''}`);
           } else {
-            location.href = (`/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
+            location.href = (`/hope-and-partners/${this.$route.name === 'bioEng' ? 'bio' : ''}`);
           }
         }
       },

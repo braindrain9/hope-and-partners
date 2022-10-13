@@ -2,7 +2,7 @@
     <div class="page-not-found d-flex align-items-center justify-content-center">
         <div class="text-center">
             {{$t('notFound')}}<br/>
-            <a :href="lang === 'en' ? '/en' : '/'" class="white-color-link">{{$t('backToHome')}}</a>
+            <a :href="lang === 'en' ? '/hope-and-partners/en' : '/hope-and-partners'" class="white-color-link">{{$t('backToHome')}}</a>
         </div>
     </div>
 </template>

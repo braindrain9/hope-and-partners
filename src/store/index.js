@@ -7,7 +7,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default new Vuex.Store({
   state: {
-    content_endpoint: isProd ? 'https://hopeandpart.com/wp-content/themes/wp-vue/' : '',
+    content_endpoint: isProd ? 'https://braindrain9.github.io/hope-and-partners/' : '',
     content: {}
   },
 

@@ -4,31 +4,33 @@ import {TweenMax, Sine, TweenLite} from 'gsap/TweenMax';
 require('three/examples/js/controls/OrbitControls.js');
 import anime from 'animejs';
 
+const domainName = '/hope-and-partners/';
+
 export default {
   data () {
     return {
       navLinks: [
         {
           name: 'about',
-          path: '#about',
+          path: domainName + '#about',
           title: 'about',
           id: 2
         },
         {
           name: 'services',
-          path: '#services',
+          path: domainName + '#services',
           title: 'services',
           id: 3
         },
         {
           name: 'partners',
-          path: '#partners',
+          path: domainName + '#partners',
           title: 'partners',
           id: 4
         },
         {
           name: 'cases',
-          path: '#cases',
+          path: domainName + '#cases',
           title: 'cases',
           id: 5
         }
@@ -36,33 +38,33 @@ export default {
       footerNavLinks: [
         {
           name: 'home',
-          path: '#hero',
+          path: domainName + '#hero',
           title: 'home'
         },
         {
           name: 'about',
-          path: '#about',
+          path: domainName + '#about',
           title: 'about'
         },
         {
           name: 'services',
-          path: '#services',
+          path: domainName + '#services',
           title: 'ourServices'
         },
         {
           name: 'partners',
-          path: '#partners',
+          path: domainName + '#partners',
           title: 'ourPartners'
         },
         {
           name: 'cases',
-          path: '#cases',
+          path: domainName + '#cases',
           title: 'ourCases'
         },
         {
           name: 'contacts',
           title: 'howToFindUs',
-          path: '#contacts'
+          path: domainName + '#contacts'
         }
       ],
       swiperOption: {

@@ -16,7 +16,7 @@
                             <span class="divider"></span>
                             <span>{{$t('allAchievements')}}
                                 <router-link class="strike"
-                                             :to="lang === 'en' ? '/en/bio' : '/bio'"
+                                             :to="lang === 'en' ? '/hope-and-partners/en/bio' : '/hope-and-partners/bio'"
                                              :title="$t('myCompleteBioText')">
                                     <span>{{$t('here')}}.</span>
                                 </router-link>
