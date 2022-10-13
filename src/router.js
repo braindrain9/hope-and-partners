@@ -9,16 +9,18 @@ import NotFoundPage from './views/NotFoundPage';
 
 Vue.use(VueRouter);
 
+const domainName = '/hope-and-partners';
+
 const routes = [
   // default version
   {
     name: 'home',
-    path: '/',
+    path: domainName + '/',
     component: HomePage
   },
   {
     name: 'bio',
-    path: '/bio',
+    path: domainName + '/bio',
     component: BioPage
   },
   {
@@ -30,19 +32,19 @@ const routes = [
    // eng version
   {
     name: 'homeEng',
-    path: '/en',
+    path: domainName + '/en',
     component: HomePage,
     beforeEnter
   },
   {
     name: 'bioEng',
-    path: '/en/bio',
+    path: domainName + '/en/bio',
     component: BioPage,
     beforeEnter
   },
   {
     name: 'notFoundPageEng',
-    path: '/en/404',
+    path: domainName + '/en/404',
     component: NotFoundPage,
     beforeEnter
   },
