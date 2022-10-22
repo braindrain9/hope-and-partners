@@ -489,7 +489,6 @@
 
             .partners-title-wrapper {
                 position: absolute;
-                top: 100px;
                 width: 100%;
                 z-index: 5;
             }
@@ -522,6 +521,22 @@
                     background-color: $orange;
                     z-index: 4
                 }
+            }
+        }
+    }
+
+    @media screen and (min-width: $md-max) and (max-height: 920px) {
+        .partners {
+            .partners-title-wrapper {
+                top: 20px;
+            }
+        }
+    }
+
+    @media screen and (min-width: $md-max) and (min-height: 921px) {
+        .partners {
+            .partners-title-wrapper {
+                top: 100px;
             }
         }
     }
