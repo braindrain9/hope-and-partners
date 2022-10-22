@@ -1,6 +1,6 @@
 <template>
     <div class="section-container">
-        <div class="container">
+        <div class="container custom-container">
             <div class="cases">
                 <h2 class="heading heading-main">{{$t('cases')}}<span class="orange-color">:</span></h2>
                 <swiper :options="swiperOption" ref="casesSwiper">
@@ -140,18 +140,15 @@
         padding-top: 100px;
         z-index: 11;
 
-        .heading-main {
-            padding-left: 125px;
-        }
-
         .slider-item {
-            justify-content: center;
             align-items: center;
+            margin-left: 1px; // fix next overflow slider
         }
 
         .photo-block {
             position: relative;
             min-width: 500px;
+            width: 50%;
 
             // to compensate bg-image indent
             margin-right: 35px;
@@ -161,8 +158,8 @@
                 background: $base-black;
                 position: relative;
                 z-index: 1;
-                width: 500px;
-                height: 380px;
+                width: 100%;
+                height: 420px;
             }
 
             img.video {
@@ -175,7 +172,7 @@
                 width: 105%;
                 height: 100%;
                 position: absolute;
-                bottom: -20px;
+                bottom: -30px;
                 left: 20px;
             }
         }
@@ -183,8 +180,8 @@
         .text-block {
             color: $white;
             width: 50%;
-            max-width: 600px;
-            padding-left: 50px;
+            max-width: 50%;
+            padding-left: 100px;
 
             h2 {
                 font-weight: bold;
@@ -195,10 +192,10 @@
 
             .description {
                 font-weight: 500;
-                line-height: 24px;
-                font-size: $small-font-size;
+                line-height: 30px;
+                font-size: 18px;
                 margin-bottom: 20px;
-                max-height: 250px;
+                max-height: 395px;
                 overflow-y: auto;
 
                 @include overflow-y-scroll();
@@ -255,16 +252,23 @@
 
     @include media-max-width($lg-max) {
         .cases {
-            .heading-main {
-                padding-left: 40px;
-            }
-
             .photo-block {
                 min-width: 420px;
 
                 .video {
-                    width: 420px;
                     height: 315px;
+                }
+
+                .bg-image {
+                    bottom: -20px;
+                }
+            }
+
+            .text-block {
+                padding-left: 50px;
+
+                .description {
+                    max-height: 270px;
                 }
             }
         }
@@ -290,22 +294,22 @@
 
             .photo-block {
                 margin-bottom: 50px;
-                width: 94%;
+                width: 100%;
+                margin-right: 0;
 
                 .bg-image {
                     display: none;
                 }
 
                 .video {
-                    width: 100%;
                     height: 340px;
                 }
             }
 
             .text-block {
                 width: 100%;
-                max-width: 98%;
-                margin-bottom: 50px;
+                max-width: 99%;
+                margin-bottom: 80px;
                 padding: 0;
 
                 h2 {
@@ -315,7 +319,7 @@
 
                 .description {
                     font-size: 25px;
-                    line-height: 30px;
+                    line-height: 35px;
                 }
             }
         }
@@ -345,13 +349,8 @@
                 }
             }
 
-            .heading-main {
-                padding-left: 10px;
-            }
-
             .photo-block {
                 .video {
-                    width: 100%;
                     height: 270px;
                 }
             }
@@ -366,7 +365,6 @@
                 min-width: 200px;
 
                 .video {
-                    width: 100%;
                     height: 260px;
                 }
             }
@@ -377,16 +375,12 @@
         .cases {
             .text-block {
                 max-width: 100%;
-                padding-left: 15px;
-                padding-right: 15px;
             }
 
             .photo-block {
-                padding-left: 10px;
                 min-width: 150px;
 
                 .video {
-                    width: 100%;
                     height: 220px;
                 }
             }
