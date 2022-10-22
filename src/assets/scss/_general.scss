@@ -296,11 +296,11 @@
 }
 
 .swiper-button-prev {
-  left: 10%;
+  left: 3px;
 }
 
 .swiper-button-next {
-  right: 10%;
+  right: 3px;
   transform: rotate(-180deg);
 }
 
@@ -364,6 +364,18 @@
   }
 }
 
+@include media-min-width($lg-max) {
+  #header {
+    .container {
+      max-width: 95%;
+    }
+  }
+
+  .container.footer-container, .container.custom-container {
+    max-width: 95%;
+  }
+}
+
 @include media-min-width ('1400px') {
   .container {
     max-width: 1200px;
@@ -375,20 +387,8 @@
     }
   }
 
-  .container.footer-container {
+  .container.footer-container, .container.custom-container {
     max-width: 90%;
-  }
-}
-
-@include media-max-width('1400px') {
-  #header {
-    .container {
-      max-width: 95%;
-    }
-  }
-
-  .container.footer-container {
-    max-width: 95%;
   }
 }
 
@@ -420,14 +420,6 @@
 
   .description {
     font-size: 25px;
-  }
-
-  .swiper-button-prev {
-    left: 3px;
-  }
-
-  .swiper-button-next {
-    right: 3px;
   }
 
   .cases .swiper-slide {
@@ -469,11 +461,11 @@
 
   /*Cases slider*/
   .swiper-button-prev {
-    left: 10%;
+    left: 0;
   }
 
   .swiper-button-next {
-    right: 10%;
+    right: 0;
   }
 }
 
@@ -501,26 +493,17 @@
   .description {
     font-size: $small-font-size;
   }
-
-  /*Cases slider*/
-  .swiper-button-prev {
-    left: 15px;
-  }
-
-  .swiper-button-next {
-    right: 15px;
-  }
 }
 
 @include media-max-width($mobile-xs) {
   /*Slider slider*/
-  .swiper-button-prev {
-    left: 10px;
-  }
-
-  .swiper-button-next {
-    right: 10px;
-  }
+  //.swiper-button-prev {
+  //  left: 10px;
+  //}
+  //
+  //.swiper-button-next {
+  //  right: 10px;
+  //}
 }
 
 @media only screen and (max-height: 980px) {

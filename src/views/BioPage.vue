@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container custom-container">
             <Clients/>
         </div>
 
@@ -220,6 +220,11 @@
 
         .footer-container {
             padding-bottom: 10px;
+        }
+
+        .clients {
+            padding-top: 100px;
+            padding-bottom: 30px;
         }
     }
 

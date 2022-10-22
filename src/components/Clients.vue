@@ -143,7 +143,8 @@
         min-height: 400px;
         position: relative;
         margin: 0 auto;
-        padding-top: 100px;
+        padding-top: 50px;
+        padding-bottom: 50px;
 
         img {
             position: relative;
@@ -184,10 +185,6 @@
 
     @include media-max-width($lg-max) {
         .clients {
-            .heading-main {
-                padding-left: 40px;
-            }
-
             img {
                 max-width: 140px;
             }
@@ -217,6 +214,7 @@
 
             .swiper-slide {
                 flex-wrap: wrap;
+                height: 350px;
             }
 
             .slider-item {
@@ -227,16 +225,16 @@
             }
 
             .swiper-button-prev {
-                left: 15px;
+                left: 0;
             }
 
             .swiper-button-next {
-                right: 15px;
+                right: 0;
             }
 
             img {
                 max-width: 150px;
-                padding-left: 20px;
+                padding-left: 2px;
             }
         }
     }

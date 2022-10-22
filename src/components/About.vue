@@ -24,8 +24,10 @@
                         </div>
                     </div>
                 </div>
-                <Clients/>
             </div>
+        </div>
+        <div class="container custom-container">
+            <Clients/>
         </div>
         <div class="container footer-container">
             <Footer link="services"/>
@@ -153,10 +155,6 @@
 
     @include media-max-width($lg-max) {
         .about {
-            > div {
-                margin-bottom: 0;
-            }
-
             .about-img {
                 width: 40%;
             }
@@ -181,6 +179,7 @@
         .about {
             > div {
                 flex-direction: column;
+                margin-bottom: 50px;
             }
 
             .about-img {
@@ -212,6 +211,10 @@
 
     @include media-max-width($sm-max) {
         .about {
+            > div {
+                margin-bottom: 0;
+            }
+
             .about-img {
                 margin: 0 auto 20px auto;
             }
