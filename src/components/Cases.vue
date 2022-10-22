@@ -133,7 +133,7 @@
     }
 
     .cases {
-        height: $home-block-height;
+        height: 100%;
         min-height: 700px;
         position: relative;
         margin: 0 auto;

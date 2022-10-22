@@ -2,14 +2,14 @@
     <div class="services">
         <section class="slider-section">
             <div id="slider-wrap">
-                <div class="container position-relative">
+                <div class="container custom-container position-relative">
                     <h2 class="heading heading-main">{{$t('services')}}<span class="orange-color">:</span></h2>
                     <canvas id="canvas-services"></canvas>
                 </div>
 
                 <div class="d-none d-lg-block">
                     <div class="slider-content-wrap">
-                        <div class="container services-slider">
+                        <div class="container custom-container services-slider">
                             <div :id="'slide-' + (index + 1)"
                                  v-for="(service, index) in services"
                                  :key="index"
@@ -308,7 +308,6 @@
 <style lang="scss">
     .services {
         .heading-main {
-            padding-left: 125px;
             position: relative;
             z-index: 1;
         }
@@ -535,21 +534,7 @@
         }
     }
 
-    @include media-max-width($lg-max) {
-        .services {
-            .heading-main {
-                padding-left: 40px;
-            }
-        }
-    }
-
     @include media-max-width($md-max) {
-        .services {
-            .heading-main {
-                padding-left: 0;
-            }
-        }
-
         .slider-dots {
             display: none;
         }
@@ -589,7 +574,7 @@
                         height: 100%;
                         overflow-y: auto;
                         font-size: 30px;
-                        line-height: 40px;
+                        line-height: 45px;
                         color: $white;
                         font-weight: 700 !important;
 

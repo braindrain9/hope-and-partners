@@ -358,12 +358,6 @@
 }
 
 // Responsive
-@include media-min-width ($lg) {
-  .services .container {
-    max-width: calc(80% - 20px);
-  }
-}
-
 @include media-min-width($lg-max) {
   #header {
     .container {

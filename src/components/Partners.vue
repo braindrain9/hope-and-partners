@@ -2,7 +2,7 @@
     <section class="partners">
         <div id="partners-container">
             <div class="partners-title-wrapper">
-                <div class="container">
+                <div class="container custom-container">
                     <h2 class="heading heading-main">{{$t('partners')}}<span class="orange-color">:</span></h2>
                 </div>
             </div>
@@ -348,10 +348,6 @@
     .partners {
         margin-bottom: 100px;
 
-        .heading-main {
-            padding-left: 125px;
-        }
-
         .partner-item {
             width: 1000px;
             display: inline-block;
@@ -543,10 +539,6 @@
 
     @media screen and (max-width: $lg-max), screen and (max-height: 920px) {
         .partners {
-            .heading-main {
-                padding-left: 40px;
-            }
-
             #partners-slider {
                 min-height: 450px;
                 height: 50vh;
@@ -599,10 +591,6 @@
                 font-size: 40px;
                 line-height: 50px;
                 padding-bottom: 10px;
-            }
-
-            .heading-main {
-                padding-left: 10px;
             }
 
             #partners-container {
