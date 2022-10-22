@@ -101,11 +101,10 @@
       },
       onSwipe(value) {
         const index = value.swiper.activeIndex;
+        const {activeIndex, afterIndex} = this.onSliderSwipe(index);
 
-        this.activeIndex = index === 0 ? '01' : index < 10 ? '0' + index : index;
-        this.afterIndex = this.clients.length === (index + 1)
-          ? ''
-          : (index + 2) < 10 ? '0' + (index + 2) : (index + 2);
+        this.activeIndex = activeIndex;
+        this.afterIndex = afterIndex;
       },
       setChunkNumber() {
         const outW = $(window).outerWidth();

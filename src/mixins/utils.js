@@ -83,6 +83,16 @@ export default {
   },
 
   methods: {
+    onSliderSwipe(index) {
+      const startIndex = index + 1;
+      const endIndex = index + 2;
+      const getIndex = (i) => `${i < 10 ? '0' : ''}${i}`;
+
+      const activeIndex = getIndex(startIndex);
+      const afterIndex = getIndex(endIndex);
+
+      return {activeIndex, afterIndex};
+    },
     addHeroInitAnimation() {
       const heroHeading = $('.hero .heading-main');
 
