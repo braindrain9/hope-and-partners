@@ -302,6 +302,8 @@
             }
 
             .heading-block {
+                padding-bottom: 100px;
+
                 .bio-link {
                     font-size: $small-base-font-size;
                 }
