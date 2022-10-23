@@ -348,6 +348,10 @@
     .partners {
         margin-bottom: 100px;
 
+        .timeline-progressbar-container > div:first-child {
+            width: 100%;
+        }
+
         .partner-item {
             width: 1000px;
             display: inline-block;
