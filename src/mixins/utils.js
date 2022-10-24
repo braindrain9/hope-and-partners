@@ -85,11 +85,11 @@ export default {
   methods: {
     onSliderSwipe(index, items) {
       const startIndex = index + 1;
-      const endIndex = index + 2;
+      const endIndex = items.length;
       const getIndex = (i) => `${i < 10 ? '0' : ''}${i}`;
 
       const activeIndex = getIndex(startIndex);
-      const afterIndex = items.length === startIndex ? getIndex(startIndex) : getIndex(endIndex);
+      const afterIndex = getIndex(endIndex);
 
       return {activeIndex, afterIndex};
     },

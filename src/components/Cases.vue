@@ -123,6 +123,10 @@
     mounted() {
       this.swiper.on('slideChange', () => this.onSwipe(this));
       this.addCasesAnimation();
+
+      const {afterIndex} = this.onSliderSwipe(0, this.cases);
+
+      this.afterIndex = afterIndex;
     }
   }
 </script>

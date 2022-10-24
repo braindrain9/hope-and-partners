@@ -68,6 +68,10 @@
       this.loadSlider();
       this.swiper.on('slideChange', () => this.onSwipe(this));
       this.addClientsAnimation();
+
+      const {afterIndex} = this.onSliderSwipe(0, this.clients);
+
+      this.afterIndex = afterIndex;
     },
 
     methods: {

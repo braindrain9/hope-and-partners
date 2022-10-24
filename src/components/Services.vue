@@ -289,6 +289,10 @@
       this.getServicesAnimation();
       this.hideFooterOnLeave();
 
+      const {afterIndex} = this.onSliderSwipe(0, this.services);
+
+      this.afterIndex = afterIndex;
+
       $('.services-slider').css({"opacity": 1});
 
       if (outW > 991.98) {

@@ -319,6 +319,10 @@
       this.swiper.on('slideChange', () => this.onSwipe(this));
       this.hideFooterOnLeave();
 
+      const {afterIndex} = this.onSliderSwipe(0, this.partners);
+
+      this.afterIndex = afterIndex;
+
       if (outW >= 991.98) {
         this.partnersInit();
         this.addPartnersHoverAnimation();
