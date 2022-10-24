@@ -355,6 +355,14 @@
       }
     }
   }
+
+  .swiper-button-prev {
+    left: 3px !important;
+  }
+
+  .swiper-button-next {
+    right: 3px !important;
+  }
 }
 
 // Responsive
