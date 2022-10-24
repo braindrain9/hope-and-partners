@@ -99,7 +99,7 @@
     methods: {
       onSwipe(value) {
         const index = value.swiper.activeIndex;
-        const {activeIndex, afterIndex} = this.onSliderSwipe(index);
+        const {activeIndex, afterIndex} = this.onSliderSwipe(index, this.services);
 
         this.activeIndex = activeIndex;
         this.afterIndex = afterIndex;

@@ -83,13 +83,13 @@ export default {
   },
 
   methods: {
-    onSliderSwipe(index) {
+    onSliderSwipe(index, items) {
       const startIndex = index + 1;
       const endIndex = index + 2;
       const getIndex = (i) => `${i < 10 ? '0' : ''}${i}`;
 
       const activeIndex = getIndex(startIndex);
-      const afterIndex = getIndex(endIndex);
+      const afterIndex = items.length === startIndex ? getIndex(startIndex) : getIndex(endIndex);
 
       return {activeIndex, afterIndex};
     },
