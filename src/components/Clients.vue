@@ -234,7 +234,7 @@
 
             img {
                 max-width: 150px;
-                padding-left: 2px;
+                /*padding-left: 2px;*/
             }
         }
     }

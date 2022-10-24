@@ -612,7 +612,7 @@
             }
 
             .partner-item {
-                padding: 5px;
+                padding: 0;
                 width: 100%;
 
                 .photo-block {
